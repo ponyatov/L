@@ -1,0 +1,9 @@
+#!/bin/sh
+cat \
+	mk/head.mk \
+	mk/dirs.mk \
+	mk/versions.mk \
+	mk/packages.mk \
+	mk/commands.mk \
+	mk/gz.mk \
+> Makefile
