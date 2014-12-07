@@ -1,0 +1,3 @@
+tmpfs /home/user/azlin/tmp tmpfs auto,uid=user,gid=user 0 0
+tmpfs /home/user/azlin/src tmpfs auto,uid=user,gid=user 0 0
+tmpfs /home/user/.ccache   tmpfs auto,uid=user,gid=user 0 0
