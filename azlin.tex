@@ -113,7 +113,7 @@ cd ~/az ; ./mk.rc && make somename
 в каталоге \file{mk/}, поэтому \emph{если вы что-то меняете в скриптах, не
 забудьте сначала запустить \prog{./mk.rc}}.
 
-\lst{mk.rc}{}{azlin/mk.rc}
+\lst{mk.rc}{}{../azlin/mk.rc}
 
 \section{Загрузка}
 
@@ -178,7 +178,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 
 Пакет \prog{dirs}\ прописан в файле
 
-\lst{mk/dirs.mk}{}{azlin/doc/dirs.mk}
+\lst{mk/dirs.mk}{}{../azlin/doc/dirs.mk}
 
 Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
 запущен \prog{make}.
@@ -186,28 +186,28 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 \bigskip
 Каталог зеркала архивов исхоных текстов программ
 
-\lst{GZ}{}{azlin/doc/gz.dirs}
+\lst{GZ}{}{../azlin/doc/gz.dirs}
 
 Каталог распаковки исходных текстов: некоторые пакеты должна собираться в дереве
 исходников
 
-\lst{SRC}{}{azlin/doc/src.dirs}
+\lst{SRC}{}{../azlin/doc/src.dirs}
 
 Каталог out-of-tree сборки: остальные пакеты умеют собираться вне дерева
 исходников, если хватает \ram\ этот каталог удобно монировать как \file{tmpfs}
 
-\lst{TMP}{}{azlin/doc/tmp.dirs}
+\lst{TMP}{}{../azlin/doc/tmp.dirs}
 
 Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
 триплета используется подстановка строки, выдаваемой запуском \prog{gcc}.
 
-\lst{BUILD}{}{azlin/doc/build.dirs}
+\lst{BUILD}{}{../azlin/doc/build.dirs}
 
 Каталог в который собирается кросс-компилятор. Используется триплет
 рабочей \linux-системы.
 
-\lst{TC}{}{azlin/doc/tc.dirs}
+\lst{TC}{}{../azlin/doc/tc.dirs}
 
 Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
@@ -215,11 +215,11 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 аппаратной платформы \file{HW}\ref{azhw}\ и имени приложения
 \file{APP}\ref{azapp}.
 
-\lst{ROOT/BOOT}{}{azlin/doc/root.dirs}
+\lst{ROOT/BOOT}{}{../azlin/doc/root.dirs}
 
 Список всех рабочих каталогов в одной переменной:
 
-\lst{DIRS}{}{azlin/doc/dirs.dirs}
+\lst{DIRS}{}{../azlin/doc/dirs.dirs}
 
 \section{APP: Приложение}\label{azapp}
 
@@ -236,7 +236,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 
 Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
-\lst{APP @ hw/head.mk}{}{azlin/doc/app.mk}
+\lst{APP @ hw/head.mk}{}{../azlin/doc/app.mk}
 
 Если вам нужно собрать другое приложение, вы можете переопределить значение из
 командной строки при запуске \emph{всех}\ пакетов:
@@ -252,9 +252,9 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
   \item \file{PACKS}: набор используемых программных пакетов \ref{azpacks}
 \end{itemize}
 
-\lst{app/micro.mk}{}{azlin/app/micro.mk} 
+\lst{app/micro.mk}{}{../azlin/app/micro.mk} 
 
-\lst{app/clock.mk}{}{azlin/app/clock.mk}
+\lst{app/clock.mk}{}{../azlin/app/clock.mk}
 
 \section{HW: Поддерживаемое железо}\label{azhw}
 
@@ -283,7 +283,7 @@ NOR & & \uncheckbox\ host & & 20+ \\
 \hline
 \end{tabular}
 
-\lst{mk/head.mk}{}{azlin/mk/head.mk}
+\lst{mk/head.mk}{}{../azlin/mk/head.mk}
 
 \subsection{i386}
 
@@ -296,21 +296,21 @@ PC/104 и промышленных панелей. Особенно достав
 
 \subsubsection{qemu386: эмулятор QEMU}
 
-\lst{hw/qemu386.mk}{}{azlin/hw/qemu386.mk}
+\lst{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}
 
 \subsubsection{eeepc701: ASUS Eee PC 701}
 
-\lst{hw/eeepc701.mk}{}{azlin/hw/eeepc701.mk}
+\lst{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}
 
 \subsection{ARM}
 
 \subsubsection{qemuARM: эмулятор QEMU}
-\lst{hw/qemuARM.mk}{}{azlin/hw/qemuARM.mk}
+\lst{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}
 \subsubsection{cubie1: Cubie Board v.1}
 \subsubsection{rpi: Raspberry Pi model B}
 \subsection{MIPS}
 \subsubsection{qemuMIPS: эмулятор QEMU}
-\lst{hw/qemuMIPS.mk}{}{azlin/hw/qemuMIPS.mk}
+\lst{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}
 \subsubsection{mr3020: роутер MR3020}
 \href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
 \subsubsection{vocore: VoCore} 
@@ -324,16 +324,16 @@ PC/104 и промышленных панелей. Особенно достав
 
 \subsection{i386}
 
-\lst{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}
+\lst{cpu/i486sx.mk}{}{../azlin/cpu/i486sx.mk}
 
-\lst{cpu/CeleronM.mk}{}{azlin/cpu/CeleronM.mk}
+\lst{cpu/CeleronM.mk}{}{../azlin/cpu/CeleronM.mk}
 
 \subsection{ARM}
 \subsection{MIPS}
 
-\lst{cpu/AR7240.mk}{}{azlin/cpu/AR7240.mk}
+\lst{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}
 
-\lst{cpu/RT5350.mk}{}{azlin/cpu/RT5350.mk}
+\lst{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}
 
 % За счет использования уже существующей и очень большой базы исходных текстов
 % ядра, библиотек и программ для \linux, бесплатно доступных в т.ч. и для
