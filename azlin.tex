@@ -259,7 +259,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 
 \lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
 
-\section{HW: Поддерживаемое железо}\label{azhw}
+\section{HW: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
 переменную \file{HW}, доступные значения приведены в таблице:
@@ -288,7 +288,7 @@ NOR & & \uncheckbox\ host & & 20+ \\
 
 \lstx{mk/head.mk}{}{../azlin/mk/head.mk}{mk}
 
-\subsection{i386}
+\subsection{i386}\index{azLinux!железо!i386}
 
 Персоналки с архитектурой \file{i386}\ --- самое сложное семейство с точки
 зрения поддержки. Комбинации процессоров, материнских плат и плат расширений
@@ -299,26 +299,26 @@ PC/104 и промышленных панелей. Особенно достав
 
 \subsubsection{qemu386: эмулятор QEMU}
 
-\lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}
+\lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}\index{azLinux!железо!QEMU}
 
 \subsubsection{eeepc701: ASUS Eee PC 701}
 
-\lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}
+\lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{azLinux!железо!ASUS Eee PC 701}
 
 \subsection{ARM}
 
 \subsubsection{qemuARM: эмулятор QEMU}
-\lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}
+\lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{azLinux!железо!QEMU}
 \subsubsection{cubie1: Cubie Board v.1}
 \subsubsection{rpi: Raspberry Pi model B}
 \subsection{MIPS}
 \subsubsection{qemuMIPS: эмулятор QEMU}
-\lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}
+\lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
 \subsubsection{mr3020: роутер MR3020}
 \href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
-\subsubsection{vocore: VoCore} 
+\subsubsection{vocore: VoCore} \index{azLinux!железо!VoCore}
 \href{http://vocore.io/}{vocore}
-\subsubsection{bswift: BlackSwift}
+\subsubsection{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
 \href{http://habrahabr.ru/post/242731/}{bswift} 
 
 \section{CPU: Конфигурации процессоров}
@@ -327,16 +327,16 @@ PC/104 и промышленных панелей. Особенно достав
 
 \subsection{i386}
 
-\lstx{cpu/i486sx.mk}{}{../azlin/cpu/i486sx.mk}{mk}
+\lstx{cpu/i486sx.mk}{}{../azlin/cpu/i486sx.mk}{mk}\index{azLinux!железо!i486sx}
 
-\lstx{cpu/CeleronM.mk}{}{../azlin/cpu/CeleronM.mk}{mk}
+\lstx{cpu/CeleronM.mk}{}{../azlin/cpu/CeleronM.mk}{mk}\index{azLinux!железо!CeleronM}
 
 \subsection{ARM}
 \subsection{MIPS}
 
-\lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}
+\lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}\index{azLinux!железо!AR7240}
 
-\lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}
+\lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{azLinux!железо!RT5350}
 
 % За счет использования уже существующей и очень большой базы исходных текстов
 % ядра, библиотек и программ для \linux, бесплатно доступных в т.ч. и для
