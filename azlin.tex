@@ -113,7 +113,7 @@ cd ~/az ; ./mk.rc && make somename
 в каталоге \file{mk/}, поэтому \emph{если вы что-то меняете в скриптах, не
 забудьте сначала запустить \prog{./mk.rc}}.
 
-\lstx{mk.rc}{}{../azlin/mk.rc}{rc}
+\lstx{mk.rc}{}{../azlin/mk.rc}{rc}\index{azLinux!скрипт!mk.rc}
 
 \section{Загрузка}
 
@@ -178,7 +178,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 
 Пакет \prog{dirs}\ прописан в файле
 
-\lstx{mk/dirs.mk}{}{../azlin/doc/dirs.mk}{mk}
+\lstx{mk/dirs.mk}{}{../azlin/doc/dirs.mk}{mk}\index{azLinux!пакет!dirs}
 
 Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
 запущен \prog{make}.
@@ -186,28 +186,28 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 \bigskip
 Каталог зеркала архивов исхоных текстов программ
 
-\lstx{GZ}{}{../azlin/doc/gz.dirs}{mk}
+\lstx{GZ}{}{../azlin/doc/gz.dirs}{mk}\index{azLinux!переменная!GZ}
 
 Каталог распаковки исходных текстов: некоторые пакеты должна собираться в дереве
 исходников
 
-\lstx{SRC}{}{../azlin/doc/src.dirs}{mk}
+\lstx{SRC}{}{../azlin/doc/src.dirs}{mk}\index{azLinux!переменная!SRC}
 
 Каталог out-of-tree сборки: остальные пакеты умеют собираться вне дерева
 исходников, если хватает \ram\ этот каталог удобно монировать как \file{tmpfs}
 
-\lstx{TMP}{}{../azlin/doc/tmp.dirs}{mk}
+\lstx{TMP}{}{../azlin/doc/tmp.dirs}{mk}\index{azLinux!переменная!TMP}
 
 Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
 триплета используется подстановка строки, выдаваемой запуском \prog{gcc}.
 
-\lstx{BUILD}{}{../azlin/doc/build.dirs}{mk}
+\lstx{BUILD}{}{../azlin/doc/build.dirs}{mk}\index{azLinux!переменная!BUILD}
 
 Каталог в который собирается кросс-компилятор. Используется триплет
 рабочей \linux-системы.
 
-\lstx{TC}{}{../azlin/doc/tc.dirs}{mk}
+\lstx{TC}{}{../azlin/doc/tc.dirs}{mk}\index{azLinux!переменная!TC}
 
 Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
@@ -216,10 +216,11 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 \file{APP}\ref{azapp}.
 
 \lstx{ROOT/BOOT}{}{../azlin/doc/root.dirs}{mk}
+\index{azLinux!переменная!ROOT}\index{azLinux!переменная!BOOT}
 
 Список всех рабочих каталогов в одной переменной:
 
-\lstx{DIRS}{}{../azlin/doc/dirs.dirs}{mk}
+\lstx{DIRS}{}{../azlin/doc/dirs.dirs}{mk}\index{azLinux!переменная!DIRS}
 
 \section{APP: Приложение}\label{azapp}
 
@@ -237,6 +238,8 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
 \lstx{APP @ hw/head.mk}{}{../azlin/doc/app.mk}{mk}
+\index{azLinux!настройка!приложение}
+\index{azLinux!переменная!APP}
 
 Если вам нужно собрать другое приложение, вы можете переопределить значение из
 командной строки при запуске \emph{всех}\ пакетов:
@@ -252,9 +255,9 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
   \item \file{PACKS}: набор используемых программных пакетов \ref{azpacks}
 \end{itemize}
 
-\lstx{app/micro.mk}{}{../azlin/app/micro.mk}{mk}
+\lstx{app/micro.mk}{}{../azlin/app/micro.mk}{mk}\index{azLinux!приложение!micro}
 
-\lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}
+\lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
 
 \section{HW: Поддерживаемое железо}\label{azhw}
 
