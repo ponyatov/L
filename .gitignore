@@ -3,3 +3,6 @@
 Makefile
 gz
 .project
+doc/*.mk
+doc/*.dirs
+
