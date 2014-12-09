@@ -265,24 +265,25 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 переменную \file{HW}, доступные значения приведены в таблице:
 
 \noindent
-\begin{tabular}{|l| l l|l l l l l|l|}
+\begin{tabular}{|l| l l|l l l l l l|l|}
 \hline
-HW & CPU & ARCH & RAM & HDD/NAND & SD & USB & WiFi & GPIO \\
+HW & CPU & ARCH & RAM & HD & SD & USB & Eth & WiFi & GPIO \\
 \hline
-qemu386 & i486sx & i386 & 32M+ & \uncheckbox\ IDE/SATA & & \uncheckbox &&\\
-eeepc701 & CeleronM & i386 & 512M+ & \uncheckbox\ SSD 4G & \uncheckbox\
-SD & \checkbox & \uncheckbox\ Atheros AR2425 &\\
+qemu386 & i486sx & i386 & 32M+ & \uncheckbox\ IDE & & \uncheckbox & ne2k &&\\
+eeepc701 & CeleronM & i386 & 512M+ & \uncheckbox\ SSD & \uncheckbox\
+SD & \checkbox & A?? & \uncheckbox\ AR2425 &\\
+gac1037 & Celeron1037U & amd64 & 1G+ & \uncheckbox\ SATA & & \checkbox &
+2$\times$RTL8111 &&\\
 \hline
-qemuARM & & arm & 32M+ &&&&&\\
-cubie1 & AllWinnerA10 & armhf & 1G && \uncheckbox\ $\mu$SD & \checkbox &&\\
-rpi & BCM2835 & armel & 512M && \uncheckbox\ SD&\checkbox&&\\
+qemuARM & & arm & 32M+ &&&&&&\\
+cubie1 & AllWinnerA10 & armhf & 1G && \uncheckbox\ $\mu$SD & \checkbox &&&\\
+rpi & BCM2835 & armel & 512M && \uncheckbox\ SD&\checkbox&&&\\
 \hline
-qemuMIPS & &mips& 32M+ & & & & &\\
-mr3020 & AR7240 &mips& 32M & 4M & & \checkbox & \uncheckbox\ Atheros AR9331 &\\
+qemuMIPS & &mips& 32M+ & & & & &&\\
+mr3020 & AR7240 &mips& 32M & 4M & & \checkbox && \uncheckbox\ AR9331 &\\
 vocore & RT5350 &mips& 32M & 8M & & \uncheckbox
-& \uncheckbox\ SoC &\\
-bswift & AR9331 &mips& 64M & 16M
-NOR & & \uncheckbox\ host & & 20+ \\
+&& \uncheckbox\ SoC &\\
+bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 \hline
 \end{tabular}
 
@@ -304,6 +305,63 @@ PC/104 и промышленных панелей. Особенно достав
 \subsubsection{eeepc701: ASUS Eee PC 701}
 
 \lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{azLinux!железо!ASUS Eee PC 701}
+
+\subsubsection{gac1037: Gigabyte GA-C1037UN-EU rev.2}
+
+\begin{tabular}{p{0.45\textheight} p{0.45\textheight}}
+\includegraphics[height=0.45\textheight]{azlin/doc/gac1037.jpg} &
+\begin{tabular}{l l}
+CPU & Celeron 1037U \\
+\ram & 2 $\times$ DDR3, max 16G, 2 канала \\
+чипсет & Intel NM70 \\
+сеть & 2 $\times$ Realtek® GbE 1Gb (rtl8111) \\
+HDD & 2 $\times$ SATA2 (3Gb/s), 1 $\times$ SATA3 (6Gb/s), 1 $\times$ eSATA\\
+USB & 6 $\times$ USB3.0 \\
+видео & IntelGMA, выходы на VGA D-Sub и HDMI 1.4\\
+аудио & Realtek ALC887 (HDA) \\
+PCI & $\times$1 \\
+&\\
+\end{tabular}
+\\
+\end{tabular}
+
+В качестве варианта 64-битной платформы взята портативная материнка для
+неттопов: Gigabyte GA-C1037UN-EU. На ней возможны два варианта сборки:
+
+\begin{enumerate}
+  \item \emph{amd64/x64}: нативный \verb|CPU=Celeron1037u|
+  \item \emph{i686/x32}: режим соместимости со старыми процессорами
+  \verb|CPU=i686|
+\end{enumerate}
+
+\url{http://www.ixbt.com/news/hard/index.shtml?17/33/31}
+
+\clearpage
+На этой материнке собрана моя портативная рабочая станция, на которой я работаю
+дома или на выезде, в том числе и над этой книгой. Железо и компоновка
+выбирались исходя из максимума цена/возможности: дешевых ноутбуков или
+неттопов за 5\,тыс.руб (без \ram) на тот момент не существовало, и не было
+дешевых ноутов, поддерживающих \ram\ хотя бы 2$\times$8G.
+
+Корпус собран в миникейсе, в котором закреплены:
+
+\begin{tabular}{l l}
+материнская плата& GA-C1037UN-EU rev.2 \\
+CPU& Celeron 1037U (впаян) \\
+охлаждение& пассивный радиатор + общий 120\,мм кулер на корпус \\ 
+\ram& 1$\times$8G DDR3 (в планах 2$\times$8G) \\
+HDD & \emph{нет}, используется флешка 8G USB3 Transcend JF750 (возможно SATA
+SSD) \\
+TFT & китайский 3.5'' автомониторчик + конвертер HDMI2RCA на случай\\& 
+посмотреть видеовывод, обычно везде где я использую эту поделку,\\& есть VGA
+монитор или хотя бы большой телевизор\\
+электропитание& БП Hipro HPE-350W + автоинвертор\\& батарея не требуется, под
+боком всегда есть 220 или 12\,В\\
+& по необходимости в транспорт грузится пара заряженных автоаккумуляторов\\
+\end{tabular}
+\bigskip
+
+\lstx{hw/gac1037.mk}{}{../azlin/hw/gac1037.mk}{mk}\index{azLinux!железо!Gigabyte GA-C1037UN-EU}
 
 \subsection{ARM}
 
