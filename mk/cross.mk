@@ -1,5 +1,5 @@
 CFG_BINUTILS = --target=$(TARGET) $(CFG_CPU) \
-	--program-prefix=$(HW)- --with-sysroot=$(ROOT) \
+	--program-prefix=$(CPU)- --with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
 	--enable-lto --disable-multilib
 
