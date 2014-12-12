@@ -6,3 +6,5 @@ gz
 doc/*.mk
 doc/*.dirs
 
+tmp
+src
