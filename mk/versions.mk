@@ -11,7 +11,7 @@ GCC_VER = 4.9.1
 
 # core
 
-KERNEL_VER = 3.16.3
+KERNEL_VER = 3.17.6
 # 2.6.x not used: bug eth/rtl8139
 ULIBC_VER = 0.9.33.2
 BUSYBOX_VER = 1.22.1

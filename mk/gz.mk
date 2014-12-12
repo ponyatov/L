@@ -15,5 +15,6 @@ gz_cc:
 		
 .PHONY: gz_core
 gz_core:
+	$(WGET) https://www.kernel.org/pub/linux/kernel/v3.x/$(KERNEL).tar.xz
 	$(WGET) http://www.uclibc.org/downloads/$(ULIBC).tar.xz
 	$(WGET) http://busybox.net/downloads/$(BUSYBOX).tar.bz2
