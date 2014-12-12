@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Fri Dec 12 17:05:10 MSK 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=azlin.tex
+outputFile=azlin.pdf
+langSpell=ru
+markDer=true
+srcDir=
