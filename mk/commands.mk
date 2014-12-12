@@ -5,3 +5,5 @@ WGET = wget -N -P $(GZ)
 CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l) 
 
 MAKE = make -j$(CPU_CORES)
+
+CCACHE = ccache
