@@ -6,4 +6,5 @@ cat \
 	mk/packages.mk \
 	mk/commands.mk \
 	mk/gz.mk \
+	mk/cross.mk \
 > Makefile
