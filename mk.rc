@@ -7,5 +7,6 @@ cat \
 	mk/commands.mk \
 	mk/gz.mk \
 	mk/src.mk \
+	mk/cfg.mk \
 	mk/cross.mk \
 > Makefile
