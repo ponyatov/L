@@ -3,3 +3,5 @@
 ARCH = i386
 # target triplet for embedded linux
 TARGET = i486-linux-uclibc
+# target CPU configure params
+CFG_CPU =
