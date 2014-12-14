@@ -4,14 +4,19 @@ CFG_BINUTILS = --target=$(TARGET) $(CFG_CPU) \
 	--enable-lto --disable-multilib
 
 CFG_CCLIBS = --disable-shared \
-	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) 
-
+	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
+	
 CFG_GMP = $(CFG_CCLIBS)
 CFG_MPFR = $(CFG_CCLIBS)
 CFG_MPC = $(CFG_CCLIBS)
 
+CFG_GCC0 = $(CFG_BINUTILS) $(CFG_CCLIBS) \
+	--disable-shared --disable-threads \
+	--without-headers --with-newlib \
+	--enable-languages="c"
+
 .PHONY: tc
-tc: binutils cclibs gcc
+tc: binutils cclibs gcc0
 
 .PHONY: binutils
 binutils: $(SRC)/$(BINUTILS)/README
@@ -43,3 +48,13 @@ mpc: $(SRC)/$(MPC)/README
 	cd $(TMP)/$(MPC) &&\
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC) &&\
 	$(MAKE) && make install-strip
+
+.PHONY: gcc0
+gcc0: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0)
+	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
