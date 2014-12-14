@@ -19,4 +19,15 @@
 	<natures>
 		<nature>net.sourceforge.texlipse.builder.TexlipseNature</nature>
 	</natures>
+	<filteredResources>
+		<filter>
+			<id>1418587831110</id>
+			<name>src</name>
+			<type>21</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-README</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>
