@@ -187,6 +187,7 @@ cd ~/az ; git pull
   \item \prog{user} сборка пользовательского кода \ref{azuser}
   \item \prog{root} формирование корневой файловой системы \ref{azroot}
   \item \prog{boot} сборка загрузчика \ref{azboot}
+   \prog{syslinux}/\prog{grub}/\prog{uboot}
   \item \prog{emu} запуск собранной системы в эмуляторе \ref{azemu}
   \item \prog{netboot} сетевая загрузка \ref{aznetboot}
   \item \prog{firmware} прошивка на устройство \ref{azfirmware}
@@ -495,7 +496,197 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \subsection{\prog{core}: сборка основной системы} \label{azcore}
 
+\lstx{mk/core.mk}{}{azlin/mk/core.mk}{mk}
+
 \subsubsection{\prog{kernel}: ядро \linux} \label{azkernel}
+
+\begin{tabular}{l l}
+\file{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
+\file{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
+\end{tabular}
+
+\begin{enumerate}
+  \item подготовка к сборке с пустым \term{конфигом}
+  \file{src/linux-x.x.x/.config}
+  \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
+  переопределения переменных конфигурации:
+  \begin{itemize}
+    \item \file{all} универсальные параметры ядра для всех платформ
+    \item \file{arch} параметры, специфичные для архитектуры
+    \item \file{cpu} параметры, адаптирующие ядро к конкретному процессору
+    (эмулятор FPU, возможности управления тактовой частотой и потреблением,
+    поддержка многоядерности и т.п.)
+    \item \file{hw} параметры чипсета и периферии материнской платы
+    (\term{модули ядра} = драйвера)
+    \item \file{app} параметры, в основном \emph{отключаемые} для конкретного
+    \term{приложения} (отключение графики, режим реального времени,
+    спец.параметры)
+  \end{itemize}
+  \item установка параметров кросс-компиляции и имени сборки
+  \item запуск интерактивного меню конфигурирования, выйти с сохранением
+  \item сборка ядра
+  \item копирование готового файла ядра в \file{\$\{BOOT\}}
+  \item генерация \term{хедеров}\ в \file{\$\{ROOT\}}
+\end{enumerate}
+
+\bigskip
+Все параметры ядра идут с префиксом \file{CONFIG\_}:
+
+\begin{itemize}
+  \item \prog{core.mk}
+  \begin{itemize}
+    \item \file{CROSS\_COMPILE} префикс кросс-компилятора
+    \verb#<pfx>-(gcc|as|ld..)#
+    \item \file{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
+    \item \file{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
+  \end{itemize}
+  \item \prog{all} \emph{для всех платформ}
+  \begin{itemize}
+  \item \file{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
+  \item \file{KERNEL\_GZIP=y} ядро сжимать алгоритмом \prog{gzip}\note{важно для
+  загрузчиков на не-i386 системах}
+
+  \item \emph{корневая файловая система в initrd/ramdisk}
+  \begin{itemize}
+  \item \file{BLK\_DEV\_INITRD=y} rootfs в \ram (initrd)
+  \item \file{PROC\_FS=y} файловая подсистема \file{/proc}
+  \item \file{SYSFS=y} файловая подсистема \file{/sys}
+  \item \file{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
+  устройств)
+  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \prog{devfs} 
+  \end{itemize}
+
+  \item \emph{режим реального времени\note{повышенная или
+  \emph{гарантированная} отзывчивость системы на внешние события}} \ref{linrt}
+  \begin{itemize}
+  \item \file{PREEMPT=y} \term{вытесняющая многозадачность} в режиме ядра
+  \item \file{HZ\_1000=y} системный таймер 1\,KHz
+  \end{itemize}
+
+  \item \emph{исполняемые форматы файлов}
+  \begin{itemize}
+  \item \file{BINFMT\_ELF=y} бинарные файлы в формате \prog{ELF}
+  \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке 
+  \item \file{COREDUMP=n} не писать \term{корки} при сбоях
+  \end{itemize}
+
+  \item \emph{поддержка консоли tty}
+  \begin{itemize}
+  \item \file{TTY=y} последовательные порты и командная консоль
+  \item \file{UNIX98\_PTYS=n} псевдотерминалы UNIX98
+  \item \file{LEGACY\_PTYS=n} псевдотерминалы UNIX/BSD
+  \end{itemize}
+
+  \item \emph{клавиатура}
+  \begin{itemize}
+  \item \file{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры 
+  \end{itemize}
+
+  \item \emph{мышь}
+  \begin{itemize}
+  \item \file{INPUT\_MOUSE=y}
+  \item \file{INPUT\_MOUSEDEV=y}
+  \item \file{INPUT\_MOUSEDEV\_PSAUX=n} не создавать \verb|/dev/psaux|
+  \end{itemize}
+
+  \item \emph{USB HID: устройства ввода без драйверов (клавиатура, мышь,
+  джойстик, самодельные кнопки)\\включение поддержки USB на i386 не требуется}
+  \begin{itemize}
+  \item \file{HID=y} [H]uman [I]nterface [D]evice  
+  \item \file{HID\_GENERIC=y} универсальный драйвер USB HID Class 
+  \end{itemize}
+
+  \item \emph{Графический режим \term{FrameBuffer}}
+  \begin{itemize}
+  \item \file{FB=y}
+  \item \file{FRAMEBUFFER\_CONSOLE=y} командная консоль
+  \item \file{LOGO=y} вывод пингвина при запуске
+  \item \file{LOGO\_LINUX\_MONO=y} выводить только черно-белый вариант
+  \item \file{LOGO\_LINUX\_VGA16=n}
+  \item \file{LOGO\_LINUX\_CLUT224=n}
+  \end{itemize}
+
+  \item \emph{Отладка и \term{printk} лог ядра}
+  \begin{itemize}
+  \item \file{DEBUG\_KERNEL=y} включение отладочных функций ядра
+  \item \file{EARLY\_PRINTK=y} вывод пусковой части ядра 
+  \item \file{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
+  \item \file{PRINTK\_TIME=y} выводить метки времени (для отладки времени
+  запуска)
+  \item \file{SCHED\_DEBUG=n} не отлаживать планировщик
+  \item \file{DEBUG\_PREEMPT=n} не отлаживать вытесняющий режим
+  \end{itemize}
+
+  \end{itemize}
+  \item \prog{arch} \emph{i386}
+  
+  \begin{itemize}
+  
+\item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров 
+
+\item \prog{UART/COM/RS232} \emph{последоваельные порты}
+  \begin{itemize}
+\item \file{SERIAL\_8250=y} UART 8250/16550
+\item \file{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
+  \end{itemize}
+
+\item \file{VGA\_CONSOLE=y} командандная консоль на VGA 80$\times$25
+
+\item  \emph{FrameBuffer}
+  \begin{itemize}
+\item \file{FB\_VESA=y} универсальный видеодрайвер VESA 2.0+
+  \end{itemize}
+
+\item  \emph{клава}
+  \begin{itemize}
+\item \file{KEYBOARD\_ATKBD=y} клавиатура PC AT / PS2
+  \end{itemize}
+
+\item  \emph{мышь}
+  \begin{itemize}
+\item \file{MOUSE\_PS2=y} мышь PS/2
+\item \file{MOUSE\_SERIAL=y} (старая) мышь на RS232
+  \end{itemize}
+
+\item \file{NVRAM=y} доступ к памяти CMOS
+
+\item \emph{отладка}
+  \begin{itemize}
+\item \file{MAGIC\_SYSRQ=y} волшебная кнопка \keys{Alt+SysRq}
+\item \file{X86\_VERBOSE\_BOOTUP=y} доп.сообщения при пуске ядра
+  \end{itemize}
+
+  \end{itemize}
+
+  \item \prog{cpu} \emph{i386} \file{i486sx}
+
+\begin{itemize}
+  \item \file{M486=y}
+  \item \file{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
+  (FPU) в ядре
+\end{itemize}
+   
+  \item \prog{hw} \emph{qemu386} \file{qemu386}
+  
+\begin{itemize}
+\item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \prog{QEMU} запускается
+на процессорах Pentium и старше, которые всегда имеют аппаратный модуль
+плавающей точки
+\item \file{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
+имеет смысла,
+
+\item \file{HZ\_100=y} переключаемся на 100\,Hz
+\end{itemize}
+
+
+  \item \prog{app} \emph{micro}
+
+\begin{itemize}
+\item \file{FB=n} выключаем поддерку FrameBuffer,.. 
+\item \file{INPUT\_MOUSE=n} мыши
+\end{itemize}
+  
+\end{itemize}
 
 \subsubsection{\prog{ulibc}: библиотека \prog{uClibc}} \label{azulibc}
 
@@ -511,7 +702,15 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \subsection{\prog{user}: сборка пользовательского кода} \label{azuser}
 
 \subsection{\prog{root}: формирование корневой файловой системы} \label{azroot}
-\subsection{\prog{boot}: сборка загрузчика} \label{azboot}
+\subsection{\prog{boot}: сборка загрузчика
+\prog{syslinux}/\prog{grub}/\prog{uboot}
+} \label{azboot}
+
+\subsubsection{\prog{syslinux}}
+
+\subsubsection{\prog{grub}}
+
+\subsubsection{\prog{uboot}}
 
 \section{\prog{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
@@ -552,3 +751,5 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \section{\prog{netboot}: Сетевая загрузка} \label{aznetboot}
 
 \section{Прошивка на устройство} \label{azfirmware}
+
+\chapter{Режим реального времени в \linux} \label{linrt}
