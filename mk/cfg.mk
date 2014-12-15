@@ -2,7 +2,8 @@
 
 # build host configure
 BCFG = configure --prefix=$(TC) \
-	CC="$(CCACHE) gcc" CXX="$(CCACHE) g++" 
+	CC="$(BCC)" CXX="$(BCXX)" 
 
 # target configure
-TCFG = configure
+TCFG = configure --prefix=$(ROOT) \
+	CC="$(TCC)" CXX="$(TCXX)" 
