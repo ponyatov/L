@@ -15,6 +15,11 @@ CFG_GCC0 = $(CFG_BINUTILS) $(CFG_CCLIBS) \
 	--without-headers --with-newlib \
 	--enable-languages="c"
 
+CFG_GCC = $(CFG_BINUTILS) $(CFG_CCLIBS) \
+	--enable-languages="c,c++"
+#	--disable-shared --disable-threads \
+#	--enable-threads --enable-libgomp \
+
 .PHONY: tc
 tc: binutils cclibs gcc0
 
@@ -54,6 +59,16 @@ gcc0: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0)
+	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
+
+.PHONY: gcc
+gcc: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC)
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
