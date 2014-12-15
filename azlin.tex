@@ -54,7 +54,7 @@ WiFi, разнообразные носители данных, аппаратн
 
 \begin{itemize}
   \item ядро (реального времени)
-  \item libc
+  \item $\mu$libc
   \item урезанная командная оболочка (busybox)
   \item несколько прикладных библиотек поддержки (сжатие, кодирование, базовая
   графика)
@@ -140,7 +140,7 @@ cd ~/az ; ./mk.rc && make somename
 
 \lstx{mk.rc}{}{../azlin/mk.rc}{rc}\index{azLinux!скрипт!mk.rc}
 
-\section{Загрузка}
+\section{Клонирование проекта \prog{az\linux}} \label{azclone}
 
 При необходимости вносить правки\note{что естественно\ --- вам потребуется
 добавлять свои пакеты и поддержку железа}\ работайте с вашим
@@ -178,9 +178,9 @@ cd ~/az ; git pull
   \item \prog{core} сборка основной системы \ref{azcore}
   \begin{enumerate}
     \item \prog{kernel} ядро \linux\ \ref{azkernel}
-    \item \prog{libc} библиотека \prog{uClibc} \ref{azlibc}
+    \item \prog{ulibc} библиотека \prog{uClibc} \ref{azulibc}
     \item \prog{bb} набор утилит \prog{busybox} \ref{azbb}
-    \item \prog{gcc} пересборка полного \prog{gcc} \ref{azgcc}
+    \item \prog{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
   \end{enumerate}
   \item \prog{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
   \item \prog{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
@@ -206,7 +206,7 @@ cd ~/az ; git pull
 При таком указании все переназначения для этих переменных игнорируются, поэтому
 возможны некоторые сложности с указанием например опций оптимизации.
 
-\section{dirs: Создание дерева каталогов}
+\section{\prog{dirs}: Создание дерева каталогов} \label{azdirs}
 
 После загрузки или обновления запустите пакет \prog{dirs}:
 
@@ -280,6 +280,8 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 Список всех рабочих каталогов в одной переменной:
 
 \lstx{DIRS}{}{../azlin/doc/dirs.dirs}{mk}\index{azLinux!переменная!DIRS}
+
+\section{\prog{gz}: Загрузка архивов исходников} \label{azgz}
 
 \section{APP: Приложение}\label{azapp}
 
@@ -475,10 +477,6 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \section{Пакеты}\label{azpacks}
 
-\subsection{\prog{dirs}: создание дерева каталогов} \label{azdirs}
-
-\subsection{\prog{gz}: закачка архивов исходников} \label{azgz}
-
 \subsection{\prog{tc}: сборка кросс-компилятора} \label{aztc}
 
 \subsubsection{\prog{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
@@ -490,7 +488,8 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \subsubsection{\prog{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
 
-\subsubsection{\prog{gcc}: сборка кросс-компилятора Си/\cpp} \label{az}
+\subsubsection{\prog{gcc}: пересборка полного кросс-компилятора Си/\cpp}
+\label{azgcc}
 
 Пакет собирается \emph{после сборки \prog{core}}. 
 
@@ -498,7 +497,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \subsubsection{\prog{kernel}: ядро \linux} \label{azkernel}
 
-\subsubsection{\prog{libc}: библиотека \prog{uClibc}} \label{azlibc}
+\subsubsection{\prog{ulibc}: библиотека \prog{uClibc}} \label{azulibc}
 
 \subsubsection{\prog{bb}: набор утилит \prog{busybox}} \label{azbb}
 
@@ -516,6 +515,6 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \section{\prog{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
-\section{Сетевая загрузка \file{netboot}} \label{aznetboot}
+\section{\prog{netboot}: Сетевая загрузка} \label{aznetboot}
 
 \section{Прошивка на устройство} \label{azfirmware}

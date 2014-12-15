@@ -1,5 +1,7 @@
 # commands macros
 
+XPATH = PATH=$(TC)/bin:$(PATH)
+
 WGET = wget -N -P $(GZ)
 
 CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l) 

@@ -5,8 +5,11 @@ cat \
 	mk/versions.mk \
 	mk/packages.mk \
 	mk/commands.mk \
+	mk/clean.mk \
 	mk/gz.mk \
 	mk/src.mk \
 	mk/cfg.mk \
 	mk/cross.mk \
+	mk/core.mk \
+	mk/emu.mk \
 > Makefile

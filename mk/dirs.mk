@@ -19,7 +19,7 @@ TC = $(PWD)/$(BUILD)
 
 # target root filesystem
 
-ROOT = $(PWD)/$(HW)-$(APP)
+ROOT = $(PWD)/$(HW)$(APP)
 BOOT = $(ROOT)/boot
 
 DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT)
