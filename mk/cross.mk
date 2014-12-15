@@ -1,7 +1,7 @@
-CFG_BINUTILS = --target=$(TARGET) $(CFG_CPU) \
+CFG_BINUTILS = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--program-prefix=$(CPU)- --with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
-	--enable-lto --disable-multilib
+	--enable-lto
 
 CFG_CCLIBS = --disable-shared \
 	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)

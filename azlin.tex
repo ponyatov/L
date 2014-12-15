@@ -480,7 +480,34 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \subsection{\prog{tc}: сборка кросс-компилятора} \label{aztc}
 
+\lstx{}{}{azlin/mk/cross.mk}{mk}
+
 \subsubsection{\prog{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
+
+\begin{tabular}{l l}
+--target=\$(TARGET)& триплет целевой платформы\\
+\$(CFG\_ARCH)&параметры архитектуры\\
+\$(CFG\_CPU)&параметры процессора\\
+--program-prefix&префикс \verb|<prefix>-(as|ld|..)|\\
+--with-sysroot& каталог в котором находятся хедеры и библиотеки\\
+--with-native-system-header-dir=/include&каталог с хедерами\\
+--enable-lto&[L]ink[T]ime [O]ptimization\\
+\end{tabular}
+
+\clearpage
+\lstx{arch/i386.mk}{}{azlin/arch/i386.mk}{mk}
+
+\begin{tabular}{l l}
+--disable-multilib&выключить смешанный 32/64-битный режим\\
+\end{tabular}
+
+\lstx{arch/arm.mk}{}{azlin/arch/arm.mk}{mk}
+
+\begin{tabular}{l l}
+--enable-interwork&разрешить смешанный код ARM/THUMB\\
+\end{tabular}
+
+\lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
 
 \subsubsection{\prog{cclibs}: библиотеки для сборки \prog{gcc}} \label{azcclibs}
 
