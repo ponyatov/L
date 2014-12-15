@@ -515,6 +515,40 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \section{\prog{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
+Для отладки кода, не связанного жестко с железом, для которого
+допускается выполнение в эмуляторе, используется \prog{QEMU}.
+
+\lstx{mk/emu.mk}{}{azlin/mk/emu.mk}{mk}
+
+\lstx{hw/qemu386.mk}{}{azlin/hw/qemu386.mk}{mk}
+
+Переменная \verb|QEMU_CFG| задает параметры запуска \prog{QEMU}:
+
+\begin{tabular}{l l}
+\file{-m} & объем \ram\ на эмулируемой системе \\
+\file{-net none} & отключить сеть и iPXE boot \\
+\hline
+\file{-kernel} & прямая загрузка ядра \linux\ из файла \\
+\file{-initrd} & образ корневой файловой системы (\file{initrd}) \\
+\file{-append} & параметры ядра: \\
+\file{vga=ask} & запрос списка видеорежимов при загрузке и выбор режима \\
+\file{vga=none} & std. VGA text 80$\times$25, FrameBuffer отключен \\
+\file{vga=0x315} & VESA 800$\times$600$\times$24bit \\
+\file{vga=0x317} & VESA 1024$\times$768$\times$16bit \\
+\end{tabular}
+
+\begin{verbatim}
+  Mode 0x0301: 640x480 (+640), 8 bits
+  Mode 0x0303: 800x600 (+800), 8 bits
+  Mode 0x0305: 1024x768 (+1024), 8 bits
+  Mode 0x0311: 640x480 (+1280), 16 bits
+  Mode 0x0312: 640x480 (+2560), 24 bits
+  Mode 0x0314: 800x600 (+1600), 16 bits
+  Mode 0x0315: 800x600 (+3200), 24 bits
+  Mode 0x0317: 1024x768 (+2048), 16 bits
+  Mode 0x0318: 1024x768 (+4096), 24 bits
+\end{verbatim}
+
 \section{\prog{netboot}: Сетевая загрузка} \label{aznetboot}
 
 \section{Прошивка на устройство} \label{azfirmware}
