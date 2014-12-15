@@ -9,4 +9,5 @@ doc/*.dirs
 tmp
 src
 x86_64-linux-gnu
-qemu386-clock
+qemu386clock
+
