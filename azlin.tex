@@ -7,7 +7,7 @@ Linux}, подробнее описанного в разделе \ref{cross}. �
 поддерживаемого железа, упрощены конфигурационные файлы, минимизировано
 количество библиотек и программных пакетов.
 
-\bigskip
+\bigskip 
 
 Изначально идея создания этой системы появилась из желания заменить тухлую
 связку x86/DOS/Tur\-bo\-Pas\-cal на что-то
@@ -157,6 +157,40 @@ cd ~ ; git clone --depth=1 -o gh https://github.com/user/azlin az
 \begin{verbatim}
 cd ~/az ; git pull
 \end{verbatim}
+
+\section{Общий порядок сборки}
+
+Каждый пакет собирается командой:
+
+\begin{verbatim}
+./mk.rc && make [HW=rpi] [APP=clock] <package>
+\end{verbatim}
+
+\begin{enumerate}
+  \item \prog{dirs} создание дерева каталогов \ref{azdirs} 
+  \item \prog{gz} закачка архивов исходников \ref{azgz} 
+  \item \prog{tc} сборка кросс-компилятора \ref{aztc}
+  \begin{enumerate}
+    \item \prog{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
+    \item \prog{cclibs} библиотеки для сборки \prog{gcc} \ref{azcclibs}
+    \item \prog{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
+  \end{enumerate}
+  \item \prog{core} сборка основной системы \ref{azcore}
+  \begin{enumerate}
+    \item \prog{kernel} ядро \linux\ \ref{azkernel}
+    \item \prog{libc} библиотека \prog{uClibc} \ref{azlibc}
+    \item \prog{bb} набор утилит \prog{busybox} \ref{azbb}
+    \item \prog{gcc} пересборка полного \prog{gcc} \ref{azgcc}
+  \end{enumerate}
+  \item \prog{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
+  \item \prog{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
+  \item \prog{user} сборка пользовательского кода \ref{azuser}
+  \item \prog{root} формирование корневой файловой системы \ref{azroot}
+  \item \prog{boot} сборка загрузчика \ref{azboot}
+  \item \prog{emu} запуск собранной системы в эмуляторе \ref{azemu}
+  \item \prog{netboot} сетевая загрузка \ref{aznetboot}
+  \item \prog{firmware} прошивка на устройство \ref{azfirmware}
+\end{enumerate}
 
 \section{Фиксация переменных}
 
@@ -441,37 +475,47 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \section{Пакеты}\label{azpacks}
 
-\subsection{\prog{dirs}: создание дерева каталогов}
+\subsection{\prog{dirs}: создание дерева каталогов} \label{azdirs}
 
-\subsection{\prog{gz}: закачка архивов исходников}
+\subsection{\prog{gz}: закачка архивов исходников} \label{azgz}
 
-\subsection{\prog{tc}: сборка кросс-компилятора}
+\subsection{\prog{tc}: сборка кросс-компилятора} \label{aztc}
 
-\subsubsection{\prog{binutils}: ассемблер, линкер и утилиты}
+\subsubsection{\prog{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
 
-\subsubsection{\prog{cclibs}: \prog{gmp} \prog{mpfr} \prog{mpc}}
+\subsubsection{\prog{cclibs}: библиотеки для сборки \prog{gcc}} \label{azcclibs}
+
+\prog{gmp} \prog{mpfr} \prog{mpc}
 
 \subsubsection{\prog{gcc0}: сборка минимального кросс-компилятора Си}
+\label{azgcc0}
 
-\subsubsection{\prog{gcc}: сборка кросс-компилятора Си/\cpp}
+\subsubsection{\prog{gcc}: сборка кросс-компилятора Си/\cpp} \label{az}
 
 Пакет собирается \emph{после сборки \prog{core}}. 
 
-\subsection{\prog{core}: сборка основной системы}
+\subsection{\prog{core}: сборка основной системы} \label{azcore}
 
-\subsubsection{\prog{kernel}: ядро \linux}
+\subsubsection{\prog{kernel}: ядро \linux} \label{azkernel}
 
-\subsubsection{\prog{uclibc}: библиотека \prog{uClibc}}
+\subsubsection{\prog{libc}: библиотека \prog{uClibc}} \label{azlibc}
 
-\subsubsection{\prog{bb}: набор утилит \prog{busybox}}
+\subsubsection{\prog{bb}: набор утилит \prog{busybox}} \label{azbb}
 
-\subsection{\prog{libs}: сборка библиотек}
+\subsubsection{\prog{gcc}: пересборка полного \prog{gcc}} \label{azgcc}
 
-\subsection{\prog{apps}: сборка прикладных пакетов}
+\subsection{\prog{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
 
-\subsection{\prog{user}: сборка пользовательского кода}
+\subsection{\prog{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
+\label{azapps}
 
-\subsection{\prog{root}: формирование корневой файловой системы}
-\subsection{\prog{boot}: сборка загрузчика}
+\subsection{\prog{user}: сборка пользовательского кода} \label{azuser}
 
-\subsection{\prog{emu}: запуск собранной системы в эмуляторе}
+\subsection{\prog{root}: формирование корневой файловой системы} \label{azroot}
+\subsection{\prog{boot}: сборка загрузчика} \label{azboot}
+
+\section{\prog{emu}: запуск собранной системы в эмуляторе} \label{azemu}
+
+\section{Сетевая загрузка \file{netboot}} \label{aznetboot}
+
+\section{Прошивка на устройство} \label{azfirmware}
