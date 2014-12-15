@@ -717,67 +717,47 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \subsubsection{\prog{ulibc}: библиотека \prog{uClibc}} \label{azulibc}
 
+\begin{itemize}
+\item
+\begin{itemize}
+\item \file{ARCH\_HAS\_MMU=y} \emph{всегда включено}
+\item \file{ARCH\_USE\_MMU=y} \emph{всегда включено}
+\item \file{UCLIBC\_HAS\_FPU=y} \emph{всегда включено}: используется эмулятор в
+ядре
+\item \file{UCLIBC\_HAS\_FLOATS=y} функции плавающей точки
+\item \file{DO\_C99\_MATH=n} функции float math C99
+\item \file{UCLIBC\_CTOR\_DTOR=y} конструктор/декструктор
+\item \file{UCLIBC\_HAS\_LFS=y} большие файлы
+\end{itemize}
+\item \emph{разделяемые \term{shared} библиотеки}
+\begin{itemize}
+  \item \file{HAVE\_SHARED=n} 
+\end{itemize}
+\item \emph{многопоточные \term{threads} программы }
+\begin{itemize}
+  \item \file{HAS\_NO\_THREADS=y}
+\end{itemize}
+\item \emph{параметры установки}
+\begin{itemize}
+\item \file{DOSTRIP=y}
+\item \file{RUNTIME\_PREFIX=""}
+\item \file{DEVEL\_PREFIX=""}
+\end{itemize}
+\item \emph{опции необходимые \prog{busybox}}
+\begin{itemize}
+\item \file{UCLIBC\_HAS\_CTYPE\_TABLES=y}
+\item \file{UCLIBC\_HAS\_NETWORK\_SUPPORT=y}
+\item \file{UCLIBC\_HAS\_FNMATCH=y}
+\item \file{UCLIBC\_HAS\_GNU\_GETOPT=y} 
+\item \file{UCLIBC\_HAS\_REGEX=y}
+\item \file{UCLIBC\_SUSV3\_LEGACY=y}
+\end{itemize}
+\item
+\begin{itemize}
+\end{itemize}
+\end{itemize}
+
 \lstx{ulibc/all}{}{/dev/null}{mk}
-
-\begin{verbatim}
-
-ARCH_HAS_MMU=y
-ARCH_USE_MMU=y
-UCLIBC_HAS_FPU=y
-UCLIBC_HAS_FLOATS=y
-#DO_C99_MATH=y
-
-HAVE_SHARED=n
-#HAVE_SHARED=y
-#LDSO_CACHE_SUPPORT=y
-#LDSO_PRELOAD_ENV_SUPPORT=n
-#LDSO_LD_LIBRARY_PATH=n
-
-HAS_NO_THREADS=y
-UCLIBC_CTOR_DTOR=y
-
-UCLIBC_LINUX_SPECIFIC=y
-UCLIBC_LINUX_MODULE_26=n
-UCLIBC_HAS_LFS=y
-
-UCLIBC_HAS_LFS=y
-UCLIBC_HAS_REALTIME=y
-UCLIBC_HAS_STRING_GENERIC_OPT=y
-UCLIBC_HAS_STRING_ARCH_OPT=y
-
-DOSTRIP=y
-RUNTIME_PREFIX=""
-DEVEL_PREFIX=""
-
-# BB needs
-UCLIBC_HAS_CTYPE_TABLES=y
-UCLIBC_HAS_NETWORK_SUPPORT=y
-UCLIBC_HAS_FNMATCH=y
-UCLIBC_HAS_GNU_GETOPT=y
-UCLIBC_HAS_REGEX=y
-UCLIBC_SUSV3_LEGACY=y
-
-## libSDL needs
-#LINUXTHREADS_NEW=y
-
-## Python needs
-
-#DO_C99_MATH=y
-#UCLIBC_HAS_LONG_DOUBLE_MATH=n
-#UCLIBC_HAS_WCHAR=y
-#UCLIBC_SUSV4_LEGACY=y
-#UCLIBC_HAS_PTY=y
-#UNIX98PTY_ONLY=n
-#UCLIBC_HAS_LIBUTIL=y
-
-#DOMULTI=y
-#UCLIBC_HAS_IPV4=y
-#UCLIBC_HAS_COMPAT_RES_STATE=n
-#UCLIBC_HAS_SYSLOG=y
-## ALSA needs
-#UCLIBC_HAS_BSD_ERR=y
-
-\end{verbatim}
 
 \lstx{ulibc/arch/i386}{}{azlin/ulibc/arch/i386}{mk}
 
