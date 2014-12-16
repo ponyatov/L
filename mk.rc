@@ -15,4 +15,6 @@ cat \
 	mk/ulibc.mk \
 	mk/busybox.mk \
 	mk/emu.mk \
+	mk/root.mk \
+	mk/boot.mk \
 > Makefile

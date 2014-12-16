@@ -28,5 +28,4 @@ ulibc: $(SRC)/$(ULIBC)/README
 	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(CPU)-ldconfig
 	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(CPU)-getconf
 	# 9 (in root package)
-	# mkdir -p $(ROOT)/etc $(ROOT)/usr $(ROOT)/usr/lib
 	# $(XPATH) $(LDCONFIG) -v -r $(ROOT)

@@ -21,8 +21,11 @@ TC = $(PWD)/$(BUILD)
 
 ROOT = $(PWD)/$(HW)$(APP)
 BOOT = $(ROOT)/boot
+ETC = $(ROOT)/etc
+USR = $(ROOT)/usr
+USRLIB = $(USR)/lib
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRLIB)
 
 .PHONY: dirs
 dirs:
