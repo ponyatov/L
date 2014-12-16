@@ -817,9 +817,19 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{mk/root.mk}{}{azlin/mk/root.mk}{mk}
 
+\begin{enumerate}
+  \item пересоздание \file{/etc/}
+  \item генерация \term{кеша динамических библиотек} \file{/etc/ld.so.cache}
+  \item \file{/sbin/init} $\rightarrow$ \file{/init}
+  \item \file{/share/}
+  \item создание \prog{initrd} используя фильтрацию файлов \term{регулярным
+  выражением} в переменной \file{ROOTREX}
+\end{enumerate}
+
 \subsection{\prog{boot}: сборка загрузчика
-\prog{syslinux}/\prog{grub}/\prog{uboot}
-} \label{azboot}
+\prog{syslinux}/\prog{grub}/\prog{uboot}} \label{azboot}
+
+\lstx{mk/boot.mk}{}{azlin/mk/boot.mk}{mk}
 
 \subsubsection{\prog{syslinux}}
 
