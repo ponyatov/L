@@ -1,3 +1,6 @@
 .PHONY: emu
-emu: $(BOOT)/$(HW)$(APP).kernel
-	qemu-system-$(ARCH) $(QEMU_CFG) -kernel $< -append "vga=ask"
+emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
+	qemu-system-$(ARCH) $(QEMU_CFG) \
+	-kernel $(BOOT)/$(HW)$(APP).kernel \
+	-initrd $(BOOT)/$(HW)$(APP).rootfs \
+	-append "$(QEMU_VGA)"

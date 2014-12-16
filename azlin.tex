@@ -833,6 +833,20 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   выражением} в переменной \file{ROOTREX}
 \end{enumerate}
 
+\lst{/etc/inittab}{}{azlin/etc/inittab}
+
+\lstx{/etc/init.d/rcS}{}{azlin/etc/init.d/rcS}{rc}
+
+\begin{enumerate}
+  \item создание системных каталогов
+  \item запуск \term{демона} \prog{mdev}, обслуживающего \file{devfs}:
+  создание/удаление устройств в \file{/dev}, автомонтирование, загрузка
+  прошивок,..
+  \item вывод \file{README}
+\end{enumerate}
+
+\lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD}{rc}
+
 \subsection{\prog{boot}: сборка загрузчика
 \prog{syslinux}/\prog{grub}/\prog{uboot}} \label{azboot}
 

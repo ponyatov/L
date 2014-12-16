@@ -18,7 +18,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	# 4
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
 	# 5
-	cd $(SRC)/$(KERNEL) && $(XPATH) $(MAKE) $(CFG_KERNEL)
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
 	# 6
 	make kernel-$(ARCH)-fix
 	cp $(SRC)/$(KERNEL)/arch/x86/boot/zImage $(BOOT)/$(HW)$(APP).kernel

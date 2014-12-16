@@ -7,9 +7,9 @@ root:
 	cp README.md $(ETC)/
 	chmod +x $(ETC)/init.d/*
 	# 2	
-	$(XPATH) $(LDCONFIG) -v -r $(ROOT)
+	$(LDCONFIG) -v -r $(ROOT)
 	# 3
-#	ln -fs /sbin/init $(ROOT)/init
+	ln -fs /sbin/init $(ROOT)/init
 	# 4
 	cp -r share $(ROOT)/
 	# 5

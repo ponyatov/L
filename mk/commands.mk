@@ -13,6 +13,6 @@ CCACHE = ccache
 BCC = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
 
-LDD = $(CPU)-ldd
-LDCONFIG = $(CPU)-ldconfig
-GETCONF = $(CPU)-getconf
+LDD = $(XPATH) $(CPU)-ldd
+LDCONFIG = $(XPATH) $(CPU)-ldconfig
+GETCONF = $(XPATH) $(CPU)-getconf

@@ -4,8 +4,8 @@ CFG_ULIBC = CROSS=$(CPU)- ARCH=$(ARCH) PREFIX=$(ROOT)
 .PHONY: ulibc
 ulibc: $(SRC)/$(ULIBC)/README
 	# 1
-	cd $(SRC)/$(ULIBC) && $(XPATH) make $(CFG_ULIBC) distclean
-	cd $(SRC)/$(ULIBC) && $(XPATH) make $(CFG_ULIBC) allnoconfig
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) distclean
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) allnoconfig
 	# 2
 	cat ulibc/all >> $(SRC)/$(ULIBC)/.config
 	cat ulibc/arch/$(ARCH) >> $(SRC)/$(ULIBC)/.config
@@ -17,15 +17,15 @@ ulibc: $(SRC)/$(ULIBC)/README
 	# 4
 	cd $(SRC)/$(ULIBC) && make $(CFG_ULIBC) menuconfig
 	# 5
-	cd $(SRC)/$(ULIBC) && $(XPATH) $(MAKE) $(CFG_ULIBC)
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC)
 	# 6
-	cd $(SRC)/$(ULIBC) && $(XPATH) $(MAKE) $(CFG_ULIBC) install
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) install
 	# 7
-	cd $(SRC)/$(ULIBC) && $(XPATH) $(MAKE) $(CFG_ULIBC) install_utils
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) install_utils
 	# 8
-	cd $(SRC)/$(ULIBC) && $(XPATH) $(MAKE) $(CFG_ULIBC) hostutils
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) hostutils
 	cp $(SRC)/$(ULIBC)/utils/ldd.host      $(TC)/bin/$(CPU)-ldd
 	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(CPU)-ldconfig
 	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(CPU)-getconf
 	# 9 (in root package)
-	# $(XPATH) $(LDCONFIG) -v -r $(ROOT)
+	# $(LDCONFIG) -v -r $(ROOT)
