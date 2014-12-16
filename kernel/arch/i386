@@ -1,5 +1,12 @@
 CONFIG_X86_GENERIC=y
 
+# buses
+CONFIG_ISA=y
+CONFIG_PCI=y
+
+# power management
+CONFIG_ACPI=y
+
 # serial
 CONFIG_SERIAL_8250=y
 CONFIG_SERIAL_8250_CONSOLE=y
