@@ -179,7 +179,7 @@ cd ~/az ; git pull
   \begin{enumerate}
     \item \prog{kernel} ядро \linux\ \ref{azkernel}
     \item \prog{ulibc} библиотека \prog{uClibc} \ref{azulibc}
-    \item \prog{bb} набор утилит \prog{busybox} \ref{azbb}
+    \item \prog{busybox} набор утилит \prog{busybox} \ref{azbb}
     \item \prog{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
   \end{enumerate}
   \item \prog{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
@@ -527,6 +527,8 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \subsubsection{\prog{kernel}: ядро \linux} \label{azkernel}
 
+\lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
+
 \begin{tabular}{l l}
 \file{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
 \file{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
@@ -705,8 +707,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \item \file{HZ\_100=y} переключаемся на 100\,Hz
 \end{itemize}
 
-
-  \item \prog{app} \emph{micro}
+\item \prog{app} \emph{micro}
 
 \begin{itemize}
 \item \file{FB=n} выключаем поддерку FrameBuffer,.. 
@@ -716,6 +717,33 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \end{itemize}
 
 \subsubsection{\prog{ulibc}: библиотека \prog{uClibc}} \label{azulibc}
+
+\lstx{mk/ulibc.mk}{}{azlin/mk/ulibc.mk}{mk}
+
+\begin{enumerate}
+  \item подготовка к сборке с пустым \term{конфигом}
+  \file{src/uClibc-x.x.x/.config}
+  \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
+  переопределения переменных конфигурации:
+  \begin{itemize}
+    \item \file{all} универсальные параметры \prog{ulibc} для всех платформ
+    \item \file{arch} параметры, специфичные для архитектуры
+    \item \file{cpu} параметры, адаптирующие \prog{ulibc} к конкретному
+    процессору (набор команд и оптимизация)
+    \item \file{app} параметры, в основном \emph{отключаемые} для конкретного
+    \term{приложения} (отключение shared библиотек и неиспользуемых групп
+    функций)
+  \end{itemize}
+  \item установка параметров кросс-компиляции и \emph{пути к хедерам ядра} 
+  \item запуск интерактивного меню конфигурирования, выйти с сохранением
+  \item сборка \prog{ulibc}
+  \item инсталляция в \prog{ROOT}
+  \item инсталляция утилит для работы с shared библиотеками \emph{на целевой
+  системе}
+  \item инсталляция утилит для \emph{\file{BUILD}-системы}
+  \item создание \file{/etc/ld.so.cache} (выполняется в пакете \prog{root})
+\end{enumerate}
+\bigskip
 
 \begin{itemize}
 \item
@@ -731,11 +759,17 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \end{itemize}
 \item \emph{разделяемые \term{shared} библиотеки}
 \begin{itemize}
-  \item \file{HAVE\_SHARED=n} 
+  \item \file{HAVE\_SHARED=y}
+  \item \file{LDSO\_CACHE\_SUPPORT=y} \file{/etc/ld.co.conf}
+  \item \file{LDSO\_PRELOAD\_ENV\_SUPPORT=n} переменная \file{LD\_PRELOAD}
+  содержит список библиотек, загружаемых первыми
+  \item \file{LDSO\_LD\_LIBRARY\_PATH=n} отключить
+  переменную \file{LD\_LIBRARY\_PATH} со списком каталогов поиска shared
+  библиотек
 \end{itemize}
 \item \emph{многопоточные \term{threads} программы }
 \begin{itemize}
-  \item \file{HAS\_NO\_THREADS=y}
+  \item \file{LINUXTHREADS\_NEW=y} новый вариант потоков
 \end{itemize}
 \item \emph{параметры установки}
 \begin{itemize}
@@ -763,7 +797,9 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
 
-\subsubsection{\prog{bb}: набор утилит \prog{busybox}} \label{azbb}
+\subsubsection{\prog{busybox}: набор утилит \prog{busybox}} \label{azbb}
+
+\lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
 
 \subsubsection{\prog{gcc}: пересборка полного \prog{gcc}} \label{azgcc}
 

@@ -11,5 +11,8 @@ cat \
 	mk/cfg.mk \
 	mk/cross.mk \
 	mk/core.mk \
+	mk/kernel.mk \
+	mk/ulibc.mk \
+	mk/busybox.mk \
 	mk/emu.mk \
 > Makefile

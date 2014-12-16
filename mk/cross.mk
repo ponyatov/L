@@ -16,8 +16,8 @@ CFG_GCC0 = $(CFG_BINUTILS) $(CFG_CCLIBS) \
 	--enable-languages="c"
 
 CFG_GCC = $(CFG_BINUTILS) $(CFG_CCLIBS) \
-	--disable-shared --disable-threads \
 	--enable-languages="c,c++"
+#	--disable-shared --disable-threads \
 #	--enable-threads --enable-libgomp \
 
 .PHONY: tc
