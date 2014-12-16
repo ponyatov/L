@@ -797,14 +797,21 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
 
-\subsubsection{\prog{busybox}: набор утилит \prog{busybox}} \label{azbb}
-
-\lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
-
 \subsubsection{\prog{gcc}: пересборка полного \prog{gcc}} \label{azgcc}
 
 После сборки \prog{ulibc}\ необходимо еще раз пересобрать \prog{gcc}\ с полными
 настройками.
+
+\subsubsection{\prog{busybox}: набор утилит \prog{busybox}} \label{azbb}
+
+\lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
+
+\begin{enumerate}
+  \item подготовка к сборке с пустым \term{конфигом}
+  \item интерактивное меню конфигурирования \emph{с сохранением конфига в
+  \file{app/\$\{APP\}.bb}}
+  \item сборка и инсталляция в \file{ROOT}
+\end{enumerate}
 
 \subsection{\prog{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
 
