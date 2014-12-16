@@ -1,3 +1,3 @@
 .PHONY: ramclean
 ramclean:
-	rm -rf $(SRC)/* $(TMP)/*
+	rm -rf $(SRC)/* $(TMP)/* ~/.ccache/*
