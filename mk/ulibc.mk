@@ -15,7 +15,7 @@ ulibc: $(SRC)/$(ULIBC)/README
 	echo "CROSS_COMPILER_PREFIX=\"$(CPU)-\"" >> $(SRC)/$(ULIBC)/.config
 	echo "KERNEL_HEADERS=\"$(ROOT)/include\"" >> $(SRC)/$(ULIBC)/.config
 	# 4
-	cd $(SRC)/$(ULIBC) && make $(CFG_ULIBC) menuconfig
+	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) menuconfig
 	# 5
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC)
 	# 6
