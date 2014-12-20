@@ -535,6 +535,13 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \subsubsection{\prog{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
 
+При сборке \prog{gcc0}/\prog{gcc} отключайте \prog{ccache}: кэш при разовых сборках
+не работает, но при монтировании как tmpfs потребляет слишком много \ram:
+
+\begin{verbatim}
+./mk.rc && make CCACHE= gcc0
+\end{verbatim}
+
 \subsubsection{\prog{gcc}: пересборка полного кросс-компилятора Си/\cpp}
 \label{azgcc}
 
