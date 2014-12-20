@@ -9,8 +9,4 @@ BCFG = $(CFG) --prefix=$(TC) \
 # target configure
 TCFG = $(CFG) --prefix=$(ROOT)/sdl \
 	CC="$(TCC)" CXX="$(TCXX)" \
-	--host=$(TARGET)
-
-#	CROSS_COMPILE=$(TARGET)-
-#	--build=$(BUILD) --host=$(TARGET) --target=$(TARGET)
-
+	--host=$(TARGET) CROSS_COMPILE=$(TARGET)-
