@@ -13,10 +13,10 @@ CCACHE = ccache
 BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
 
-TCC  = $(CCACHE) $(CPU)-gcc -pipe
-TCXX = $(CCACHE) $(CPU)-g++ -pipe
-STRIP = $(XPATH) $(CPU)-strip
+TCC  = $(CCACHE) $(TARGET)-gcc -pipe
+TCXX = $(CCACHE) $(TARGET)-g++ -pipe
+STRIP = $(XPATH) $(TARGET)-strip
 
-LDD = $(XPATH) $(CPU)-ldd
-LDCONFIG = $(XPATH) $(CPU)-ldconfig
-GETCONF = $(XPATH) $(CPU)-getconf
+LDD = $(XPATH) $(TARGET)-ldd
+LDCONFIG = $(XPATH) $(TARGET)-ldconfig
+GETCONF = $(XPATH) $(TARGET)-getconf

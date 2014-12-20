@@ -8,8 +8,8 @@ doc/*.dirs
 
 tmp
 src
-x86_64-linux-gnu
-qemu386clock
 
 qemu386micro
+qemu386micro.cross
+
 etc/README-SDL.txt
