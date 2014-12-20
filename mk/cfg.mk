@@ -11,11 +11,6 @@ TCFG = $(CFG) --prefix=$(ROOT)/sdl \
 	CC="$(TCC)" CXX="$(TCXX)" \
 	--host=$(TARGET)
 
-#	CROSS_COMPILE=$(CPU)-
-	
-#	 
-
-# \
-#	CC="$(TCC) -static-libgcc" CXX="$(TCXX)" \
+#	CROSS_COMPILE=$(TARGET)-
 #	--build=$(BUILD) --host=$(TARGET) --target=$(TARGET)
-#	CROSS_COMPILE=$(TARGET)- \
+

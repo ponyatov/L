@@ -12,7 +12,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
 	# 3
-	echo "CONFIG_CROSS_COMPILE=\"$(CPU)-\"" >> $(SRC)/$(KERNEL)/.config
+	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_DEFAULT_HOSTNAME=\"$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config	
 	# 4

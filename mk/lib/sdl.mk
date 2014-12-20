@@ -8,7 +8,6 @@ sdl: $(SRC)/$(SDL)/README
 
 #--disable-nls --disable-shared \
 #	--build=$(BUILD) --host=$(TARGET) --prefix=$(ROOT)/sdl \
-#	CC="$(CPU)-gcc" \
 #	CROSS_COMPILE=$(TARGET)-
 
 ##	$(XPATH) $(SRC)/$(SDL)/configure $(CFG_SDL) 

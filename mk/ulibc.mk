@@ -1,4 +1,4 @@
-CFG_ULIBC = CROSS=$(CPU)- ARCH=$(ARCH) PREFIX=$(ROOT)
+CFG_ULIBC = CROSS=$(TARGET)- ARCH=$(ARCH) PREFIX=$(ROOT)
 #	UCLIBC_EXTRA_CFLAGS=""	
 
 .PHONY: ulibc
@@ -12,7 +12,7 @@ ulibc: $(SRC)/$(ULIBC)/README
 	cat ulibc/cpu/$(CPU) >> $(SRC)/$(ULIBC)/.config
 	cat ulibc/app/$(APP) >> $(SRC)/$(ULIBC)/.config
 	# 3
-	echo "CROSS_COMPILER_PREFIX=\"$(CPU)-\"" >> $(SRC)/$(ULIBC)/.config
+	echo "CROSS_COMPILER_PREFIX=\"$(TARGET)-\"" >> $(SRC)/$(ULIBC)/.config
 	echo "KERNEL_HEADERS=\"$(ROOT)/include\"" >> $(SRC)/$(ULIBC)/.config
 	# 4
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) menuconfig
@@ -24,8 +24,8 @@ ulibc: $(SRC)/$(ULIBC)/README
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) install_utils
 	# 8
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) hostutils
-	cp $(SRC)/$(ULIBC)/utils/ldd.host      $(TC)/bin/$(CPU)-ldd
-	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(CPU)-ldconfig
-	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(CPU)-getconf
+	cp $(SRC)/$(ULIBC)/utils/ldd.host      $(TC)/bin/$(TARGET)-ldd
+	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(TARGET)-ldconfig
+	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(TARGET)-getconf
 	# 9 (in root package)
 	# $(LDCONFIG) -v -r $(ROOT)
