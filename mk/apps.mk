@@ -1,0 +1,2 @@
+.PHONY: apps
+apps: $(APPS)
