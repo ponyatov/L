@@ -1,3 +1,3 @@
 # app: micro
 LIBS =
-APPS =
+APPS = hello

@@ -1,7 +1,10 @@
 .PHONY: user
-user: 
+user:
 
-APPS += $(USRBIN)/hello
+# apps
+
+.PHONY: hello
+hello: $(USRBIN)/hello 
 
 # rules
 
