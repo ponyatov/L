@@ -4,4 +4,4 @@ ARCH = i386
 # target triplet for embedded linux
 TARGET = i486-linux-uclibc
 # target CPU configure params
-CFG_CPU =
+CFG_CPU = --disable-mmx --disable-3dnow --disable-sse
