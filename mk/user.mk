@@ -1,8 +1,8 @@
 .PHONY: user
-user: $(USR)/bin/hello
+user: $(USRBIN)/hello
 
 # rules
 
-$(USR)/bin/%: user/%.c
+$(USRBIN)/%: user/%.c
 	$(TCC) -O2 -o $@ $< 
 #	&& $(STRIP) $@
