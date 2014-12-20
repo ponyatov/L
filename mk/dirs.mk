@@ -14,12 +14,12 @@ TMP = $(PWD)/tmp
 
 # build/target triplets
 BUILD = $(shell gcc -dumpmachine)
-# cross-compiler [T]ool[C]hain
-TC = $(PWD)/$(BUILD)
 
 # target root filesystem
 
 ROOT = $(PWD)/$(HW)$(APP)
+# cross-compiler [T]ool[C]hain
+TC = $(ROOT).cross
 BOOT = $(ROOT)/boot
 ETC = $(ROOT)/etc
 USR = $(ROOT)/usr

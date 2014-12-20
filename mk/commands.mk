@@ -13,8 +13,8 @@ CCACHE = ccache
 BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
 
-TCC  = $(XPATH) $(CCACHE) $(CPU)-gcc -pipe
-TCXX = $(XPATH) $(CCACHE) $(CPU)-g++ -pipe
+TCC  = $(CCACHE) $(CPU)-gcc -pipe
+TCXX = $(CCACHE) $(CPU)-g++ -pipe
 STRIP = $(XPATH) $(CPU)-strip
 
 LDD = $(XPATH) $(CPU)-ldd

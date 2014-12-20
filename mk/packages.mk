@@ -18,7 +18,8 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 
 # libs
 
-SDL = SDL-$(SDL_VER)
-# SDL = SDL2-$(SDL_VER) # can't cross compile SDL2
+#SDL = SDL-$(SDL_VER)
+# can't cross compile SDL2
+SDL = SDL2-$(SDL_VER)
 
 # extra
