@@ -284,6 +284,8 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86_64-linux-gnu
 
 \section{\prog{gz}: Загрузка архивов исходников} \label{azgz}
 
+\lstx{mk/gz.mk}{}{azlin/mk/gz.mk}{mk}
+
 \section{APP: Приложение}\label{azapp}
 
 \term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
@@ -475,8 +477,25 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{azLinux!железо!RT5350}
 
-
 \section{Пакеты}\label{azpacks}
+
+\subsection{\file{versions.mk}: Версии пакетов}\label{azpackver}
+
+\subsubsection{\prog{tc}: кросс-компилятор}
+
+\lstx{mk/versions.mk}{}{azlin/doc/versions.cross}{mk}
+
+\subsubsection{\prog{core}: ядро}
+
+\lstx{mk/versions.mk}{}{azlin/doc/versions.core}{mk}
+
+\subsubsection{\prog{boot}: загрузчики}
+
+\lstx{mk/versions.mk}{}{azlin/doc/versions.boot}{mk}
+
+\subsubsection{\prog{libs}: библиотеки}
+
+\lstx{mk/versions.mk}{}{azlin/doc/versions.libs}{mk}
 
 \subsection{\prog{tc}: сборка кросс-компилятора} \label{aztc}
 
@@ -791,11 +810,11 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \end{itemize}
 \end{itemize}
 
-\lstx{ulibc/all}{}{azlin/ulibc/all.}{mk}
+\lstx{ulibc/all}{}{azlin/ulibc/all}{mk}
 
-\lstx{ulibc/arch/i386}{}{azlin/ulibc/arch/i386.}{mk}
+\lstx{ulibc/arch/i386}{}{azlin/ulibc/arch/i386}{mk}
 
-\lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx.}{mk}
+\lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
 
 \subsubsection{\prog{gcc}: пересборка полного \prog{gcc}} \label{azgcc}
 
@@ -840,9 +859,9 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   выражением} в переменной \file{ROOTREX}
 \end{enumerate}
 
-\lst{/etc/inittab}{}{azlin/etc/inittab.}
+\lst{/etc/inittab}{}{azlin/etc/inittab}
 
-\lstx{/etc/init.d/rcS}{}{azlin/etc/init.d/rcS.}{rc}
+\lstx{/etc/init.d/rcS}{}{azlin/etc/init.d/rcS}{rc}
 
 \begin{enumerate}
   \item создание системных каталогов
@@ -852,7 +871,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item вывод \file{README}
 \end{enumerate}
 
-\lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD.}{rc}
+\lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD}{rc}
 
 \subsection{\prog{boot}: сборка загрузчика
 \prog{syslinux}/\prog{grub}/\prog{uboot}} \label{azboot}
@@ -905,4 +924,4 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \section{Прошивка на устройство} \label{azfirmware}
 
-\chapter{Режим реального времени в \linux} \label{linrt}
+\section{RT-патч}

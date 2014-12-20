@@ -18,4 +18,6 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 
 # libs
 
+SDL = SDL2-$(SDL_VER)
+
 # extra

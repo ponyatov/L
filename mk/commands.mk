@@ -10,8 +10,12 @@ MAKE = $(XPATH) make -j$(CPU_CORES)
 
 CCACHE = ccache
 
-BCC = $(CCACHE) gcc -pipe
+BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
+
+TCC  = $(XPATH) $(CCACHE) $(CPU)-gcc -pipe
+TCXX = $(XPATH) $(CCACHE) $(CPU)-g++ -pipe
+STRIP = $(XPATH) $(CPU)-strip
 
 LDD = $(XPATH) $(CPU)-ldd
 LDCONFIG = $(XPATH) $(CPU)-ldconfig

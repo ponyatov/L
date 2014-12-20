@@ -4,6 +4,7 @@
 gz:
 	make gz_cc
 	make gz_core
+	make gz_libs
 	
 .PHONY: gz_cc
 gz_cc:
@@ -18,3 +19,7 @@ gz_core:
 	$(WGET) https://www.kernel.org/pub/linux/kernel/v3.x/$(KERNEL).tar.xz
 	$(WGET) http://www.uclibc.org/downloads/$(ULIBC).tar.xz
 	$(WGET) http://busybox.net/downloads/$(BUSYBOX).tar.bz2
+
+.PHONY: gz_libs
+gz_libs:
+	$(WGET) https://www.libsdl.org/release/$(SDL).tar.gz

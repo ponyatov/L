@@ -23,9 +23,10 @@ ROOT = $(PWD)/$(HW)$(APP)
 BOOT = $(ROOT)/boot
 ETC = $(ROOT)/etc
 USR = $(ROOT)/usr
+USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRLIB)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN) $(USRLIB)
 
 .PHONY: dirs
 dirs:

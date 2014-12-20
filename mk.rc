@@ -14,6 +14,9 @@ cat \
 	mk/kernel.mk \
 	mk/ulibc.mk \
 	mk/busybox.mk \
+	mk/libs.mk \
+	mk/apps.mk \
+	mk/user.mk \
 	mk/emu.mk \
 	mk/root.mk \
 	mk/boot.mk \
