@@ -20,6 +20,7 @@ BUSYBOX_VER = 1.22.1
 
 # libs
 
-SDL_VER = 2.0.3
+SDL_VER = 1.2.15
+# SDL_VER = 2.0.3 # can't cross compile it
 
 # extra

@@ -6,4 +6,7 @@ BCFG = configure --prefix=$(TC) \
 
 # target configure
 TCFG = configure --prefix=$(ROOT) \
-	CC="$(TCC)" CXX="$(TCXX)" 
+	CC="$(TCC) -static-libgcc" CXX="$(TCXX)" \
+	--build=$(BUILD) --host=$(TARGET) --target=$(TARGET)
+#	CROSS_COMPILE=$(TARGET)- \
+#	 

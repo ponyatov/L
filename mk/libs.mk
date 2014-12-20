@@ -1,3 +1,4 @@
+.PHONY: libs
+libs: $(LIBS)
 
-.PHONY: sdl
-sdl: $(SRC)/$(SDL)/README
+include mk/lib/sdl.mk

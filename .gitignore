@@ -12,3 +12,4 @@ x86_64-linux-gnu
 qemu386clock
 
 qemu386micro
+etc/README-SDL.txt
