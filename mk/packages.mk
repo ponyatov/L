@@ -22,4 +22,8 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 SDL = SDL-$(SDL_VER)
 SDL_IMAGE = SDL_image-$(SDL_IMAGE_VER)
 
+ZLIB = zlib-$(ZLIB_VER)
+
+PNG = libpng-$(PNG_VER)
+
 # extra
