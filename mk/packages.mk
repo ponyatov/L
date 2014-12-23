@@ -18,8 +18,8 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 
 # libs
 
-SDL = SDL-$(SDL_VER)
 # SDL2 not works with FB
-#SDL = SDL2-$(SDL_VER)
+SDL = SDL-$(SDL_VER)
+SDL_IMAGE = SDL_image-$(SDL_IMAGE_VER)
 
 # extra

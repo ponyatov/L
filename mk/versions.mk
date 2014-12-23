@@ -20,8 +20,8 @@ BUSYBOX_VER = 1.22.1
 
 # libs
 
-SDL_VER = 1.2.15
 # SDL2 not works with FB
-#SDL_VER = 2.0.3
+SDL_VER = 1.2.15
+SDL_IMAGE_VER = 1.2.12
 
 # extra
