@@ -9,5 +9,5 @@ hello: $(USRBIN)/hello
 # rules
 
 $(USRBIN)/%: user/%.c
-	$(TCC) -O2 -o $@ $< 
+	$(XPATH) $(TCC) -O2 -o $@ $< 
 #	&& $(STRIP) $@
