@@ -1,7 +1,7 @@
-\chapter{azLinux}
+\secrel{azLinux}\secdown
 
 Чтобы разобраться как можно собрать встраивамый \linux, в этом разделе описан
-набор \make-файлов и файлов конфигурации для сборки минимального \emlinux.
+набор \make-файлов и файлов конфигурации для сборки минимального em\linux.
 Это обрезанный форк проекта \href{https://github.com/user/cross}{Cross
 Linux}, подробнее описанного в разделе \ref{cross}. Ограничено количество
 поддерживаемого железа, упрощены конфигурационные файлы, минимизировано
@@ -72,7 +72,7 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 уходить на использование ширко известной системы кросс-сборки \linux-систем под
 названием \file{BuildRoot}\ref{buildroot}.
 
-\section{Требования к системе сборки (\file{BUILD}-хост)}
+\secrel{Требования к системе сборки (\file{BUILD}-хост)}
 
 Требования жесткие\ --- 2х-ядерный процессор, 2+\,Гб \ram, для 4+\, Гб \ram\
 нужен 64х-битный дистрибутив \linux\ (рекомедую Debian), и естественно никаких
@@ -85,19 +85,19 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 
 Можно попытаться сделать \term{билд-сервер}\ и на худшем железе, но будьте
 готовы к тормозам или внезапному окончанию памяти\ --- ресурсоемка сборка
-тяжелых библиотек типа \prog{libQt}\ или крупных пакетов типа \prog{gcc}.
+тяжелых библиотек типа \pack{libQt}\ или крупных пакетов типа \pack{gcc}.
 
 Вы можете попробовать поставить \linux\ на виртуалку, на флешку, и на жесткий
 диск (если найдете место) и оценить возможности этих вариантов на сборке пакета
-\prog{gcc0}. При сборке с флешки на ноутбуке с 2\,Гб \ram\ мне для сборки
-\prog{gcc0}\ пришлось временно размонтировать \file{cross/src}, сделать
+\pack{gcc0}. При сборке с флешки на ноутбуке с 2\,Гб \ram\ мне для сборки
+\pack{gcc0}\ пришлось временно размонтировать \file{cross/src}, сделать
 \file{./mk.rc \&\& make gcc ramclean}, а потом примонтировать \file{tmpfs}\
 опять на \file{src}.
 
 Сборка под MinGW/Cygwin совершенно неживая. Если совсем никак без винды\ ---
 используйте виртуалки, и будьте готовы ждать.
 
-\section{Понятие \term{пакет}}
+\secrel{Понятие \term{пакет}}
 
 Прежде чем продолжить, введем понятие \term{пакет}. В az\linux\ \term{пакетом}\
 называется одна или несколько частей скриптов сборки, обозначаемых именем. В
@@ -133,14 +133,14 @@ cd ~/az ; ./mk.rc && make somename
 поэтому для них правильнее будет фраза \term{запуск пакета}.
 
 \bigskip
-Все действия выполняются с помощью команды \prog{make}. Обратите особое
-внимание на то, что \file{Makefile}\ собирается скриптом \prog{mk.rc}\ из частей
+Все действия выполняются с помощью команды \pack{make}. Обратите особое
+внимание на то, что \file{Makefile}\ собирается скриптом \pack{mk.rc}\ из частей
 в каталоге \file{mk/}, поэтому \emph{если вы что-то меняете в скриптах, не
-забудьте сначала запустить \prog{./mk.rc}}.
+забудьте сначала запустить \pack{./mk.rc}}.
 
 \lstx{mk.rc}{}{../azlin/mk.rc}{rc}\index{azLinux!скрипт!mk.rc}
 
-\section{Клонирование проекта \prog{az\linux}} \label{azclone}
+\secrel{Клонирование проекта \pack{az\linux}} \label{azclone}
 
 При необходимости вносить правки\note{что естественно\ --- вам потребуется
 добавлять свои пакеты и поддержку железа}\ работайте с вашим
@@ -158,7 +158,7 @@ cd ~ ; git clone --depth=1 -o gh https://github.com/user/azlin az
 cd ~/az ; git pull
 \end{verbatim}
 
-\section{Общий порядок сборки}
+\secrel{Общий порядок сборки}
 
 Каждый пакет собирается командой:
 
@@ -167,33 +167,33 @@ cd ~/az ; git pull
 \end{verbatim}
 
 \begin{enumerate}
-  \item \prog{dirs} создание дерева каталогов \ref{azdirs} 
-  \item \prog{gz} закачка архивов исходников \ref{azgz} 
-  \item \prog{tc} сборка кросс-компилятора \ref{aztc}
+  \item \pack{dirs} создание дерева каталогов \ref{azdirs} 
+  \item \pack{gz} закачка архивов исходников \ref{azgz} 
+  \item \pack{tc} сборка кросс-компилятора \ref{aztc}
   \begin{enumerate}
-    \item \prog{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
-    \item \prog{cclibs} библиотеки для сборки \prog{gcc} \ref{azcclibs}
-    \item \prog{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
+    \item \pack{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
+    \item \pack{cclibs} библиотеки для сборки \pack{gcc} \ref{azcclibs}
+    \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
   \end{enumerate}
-  \item \prog{core} сборка основной системы \ref{azcore}
+  \item \pack{core} сборка основной системы \ref{azcore}
   \begin{enumerate}
-    \item \prog{kernel} ядро \linux\ \ref{azkernel}
-    \item \prog{ulibc} библиотека \prog{uClibc} \ref{azulibc}
-    \item \prog{busybox} набор утилит \prog{busybox} \ref{azbb}
-    \item \prog{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
+    \item \pack{kernel} ядро \linux\ \ref{azkernel}
+    \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
+    \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
+    \item \pack{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
   \end{enumerate}
-  \item \prog{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
-  \item \prog{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
-  \item \prog{user} сборка пользовательского кода \ref{azuser}
-  \item \prog{root} формирование корневой файловой системы \ref{azroot}
-  \item \prog{boot} сборка загрузчика \ref{azboot}
-   \prog{syslinux}/\prog{grub}/\prog{uboot}
-  \item \prog{emu} запуск собранной системы в эмуляторе \ref{azemu}
-  \item \prog{netboot} сетевая загрузка \ref{aznetboot}
-  \item \prog{firmware} прошивка на устройство \ref{azfirmware}
+  \item \pack{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
+  \item \pack{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
+  \item \pack{user} сборка пользовательского кода \ref{azuser}
+  \item \pack{root} формирование корневой файловой системы \ref{azroot}
+  \item \pack{boot} сборка загрузчика \ref{azboot}
+   \pack{syslinux}/\pack{grub}/\pack{uboot}
+  \item \pack{emu} запуск собранной системы в эмуляторе \ref{azemu}
+  \item \pack{netboot} сетевая загрузка \ref{aznetboot}
+  \item \pack{firmware} прошивка на устройство \ref{azfirmware}
 \end{enumerate}
 
-\section{Фиксация переменных}
+\secrel{Фиксация переменных}
 
 Если вам требуется собрать систему со значениями переменных, отличающихся от
 тех, которые прописаны в make-файлах, при запуске \emph{всех}\ пакетов нужно
@@ -207,9 +207,9 @@ cd ~/az ; git pull
 При таком указании все переназначения для этих переменных игнорируются, поэтому
 возможны некоторые сложности с указанием например опций оптимизации.
 
-\section{\prog{dirs}: Создание дерева каталогов} \label{azdirs}
+\secrel{\pack{dirs}: Создание дерева каталогов} \label{azdirs}
 
-После загрузки или обновления запустите пакет \prog{dirs}:
+После загрузки или обновления запустите пакет \pack{dirs}:
 
 \begin{verbatim}
 $ ./mk.rc && make dirs
@@ -237,12 +237,12 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 -rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
 \end{verbatim}
 
-Пакет \prog{dirs}\ прописан в файле
+Пакет \pack{dirs}\ прописан в файле
 
 \lstx{mk/dirs.mk}{}{../azlin/doc/dirs.mk}{mk}\index{azLinux!пакет!dirs}
 
 Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
-запущен \prog{make}.
+запущен \pack{make}.
 
 \bigskip
 Каталог зеркала архивов исхоных текстов программ
@@ -261,7 +261,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
-триплета используется подстановка строки, выдаваемой запуском \prog{gcc}.
+триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
 
 \lstx{BUILD}{}{../azlin/doc/build.dirs}{mk}\index{azLinux!переменная!BUILD}
 
@@ -283,11 +283,11 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 \lstx{DIRS}{}{../azlin/doc/dirs.dirs}{mk}\index{azLinux!переменная!DIRS}
 
-\section{\prog{gz}: Загрузка архивов исходников} \label{azgz}
+\secrel{\pack{gz}: Загрузка архивов исходников} \label{azgz}
 
 \lstx{mk/gz.mk}{}{azlin/mk/gz.mk}{mk}
 
-\section{APP: Приложение}\label{azapp}
+\secrel{APP: Приложение}\label{azapp}
 
 \term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
 в целом.
@@ -296,8 +296,8 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 переменную \file{APP}, доступные значения:
 
 \begin{enumerate}
-  \item \prog{micro}: минимальная версия системы, только командная консоль
-  \item \prog{clock}: простые \linux-powered электронные часы
+  \item \pack{micro}: минимальная версия системы, только командная консоль
+  \item \pack{clock}: простые \linux-powered электронные часы
 \end{enumerate}
 
 Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
@@ -324,7 +324,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 \lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
 
-\section{HW: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
+\secrel{HW: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
 переменную \file{HW}, доступные значения приведены в таблице:
@@ -446,7 +446,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \subsubsection{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
 \href{http://habrahabr.ru/post/242731/}{bswift}
 
-\section{CPU: Конфигурации процессоров}
+\secrel{CPU: Конфигурации процессоров}
 
 Настройки на процессор задаются в файле \file{cpu/\$\{CPU\}.mk}.
 
@@ -455,9 +455,9 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 ядра \\
 \file{TARGET} & \term{триплет целевой системы}, параметр задает тип целевой
 системы при сборке кросс-компилятора и используется во всех скриптах
-\prog{configure}\ при сборке остальных пакетов \\
+\pack{configure}\ при сборке остальных пакетов \\
 \file{CFG\_CPU} & параметры при сборке кросс-компилятора \\
-\file{CPU\_FLAGS} & параметры \prog{gcc}\ для оптимизации кода \\
+\file{CPU\_FLAGS} & параметры \pack{gcc}\ для оптимизации кода \\
 \end{tabular}
 
 \subsection{i386}
@@ -478,31 +478,31 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{azLinux!железо!RT5350}
 
-\section{Пакеты}\label{azpacks}
+\secrel{Пакеты}\label{azpacks}
 
 \subsection{\file{versions.mk}: Версии пакетов}\label{azpackver}
 
-\subsubsection{\prog{tc}: кросс-компилятор}
+\subsubsection{\pack{tc}: кросс-компилятор}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.cross}{mk}
 
-\subsubsection{\prog{core}: ядро}
+\subsubsection{\pack{core}: ядро}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.core}{mk}
 
-\subsubsection{\prog{boot}: загрузчики}
+\subsubsection{\pack{boot}: загрузчики}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.boot}{mk}
 
-\subsubsection{\prog{libs}: библиотеки}
+\subsubsection{\pack{libs}: библиотеки}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.libs}{mk}
 
-\subsection{\prog{tc}: сборка кросс-компилятора} \label{aztc}
+\subsection{\pack{tc}: сборка кросс-компилятора} \label{aztc}
 
 \lstx{}{}{azlin/mk/cross.mk}{mk}
 
-\subsubsection{\prog{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
+\subsubsection{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
 
 \begin{tabular}{l l}
 --target=\$(TARGET)& триплет целевой платформы\\
@@ -529,30 +529,30 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
 
-\subsubsection{\prog{cclibs}: библиотеки для сборки \prog{gcc}} \label{azcclibs}
+\subsubsection{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
 
-\prog{gmp} \prog{mpfr} \prog{mpc}
+\pack{gmp} \pack{mpfr} \pack{mpc}
 
-\subsubsection{\prog{gcc0}: сборка минимального кросс-компилятора Си}
+\subsubsection{\pack{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
 
-При сборке \prog{gcc0}/\prog{gcc} отключайте \prog{ccache}: кэш при разовых сборках
+При сборке \pack{gcc0}/\pack{gcc} отключайте \pack{ccache}: кэш при разовых сборках
 не работает, но при монтировании как tmpfs потребляет слишком много \ram:
 
 \begin{verbatim}
 ./mk.rc && make CCACHE= gcc0
 \end{verbatim}
 
-\subsubsection{\prog{gcc}: пересборка полного кросс-компилятора Си/\cpp}
+\subsubsection{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
 \label{azgcc}
 
-Пакет собирается \emph{после сборки \prog{core}}. 
+Пакет собирается \emph{после сборки \pack{core}}. 
 
-\subsection{\prog{core}: сборка основной системы} \label{azcore}
+\subsection{\pack{core}: сборка основной системы} \label{azcore}
 
 \lstx{mk/core.mk}{}{azlin/mk/core.mk}{mk}
 
-\subsubsection{\prog{kernel}: ядро \linux} \label{azkernel}
+\subsubsection{\pack{kernel}: ядро \linux} \label{azkernel}
 
 \lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
 
@@ -589,17 +589,17 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 Все параметры ядра идут с префиксом \file{CONFIG\_}:
 
 \begin{itemize}
-  \item \prog{core.mk}
+  \item \pack{core.mk}
   \begin{itemize}
     \item \file{CROSS\_COMPILE} префикс кросс-компилятора
     \verb#<pfx>-(gcc|as|ld..)#
     \item \file{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
     \item \file{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
   \end{itemize}
-  \item \prog{all} \emph{для всех платформ}
+  \item \pack{all} \emph{для всех платформ}
   \begin{itemize}
   \item \file{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
-  \item \file{KERNEL\_GZIP=y} ядро сжимать алгоритмом \prog{gzip}\note{важно для
+  \item \file{KERNEL\_GZIP=y} ядро сжимать алгоритмом \pack{gzip}\note{важно для
   загрузчиков на не-i386 системах}
 
   \item \emph{корневая файловая система в initrd/ramdisk}
@@ -609,7 +609,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \file{SYSFS=y} файловая подсистема \file{/sys}
   \item \file{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
   устройств)
-  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \prog{devfs} 
+  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs} 
   \end{itemize}
 
   \item \emph{режим реального времени\note{повышенная или
@@ -621,7 +621,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
   \item \emph{исполняемые форматы файлов}
   \begin{itemize}
-  \item \file{BINFMT\_ELF=y} бинарные файлы в формате \prog{ELF}
+  \item \file{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
   \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке 
   \item \file{COREDUMP=n} не писать \term{корки} при сбоях
   \end{itemize}
@@ -674,13 +674,13 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \end{itemize}
 
   \end{itemize}
-  \item \prog{arch} \emph{i386}
+  \item \pack{arch} \emph{i386}
   
   \begin{itemize}
   
 \item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров 
 
-\item \prog{UART/COM/RS232} \emph{последоваельные порты}
+\item \pack{UART/COM/RS232} \emph{последоваельные порты}
   \begin{itemize}
 \item \file{SERIAL\_8250=y} UART 8250/16550
 \item \file{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
@@ -714,7 +714,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
   \end{itemize}
 
-  \item \prog{cpu} \emph{i386} \file{i486sx}
+  \item \pack{cpu} \emph{i386} \file{i486sx}
 
 \begin{itemize}
   \item \file{M486=y}
@@ -722,10 +722,10 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   (FPU) в ядре
 \end{itemize}
    
-  \item \prog{hw} \emph{qemu386} \file{qemu386}
+  \item \pack{hw} \emph{qemu386} \file{qemu386}
   
 \begin{itemize}
-\item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \prog{QEMU} запускается
+\item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
 на процессорах Pentium и старше, которые всегда имеют аппаратный модуль
 плавающей точки
 \item \file{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
@@ -734,7 +734,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \item \file{HZ\_100=y} переключаемся на 100\,Hz
 \end{itemize}
 
-\item \prog{app} \emph{micro}
+\item \pack{app} \emph{micro}
 
 \begin{itemize}
 \item \file{FB=n} выключаем поддерку FrameBuffer,.. 
@@ -743,7 +743,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   
 \end{itemize}
 
-\subsubsection{\prog{ulibc}: библиотека \prog{uClibc}} \label{azulibc}
+\subsubsection{\pack{ulibc}: библиотека \pack{uClibc}} \label{azulibc}
 
 \lstx{mk/ulibc.mk}{}{azlin/mk/ulibc.mk}{mk}
 
@@ -753,9 +753,9 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
   переопределения переменных конфигурации:
   \begin{itemize}
-    \item \file{all} универсальные параметры \prog{ulibc} для всех платформ
+    \item \file{all} универсальные параметры \pack{ulibc} для всех платформ
     \item \file{arch} параметры, специфичные для архитектуры
-    \item \file{cpu} параметры, адаптирующие \prog{ulibc} к конкретному
+    \item \file{cpu} параметры, адаптирующие \pack{ulibc} к конкретному
     процессору (набор команд и оптимизация)
     \item \file{app} параметры, в основном \emph{отключаемые} для конкретного
     \term{приложения} (отключение shared библиотек и неиспользуемых групп
@@ -763,12 +763,12 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \end{itemize}
   \item установка параметров кросс-компиляции и \emph{пути к хедерам ядра} 
   \item запуск интерактивного меню конфигурирования, выйти с сохранением
-  \item сборка \prog{ulibc}
-  \item инсталляция в \prog{ROOT}
+  \item сборка \pack{ulibc}
+  \item инсталляция в \pack{ROOT}
   \item инсталляция утилит для работы с shared библиотеками \emph{на целевой
   системе}
   \item инсталляция утилит для \emph{\file{BUILD}-системы}
-  \item создание \file{/etc/ld.so.cache} (выполняется в пакете \prog{root})
+  \item создание \file{/etc/ld.so.cache} (выполняется в пакете \pack{root})
 \end{enumerate}
 \bigskip
 
@@ -804,7 +804,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \item \file{RUNTIME\_PREFIX=""}
 \item \file{DEVEL\_PREFIX=""}
 \end{itemize}
-\item \emph{опции необходимые \prog{busybox}}
+\item \emph{опции необходимые \pack{busybox}}
 \begin{itemize}
 \item \file{UCLIBC\_HAS\_CTYPE\_TABLES=y}
 \item \file{UCLIBC\_HAS\_NETWORK\_SUPPORT=y}
@@ -824,12 +824,12 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
 
-\subsubsection{\prog{gcc}: пересборка полного \prog{gcc}} \label{azgcc}
+\subsubsection{\pack{gcc}: пересборка полного \pack{gcc}} \label{azgcc}
 
-После сборки \prog{ulibc}\ необходимо еще раз пересобрать \prog{gcc}\ с полными
+После сборки \pack{ulibc}\ необходимо еще раз пересобрать \pack{gcc}\ с полными
 настройками.
 
-\subsubsection{\prog{busybox}: набор утилит \prog{busybox}} \label{azbb}
+\subsubsection{\pack{busybox}: набор утилит \pack{busybox}} \label{azbb}
 
 \lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
 
@@ -841,20 +841,20 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \end{enumerate}
 
 \bigskip
-Особенность \prog{busybox}\ --- скрипты конфигурации не умеют отрабатывать
+Особенность \pack{busybox}\ --- скрипты конфигурации не умеют отрабатывать
 переписывание переменных конфигурации, поэтому приходиться держать в
 \file{app/*.bb} настройки для каждого приложения полностью. Если вы создаете
 свое приложение, скопируйте \file{app/micro.bb} в качестве базовой версии вашего
 \file{app/userapp.bb}.
 
-\subsection{\prog{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
+\subsection{\pack{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
 
-\subsection{\prog{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
+\subsection{\pack{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
 \label{azapps}
 
-\subsection{\prog{user}: сборка пользовательского кода} \label{azuser}
+\subsection{\pack{user}: сборка пользовательского кода} \label{azuser}
 
-\subsection{\prog{root}: формирование корневой файловой системы} \label{azroot}
+\subsection{\pack{root}: формирование корневой файловой системы} \label{azroot}
 
 \lstx{mk/root.mk}{}{azlin/mk/root.mk}{mk}
 
@@ -863,7 +863,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item генерация \term{кеша динамических библиотек} \file{/etc/ld.so.cache}
   \item \file{/sbin/init} $\rightarrow$ \file{/init}
   \item \file{/share/}
-  \item создание \prog{initrd} используя фильтрацию файлов \term{регулярным
+  \item создание \pack{initrd} используя фильтрацию файлов \term{регулярным
   выражением} в переменной \file{ROOTREX}
 \end{enumerate}
 
@@ -873,7 +873,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \begin{enumerate}
   \item создание системных каталогов
-  \item запуск \term{демона} \prog{mdev}, обслуживающего \file{devfs}:
+  \item запуск \term{демона} \pack{mdev}, обслуживающего \file{devfs}:
   создание/удаление устройств в \file{/dev}, автомонтирование, загрузка
   прошивок,..
   \item вывод \file{README}
@@ -881,27 +881,27 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD}{rc}
 
-\subsection{\prog{boot}: сборка загрузчика
-\prog{syslinux}/\prog{grub}/\prog{uboot}} \label{azboot}
+\subsection{\pack{boot}: сборка загрузчика
+\pack{syslinux}/\pack{grub}/\pack{uboot}} \label{azboot}
 
 \lstx{mk/boot.mk}{}{azlin/mk/boot.mk}{mk}
 
-\subsubsection{\prog{syslinux}}
+\subsubsection{\pack{syslinux}}
 
-\subsubsection{\prog{grub}}
+\subsubsection{\pack{grub}}
 
-\subsubsection{\prog{uboot}}
+\subsubsection{\pack{uboot}}
 
-\section{\prog{emu}: запуск собранной системы в эмуляторе} \label{azemu}
+\secrel{\pack{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
 Для отладки кода, не связанного жестко с железом, для которого
-допускается выполнение в эмуляторе, используется \prog{QEMU}.
+допускается выполнение в эмуляторе, используется \pack{QEMU}.
 
 \lstx{mk/emu.mk}{}{azlin/mk/emu.mk}{mk}
 
 \lstx{hw/qemu386.mk}{}{azlin/hw/qemu386.mk}{mk}
 
-Переменная \verb|QEMU_CFG| задает параметры запуска \prog{QEMU}:
+Переменная \verb|QEMU_CFG| задает параметры запуска \pack{QEMU}:
 
 \begin{tabular}{l l}
 \file{-m} & объем \ram\ на эмулируемой системе \\
@@ -928,8 +928,10 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   Mode 0x0318: 1024x768 (+4096), 24 bits
 \end{verbatim}
 
-\section{\prog{netboot}: Сетевая загрузка} \label{aznetboot}
+\secrel{\pack{netboot}: Сетевая загрузка} \label{aznetboot}
 
-\section{Прошивка на устройство} \label{azfirmware}
+\secrel{Прошивка на устройство} \label{azfirmware}
 
-\section{RT-патч}
+\secrel{RT-патч}
+
+\secup
