@@ -23,3 +23,7 @@ gz_core:
 .PHONY: gz_libs
 gz_libs:
 	$(WGET) https://www.libsdl.org/release/$(SDL).tar.gz
+	$(WGET) https://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).tar.gz
+	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
+	$(WGET) http://zlib.net/$(ZLIB).tar.xz
+	

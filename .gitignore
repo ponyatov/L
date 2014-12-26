@@ -11,5 +11,7 @@ src
 
 qemu386micro
 qemu386micro.cross
+qemu386clock
+qemu386clock.cross
 
 etc/README-SDL.txt

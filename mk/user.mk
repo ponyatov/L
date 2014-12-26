@@ -6,8 +6,13 @@ user:
 .PHONY: hello
 hello: $(USRBIN)/hello 
 
+.PHONY: sdlrect
+sdlrect: $(USRBIN)/sdlrect 
+
 # rules
 
-$(USRBIN)/%: user/%.c
-	$(TCC) -O2 -o $@ $< 
+#$(USRBIN)/sdl%: user/sdl%.c mk/user.mk
+#	$(XPATH) $(TCC) -O2 -o $@ $< -lSDL -lSDLmain 
+$(USRBIN)/%: user/%.c mk/user.mk
+	$(XPATH) $(TCC) -O2 -o $@ $< -lSDL
 #	&& $(STRIP) $@

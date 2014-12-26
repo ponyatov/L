@@ -1,3 +1,3 @@
 # app: clock
-LIBS = sdl
+LIBS = zlib sdl
 APPS = hello
