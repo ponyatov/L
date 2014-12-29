@@ -7,7 +7,7 @@ Linux}, подробнее описанного в разделе \ref{cross}. �
 поддерживаемого железа, упрощены конфигурационные файлы, минимизировано
 количество библиотек и программных пакетов.
 
-\bigskip 
+\bigskip
 
 Изначально идея создания этой системы появилась из желания заменить тухлую
 связку x86/DOS/Tur\-bo\-Pas\-cal на что-то
@@ -99,10 +99,11 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 
 \secrel{Понятие \term{пакет}}
 
-Прежде чем продолжить, введем понятие \term{пакет}. В az\linux\ \term{пакетом}\
-называется одна или несколько частей скриптов сборки, обозначаемых именем. В
-чем-то это похоже на бинарные пакеты обычных дистрибутивов \linux\ --- чтобы
-добавить в систему какой-то функционал, мы устанавливаем \term{бинарный пакет}.
+Прежде чем продолжить, введем понятие \termdef{пакет}{пакет}. В az\linux\
+\term{пакетом}\ называется одна или несколько частей скриптов сборки,
+обозначаемых именем. В чем-то это похоже на бинарные пакеты обычных
+дистрибутивов \linux\ --- чтобы добавить в систему какой-то функционал, мы
+устанавливаем \term{бинарный пакет}.
 Но есть и отличие: пакет дистрибутива это реальный архивный файл, содержащий в
 себе файлы программ, данных; в az\linux\ пакет\ --- виртуальная штука с именем.
 
@@ -121,7 +122,7 @@ somename: [зависимые файлы]
 cd ~/az ; ./mk.rc && make somename
 \end{verbatim}
 
-запустится \term{сборка пакета}\ \pack{somename}.
+запустится \termdef{сборка пакета}{сборка пакета}\ \pack{somename}.
 
 Но не нужно забывать, что кроме этой секции в \file{.mk}, существуют зависимости
 между файлами, при работе команд сборки динамически создаются и изменяются
@@ -167,8 +168,8 @@ cd ~/az ; git pull
 \end{verbatim}
 
 \begin{enumerate}
-  \item \pack{dirs} создание дерева каталогов \ref{azdirs} 
-  \item \pack{gz} закачка архивов исходников \ref{azgz} 
+  \item \pack{dirs} создание дерева каталогов \ref{azdirs}
+  \item \pack{gz} закачка архивов исходников \ref{azgz}
   \item \pack{tc} сборка кросс-компилятора \ref{aztc}
   \begin{enumerate}
     \item \pack{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
@@ -354,7 +355,7 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 
 \lstx{mk/head.mk}{}{../azlin/mk/head.mk}{mk}
 
-\subsection{i386}\index{azLinux!железо!i386}
+\secrel{i386}\secdown\index{azLinux!железо!i386}
 
 Персоналки с архитектурой \file{i386}\ --- самое сложное семейство с точки
 зрения поддержки. Комбинации процессоров, материнских плат и плат расширений
@@ -363,15 +364,15 @@ PC/104 и промышленных панелей. Особенно достав
 имеет закрытые бинарные драйвера только для \win, поэтому будьте аккуратны с
 выбором железа.
 
-\subsubsection{qemu386: эмулятор QEMU}
+\secrel{qemu386: эмулятор QEMU}
 
 \lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}\index{azLinux!железо!QEMU}
 
-\subsubsection{eeepc701: ASUS Eee PC 701}
+\secrel{eeepc701: ASUS Eee PC 701}
 
 \lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{azLinux!железо!ASUS Eee PC 701}
 
-\subsubsection{gac1037: Gigabyte GA-C1037UN-EU rev.2}
+\secrel{gac1037: Gigabyte GA-C1037UN-EU rev.2}
 
 \begin{tabular}{p{0.45\textheight} p{0.45\textheight}}
 \includegraphics[height=0.45\textheight]{azlin/doc/gac1037.jpg} &
@@ -430,23 +431,29 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{hw/gac1037.mk}{}{../azlin/hw/gac1037.mk}{mk}\index{azLinux!железо!Gigabyte GA-C1037UN-EU}
 
-\subsection{ARM}
+\secup
 
-\subsubsection{qemuARM: эмулятор QEMU}
+\secrel{ARM}\secdown
+
+\secrel{qemuARM: эмулятор QEMU}
 \lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{azLinux!железо!QEMU}
-\subsubsection{cubie1: Cubie Board v.1}
-\subsubsection{rpi: Raspberry Pi model B}
-\subsection{MIPS}
-\subsubsection{qemuMIPS: эмулятор QEMU}
-\lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
-\subsubsection{mr3020: роутер MR3020}
-\href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
-\subsubsection{vocore: VoCore} \index{azLinux!железо!VoCore}
-\href{http://vocore.io/}{vocore}
-\subsubsection{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
-\href{http://habrahabr.ru/post/242731/}{bswift}
+\secrel{cubie1: Cubie Board v.1}
+\secrel{rpi: Raspberry Pi model B}
 
-\secrel{CPU: Конфигурации процессоров}
+\secup
+
+\secrel{MIPS}\secdown
+\secrel{qemuMIPS: эмулятор QEMU}
+\lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
+\secrel{mr3020: роутер MR3020}
+\href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
+\secrel{vocore: VoCore} \index{azLinux!железо!VoCore}
+\href{http://vocore.io/}{vocore}
+\secrel{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
+\href{http://habrahabr.ru/post/242731/}{bswift}
+\secup
+
+\secrel{CPU: Конфигурации процессоров}\secdown
 
 Настройки на процессор задаются в файле \file{cpu/\$\{CPU\}.mk}.
 
@@ -460,7 +467,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \file{CPU\_FLAGS} & параметры \pack{gcc}\ для оптимизации кода \\
 \end{tabular}
 
-\subsection{i386}
+\secrel{i386}
 
 \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
 \index{azLinux!железо!i486sx}
@@ -471,38 +478,40 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \lstx{cpu/Celeron1037U.mk}{}{azlin/cpu/Celeron1037U.mk}{mk}
 \index{azLinux!железо!Celeron1037U}
 
-\subsection{ARM}
-\subsection{MIPS}
+\secrel{ARM}
+\secrel{MIPS}
 
 \lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}\index{azLinux!железо!AR7240}
 
 \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{azLinux!железо!RT5350}
 
-\secrel{Пакеты}\label{azpacks}
+\secup
 
-\subsection{\file{versions.mk}: Версии пакетов}\label{azpackver}
+\secrel{Пакеты}\secdown\label{azpacks}
 
-\subsubsection{\pack{tc}: кросс-компилятор}
+\secrel{\file{versions.mk}: Версии пакетов}\label{azpackver}
+
+\secrel{\pack{tc}: кросс-компилятор}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.cross}{mk}
 
-\subsubsection{\pack{core}: ядро}
+\secrel{\pack{core}: ядро}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.core}{mk}
 
-\subsubsection{\pack{boot}: загрузчики}
+\secrel{\pack{boot}: загрузчики}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.boot}{mk}
 
-\subsubsection{\pack{libs}: библиотеки}
+\secrel{\pack{libs}: библиотеки}
 
 \lstx{mk/versions.mk}{}{azlin/doc/versions.libs}{mk}
 
-\subsection{\pack{tc}: сборка кросс-компилятора} \label{aztc}
+\secrel{\pack{tc}: сборка кросс-компилятора} \label{aztc}
 
 \lstx{}{}{azlin/mk/cross.mk}{mk}
 
-\subsubsection{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
+\secrel{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
 
 \begin{tabular}{l l}
 --target=\$(TARGET)& триплет целевой платформы\\
@@ -529,11 +538,11 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
 
-\subsubsection{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
+\secrel{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
 
 \pack{gmp} \pack{mpfr} \pack{mpc}
 
-\subsubsection{\pack{gcc0}: сборка минимального кросс-компилятора Си}
+\secrel{\pack{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
 
 При сборке \pack{gcc0}/\pack{gcc} отключайте \pack{ccache}: кэш при разовых сборках
@@ -543,16 +552,16 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 ./mk.rc && make CCACHE= gcc0
 \end{verbatim}
 
-\subsubsection{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
+\secrel{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
 \label{azgcc}
+% 
+Пакет собирается \emph{после сборки \pack{core}}.
 
-Пакет собирается \emph{после сборки \pack{core}}. 
-
-\subsection{\pack{core}: сборка основной системы} \label{azcore}
+\secrel{\pack{core}: сборка основной системы} \label{azcore}
 
 \lstx{mk/core.mk}{}{azlin/mk/core.mk}{mk}
 
-\subsubsection{\pack{kernel}: ядро \linux} \label{azkernel}
+\secrel{\pack{kernel}: ядро \linux} \label{azkernel}
 
 \lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
 
@@ -609,7 +618,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \file{SYSFS=y} файловая подсистема \file{/sys}
   \item \file{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
   устройств)
-  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs} 
+  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs}
   \end{itemize}
 
   \item \emph{режим реального времени\note{повышенная или
@@ -622,7 +631,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \emph{исполняемые форматы файлов}
   \begin{itemize}
   \item \file{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
-  \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке 
+  \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке
   \item \file{COREDUMP=n} не писать \term{корки} при сбоях
   \end{itemize}
 
@@ -635,7 +644,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
   \item \emph{клавиатура}
   \begin{itemize}
-  \item \file{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры 
+  \item \file{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры
   \end{itemize}
 
   \item \emph{мышь}
@@ -648,8 +657,8 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \emph{USB HID: устройства ввода без драйверов (клавиатура, мышь,
   джойстик, самодельные кнопки)\\включение поддержки USB на i386 не требуется}
   \begin{itemize}
-  \item \file{HID=y} [H]uman [I]nterface [D]evice  
-  \item \file{HID\_GENERIC=y} универсальный драйвер USB HID Class 
+  \item \file{HID=y} [H]uman [I]nterface [D]evice
+  \item \file{HID\_GENERIC=y} универсальный драйвер USB HID Class
   \end{itemize}
 
   \item \emph{Графический режим \term{FrameBuffer}}
@@ -665,7 +674,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \emph{Отладка и \term{printk} лог ядра}
   \begin{itemize}
   \item \file{DEBUG\_KERNEL=y} включение отладочных функций ядра
-  \item \file{EARLY\_PRINTK=y} вывод пусковой части ядра 
+  \item \file{EARLY\_PRINTK=y} вывод пусковой части ядра
   \item \file{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
   \item \file{PRINTK\_TIME=y} выводить метки времени (для отладки времени
   запуска)
@@ -675,10 +684,10 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
   \end{itemize}
   \item \pack{arch} \emph{i386}
-  
+
   \begin{itemize}
-  
-\item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров 
+
+\item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров
 
 \item \pack{UART/COM/RS232} \emph{последоваельные порты}
   \begin{itemize}
@@ -721,9 +730,9 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   \item \file{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
   (FPU) в ядре
 \end{itemize}
-   
+
   \item \pack{hw} \emph{qemu386} \file{qemu386}
-  
+
 \begin{itemize}
 \item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
 на процессорах Pentium и старше, которые всегда имеют аппаратный модуль
@@ -737,13 +746,13 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \item \pack{app} \emph{micro}
 
 \begin{itemize}
-\item \file{FB=n} выключаем поддерку FrameBuffer,.. 
+\item \file{FB=n} выключаем поддерку FrameBuffer,..
 \item \file{INPUT\_MOUSE=n} мыши
 \end{itemize}
-  
+
 \end{itemize}
 
-\subsubsection{\pack{ulibc}: библиотека \pack{uClibc}} \label{azulibc}
+\secrel{\pack{ulibc}: библиотека \pack{uClibc}} \label{azulibc}
 
 \lstx{mk/ulibc.mk}{}{azlin/mk/ulibc.mk}{mk}
 
@@ -761,7 +770,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
     \term{приложения} (отключение shared библиотек и неиспользуемых групп
     функций)
   \end{itemize}
-  \item установка параметров кросс-компиляции и \emph{пути к хедерам ядра} 
+  \item установка параметров кросс-компиляции и \emph{пути к хедерам ядра}
   \item запуск интерактивного меню конфигурирования, выйти с сохранением
   \item сборка \pack{ulibc}
   \item инсталляция в \pack{ROOT}
@@ -809,7 +818,7 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \item \file{UCLIBC\_HAS\_CTYPE\_TABLES=y}
 \item \file{UCLIBC\_HAS\_NETWORK\_SUPPORT=y}
 \item \file{UCLIBC\_HAS\_FNMATCH=y}
-\item \file{UCLIBC\_HAS\_GNU\_GETOPT=y} 
+\item \file{UCLIBC\_HAS\_GNU\_GETOPT=y}
 \item \file{UCLIBC\_HAS\_REGEX=y}
 \item \file{UCLIBC\_SUSV3\_LEGACY=y}
 \end{itemize}
@@ -824,12 +833,12 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
 
-\subsubsection{\pack{gcc}: пересборка полного \pack{gcc}} \label{azgcc}
+\secrel{\pack{gcc}: пересборка полного \pack{gcc}} \label{azgcc}
 
 После сборки \pack{ulibc}\ необходимо еще раз пересобрать \pack{gcc}\ с полными
 настройками.
 
-\subsubsection{\pack{busybox}: набор утилит \pack{busybox}} \label{azbb}
+\secrel{\pack{busybox}: набор утилит \pack{busybox}} \label{azbb}
 
 \lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
 
@@ -847,14 +856,14 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 свое приложение, скопируйте \file{app/micro.bb} в качестве базовой версии вашего
 \file{app/userapp.bb}.
 
-\subsection{\pack{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
+\secrel{\pack{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
 
-\subsection{\pack{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
+\secrel{\pack{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
 \label{azapps}
 
-\subsection{\pack{user}: сборка пользовательского кода} \label{azuser}
+\secrel{\pack{user}: сборка пользовательского кода} \label{azuser}
 
-\subsection{\pack{root}: формирование корневой файловой системы} \label{azroot}
+\secrel{\pack{root}: формирование корневой файловой системы} \label{azroot}
 
 \lstx{mk/root.mk}{}{azlin/mk/root.mk}{mk}
 
@@ -881,16 +890,16 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD}{rc}
 
-\subsection{\pack{boot}: сборка загрузчика
+\secrel{\pack{boot}: сборка загрузчика
 \pack{syslinux}/\pack{grub}/\pack{uboot}} \label{azboot}
 
 \lstx{mk/boot.mk}{}{azlin/mk/boot.mk}{mk}
 
-\subsubsection{\pack{syslinux}}
+\secrel{\pack{syslinux}}
 
-\subsubsection{\pack{grub}}
+\secrel{\pack{grub}}
 
-\subsubsection{\pack{uboot}}
+\secrel{\pack{uboot}}
 
 \secrel{\pack{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
@@ -927,6 +936,8 @@ TFT & китайский 3.5'' автомониторчик + конвертер
   Mode 0x0317: 1024x768 (+2048), 16 bits
   Mode 0x0318: 1024x768 (+4096), 24 bits
 \end{verbatim}
+
+\secup
 
 \secrel{\pack{netboot}: Сетевая загрузка} \label{aznetboot}
 
