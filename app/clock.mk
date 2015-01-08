@@ -1,3 +1,4 @@
 # app: clock
 LIBS = sdl
-APPS = hello
+APPS = hello sdlrect
+
