@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main( int argc, char *argv[]) {
-	printf("\nHell of World !\n");
+	printf("\nHell of World !\n\n");
 	return 0;
 }
 

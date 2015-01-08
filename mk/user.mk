@@ -11,8 +11,9 @@ sdlrect: $(USRBIN)/sdlrect
 
 # rules
 
-#$(USRBIN)/sdl%: user/sdl%.c mk/user.mk
-#	$(XPATH) $(TCC) -O2 -o $@ $< -lSDL -lSDLmain 
+$(USRBIN)/sdl%: user/sdl%.c mk/user.mk
+	$(XPATH) $(TCC) -O2 -o $@ $< -lSDL -lSDLmain 
 $(USRBIN)/%: user/%.c mk/user.mk
-	$(XPATH) $(TCC) -O2 -o $@ $< -lSDL
+	$(XPATH) $(TCC) -O2 -o $@ $<
 #	&& $(STRIP) $@
+
