@@ -1,2 +1,2 @@
 .PHONY: core
-core: kernel ulibc busybox gcc
+core: kernel ulibc gcc busybox
