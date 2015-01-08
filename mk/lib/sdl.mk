@@ -8,7 +8,7 @@ CFG_SDL_MAIN = $(CFG_CPU) \
 CFG_SDL_IMAGE = 
 
 .PHONY: sdl
-sdl: sdl_main sdl_image
+sdl: sdl_main
 
 .PHONY: sdl_main
 sdl_main: $(SRC)/$(SDL)/README
