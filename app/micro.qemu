@@ -1,1 +1,2 @@
-QEMU_VGA = vga=5
+QEMU_VGA = vga=4
+
