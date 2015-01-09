@@ -2,7 +2,8 @@
 CFG_BINUTILS = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
-	--enable-lto
+	--enable-lto \
+	--disable-docs --enable-targets=x86
 
 CFG_CCLIBS = --disable-shared \
 	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
@@ -20,8 +21,8 @@ CFG_GCC = $(CFG_BINUTILS) $(CFG_CCLIBS) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c,c++"
 
-.PHONY: tc
-tc: binutils cclibs gcc0
+.PHONY: cross
+cross: binutils cclibs gcc0
 
 .PHONY: binutils
 binutils: $(SRC)/$(BINUTILS)/README
