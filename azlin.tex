@@ -805,7 +805,8 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \end{itemize}
 \item \emph{многопоточные \term{threads} программы }
 \begin{itemize}
-  \item \file{LINUXTHREADS\_NEW=y} новый вариант потоков
+  \item \file{LINUXTHREADS\_OLD=y} \emph{старый} вариант потоков, новый вызывает
+  segfault при использовании ключей gcc -lpthread и использовании shared ulibc
 \end{itemize}
 \item \emph{параметры установки}
 \begin{itemize}

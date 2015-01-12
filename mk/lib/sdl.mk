@@ -1,6 +1,7 @@
 CFG_SDL_MAIN = $(CFG_CPU) \
 	--disable-audio \
-	--disable-joystick
+	--disable-joystick \
+	--disable-audio
  
 #	--disable-assembly \
 #	--enable-video-fbcon
