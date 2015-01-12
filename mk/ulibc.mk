@@ -28,4 +28,4 @@ ulibc: $(SRC)/$(ULIBC)/README
 	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(TARGET)-ldconfig
 	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(TARGET)-getconf
 	# 9 (in root package)
-	# $(LDCONFIG) -v -r $(ROOT)
+	# ldconfig in root.mk
