@@ -6,10 +6,12 @@ CFG_SDL_MAIN = $(CFG_CPU) \
 #	--disable-assembly \
 #	--enable-video-fbcon
 
-CFG_SDL_IMAGE = 
+CFG_SDL_IMAGE =
+
+CFG_SDL_TTF = 
 
 .PHONY: sdl
-sdl: sdl_main sdl_image
+sdl: sdl_main sdl_image sdl_ttf
 
 .PHONY: sdl_main
 sdl_main: $(SRC)/$(SDL)/README
@@ -27,6 +29,14 @@ sdl_image: $(SRC)/$(SDL_IMAGE)/README
 	cd $(TMP)/$(SDL_IMAGE) &&\
 	$(XPATH) $(SRC)/$(SDL_IMAGE)/$(TCFG) $(CFG_SDL_IMAGE) &&\
 	$(XPATH) $(MAKE) install
+	
+.PHONY: sdl_ttf
+sdl_ttf: $(SRC)/$(SDL_TTF)/README
+	rm -rf $(TMP)/$(SDL_TTF) && mkdir $(TMP)/$(SDL_TTF) &&\
+	cd $(TMP)/$(SDL_TTF) &&\
+	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF) 
+#	&&\
+#	$(XPATH) $(MAKE) install
 	
 ##$(SRC)/$(SDL)/README-SDL.txt: 
 ##etc/README-SDL.txt:  

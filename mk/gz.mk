@@ -2,6 +2,7 @@
 
 .PHONY: gz
 gz:
+#	exit -1
 	make gz_cc
 	make gz_core
 	make gz_libs
@@ -24,6 +25,8 @@ gz_core:
 gz_libs:
 	$(WGET) https://www.libsdl.org/release/$(SDL).tar.gz
 	$(WGET) https://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).tar.gz
+	$(WGET) http://www.libsdl.org/projects/SDL_ttf/release/$(SDL_TTF).tar.gz
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
+	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
 	
