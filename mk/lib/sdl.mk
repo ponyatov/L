@@ -9,7 +9,7 @@ CFG_SDL_MAIN = $(CFG_CPU) \
 CFG_SDL_IMAGE = 
 
 .PHONY: sdl
-sdl: sdl_main
+sdl: sdl_main sdl_image
 
 .PHONY: sdl_main
 sdl_main: $(SRC)/$(SDL)/README
@@ -25,7 +25,8 @@ sdl_main: $(SRC)/$(SDL)/README
 sdl_image: $(SRC)/$(SDL_IMAGE)/README
 	rm -rf $(TMP)/$(SDL_IMAGE) && mkdir $(TMP)/$(SDL_IMAGE) &&\
 	cd $(TMP)/$(SDL_IMAGE) &&\
-	$(XPATH) $(SRC)/$(SDL_IMAGE)/$(TCFG) $(CFG_SDL_IMAGE)
+	$(XPATH) $(SRC)/$(SDL_IMAGE)/$(TCFG) $(CFG_SDL_IMAGE) &&\
+	$(XPATH) $(MAKE) install
 	
 ##$(SRC)/$(SDL)/README-SDL.txt: 
 ##etc/README-SDL.txt:  
