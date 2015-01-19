@@ -1,0 +1,6 @@
+# kernel options for arm(hf)
+
+# generic arm options
+CONFIG_MMU=y
+CONFIG_ARCH_MULTIPLATFORM=y
+CONFIG_AEABI=y

@@ -1,0 +1,5 @@
+# kernel options for RaspberryP Pi BCM2835
+CONFIG_ARCH_MULTI_V6=y
+CONFIG_ARCH_BCM=y
+CONFIG_ARCH_BCM2835=y
+CONFIG_VFP=y

@@ -15,3 +15,5 @@ qemu386clock
 qemu386clock.cross
 
 etc/README-SDL.txt
+RPiBmicro
+RPiBmicro.cross

@@ -1,1 +1,3 @@
-CFG_ARCH = --enable-interwork
+TARGET = arm-linux-uclibceabihf
+CFG_ARCH = --with-float=hard
+#--disable-interwork

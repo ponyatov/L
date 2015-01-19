@@ -3,7 +3,7 @@ CFG_BINUTILS = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
 	--enable-lto \
-	--disable-docs --enable-targets=x86
+	--disable-docs
 
 CFG_CCLIBS = --disable-shared \
 	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
