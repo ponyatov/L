@@ -29,6 +29,6 @@ ZLIB_VER = 1.2.8
 
 PNG_VER = 1.6.15
 
-FREETYPE_VER = 2.5.2
+FREETYPE_VER = 2.5.5
 
 # extra

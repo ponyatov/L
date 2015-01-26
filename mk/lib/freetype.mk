@@ -1,4 +1,5 @@
-CFG_FREETYPE = --without-png
+CFG_FREETYPE = --disable-shared 
+#--disable-static
 
 .PHONY: freetype
 freetype: $(SRC)/$(FREETYPE)/README
