@@ -21,7 +21,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
 	# 6
 	make kernel-$(ARCH)-fix
-	cp $(SRC)/$(KERNEL)/arch/x86/boot/zImage $(BOOT)/$(HW)$(APP).kernel
+	cp $(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
 	# 7
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) headers_install
 	
