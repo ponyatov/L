@@ -1,6 +1,5 @@
-BINHOST_CFG = --target=$(TARGET) \
-	--prefix=$(ROOT)/binhost --disable-werror --disable-debug
-#$(CFG_ARCH) $(CFG_CPU) \
+BINHOST_CFG = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
+	--prefix=$(USR) --disable-werror
 
 .PHONY: binhost
 binhost: $(SRC)/$(BINUTILS)/README
