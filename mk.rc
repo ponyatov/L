@@ -20,4 +20,5 @@ cat \
 	mk/emu.mk \
 	mk/root.mk \
 	mk/boot.mk \
+	mk/info.mk \
 > Makefile
