@@ -49,3 +49,6 @@ UCLIBC_SUSV3_LEGACY=y
 #UCLIBC_HAS_SYSLOG=y
 ## ALSA needs
 #UCLIBC_HAS_BSD_ERR=y
+
+# canadian cross needs
+UCLIBC_HAS_WCHAR=y
