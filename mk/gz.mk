@@ -6,6 +6,7 @@ gz:
 	make gz_cc
 	make gz_core
 	make gz_libs
+	make gz_sdk
 	
 .PHONY: gz_cc
 gz_cc:
@@ -29,4 +30,8 @@ gz_libs:
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
-	
+
+.PHONY: gz_sdk
+gz_sdk:
+	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/$(FPC).source.tar.gz
+	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/fpcbuild-$(FPC_VER).tar.gz

@@ -32,3 +32,7 @@ PNG_VER = 1.6.15
 FREETYPE_VER = 2.5.5
 
 # extra
+
+## SDK
+### Pascal
+FPC_VER = 2.6.4

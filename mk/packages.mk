@@ -30,3 +30,6 @@ PNG = libpng-$(PNG_VER)
 FREETYPE = freetype-$(FREETYPE_VER)
 
 # extra
+## SDK
+### PASCAL
+FPC = fpc-$(FPC_VER)
