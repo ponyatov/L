@@ -14,7 +14,7 @@ canadian: $(SRC)/$(BINUTILS)/README
 binhost:
 	make canadian \
 		P="--prefix=$(USR)" \
-		T="--target=$(TARGET) $(CFG_ARCH) $(CFG_CPU)"
+		T="--target=$(TARGET) --program-prefix=$(TARGET)- $(CFG_ARCH) $(CFG_CPU)"
 
 #BINHOST_CFG = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 #	--prefix=$(USR) --disable-werror
