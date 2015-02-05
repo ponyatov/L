@@ -16,6 +16,13 @@ binhost:
 		P="--prefix=$(USR)" \
 		T="--target=$(TARGET) --program-prefix=$(TARGET)- $(CFG_ARCH) $(CFG_CPU)"
 
+.PHONY: binavr
+binavr:
+	make canadian \
+		P="--prefix=$(USR)" \
+		T="--target=avr --program-prefix=avr-"
+#		 $(CFG_ARCH) $(CFG_CPU)"
+
 #BINHOST_CFG = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 #	--prefix=$(USR) --disable-werror
 #
