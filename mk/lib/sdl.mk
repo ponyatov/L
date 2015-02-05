@@ -11,7 +11,8 @@ CFG_SDL_IMAGE =
 CFG_SDL_TTF = 
 
 .PHONY: sdl
-sdl: sdl_main sdl_image sdl_ttf
+sdl: sdl_main sdl_image
+# sdl_ttf
 
 .PHONY: sdl_main
 sdl_main: $(SRC)/$(SDL)/README
