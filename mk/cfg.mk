@@ -1,7 +1,9 @@
 # autotools configure
 
 CFG = configure --disable-nls --disable-werror \
-	--with-docdir=$(TMP)/doc --docdir=$(TMP)/doc
+	--docdir=$(TMP)/doc \
+	--mandir=$(TMP)/man \
+	--infodir=$(TMP)/info
 
 # build host configure
 BCFG = $(CFG) --prefix=$(TC) \
