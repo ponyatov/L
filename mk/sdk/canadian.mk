@@ -1,6 +1,7 @@
 # canadian cross
 
 CFG_CANADIAN = 
+#--libdir=$(ROOT)/lib --bindir=$(ROOT)/bin
 
 .PHONY: canadian
 canadian: $(SRC)/$(BINUTILS)/README
@@ -12,7 +13,7 @@ canadian: $(SRC)/$(BINUTILS)/README
 .PHONY: binhost
 binhost:
 	make canadian \
-		P="--prefix=$(ROOT)/$(TARGET)" \
+		P="--prefix=$(USR)" \
 		T="--target=$(TARGET) $(CFG_ARCH) $(CFG_CPU)"
 
 #BINHOST_CFG = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
