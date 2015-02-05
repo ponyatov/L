@@ -14,7 +14,7 @@ cat \
 	mk/kernel.mk \
 	mk/ulibc.mk \
 	mk/busybox.mk \
-	mk/sdk/binhost.mk \
+	mk/sdk/canadian.mk \
 	mk/sdk/pascal.mk \
 	mk/user.mk \
 	mk/libs.mk \

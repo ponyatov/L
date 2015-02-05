@@ -1,6 +1,7 @@
 # autotools configure
 
-CFG = configure --disable-nls
+CFG = configure --disable-nls --disable-werror \
+	--with-docdir=$(TMP)/doc --docdir=$(TMP)/doc
 
 # build host configure
 BCFG = $(CFG) --prefix=$(TC) \
@@ -10,9 +11,3 @@ BCFG = $(CFG) --prefix=$(TC) \
 TCFG = $(CFG) --prefix=$(ROOT) \
 	CC="$(TCC)" CXX="$(TCXX)" \
 	--host=$(TARGET) CROSS_COMPILE=$(TARGET)-
-
-# canadian configure
-XCFG = $(CFG)  \
-	CC="$(TCC)" CXX="$(TCXX)" \
-	--host=$(TARGET) 
-#	CROSS_COMPILE=$(TARGET)-
