@@ -2,6 +2,7 @@
 CFG_GMP = 
 #$(CFG_CCLIBS)
 CFG_MPFR =
+CFG_MPC =
 
 .PHONY: gmp
 gmp: $(SRC)/$(GMP)/README
@@ -15,4 +16,11 @@ mpfr: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) &&\
 	cd $(TMP)/$(MPFR) &&\
 	$(XPATH) $(SRC)/$(MPFR)/$(TCFG) $(CFG_MPFR) &&\
+	$(XPATH) $(MAKE) && $(XPATH) $(INSTALL)
+
+.PHONY: mpc
+mpc: $(SRC)/$(MPC)/README
+	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) &&\
+	cd $(TMP)/$(MPC) &&\
+	$(XPATH) $(SRC)/$(MPC)/$(TCFG) $(CFG_MPC) &&\
 	$(XPATH) $(MAKE) && $(XPATH) $(INSTALL)
