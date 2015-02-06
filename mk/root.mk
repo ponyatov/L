@@ -1,5 +1,4 @@
-ROOTREX = "./boot"
-#"./(boot|include|lib/.*\.[ao])"
+ROOTREX = "./(boot|include|lib/.*\.(o|a|la)|lib/pkgconfig)"
 
 .PHONY: root
 root:
