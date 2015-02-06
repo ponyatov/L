@@ -1,23 +1,13 @@
 # canadian cross
 
-
 CFG_CCLIBS = --with-gmp=$(ROOT) --with-mpfr=$(ROOT) --with-mpc=$(ROOT) 
-
-CFG_GMP = $(CFG_CCLIBS)
 
 CFG_CAN_BIN = --prefix=$(USR)
 #--enable-lto
-CFG_CAN_GCC = $(CFG_CAN_BIN) $(CFG_CAN_LIBS) \
+CFG_CAN_GCC = $(CFG_CAN_BIN) $(CFG_CCLIBS) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c"
 	
-.PHONY: gmp
-gmp: $(SRC)/$(GMP)/README
-	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
-	cd $(TMP)/$(GMP) &&\
-	$(XPATH) $(SRC)/$(GMP)/$(TCFG) $(CFG_GMP) &&\
-	$(XPATH) $(MAKE) && $(XPATH) $(INSTALL)
-
 .PHONY: canadian
 canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 #	# binutils
