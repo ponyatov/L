@@ -7,6 +7,8 @@ WGET = wget -N -P $(GZ)
 CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l) 
 
 MAKE = $(XPATH) make -j$(CPU_CORES)
+INSTALL = $(XPATH) strace -f -o $(PACK)/$(PN).strace make install
+#	-e trace=file 
 
 CCACHE = ccache
 
