@@ -1,10 +1,8 @@
 # canadian cross
 
-CFG_CCLIBS = --with-gmp=$(ROOT) --with-mpfr=$(ROOT) --with-mpc=$(ROOT) 
-
-CFG_CAN_BIN = --prefix=$(USR)
+CFG_CAN_BIN = --prefix=$(USR) 
 #--enable-lto
-CFG_CAN_GCC = $(CFG_CAN_BIN) $(CFG_CCLIBS) \
+CFG_CAN_GCC = $(CFG_CAN_BIN) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c"
 	
@@ -21,6 +19,7 @@ canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
 		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
+	cd $(TMP)/$(GCC) &&	$(XPATH) $(MAKE) all-gcc 
 
 .PHONY: binhost
 binhost:
