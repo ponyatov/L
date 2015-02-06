@@ -1,14 +1,24 @@
 # canadian cross
 
-CFG_CANADIAN = --prefix=$(USR)
+CFG_CAN_BIN = --prefix=$(USR)
+#--enable-lto
+CFG_CAN_GCC = $(CFG_CAN_BIN) \
+	--enable-threads --enable-libgomp \
+	--enable-languages="c"
 
 .PHONY: canadian
-canadian: $(SRC)/$(BINUTILS)/README
-	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
-	cd $(TMP)/$(BINUTILS) &&\
-	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
-		$(CFG_CANADIAN) --target=$(T) $(O) --program-prefix=$(P) &&\
-	$(MAKE) && $(INSTALL)-strip
+canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
+#	# binutils
+#	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
+#	cd $(TMP)/$(BINUTILS) &&\
+#	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
+#		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
+#	$(MAKE) && $(INSTALL)-strip
+	# gcc
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
+		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
 
 .PHONY: binhost
 binhost:
@@ -22,7 +32,7 @@ bin486:
 binavr:
 	make canadian T=avr P=avr- O=
 
-.PHONY: bincm3
-bincm3:
-	make canadian T=arm-none-eabi P=cm3- \
-		O="--with-cpu=cortex-m3 --enable-interwork"
+.PHONY: bincmx
+bincmx:
+	make canadian T=arm-none-eabi P=cmx- \
+		O="--enable-interwork --disable-multilib"
