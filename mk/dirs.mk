@@ -25,9 +25,8 @@ ETC = $(ROOT)/etc
 USR = $(ROOT)/usr
 USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
-PACK = $(ROOT)/pack
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN) $(USRLIB)
 
 .PHONY: dirs
 dirs:
