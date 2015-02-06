@@ -1,4 +1,7 @@
 # QEMU emulator: i386 mode
 CPU = i486sx
 QEMU_CFG = -m 32M -net none \
-	-append "vga=4"
+	-append "vga=0x312"
+#vga=ask
+#0x312 640x480x24	
+#0x315 800x600x24	

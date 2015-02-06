@@ -27,8 +27,9 @@ kernel: $(SRC)/$(KERNEL)/README
 	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:
-	cp $(SRC)/$(KERNEL)/arch/x86/boot/bzImage \
-		$(SRC)/$(KERNEL)/arch/x86/boot/zImage
+	cp \
+		$(SRC)/$(KERNEL)/arch/$(ARCH)/boot/bzImage \
+		$(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage
 
 .PHONY: kernel-arm-fix
 kernel-arm-fix:
