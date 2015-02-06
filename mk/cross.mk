@@ -4,12 +4,12 @@ CFG_BINUTILS = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-native-system-header-dir=/include \
 	--enable-lto
 
-CFG_CCLIBS = --disable-shared \
+CFG_CCLIBS0 = --disable-shared \
 	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
 	
-CFG_GMP = $(CFG_CCLIBS)
-CFG_MPFR = $(CFG_CCLIBS)
-CFG_MPC = $(CFG_CCLIBS)
+CFG_GMP0 = $(CFG_CCLIBS0)
+CFG_MPFR0 = $(CFG_CCLIBS0)
+CFG_MPC0 = $(CFG_CCLIBS0)
 
 CFG_GCC0 = $(CFG_BINUTILS) $(CFG_CCLIBS) \
 	--disable-shared --disable-threads \
@@ -30,28 +30,28 @@ binutils: $(SRC)/$(BINUTILS)/README
 	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS) &&\
 	$(MAKE) && make install-strip
 
-.PHONY: cclibs
-cclibs: gmp mpfr mpc
+.PHONY: cclibs0
+cclibs0: gmp0 mpfr0 mpc0
 
-.PHONY: gmp
-gmp: $(SRC)/$(GMP)/README
+.PHONY: gmp0
+gmp0: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
-	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP) &&\
+	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) &&\
 	$(MAKE) && make install-strip
 
-.PHONY: mpfr
-mpfr: $(SRC)/$(MPFR)/README
+.PHONY: mpfr0
+mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) &&\
 	cd $(TMP)/$(MPFR) &&\
-	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR) &&\
+	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) &&\
 	$(MAKE) && make install-strip
 
-.PHONY: mpc
-mpc: $(SRC)/$(MPC)/README
+.PHONY: mpc0
+mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) &&\
 	cd $(TMP)/$(MPC) &&\
-	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC) &&\
+	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) &&\
 	$(MAKE) && make install-strip
 
 .PHONY: gcc0

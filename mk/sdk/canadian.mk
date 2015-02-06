@@ -1,6 +1,9 @@
 # canadian cross
 
-CFG_CAN_LIBS = --with-gmp=$(ROOT) --with-mpfr=$(ROOT) --with-mpc=$(ROOT) 
+
+CFG_CCLIBS = --with-gmp=$(ROOT) --with-mpfr=$(ROOT) --with-mpc=$(ROOT) 
+
+CFG_GMP = $(CFG_CCLIBS)
 
 CFG_CAN_BIN = --prefix=$(USR)
 #--enable-lto
@@ -8,11 +11,11 @@ CFG_CAN_GCC = $(CFG_CAN_BIN) $(CFG_CAN_LIBS) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c"
 	
-.PHONY: libgmp
-libgmp: $(SRC)/$(GMP)/README
+.PHONY: gmp
+gmp: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
-	$(XPATH) $(SRC)/$(GMP)/$(TCFG) $(CFG_CAN_LIBS) &&\
+	$(XPATH) $(SRC)/$(GMP)/$(TCFG) $(CFG_GMP) &&\
 	$(XPATH) $(MAKE) && $(XPATH) $(INSTALL)
 
 .PHONY: canadian
