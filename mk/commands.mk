@@ -2,7 +2,7 @@
 
 XPATH = PATH=$(TC)/bin:$(PATH)
 
-WGET = wget -N -P $(GZ)
+WGET = -wget -N -P $(GZ) -t2 -T2
 
 CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l) 
 
@@ -21,3 +21,4 @@ STRIP = $(XPATH) $(TARGET)-strip
 LDD = $(XPATH) $(TARGET)-ldd
 LDCONFIG = $(XPATH) $(TARGET)-ldconfig
 GETCONF = $(XPATH) $(TARGET)-getconf
+
