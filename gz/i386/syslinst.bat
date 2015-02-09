@@ -17,5 +17,8 @@ copy syslinux.cfg %USB%\syslinux\
 copy *.c32 %USB%\syslinux\
 copy memtest.krn %USB%\syslinux\
 copy ..\..\share\splash640x480.png %USB%\syslinux\
-dir %USB%\syslinux\
+copy dos\io.sys %USB%\dos\
+copy dos\msdos.sys %USB%\dos\
+copy dos\command.com %USB%\dos\
+copy debian %USB%\
 pause
