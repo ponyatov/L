@@ -20,5 +20,5 @@ copy ..\..\share\splash640x480.png %USB%\syslinux\
 copy dos\io.sys %USB%\dos\
 copy dos\msdos.sys %USB%\dos\
 copy dos\command.com %USB%\dos\
-copy debian %USB%\
+copy debian\hdinstall.bat %USB%\debian\
 pause
