@@ -14,6 +14,14 @@ for i in filter(lambda x:x.split('.')[-1]=='rex',os.listdir('pack')):
     PN=i.split('.')[0]
     P[PN]=open('%s/%s.files'%(PACK,PN),'w')
     R[PN]=map(lambda x:x[:-1],open('pack/%s.rex'%PN).readlines())
+    
+for i in filter(lambda x:x.split('.')[-1]=='strace',os.listdir(PACK)):
+    PN=i.split('.')[0]
+    ST=open('%s/%s.st'%(PACK,PN),'w')
+    for x in open('%s/%s.strace'%(PACK,PN)).readlines():
+        if re.findall(r'open\(.+O_CREAT',x):
+            print >>ST,x[:-1]
+    ST.close()
 
 for F in sorted(map(lambda x:x[:-1],ALLFILES.readlines())): 
     T=0

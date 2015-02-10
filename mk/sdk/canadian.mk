@@ -13,7 +13,7 @@ canadian: $(SRC)/$(BINUTILS)/README
 	cd $(TMP)/$(BINUTILS) &&\
 	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
 		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(MAKE) && $(PACKINSTALL)-strip
 #	# gcc
 #	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 #	cd $(TMP)/$(GCC) &&\
