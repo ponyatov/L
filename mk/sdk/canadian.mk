@@ -7,19 +7,19 @@ CFG_CAN_GCC = $(CFG_CAN_BIN) \
 	--enable-languages="c"
 	
 .PHONY: canadian
-canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
-#	# binutils
-#	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
-#	cd $(TMP)/$(BINUTILS) &&\
-#	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
-#		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
-#	$(MAKE) && $(INSTALL)-strip
-	# gcc
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
-		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
-	cd $(TMP)/$(GCC) &&	$(XPATH) $(MAKE) all-gcc 
+canadian: $(SRC)/$(BINUTILS)/README
+	# binutils
+	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
+	cd $(TMP)/$(BINUTILS) &&\
+	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
+		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
+	$(MAKE) && $(INSTALL)-strip
+#	# gcc
+#	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+#	cd $(TMP)/$(GCC) &&\
+#	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
+#		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
+#	cd $(TMP)/$(GCC) &&	$(XPATH) $(MAKE) all-gcc 
 
 .PHONY: binhost
 binhost:

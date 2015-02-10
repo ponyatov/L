@@ -1,5 +1,4 @@
-ROOTREX = "./(boot)"
-#ROOTREX = "./(boot|include|lib/.*\.(o|a|la)|lib/pkgconfig)"
+ROOTREX = "./(boot|pack)"
 
 .PHONY: root
 root:
@@ -18,3 +17,5 @@ root:
 	pack/pack.py $(PACK)
 	cd $(ROOT) && cat $(PACK)/rootfiles | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 	cat $(BOOT)/$(HW)$(APP).cpio | gzip -9 > $(BOOT)/$(HW)$(APP).rootfs
+	# 6
+	sh $(PACK)/mkpacks.rc
