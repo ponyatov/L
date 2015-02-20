@@ -7,7 +7,7 @@ CFG_CAN_GCC = $(CFG_CAN_BIN) \
 	--enable-languages="c,c++"
 	
 .PHONY: canadian
-canadian: $(SRC)/$(BINUTILS)/README
+canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	# binutils
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
@@ -15,12 +15,15 @@ canadian: $(SRC)/$(BINUTILS)/README
 		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
 	$(MAKE) && $(INSTALL)-strip
 	# gcc
-#	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-#	cd $(TMP)/$(GCC) &&\
-#	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
-#		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
-#	cd $(TMP)/$(GCC) &&	$(XPATH) $(MAKE) all-gcc 
-
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
+		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
+	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-gcc
+	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-gcc
+	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-target-libgcc
+	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-target-libgcc
+	
 .PHONY: binhost
 binhost:
 	make canadian T=$(TARGET) P= O="$(CFG_ARCH) $(CFG_CPU)"
