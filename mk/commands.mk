@@ -8,7 +8,7 @@ CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l)
 
 MAKE = $(XPATH) make -j$(CPU_CORES)
 INSTALL  = $(XPATH) make install
-PACKINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace make install
+#PACKINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace make install
 
 CCACHE = ccache
 
