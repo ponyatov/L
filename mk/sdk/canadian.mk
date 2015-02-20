@@ -1,10 +1,10 @@
 # canadian cross
 
-CFG_CAN_BIN = --prefix=$(USR) 
-#--enable-lto
+CFG_CAN_BIN = --prefix=$(USR) \
+	--enable-lto
 CFG_CAN_GCC = $(CFG_CAN_BIN) \
 	--enable-threads --enable-libgomp \
-	--enable-languages="c"
+	--enable-languages="c,c++"
 	
 .PHONY: canadian
 canadian: $(SRC)/$(BINUTILS)/README
@@ -14,7 +14,7 @@ canadian: $(SRC)/$(BINUTILS)/README
 	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
 		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
 	$(MAKE) && $(INSTALL)-strip
-#	# gcc
+	# gcc
 #	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 #	cd $(TMP)/$(GCC) &&\
 #	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
