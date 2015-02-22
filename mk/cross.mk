@@ -1,5 +1,5 @@
 
-CFG_BINUTILS = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
+CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
 	--enable-lto --disable-multilib
@@ -11,24 +11,24 @@ CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
 
-CFG_GCC0 = $(CFG_BINUTILS) $(CFG_CCLIBS) \
+CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--disable-shared --disable-threads \
 	--without-headers --with-newlib \
 	--enable-languages="c"
 
-CFG_GCC = $(CFG_BINUTILS) $(CFG_CCLIBS) \
+CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c,c++"
 
-.PHONY: cross
-cross: binutils cclibs gcc0
+.PHONY: cross0
+cross0: binutils0 cclibs0 gcc0
 
-.PHONY: binutils
-binutils: $(SRC)/$(BINUTILS)/README
+.PHONY: binutils0
+binutils0: $(SRC)/$(BINUTILS)/README
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
-	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS) &&\
-	$(MAKE) && make install-strip
+	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) &&\
+	$(MAKE) && $(INSTALL)-strip
 
 .PHONY: cclibs0
 cclibs0: gmp0 mpfr0 mpc0
