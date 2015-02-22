@@ -13,10 +13,11 @@ root:
 	# 4
 	cp -r share $(ROOT)/
 	# 5
-#	cd $(ROOT) && find . | egrep -v $(ROOTREX) > $(PACK)/allfiles
-	cd $(ROOT) && find . | egrep -v $(ROOTREX) | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
+	cd $(ROOT) && find . | egrep -v $(ROOTREX) > $(PACK)/allfiles
+#	cd $(ROOT) && find . | egrep -v $(ROOTREX) | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 #	pack/pack.py $(PACK)
-#	cd $(ROOT) && cat $(PACK)/rootfiles | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
+	pack/pk.py $(PACK)
+	cd $(ROOT) && cat $(PACK)/rootfiles | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 	cat $(BOOT)/$(HW)$(APP).cpio | gzip -9 > $(BOOT)/$(HW)$(APP).rootfs
 #	# 6
 #	sh $(PACK)/mkpacks.rc
