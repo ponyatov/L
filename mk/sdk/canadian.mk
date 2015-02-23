@@ -16,8 +16,7 @@ canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	$(XPATH) $(SRC)/$(BINUTILS)/$(CACFG) \
 		$(CFG_CAN_BIN) --target=$(T) $(O) --prefix=$(PFX) --with-sysroot=$(SR) &&\
 	$(MAKE) && $(PINSTALL)-strip
-	grep $(PFX) $(PACK)/.strace | grep open | grep O_CREAT >  $(PACK)/$(PK).strace
-	grep $(PFX) $(PACK)/.strace | grep linkat              >> $(PACK)/$(PK).strace
+	mv $(PACK)/.strace $(PACK)/$(PK).strace
 #	# gcc
 #	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 #	cd $(TMP)/$(GCC) &&\
