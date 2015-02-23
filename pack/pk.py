@@ -4,7 +4,7 @@ PKZ = {
        'sdk':[
               r'/lib/.+\.a$',
               r'/lib/.{0,1}crt.\.o$',
-              r'/include/'
+              r'/include'
               ]
        }
 PKF={}
