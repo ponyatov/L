@@ -48,7 +48,3 @@ bincmx:
 	make canadian T=arm-none-eabi O=
 #	P=cmx- \
 #		O="--enable-interwork --disable-multilib"
-
-.PHONY: binatari
-binatari:
-	make canadian T=w65816 PFX=$(ROOT)/atari SR=/atari PK=binatari O="--disable-gas"
