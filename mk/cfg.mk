@@ -13,3 +13,8 @@ BCFG = $(CFG) --prefix=$(TC) \
 TCFG = $(CFG) --prefix=$(ROOT) \
 	CC="$(TCC)" CXX="$(TCXX)" \
 	--host=$(TARGET) CROSS_COMPILE=$(TARGET)-
+
+# canadian configure
+CACFG = $(CFG) --prefix=$(ROOT) \
+	CC="$(TCC)" CXX="$(TCXX)" \
+	--host=$(TARGET)

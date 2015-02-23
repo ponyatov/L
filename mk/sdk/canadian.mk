@@ -1,42 +1,54 @@
 # canadian cross
 
-CFG_CAN_BIN = --prefix=$(USR) \
-	--enable-lto
+CFG_CAN_BIN = \
+	--with-native-system-header-dir=/include \
+	--enable-lto --disable-multilib
 CFG_CAN_GCC = $(CFG_CAN_BIN) \
 	--enable-threads --enable-libgomp \
 	--enable-languages="c,c++"
+#--program-prefix=$(P) 
 	
 .PHONY: canadian
 canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	# binutils
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
-	$(XPATH) $(SRC)/$(BINUTILS)/$(TCFG) \
-		$(CFG_CAN_BIN) --target=$(T) $(O) --program-prefix=$(P) &&\
-	$(MAKE) && $(INSTALL)-strip
-	# gcc
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(XPATH) $(SRC)/$(GCC)/$(TCFG) \
-		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
-	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-gcc
-	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-gcc
-	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-target-libgcc
-	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-target-libgcc
+	$(XPATH) $(SRC)/$(BINUTILS)/$(CACFG) \
+		$(CFG_CAN_BIN) --target=$(T) $(O) --prefix=$(PFX) --with-sysroot=$(SR) &&\
+	$(MAKE) && $(PINSTALL)-strip
+	grep $(PFX) $(PACK)/.strace | grep open | grep O_CREAT >  $(PACK)/$(PK).strace
+	grep $(PFX) $(PACK)/.strace | grep linkat              >> $(PACK)/$(PK).strace
+#	# gcc
+#	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+#	cd $(TMP)/$(GCC) &&\
+#	$(XPATH) $(SRC)/$(GCC)/$(CACFG) \
+#		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
+#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-gcc
+#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-gcc
+#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-target-libgcc
+#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-target-libgcc
 	
 .PHONY: binhost
 binhost:
-	make canadian T=$(TARGET) P= O="$(CFG_ARCH) $(CFG_CPU)"
+	make canadian T=$(TARGET) PFX=$(USR) SR=/ PK=binhost O=
+#	 O="$(CFG_ARCH) $(CFG_CPU)"
 
 .PHONY: bin486
 bin486:
-	make canadian T=i486-elf P=i486- O="--with-cpu=i486"
+	make canadian T=i486-elf O=
+#	 O="--with-cpu=i486"
 
 .PHONY: binavr
 binavr:
-	make canadian T=avr P=avr- O=
+	make canadian T=avr O=
+#	 O=
 
 .PHONY: bincmx
 bincmx:
-	make canadian T=arm-none-eabi P=cmx- \
-		O="--enable-interwork --disable-multilib"
+	make canadian T=arm-none-eabi O=
+#	P=cmx- \
+#		O="--enable-interwork --disable-multilib"
+
+.PHONY: binatari
+binatari:
+	make canadian T=w65816 PFX=$(ROOT)/atari SR=/atari PK=binatari O="--disable-gas"
