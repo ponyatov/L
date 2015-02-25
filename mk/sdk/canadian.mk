@@ -15,13 +15,13 @@ canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	cd $(TMP)/$(BINUTILS) &&\
 	$(XPATH) $(SRC)/$(BINUTILS)/$(CACFG) \
 		$(CFG_CAN_BIN) --target=$(T) $(O) --prefix=$(PFX) --with-sysroot=$(SR) &&\
-	$(MAKE) && $(PINSTALL)-strip
-	mv $(PACK)/.strace $(PACK)/$(PK).strace
+	$(MAKE) && $(PINSTALL)-strip &&\
+	grep $(ROOT) $(PACK)/.strace > $(PACK)/binutils.$(PK).strace && rm $(PACK)/.strace
 #	# gcc
 #	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 #	cd $(TMP)/$(GCC) &&\
 #	$(XPATH) $(SRC)/$(GCC)/$(CACFG) \
-#		$(CFG_CAN_GCC) --target=$(T) $(O) --program-prefix=$(P)
+#		$(CFG_CAN_GCC) --target=$(T) $(O) --prefix=$(PFX) --with-sysroot=$(SR)
 #	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-gcc
 #	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-gcc
 #	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-target-libgcc
@@ -29,7 +29,7 @@ canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	
 .PHONY: binhost
 binhost:
-	make canadian T=$(TARGET) PFX=$(USR) SR=/ PK=binhost O=
+	make canadian T=$(TARGET) PFX=$(USR) SR=/ PK=host O=
 #	 O="$(CFG_ARCH) $(CFG_CPU)"
 
 .PHONY: bin486
