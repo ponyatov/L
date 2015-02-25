@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.22.1
-# Tue Dec 16 16:32:49 2014
+# Wed Feb 25 23:47:27 2015
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -217,7 +217,7 @@ CONFIG_DOS2UNIX=y
 CONFIG_UNIX2DOS=y
 CONFIG_DU=y
 CONFIG_FEATURE_DU_DEFAULT_BLOCKSIZE_1K=y
-# CONFIG_ECHO is not set
+CONFIG_ECHO=y
 CONFIG_FEATURE_FANCY_ECHO=y
 CONFIG_ENV=y
 # CONFIG_FEATURE_ENV_LONG_OPTIONS is not set
@@ -718,7 +718,7 @@ CONFIG_FEATURE_CROND_DIR=""
 # CONFIG_STRINGS is not set
 # CONFIG_TASKSET is not set
 # CONFIG_FEATURE_TASKSET_FANCY is not set
-# CONFIG_TIME is not set
+CONFIG_TIME=y
 # CONFIG_TIMEOUT is not set
 # CONFIG_TTYSIZE is not set
 # CONFIG_VOLNAME is not set
