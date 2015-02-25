@@ -10,7 +10,9 @@ PKZ = {
 PKF = {}
 
 STRACE = {
-          'binhost':[]
+          'binutils.host':[],
+          'gcc.host':[],
+          'gmp':[]
           }
 
 import os, sys, time, re
@@ -31,13 +33,12 @@ for j in STRACE:
     PKF[j] = open('%s/%s.files' % (PACK, j), 'w')
     STRACE[j]=[]
     for k in map(lambda x:x[:-1], open('%s/%s.strace' % (PACK, j)).readlines()):
-        for ss in re.findall(r'\"%s/(.+?)\"' % ROOT, k):
+        for ss in re.findall(r'\"%s/(.+)\"' % ROOT, k):
              try:
-                os.stat(ROOT+'/'+ss)
+                os.stat(ROOT + '/' + ss)
                 SFile = './' + ss
-                if SFile not in STRACE[j]: 
+                if SFile not in STRACE[j]:
                     STRACE[j].append(SFile)
-                    print >> PKF[j], SFile  
              except OSError:
                  pass
 
