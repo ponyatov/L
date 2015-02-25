@@ -13,7 +13,7 @@ PKF = {}
 TracedPacks = {
     'binutils.host':[],
     'gcc.host':[],
-    'gmp':[],'mpfr':[]#,'mpc':[]
+    'gmp':[],'mpfr':[],'mpc':[]
 }
 
 TracedFiles = []
