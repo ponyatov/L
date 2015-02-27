@@ -16,6 +16,7 @@ cat \
 	mk/busybox.mk \
 	mk/sdk/canadian.mk \
 	mk/sdk/pascal.mk \
+	mk/sdk/math.mk \
 	mk/user.mk \
 	mk/libs.mk \
 	mk/apps.mk \

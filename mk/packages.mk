@@ -33,3 +33,6 @@ FREETYPE = freetype-$(FREETYPE_VER)
 ## SDK
 ### PASCAL
 FPC = fpc-$(FPC_VER)
+
+# math
+ECL = ecl-$(ECL_VER)

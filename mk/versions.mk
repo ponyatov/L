@@ -36,3 +36,7 @@ FREETYPE_VER = 2.5.5
 ## SDK
 ### Pascal
 FPC_VER = 2.6.4
+
+## math
+ECL_VER_A = 15.2
+ECL_VER = $(ECL_VER_A).21
