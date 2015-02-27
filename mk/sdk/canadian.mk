@@ -22,10 +22,10 @@ canadian: $(SRC)/$(BINUTILS)/README $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(XPATH) $(SRC)/$(GCC)/$(CACFG) \
 		$(CFG_CAN_GCC) --target=$(T) $(O) --prefix=$(PFX) --with-sysroot=$(SR)
-	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-gcc
-#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-gcc
-#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) all-target-libgcc
-#	cd $(TMP)/$(GCC) && $(XPATH) $(MAKE) install-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
+#	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+#	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+#	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 	
 .PHONY: binhost
 binhost:
