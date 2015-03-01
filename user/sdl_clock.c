@@ -13,7 +13,6 @@
 
 #define FNTDATESZ	33
 #define FNTTIMESZ	155
-#define FNTCALSZ	11
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
@@ -22,8 +21,6 @@ static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 #define DATEY 20
 #define TIMEX 20
 #define TIMEY 40
-////#define CALX 200
-////#define CALY 20
 
 void SDL_err() {
 	SDL_Quit();
@@ -37,24 +34,23 @@ void TTF_err() {
 	abort();
 }
 
-char TSDATE[0x100],TSTIME[0x100],TSCAL[0x1000];
+char TSDATE[0x100],TSTIME[0x100];
 
 time_t rawtime;
 
 struct tm * timeinfo;
 
-SDL_Surface *tdate,*ttime,*tcal;
+SDL_Surface *tdate,*ttime;
 
-TTF_Font *fdate, *ftime, *fcal;
+TTF_Font *fdate, *ftime;
 
 SDL_Event event;
 
-SDL_Rect rDATE,rTIME,rCAL;
+SDL_Rect rDATE,rTIME;
 
 int main(int argc, char *argv[]) {
     rDATE.x=DATEX; rDATE.y=DATEY;
     rTIME.x=TIMEX; rTIME.y=TIMEY;
-////    rCAL.x=CALX; rCAL.y=CALY;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
@@ -65,13 +61,8 @@ int main(int argc, char *argv[]) {
 	if (TTF_Init()) TTF_err();
 	fdate = TTF_OpenFont(FNT, FNTDATESZ); if (!fdate) TTF_err();
 	ftime = TTF_OpenFont(FNT, FNTTIMESZ); if (!ftime) TTF_err();
-	fcal  = TTF_OpenFont(FNT, FNTCALSZ ); if (!fcal)  TTF_err();
 	// bg bmp
 	SDL_Surface* root = IMG_Load(BGTUX); if (!root) SDL_err();
-//////    // get calendar
-//////    system("cal > /tmp/cal");
-//////    FILE *calf=fopen("/tmp/cal","rb"); fread(TSCAL,1,sizeof(TSCAL),calf); fclose(calf);
-//////    tcal = TTF_RenderText_Solid(fcal,TSCAL,FNTCLRTIME); if (!tcal) TTF_err();
 	// wait keypress
 	for (int done = 0; done == 0;) {
 		// fetch date and time
@@ -86,7 +77,6 @@ int main(int argc, char *argv[]) {
 		SDL_BlitSurface(root,  NULL, screen, NULL);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
-//    	SDL_BlitSurface(tcal,NULL,screen,&rCAL);
 		SDL_Flip(screen);
 		// wait
 		sleep(1);
