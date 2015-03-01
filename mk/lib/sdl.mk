@@ -11,7 +11,7 @@ CFG_SDL_IMAGE =
 CFG_SDL_TTF = 
 
 .PHONY: sdl
-sdl: sdl_main sdl_image
+sdl: sdl_main sdl_image freetype
 # sdl_ttf
 
 .PHONY: sdl_main
