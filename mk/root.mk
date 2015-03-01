@@ -4,6 +4,7 @@ ROOTREX = "./(boot|pack)"
 root:
 	# 1
 	rm -rf $(ETC) ; cp -r etc $(ROOT)/
+	cat app/$(APP).rcS >> $(ROOT)/etc/init.d/rcS
 	cp README.md $(ETC)/
 	chmod +x $(ETC)/init.d/*
 	# 2	
