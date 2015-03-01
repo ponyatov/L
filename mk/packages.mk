@@ -17,6 +17,7 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 # loaders
 
 SYSLINUX = syslinux-$(SYSLINUX_VER)
+UBOOT = u-boot-$(UBOOT_VER)
 
 # libs
 

@@ -19,6 +19,7 @@ BUSYBOX_VER = 1.22.1
 # loaders
 
 SYSLINUX_VER = 6.03
+UBOOT_VER = 2015.01
 
 # libs
 
