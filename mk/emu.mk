@@ -11,3 +11,7 @@ emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 emuiso: $(BOOT)/$(HW)$(APP).iso
 	qemu-system-$(ARCH) $(QEMU_CFG) \
 	-boot d -cdrom $<
+
+.PHONY: bochs
+bochs: $(BOOT)/$(HW)$(APP).iso
+	bochs -f syslinux/bochs.rc

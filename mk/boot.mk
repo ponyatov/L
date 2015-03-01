@@ -2,7 +2,9 @@
 UNZISO = unzip -jn $(GZ)/$(SYSLINUX).zip -d $(ISO)
 
 .PHONY: iso
-iso: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
+iso: $(BOOT)/$(HW)$(APP).iso 
+$(BOOT)/$(HW)$(APP).iso: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs \
+syslinux/isolinux.cfg	
 	rm -rf $(ISO) && mkdir $(ISO)
 	cp $(BOOT)/$(HW)$(APP).kernel $(ISO)/kernel
 	cp $(BOOT)/$(HW)$(APP).rootfs $(ISO)/rootfs
