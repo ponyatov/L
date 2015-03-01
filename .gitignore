@@ -21,3 +21,5 @@ rpimicro.cross
 rpiclock
 rpiclock.cross
 
+serial.log
+
