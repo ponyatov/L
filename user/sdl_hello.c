@@ -1,3 +1,5 @@
+#define SPLASH_DELAY 1000
+
 #include "SDL/SDL.h"
 
 int main() {
@@ -17,7 +19,7 @@ int main() {
 	// update sdl window
 	SDL_Flip( screen );
 	// delay 5 seconds
-	SDL_Delay( 5000 );
+	SDL_Delay( SPLASH_DELAY );
 	// quit
 	SDL_Quit();
 	return 0;
