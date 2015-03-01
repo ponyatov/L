@@ -10,8 +10,7 @@ CFG_SDL_IMAGE =
 CFG_SDL_TTF = 
 
 .PHONY: sdl
-sdl: sdl_main sdl_image freetype
-# sdl_ttf
+sdl: sdl_main sdl_image freetype sdl_ttf
 
 .PHONY: sdl_main
 sdl_main: $(SRC)/$(SDL)/README
@@ -20,8 +19,6 @@ sdl_main: $(SRC)/$(SDL)/README
 	$(XPATH) $(SRC)/$(SDL)/$(TCFG) $(CFG_SDL_MAIN) &&\
 	$(MAKE) && $(INSTALL) &&\
 	mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
-#	mv -f $(ROOT)/share/aclocal $(TC)/share/
-#	mv -f $(ROOT)/share/man/man3 $(TC)/share/man/
 
 .PHONY: sdl_image
 sdl_image: $(SRC)/$(SDL_IMAGE)/README
@@ -34,9 +31,5 @@ sdl_image: $(SRC)/$(SDL_IMAGE)/README
 sdl_ttf: $(SRC)/$(SDL_TTF)/README
 	rm -rf $(TMP)/$(SDL_TTF) && mkdir $(TMP)/$(SDL_TTF) &&\
 	cd $(TMP)/$(SDL_TTF) &&\
-	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF)  
-#	$(MAKE) && $(INSTALL) &&\
-	
-##$(SRC)/$(SDL)/README-SDL.txt: 
-##etc/README-SDL.txt:  
-##	cp $< $@ && touch $@
+	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF) &&\
+	$(MAKE) && $(INSTALL)
