@@ -11,9 +11,9 @@ sdlrect: $(USRBIN)/sdl_rect
 
 # rules
 
-TCFLAGS = -std=c99
-TSDLFLAGS =  -lfreetype -lSDL -lSDL_ttf
-#	  -lSDL_image -lpthread   
+TCFLAGS = -std=gnu99
+TSDLFLAGS =  -lfreetype -lSDL -lSDL_ttf -lSDL_image
+#	   -lpthread   
 
 $(USRBIN)/sdl%: user/sdl%.c mk/user.mk
 	$(XPATH) $(TCC) $(TCFLAGS) -o $@ $< $(TSDLFLAGS) 
