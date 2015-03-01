@@ -26,6 +26,7 @@ USR = $(ROOT)/usr
 USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
 PACK = $(ROOT)/pack
+ISO = $(TMP)/iso
 
 DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
 

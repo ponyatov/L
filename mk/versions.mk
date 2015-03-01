@@ -18,6 +18,8 @@ BUSYBOX_VER = 1.22.1
 
 # loaders
 
+SYSLINUX_VER = 6.03
+
 # libs
 
 # SDL2 not works with FB

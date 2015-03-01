@@ -23,3 +23,4 @@ LDD = $(XPATH) $(TARGET)-ldd
 LDCONFIG = $(XPATH) $(TARGET)-ldconfig
 GETCONF = $(XPATH) $(TARGET)-getconf
 
+MKISO = genisoimage

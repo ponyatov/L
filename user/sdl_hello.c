@@ -1,4 +1,4 @@
-#define SPLASH_DELAY 1000
+#define SPLASH_DELAY 3000
 
 #include "SDL/SDL.h"
 

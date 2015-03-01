@@ -16,6 +16,8 @@ BUSYBOX = busybox-$(BUSYBOX_VER)
 
 # loaders
 
+SYSLINUX = syslinux-$(SYSLINUX_VER)
+
 # libs
 
 # SDL2 not works with FB
