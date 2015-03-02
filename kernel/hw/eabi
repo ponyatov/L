@@ -845,15 +845,6 @@ CONFIG_I2C_HELPER_AUTO=y
 # CONFIG_HSI is not set
 
 #
-# PPS support
-#
-# CONFIG_PPS is not set
-
-#
-# PPS generators support
-#
-
-#
 # PTP clock support
 #
 # CONFIG_PTP_1588_CLOCK is not set
