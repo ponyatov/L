@@ -15,6 +15,9 @@ root:
 	cp -r share $(ROOT)/
 	# 5
 	cd $(ROOT) && find . | egrep -v $(ROOTREX) > $(PACK)/allfiles
-	./pk.py $(ROOT)
+#	# 6
+#	./pk.py $(ROOT)
+	cat $(PACK)/allfiles > $(PACK)/rootfiles 
+	# 7
 	cd $(ROOT) && cat $(PACK)/rootfiles | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 	cat $(BOOT)/$(HW)$(APP).cpio | gzip -9 > $(BOOT)/$(HW)$(APP).rootfs
