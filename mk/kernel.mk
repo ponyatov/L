@@ -7,7 +7,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
 	# 2
 #	cat kernel/all >> $(SRC)/$(KERNEL)/.config
-#	cat kernel/arch/$(ARCH) >> $(SRC)/$(KERNEL)/.config
+	cat kernel/arch/$(ARCH) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/cpu/$(CPU) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
