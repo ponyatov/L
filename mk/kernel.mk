@@ -5,13 +5,13 @@ kernel: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
-#	# 2
+	# 2
+#	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) versatile_defconfig
 #	cat kernel/all >> $(SRC)/$(KERNEL)/.config
 #	cat kernel/arch/$(ARCH) >> $(SRC)/$(KERNEL)/.config
 #	cat kernel/cpu/$(CPU) >> $(SRC)/$(KERNEL)/.config
-#	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
-#	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) versatile_defconfig
+	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
+	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
 	# 3
 	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
