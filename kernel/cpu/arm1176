@@ -1,1 +1,2 @@
 # arm1176jzf-s
+CONFIG_ARM=y
