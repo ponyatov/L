@@ -459,12 +459,13 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \includegraphics[width=0.45\textwidth]{azlin/doc/tion270.jpg}
 &
 \begin{tabular}{l l}
-CPU & \\
-\ram & \\
-Flash & \\
-видео & VGA \\
-Ethernet & \checkbox \\
-USB & \checkbox \\
+CPU & Marvell XScale PXA270 @ 416/520 МГц \\
+\ram & 64 \\
+Flash & 32 \\
+видео & \checkbox\ VGA DSUB \\
+Ethernet & \checkbox\ 10/100M \\
+USB & \checkbox\ USB1.1 host \\
+$\mu$SD & \checkbox \\
 \end{tabular}
 \\
 \end{tabular}
@@ -484,6 +485,7 @@ USB & \checkbox \\
 CPU &
 \href{http://www.module.ru/catalog/micro/mikroshema\_dekodera\_cifrovogo\_televizionnogo\_signala\_sbis\_k1879hb1ya/}{К1879ХБ1Я}
 \\&ARM1176JZF-S @ 324 МГц \\
+GPU & NeuroMatrix NMC3 @ 324 МГц \\
 \ram & \\
 Flash & \\
 видео & HDMI \\
@@ -498,8 +500,29 @@ USB & \checkbox\ USB2 host \\
 \secrel{MIPS}\secdown
 \secrel{qemuMIPS: эмулятор QEMU}
 \lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
+
+\clearpage
 \secrel{mr3020: роутер MR3020}
-\href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
+
+\url{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}
+
+\bigskip
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\begin{tabular}{l}
+\includegraphics[width=0.35\textwidth]{azlin/doc/mr3020.jpg}\\
+\includegraphics[width=0.35\textwidth]{azlin/doc/mr3020pcb.jpg}\\
+\end{tabular}
+&
+\begin{tabular}{l l}
+CPU & Atheros AR9330 rev.1 @ 400 MHz \\
+\ram & 32 \\
+Flash & 4 \\
+WiFi & \checkbox\ 802.11 b/g/n 150Mbps \\
+Ethernet & \checkbox\ 10/100M \\
+USB & \checkbox\ USB2 \\
+\end{tabular}
+\\
+\end{tabular}
 
 \clearpage
 \secrel{vocore: VoCore}\label{vocore} \index{azLinux!железо!VoCore}
