@@ -335,19 +335,24 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 \hline
 HW & CPU & ARCH & RAM & HD & SD & USB & Eth & WiFi & GPIO \\
 \hline
-qemu386 & i486sx & i386 & 32M+ & \uncheckbox\ IDE & & \uncheckbox & ne2k &&\\
-eeepc701 & CeleronM & i386 & 512M+ & \uncheckbox\ SSD & \uncheckbox\
-SD & \checkbox & A?? & \uncheckbox\ AR2425 &\\
-gac1037 & Celeron1037U & x86\_64 & 1G+ & \uncheckbox\ SATA & & \checkbox &
-2$\times$RTL8111 &&\\
+qemu386 \ref{qemu3865} & i486sx & i386 & 32M+ & \uncheckbox\ IDE & & \uncheckbox
+& ne2k &&\\
+eeepc701 \ref{eeepc701} & CeleronM & i386 & 512M+ & \uncheckbox\ SSD &
+\uncheckbox\ SD & \checkbox & A?? & \uncheckbox\ AR2425 &\\
+gac1037 \ref{gac1037} & Celeron1037U & x86\_64 & 1G+ & \uncheckbox\ SATA & &
+\checkbox & 2$\times$RTL8111 &&\\
 \hline
 qemuARM & & arm & 32M+ &&&&&&\\
-cubie1 & AllWinnerA10 & armhf & 1G && \uncheckbox\ $\mu$SD & \checkbox &&&\\
-rpi & BCM2835 & armel & 512M && \uncheckbox\ SD&\checkbox&&&\\
+cubie1 \ref{cubie1} & AllWinnerA10 & armhf & 1G && \uncheckbox\ $\mu$SD &
+\checkbox &&&\\
+rpi \ref{rpi} & BCM2835 & armel & 512M && \uncheckbox\ SD&\checkbox&&&\\
+tion \ref{tion} & PXA270 & arm?? &&&&&&&\\
+mb77 \ref{mb77} & К1879ХБ1Я & arm?? &&&&&&&\\
 \hline
 qemuMIPS & &mips& 32M+ & & & & &&\\
-mr3020 & AR7240 &mips& 32M & 4M & & \checkbox && \uncheckbox\ AR9331 &\\
-vocore & RT5350 &mips& 32M & 8M & & \uncheckbox
+mr3020 \ref{mr3020} & AR7240 &mips& 32M & 4M & & \checkbox && \uncheckbox\
+AR9331 &\\
+vocore \ref{vocore} & RT5350 &mips& 32M & 8M & & \uncheckbox
 && \uncheckbox\ SoC &\\
 bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 \hline
@@ -437,8 +442,56 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 
 \secrel{qemuARM: эмулятор QEMU}
 \lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{azLinux!железо!QEMU}
-\secrel{cubie1: Cubie Board v.1}
-\secrel{rpi: Raspberry Pi model B}
+
+\secrel{cubie1: Cubie Board v.1}\label{cubie1}
+
+\secrel{rpi: Raspberry Pi model B}\label{rpi}
+
+\clearpage
+\secrel{tion: ТионПро270}\label{tion}
+
+ЗАО ``Завод Электрооборудования''
+
+\url{http://www.zao-zeo.ru/catalog/sbc/67-tion-pro270}
+
+\bigskip
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\includegraphics[width=0.45\textwidth]{azlin/doc/tion270.jpg}
+&
+\begin{tabular}{l l}
+CPU & \\
+\ram & \\
+Flash & \\
+видео & VGA \\
+Ethernet & \checkbox \\
+USB & \checkbox \\
+\end{tabular}
+\\
+\end{tabular}
+
+\clearpage
+\secrel{mb77: Микрокомпьютер МВ77.07 на базе СБИС К1879ХБ1Я}\label{mb77}
+
+ЗАО НТЦ ``Модуль''
+
+\url{http://www.module.ru/catalog/micro/micro_pc/}
+
+\bigskip
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\includegraphics[width=0.45\textwidth]{azlin/doc/mb77.png}
+&
+\begin{tabular}{l l}
+CPU &
+\href{http://www.module.ru/catalog/micro/mikroshema\_dekodera\_cifrovogo\_televizionnogo\_signala\_sbis\_k1879hb1ya/}{К1879ХБ1Я}
+\\&ARM1176JZF-S @ 324 МГц \\
+\ram & \\
+Flash & \\
+видео & HDMI \\
+Ethernet & \checkbox\ 10/100M \\
+USB & \checkbox\ USB2 host \\
+\end{tabular}
+\\
+\end{tabular}
 
 \secup
 
@@ -447,8 +500,39 @@ TFT & китайский 3.5'' автомониторчик + конвертер
 \lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
 \secrel{mr3020: роутер MR3020}
 \href{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}{mr3020}
-\secrel{vocore: VoCore} \index{azLinux!железо!VoCore}
+
+\clearpage
+\secrel{vocore: VoCore}\label{vocore} \index{azLinux!железо!VoCore}
+
 \href{http://vocore.io/}{vocore}
+
+% \includegraphics[height=0.45\textheight]{azlin/doc/vocore1.jpg}
+% 
+% \includegraphics[height=0.45\textheight]{azlin/doc/vocore2.jpg}
+
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\begin{tabular}{l}
+\includegraphics[width=0.45\textwidth]{azlin/doc/vocore1.jpg} \\
+\includegraphics[width=0.45\textwidth]{azlin/doc/vocore2.jpg} \\
+\end{tabular} &
+\begin{tabular}{l l}
+CPU & SoC Ralink RT5350F \\&/MIPS 24KEc/ @ 360 MHz \\
+\ram & 32M \\
+Flash & 16M \\
+% чипсет & Intel NM70 \\
+WiFi & 802.11n 1T/1R (1x1:1) 2.4 GHz \\&150Mbps MAC/BB/PA/RF \\
+Ethernet & \checkbox \\
+% HDD & 2 $\times$ SATA2 (3Gb/s), 1 $\times$ SATA3 (6Gb/s), 1 $\times$ eSATA\\
+USB & \checkbox \\
+% видео & IntelGMA, выходы на VGA D-Sub и HDMI 1.4\\
+% аудио & Realtek ALC887 (HDA) \\
+% PCI & $\times$1 \\
+GPIO & \\
+$\mu$SD & \checkbox \\
+\end{tabular}
+\\
+\end{tabular}
+
 \secrel{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
 \href{http://habrahabr.ru/post/242731/}{bswift}
 \secup
