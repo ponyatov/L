@@ -12,6 +12,10 @@ ifconfig $interface
 echo DHCP: dns $dns
 echo nameserver $dns > /etc/resolv.conf
 
+for i in $dns ; do
+	echo nameserver $i > /etc/resolv.conf
+done
+
 echo DHCP: route default gw $router
 route add default gw $router dev $interface
 route

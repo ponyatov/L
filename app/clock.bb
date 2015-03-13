@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.22.1
-# Fri Mar 13 17:55:43 2015
+# Fri Mar 13 18:11:41 2015
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -981,9 +981,9 @@ CONFIG_HUSH_INTERACTIVE=y
 CONFIG_HUSH_SAVEHISTORY=y
 CONFIG_HUSH_JOB=y
 CONFIG_HUSH_TICK=y
-# CONFIG_HUSH_IF is not set
-# CONFIG_HUSH_LOOPS is not set
-# CONFIG_HUSH_CASE is not set
+CONFIG_HUSH_IF=y
+CONFIG_HUSH_LOOPS=y
+CONFIG_HUSH_CASE=y
 # CONFIG_HUSH_FUNCTIONS is not set
 # CONFIG_HUSH_LOCAL is not set
 # CONFIG_HUSH_RANDOM_SUPPORT is not set
