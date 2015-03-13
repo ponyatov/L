@@ -8,6 +8,11 @@ BROADCAST=""
 echo DHCP: $interface $ip
 ifconfig $interface $ip $NETMASK $BROADCAST
 ifconfig $interface
-echo nameserver $dns > /etc/resolv.conf
+
 echo DHCP: dns $dns
+echo nameserver $dns > /etc/resolv.conf
+
+echo DHCP: route default gw $router
+route add default gw $router dev $interface
+route
 
