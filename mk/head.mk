@@ -18,5 +18,6 @@ all:
 #	make cross0
 #	make ramclean
 #	make kernel
-	make ulibc
+#	make ulibc
+	make busybox
 
