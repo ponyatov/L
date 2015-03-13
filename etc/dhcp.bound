@@ -10,10 +10,10 @@ ifconfig $interface $ip $NETMASK $BROADCAST
 ifconfig $interface
 
 echo DHCP: dns $dns
-echo nameserver $dns > /etc/resolv.conf
+echo -n > /etc/resolv.conf
 
 for i in $dns ; do
-	echo nameserver $i > /etc/resolv.conf
+	echo nameserver $i >> /etc/resolv.conf
 done
 
 echo DHCP: route default gw $router
