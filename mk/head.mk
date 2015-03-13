@@ -13,11 +13,12 @@ include app/$(APP).mk
 
 .PNONY: all
 all: 
-#	make dirs 
-#	make gz 
-#	make cross0
-#	make ramclean
-#	make kernel
-#	make ulibc
+	make dirs 
+	make gz 
+	make cross0
+	make ramclean
+	make kernel
+	make ulibc
 	make busybox
+	make root
 
