@@ -1,4 +1,0 @@
-#!/bin/sh
-echo DHCP: $interface deconfig
-ifconfig $interface 0.0.0.0
-
