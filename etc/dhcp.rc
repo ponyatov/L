@@ -2,7 +2,6 @@
 
 case "$1" in
 	deconfig)
-		echo DHCP: $interface deconfig
 		ifconfig $interface 0.0.0.0
 	;;
 
@@ -14,18 +13,16 @@ NETMASK=""
 BROADCAST=""
 [ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
 
-echo DHCP: $interface $ip
 ifconfig $interface $ip $NETMASK $BROADCAST
 ifconfig $interface
 
-echo DHCP: dns $dns
-echo -n > /etc/resolv.conf
-
+R="/etc/resolv.conf"
+echo -n > $R
 for i in $dns ; do
-	echo nameserver $i >> /etc/resolv.conf
+	echo nameserver $i >> $R
 done
+cat $R
 
-echo DHCP: route default gw $router
 route add default gw $router dev $interface
 route
 

@@ -12,7 +12,8 @@
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
-#define FNTTIMESZ	155
+#define FNTTIMESZ	130
+//155
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
@@ -69,7 +70,7 @@ int main(int argc, char *argv[]) {
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
 		strftime(TSDATE, sizeof(TSDATE), "%Y-%m-%d %A", timeinfo);
-		strftime(TSTIME, sizeof(TSTIME), "%H:%M", timeinfo);
+		strftime(TSTIME, sizeof(TSTIME), "%H:%M:%S", timeinfo);
 		// render text
 		tdate = TTF_RenderText_Solid(fdate, TSDATE, FNTCLRDATE);
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
@@ -78,6 +79,9 @@ int main(int argc, char *argv[]) {
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
 		SDL_Flip(screen);
+		// fix memory leaks
+		SDL_FreeSurface(tdate);
+		SDL_FreeSurface(ttime);
 		// wait
 		sleep(1);
 		// check keypress

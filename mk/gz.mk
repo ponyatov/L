@@ -2,12 +2,14 @@
 
 .PHONY: gz
 gz:
-#	exit -1
+ 	$(WGET) http://elinks.or.cz/download/$(ELINKS).tar.bz2
+	exit -1
 	make gz_cc
 	make gz_core
 	make gz_libs
 	make gz_sdk
 	make gz_$(ARCH)
+	make gz_apps
 	
 .PHONY: gz_cc
 gz_cc:
@@ -45,3 +47,7 @@ gz_i386:
 .PHONY: gz_arm
 gz_arm:
 	$(WGET) ftp://ftp.denx.de/pub/u-boot/$(UBOOT).tar.bz2
+
+.PHONY: gz_apps
+gz_apps:
+ 	$(WGET) http://elinks.or.cz/download/$(ELINKS).tar.bz2

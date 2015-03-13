@@ -43,3 +43,7 @@ FPC_VER = 2.6.4
 ## math
 ECL_VER_A = 15.2
 ECL_VER = $(ECL_VER_A).21
+
+# apps
+LINKS_VER = 2.9
+ELINKS_VER = 0.11.7

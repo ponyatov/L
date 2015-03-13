@@ -20,5 +20,8 @@ all:
 	make kernel
 	make ulibc
 	make busybox
+	make libs
+	make ramclean
+	make apps
 	make root
 

@@ -39,3 +39,7 @@ FPC = fpc-$(FPC_VER)
 
 # math
 ECL = ecl-$(ECL_VER)
+
+# apps
+LINKS = links-$(LINKS_VER)
+ELINKS = elinks-$(ELINKS_VER)
