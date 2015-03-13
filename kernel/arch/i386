@@ -25,3 +25,7 @@ CONFIG_NVRAM=y
 # debug
 CONFIG_MAGIC_SYSRQ=y
 CONFIG_X86_VERBOSE_BOOTUP=y
+
+# net devices
+
+
