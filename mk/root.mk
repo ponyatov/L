@@ -6,7 +6,7 @@ root:
 	rm -rf $(ETC) ; cp -r etc $(ROOT)/
 	cat app/$(APP).rcS >> $(ROOT)/etc/init.d/rcS
 	cp README.md $(ETC)/
-	chmod +x $(ETC)/init.d/* $(ETC)/dhcp*
+	chmod +x $(ETC)/init.d/* $(ETC)/dhcp.rc
 	# 2	
 	$(LDCONFIG) -v -r $(ROOT)
 	# 3
