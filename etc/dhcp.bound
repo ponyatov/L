@@ -1,0 +1,13 @@
+#!/bin/sh
+
+NETMASK=""
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+BROADCAST=""
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+
+echo DHCP: $interface $ip
+ifconfig $interface $ip $NETMASK $BROADCAST
+ifconfig $interface
+echo nameserver $dns > /etc/resolv.conf
+echo DHCP: dns $dns
+
