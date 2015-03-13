@@ -2,8 +2,7 @@
 
 .PHONY: gz
 gz:
- 	$(WGET) http://elinks.or.cz/download/$(ELINKS).tar.bz2
-	exit -1
+#	exit -1
 	make gz_cc
 	make gz_core
 	make gz_libs
@@ -50,4 +49,4 @@ gz_arm:
 
 .PHONY: gz_apps
 gz_apps:
- 	$(WGET) http://elinks.or.cz/download/$(ELINKS).tar.bz2
+	$(WGET) http://elinks.or.cz/download/$(ELINKS).tar.bz2

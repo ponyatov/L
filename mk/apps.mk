@@ -1,13 +1,14 @@
 .PHONY: apps
 apps: $(APPS)
 
-CFG_LINKS = 
+CFG_ELINKS = --disable-ipv6 --without-spidermonkey 
 
-.PHONY: links
-links: $(SRC)/$(LINKS)/README
-	rm -rf $(TMP)/$(LINKS) && mkdir $(TMP)/$(LINKS) &&\
-	cd $(TMP)/$(LINKS) &&\
-	$(XPATH) CC="$(TCC)" CXX="$(TCXX)" \
-	$(SRC)/$(LINKS)/configure --disable-nls --prefix=$(ROOT)/links \
-	--host=$(TARGET) \
-	$(CFG_LINKS)
+.PHONY: elinks
+elinks: $(SRC)/$(ELINKS)/README
+	rm -rf $(TMP)/$(ELINKS) && mkdir $(TMP)/$(ELINKS) &&\
+	cd $(TMP)/$(ELINKS) &&\
+	$(XPATH) $(SRC)/$(ELINKS)/configure --disable-nls \
+	CC="$(TCC)" CXX="$(TCXX)" --host=$(TARGET) \
+	--prefix=$(ROOT)/elinks \
+	$(CFG_ELINKS) &&\
+	$(XPATH) make
