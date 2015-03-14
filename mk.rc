@@ -15,6 +15,7 @@ cat \
 	mk/ulibc.mk \
 	mk/busybox.mk \
 	mk/sdk/canadian.mk \
+	mk/sdk/python.mk \
 	mk/sdk/pascal.mk \
 	mk/sdk/math.mk \
 	mk/user.mk \

@@ -34,6 +34,10 @@ FREETYPE = freetype-$(FREETYPE_VER)
 
 # extra
 ## SDK
+
+### Python
+PYMITE = pymite-$(PYMITE_VER)
+
 ### PASCAL
 FPC = fpc-$(FPC_VER)
 

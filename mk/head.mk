@@ -24,4 +24,3 @@ all:
 	make ramclean
 	make apps
 	make root
-
