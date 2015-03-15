@@ -1,32 +1,28 @@
 #!/bin/sh
 
-case "$1" in
-	deconfig)
-		ifconfig $interface 0.0.0.0
-	;;
-
-
-renew|bound)
+RESOLV="/etc/resolv.conf"
 
 NETMASK=""
 [ -n "$subnet" ] && NETMASK="netmask $subnet"
 BROADCAST=""
 [ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
 
-ifconfig $interface $ip $NETMASK $BROADCAST
-ifconfig $interface
-
-R="/etc/resolv.conf"
-echo -n > $R
-for i in $dns ; do
-	echo nameserver $i >> $R
-done
-cat $R
-
-route add default gw $router dev $interface
-route
-
-;;
-
+case "$1" in
+	deconfig)
+		ifconfig $interface 0.0.0.0
+	;;
+	renew|bound)
+		# interface address
+		ifconfig $interface $ip $NETMASK $BROADCAST
+		ifconfig $interface
+		# dns resolving 
+		echo -n > $RESOLV
+		for i in $dns ; do
+			echo nameserver $i >> $RESOLV
+		done
+		cat $RESOLV
+		# routing
+		route add default gw $router dev $interface
+		route
+	;;
 esac
-

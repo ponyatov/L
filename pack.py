@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 
-RexPack = {
-           'sdk':[
-                  r'.+\.a$'
-                  ]
-}
-
 import os,sys,time,re
 
 print time.localtime()[:6],sys.argv
@@ -26,11 +20,12 @@ class RexPack:
         print >> self.fh, item
     
 PACK = [
-      RexPack('sdk', [
-            r'^lib/.+\.a$', 
-            r'^lib/S?crt.\.o$'
-            ])
-      ]
+    RexPack('sdk', [
+        r'^lib/.+\.a$', 
+        r'^lib/S?crt.\.o$',
+        r'^include/.+'
+    ])
+]
 
 class FILES:
     def __init__(self, FileName, Mode):
@@ -44,12 +39,8 @@ class FILES:
     def __iter__(self): return self
     def next(self):
         T = self.fh.readline()
-        T = re.sub(r'^\./',r'',T[:-1])
         if T:
-            if os.path.isdir(ROOT+'/'+T):
-                return self.next()
-            else:
-                return T
+            return re.sub(r'^\./',r'',T[:-1])
         else:
             raise StopIteration
     def append(self, item):
