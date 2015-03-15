@@ -21,9 +21,15 @@ class RexPack:
     
 PACK = [
     RexPack('sdk', [
-        r'^lib/.+\.a$', 
+        r'^lib/.+\.l?a$', 
         r'^lib/S?crt.\.o$',
-        r'^include/.+'
+        r'^include.*',
+    ]),
+    RexPack('not_needed',[
+        r'^lib/pkgconfig.*',
+        r'^share/aclocal.*',
+        r'^share/man.*',
+        r'^bin/png.+'
     ])
 ]
 

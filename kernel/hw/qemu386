@@ -1,2 +1,7 @@
+# qemu-system-i386
+# disable real-time
 CONFIG_HZ_1000=n
 CONFIG_HZ_100=y
+# Cirrus Logic GD 4556
+CONFIG_FB_CIRRUS=y
+

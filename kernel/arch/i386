@@ -11,6 +11,7 @@ CONFIG_POWER_RESET=y
 
 # framebuffer
 CONFIG_VGA_CONSOLE=y
+CONFIG_FB_VGA16=y
 CONFIG_FB_VESA=y
 
 # keyboard
