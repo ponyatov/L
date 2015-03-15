@@ -35,6 +35,7 @@ gz_libs:
 
 .PHONY: gz_sdk
 gz_sdk:
+	$(WGET) https://www.python.org/ftp/python/$(PYTHON3_VER)/$(PYTHON3).tar.xz
 	$(WGET) http://python-on-a-chip.googlecode.com/files/$(PYMITE).tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/$(FPC).source.tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/fpcbuild-$(FPC_VER).tar.gz

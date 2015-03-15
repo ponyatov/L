@@ -37,6 +37,7 @@ FREETYPE = freetype-$(FREETYPE_VER)
 
 ### Python
 PYMITE = pymite-$(PYMITE_VER)
+PYTHON3 = Python-$(PYTHON3_VER)
 
 ### PASCAL
 FPC = fpc-$(FPC_VER)

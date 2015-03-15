@@ -40,6 +40,7 @@ FREETYPE_VER = 2.5.5
 
 ### Python
 PYMITE_VER = 09
+PYTHON3_VER = 3.4.3
 
 ### Pascal
 FPC_VER = 2.6.4
