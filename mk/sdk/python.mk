@@ -1,6 +1,9 @@
 
-CFG_PYTHON = --disable-ipv6 ac_cv_file__dev_ptmx=no \
-	ac_cv_file__dev_ptc=no
+CFG_PYTHON = --disable-ipv6 --disable-ptmx \
+--disable-sunaudiodev --disable-tk --disable-profiling
+
+#	ac_cv_file__dev_ptmx=no \
+#	ac_cv_file__dev_ptc=no \
 .PHONY: python
 python: $(SRC)/$(PYTHON)/README
 #	rm -rf $(TMP)/$(PYTHON) && mkdir $(TMP)/$(PYTHON)
@@ -12,7 +15,7 @@ python: $(SRC)/$(PYTHON)/README
 #	cd $(TMP)/$(PYTHON) && mv python hostpython && mv Parser/pgen Parser/hostpgen
 	-cd $(TMP)/$(PYTHON) && make distclean
 	cd $(TMP)/$(PYTHON) && $(XPATH) \
-	CC="$(TCC)" CXX="$(TCXX)" \
+	CC="$(TCC) -Wno-format" CXX="$(TCXX) -Wno-format" \
 	AR=$(TARGET)-ar RANLIB=$(TARGET)-ranlib \
 	$(SRC)/$(PYTHON)/configure --prefix=$(ROOT)/python \
 	--host=$(TARGET) --build=$(shell gcc -dumpmachine) \
