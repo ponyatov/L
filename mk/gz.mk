@@ -35,8 +35,12 @@ gz_libs:
 
 .PHONY: gz_sdk
 gz_sdk:
-	$(WGET) https://www.python.org/ftp/python/$(PYTHON3_VER)/$(PYTHON3).tar.xz
-	$(WGET) http://python-on-a-chip.googlecode.com/files/$(PYMITE).tar.gz
+	$(WGET) https://www.python.org/ftp/python/$(PYTHON_VER)/$(PYTHON).tar.bz2
+	$(WGET) http://randomsplat.com/wp-content/uploads/2012/10/Python-2.7.3-xcompile.patch
+#	$(WGET) http://bugs.python.org/file31991/Python-2.7.5-xcompile.patch
+#	$(WGET) http://whatschrisdoing.com/~lambacck/Python2.5_xcompile.patch
+#	$(WGET) https://www.python.org/ftp/python/$(PYTHON3_VER)/$(PYTHON3).tar.xz
+#	$(WGET) http://python-on-a-chip.googlecode.com/files/$(PYMITE).tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/$(FPC).source.tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/fpcbuild-$(FPC_VER).tar.gz
 	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
