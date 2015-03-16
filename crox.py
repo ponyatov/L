@@ -28,11 +28,37 @@ class QEMU:
 
 class ARCH:
     """architecture"""
-    def __init__(self,Name,Qemu=''):
-        self.Name=Name
-        self.QEMU=Qemu
-ARCH_X86=ARCH('i386','-M pc')
-ARCH_ARM=ARCH('arm','-M versatilepb')
+    TARGET = ''
+    CFG_ARCH = ''
+    def __init__(self, Name, Qemu=''):
+        self.Name = Name
+        self.fh = open('arch/%s.mk' % self.Name, 'w')
+        self.QEMU = Qemu
+        print >> self.fh, '# arch: %s %s' % (self.__class__.__name__,self.Name)
+        if self.TARGET:
+            print >> self.fh, 'TARGET = %s' % self.TARGET
+        print >> self.fh, 'CFG_ARCH = %s' % self.CFG_ARCH
+class ARCH_X86(ARCH):
+    CFG_ARCH = '--disable-multilib'
+    def __init__(self, Name, Qemu='-M pc'):
+        ARCH.__init__(self, Name, Qemu)
+class ARCH_ARM(ARCH):
+    TARGET = 'arm-linux-uclibceabi'
+    CFG_ARCH = '--disable-interwork'
+    def __init__(self, Name, Qemu='-M versatilepb'):
+        ARCH.__init__(self, Name, Qemu)
+class ARCH_ARMHF(ARCH_ARM):
+    TARGET = 'arm-linux-uclibceabihf'
+    CFG_ARCH = ARCH_ARM.CFG_ARCH + ' --with-float=hard'
+class ARCH_MIPS(ARCH):
+    TARGET = 'mips-linux-uclibceabi'
+    def __init__(self, Name, Qemu='-M mips'):
+        ARCH.__init__(self, Name, Qemu)
+            
+ARCH_X86   = ARCH_X86('i386')
+ARCH_ARM   = ARCH_ARM('arm')
+ARCH_ARMHF = ARCH_ARMHF('armhf')
+ARCH_MIPS  = ARCH_MIPS('mips')
 
 class CPU:
     """cpu"""
