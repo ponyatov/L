@@ -1,3 +1,3 @@
-# arch: ARCH_ARMHF armhf
-TARGET = arm-linux-uclibceabihf
-CFG_ARCH = --disable-interwork --with-float=hard
+# arch: ARCH_ARM armhf
+TARGET = arm-linux-uclibceabi
+CFG_ARCH = --disable-interwork
