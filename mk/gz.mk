@@ -38,16 +38,19 @@ gz_sdk: gz_python
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/$(FPC).source.tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/fpcbuild-$(FPC_VER).tar.gz
 	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
-	
+
 .PHONY: gz_python
 gz_python:
-	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/002-fix-get-python-inc.patch
 	exit -1
 	$(WGET) https://www.python.org/ftp/python/$(PYTHON_VER)/$(PYTHON).tar.xz
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/001-remove-host-header-path.patch
-#	$(WGET) http://randomsplat.com/wp-content/uploads/2012/10/Python-2.7.3-xcompile.patch
-#	$(WGET) http://bugs.python.org/file31991/Python-2.7.5-xcompile.patch
-#	$(WGET) http://whatschrisdoing.com/~lambacck/Python2.5_xcompile.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/002-fix-get-python-inc.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/004-sysconfigdata-install-location.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/005-pyc-pyo-conditional.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/006-cross-compile-getaddrinfo.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/007-disable-extensions.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/008-distutils-use-python-sysroot.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/009-no-termcap-host-path.patch
 
 .PHONY: gz_i386
 gz_i386:
