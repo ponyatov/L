@@ -20,5 +20,9 @@ python: $(SRC)/$(PYTHON)/README
 #	patch -N -p1 < patch/007-disable-extensions.patch
 #	-cd $(SRC)/$(PYTHON) &&\
 #	patch -N -p1 < patch/008-distutils-use-python-sysroot.patch
+#	-cd $(SRC)/$(PYTHON) &&\
+#	patch -N -p1 < patch/009-no-termcap-host-path.patch
+#	-cd $(SRC)/$(PYTHON) &&\
+#	patch -N -p1 < patch/010-fix-python-config.patch
 	-cd $(SRC)/$(PYTHON) &&\
-	patch -N -p1 < patch/009-no-termcap-host-path.patch
+	patch -N -p1 < patch/011-remove-python-symlink.patch

@@ -51,6 +51,8 @@ gz_python:
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/007-disable-extensions.patch
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/008-distutils-use-python-sysroot.patch
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/009-no-termcap-host-path.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/010-fix-python-config.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/011-remove-python-symlink.patch
 
 .PHONY: gz_i386
 gz_i386:
