@@ -34,16 +34,20 @@ gz_libs:
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
 
 .PHONY: gz_sdk
-gz_sdk:
-	$(WGET) https://www.python.org/ftp/python/$(PYTHON_VER)/$(PYTHON).tar.bz2
-	$(WGET) http://randomsplat.com/wp-content/uploads/2012/10/Python-2.7.3-xcompile.patch
-#	$(WGET) http://bugs.python.org/file31991/Python-2.7.5-xcompile.patch
-#	$(WGET) http://whatschrisdoing.com/~lambacck/Python2.5_xcompile.patch
-#	$(WGET) https://www.python.org/ftp/python/$(PYTHON3_VER)/$(PYTHON3).tar.xz
-#	$(WGET) http://python-on-a-chip.googlecode.com/files/$(PYMITE).tar.gz
+gz_sdk: gz_python
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/$(FPC).source.tar.gz
 	$(WGET) ftp://ftp.hu.freepascal.org/pub/fpc/dist/$(FPC_VER)/source/fpcbuild-$(FPC_VER).tar.gz
 	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
+	
+.PHONY: gz_python
+gz_python:
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/002-fix-get-python-inc.patch
+	exit -1
+	$(WGET) https://www.python.org/ftp/python/$(PYTHON_VER)/$(PYTHON).tar.xz
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/001-remove-host-header-path.patch
+#	$(WGET) http://randomsplat.com/wp-content/uploads/2012/10/Python-2.7.3-xcompile.patch
+#	$(WGET) http://bugs.python.org/file31991/Python-2.7.5-xcompile.patch
+#	$(WGET) http://whatschrisdoing.com/~lambacck/Python2.5_xcompile.patch
 
 .PHONY: gz_i386
 gz_i386:

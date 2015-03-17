@@ -39,11 +39,7 @@ FREETYPE_VER = 2.5.5
 ## SDK
 
 ### Python
-#PYMITE_VER = 09
-#PYTHON3_VER = 3.4.3
-PYTHON_VER = 2.7.3
-#2.7.5
-#2.5.6
+PYTHON_VER = 2.7.9
 
 ### Pascal
 FPC_VER = 2.6.4

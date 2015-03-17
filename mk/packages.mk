@@ -36,8 +36,6 @@ FREETYPE = freetype-$(FREETYPE_VER)
 ## SDK
 
 ### Python
-#PYMITE = pymite-$(PYMITE_VER)
-#PYTHON3 = Python-$(PYTHON3_VER)
 PYTHON = Python-$(PYTHON_VER)
 
 ### PASCAL
