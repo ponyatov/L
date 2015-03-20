@@ -32,6 +32,7 @@ gz_libs:
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
+	$(WGET) http://cxx.uclibc.org/src/$(LIBCPP).tar.xz
 
 .PHONY: gz_sdk
 gz_sdk: gz_python
