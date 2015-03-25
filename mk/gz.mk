@@ -42,7 +42,7 @@ gz_sdk: gz_python
 
 .PHONY: gz_python
 gz_python:
-	exit -1
+#	exit -1
 	$(WGET) https://www.python.org/ftp/python/$(PYTHON_VER)/$(PYTHON).tar.xz
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/001-remove-host-header-path.patch
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/002-fix-get-python-inc.patch
