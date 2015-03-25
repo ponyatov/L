@@ -80,4 +80,4 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
 	mkdir -p $(ROOT)/lib &&\
-	cp $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/
