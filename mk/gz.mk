@@ -54,6 +54,27 @@ gz_python:
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/009-no-termcap-host-path.patch
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/010-fix-python-config.patch
 	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/011-remove-python-symlink.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/013-dont-add-multiarch-path.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/014-abort-on-failed-modules.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/015-fix-sqlite-without-threads.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/016-serial-ioctl-workaround.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/017-distutils-scripts-dont-adjust-shebang.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/100-optional-test-modules.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/101-optional-pydoc.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/102-optional-2to3.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/103-optional-sqlite.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/104-optional-tk.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/105-optional-curses.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/106-optional-expat.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/107-optional-codecs-cjk.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/108-optional-nis.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/109-optional-unicodedata.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/110-optional-db.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/111-optional-ssl.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/112-optional-bzip2.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/113-optional-zlib.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/114-remove-idle-editor.patch
+	$(WGET) -P patch/python http://git.buildroot.net/buildroot/plain/package/python/115-optional-ossaudiodev.patch
 
 .PHONY: gz_i386
 gz_i386:
