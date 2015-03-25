@@ -1,14 +1,32 @@
 
-CFG_PYTHON = 
-#	--disable-pyc-build \
-#	--disable-pyo-build
+CFG_PYTHON_HOST = \ 
+	CC="$(BCC)" CXX="$(BCXX)"
+
+CFG_PYTHON = --host=$(TARGET) --build=$(shell gcc -dumpmachine) \
+	--disable-ipv6 \
+	CC="$(TCC)" CXX="$(TCXX)" CONFIG_SITE= \
+	ac_cv_file__dev_ptmx=no \
+	ac_cv_file__dev_ptc=no
+	
+#--disable-pyc-build
+#--disable-pyo-build	
 
 .PHONY: python	
 python: $(SRC)/$(PYTHON)/patch/done
+	# host step
 	rm -rf $(TMP)/$(PYTHON) && mkdir $(TMP)/$(PYTHON) &&\
 	cd $(TMP)/$(PYTHON) &&\
-	$(SRC)/$(PYTHON)/$(TCFG) $(CFG_PYTHON)
-
+	$(SRC)/$(PYTHON)/configure $(CFG_PYTHON_HOST) &&\
+	$(MAKE) python Parser/pgen &&\
+	cp python $(TC)/bin/hostpython &&\
+	cp Parser/pgen $(TC)/bin/hostpgen
+	# target step
+	rm -rf $(TMP)/$(PYTHON) && mkdir $(TMP)/$(PYTHON) &&\
+	cd $(TMP)/$(PYTHON) &&\
+	$(XPATH) $(SRC)/$(PYTHON)/configure $(CFG_PYTHON) &&\
+	$(XPATH) $(MAKE) PGEN=hostpgen python &&\
+	cp python $(ROOT)/usr/bin/
+	
 .PHONY: python-src
 python-src: $(SRC)/$(PYTHON)/README
 	mkdir -p $(SRC)/$(PYTHON)/patch &&\
