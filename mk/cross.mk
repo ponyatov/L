@@ -18,7 +18,11 @@ CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--enable-threads --enable-libgomp \
-	--enable-languages="c,c++"
+	--enable-languages="c,c++" \
+	--enable-shared \
+	--enable-libstdcxx-time \
+	--enable-libstdcxx-threads \
+	--enable-libstdcxx-pch
 
 .PHONY: cross0
 cross0: binutils0 cclibs0 gcc0
@@ -73,3 +77,7 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
+	mkdir -p $(ROOT)/lib &&\
+	cp $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/

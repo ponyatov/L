@@ -29,10 +29,6 @@ SDL_IMAGE_VER = 1.2.12
 SDL_TTF_VER = 2.0.11
 FREETYPE_VER = 2.5.5
 
-## c++
-
-LIBCPP_VER = 0.2.4
-
 ## extra
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
