@@ -7,3 +7,5 @@ $(SRC)/%/README: $(GZ)/%.tar.xz
 	cd $(SRC) && xzcat $< | tar x && touch $@
 $(SRC)/%/README: $(GZ)/%.tgz
 	cd $(SRC) &&  zcat $< | tar x && touch $@
+$(SRC)/BLAS/README: $(GZ)/blas.tgz
+	cd $(SRC) &&  zcat $< | tar x && touch $@

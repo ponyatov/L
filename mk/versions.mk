@@ -32,7 +32,10 @@ FREETYPE_VER = 2.5.5
 ## extra
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
+
+## math
 PCRE_VER = 8.36
+BLAS_VER = 3.5.0
 
 # extra
 

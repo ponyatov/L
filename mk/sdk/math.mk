@@ -9,14 +9,6 @@ CFG_ECL =
 ecl: $(SRC)/$(ECL)/README
 	cd $(SRC)/$(ECL) && $(XPATH) ./$(BCFG) $(CFG_ECL) && $(MAKE)
 	
-CFG_PCRE = 
-.PHONY: pcre
-pcre: $(SRC)/$(PCRE)/README
-	rm -rf $(TMP)/$(PCRE) && mkdir $(TMP)/$(PCRE) &&\
-	cd $(TMP)/$(PCRE) &&\
-	$(XPATH) $(SRC)/$(PCRE)/$(TCFG) $(CFG_PCRE) &&\
-	$(MAKE) && $(INSTALL)
-		
 CFG_OCTAVE = --prefix=$(ROOT)/octave --disable-docs 
 #--enable-lite-kernel
 # --disable-docs --help

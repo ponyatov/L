@@ -17,6 +17,7 @@ BCXX = $(CCACHE) g++ -pipe
 
 TCC  = $(CCACHE) $(TARGET)-gcc -pipe
 TCXX = $(CCACHE) $(TARGET)-g++ -pipe
+TFORTRAN = $(CCACHE) $(TARGET)-gfortran -pipe
 STRIP = $(XPATH) $(TARGET)-strip
 
 LDD = $(XPATH) $(TARGET)-ldd
