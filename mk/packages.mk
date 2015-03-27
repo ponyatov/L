@@ -42,6 +42,8 @@ FPC = fpc-$(FPC_VER)
 
 # math
 ECL = ecl-$(ECL_VER)
+OCTAVE = octave-$(OCTAVE_VER)
+MAXIMA = maxima-$(MAXIMA_VER)
 
 # apps
 LINKS = links-$(LINKS_VER)
