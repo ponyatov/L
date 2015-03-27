@@ -30,6 +30,7 @@ SDL_TTF = SDL_ttf-$(SDL_TTF_VER)
 ZLIB = zlib-$(ZLIB_VER)
 PNG = libpng-$(PNG_VER)
 FREETYPE = freetype-$(FREETYPE_VER)
+PCRE = pcre-$(PCRE_VER)
 
 # extra
 ## SDK

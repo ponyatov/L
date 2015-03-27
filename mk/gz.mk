@@ -90,8 +90,8 @@ gz_apps:
 
 .PHONY: gz_math
 gz_math:
-	$(WGET) http://downloads.sourceforge.net/project/maxima/Maxima-source/$(MAXIMA_VER)-source/$(MAXIMA).tar.gz
-#	?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fmaxima%2Ffiles%2FMaxima-source%2F5.35.1-source%2F&ts=1427450115&use_mirror=garr
-	exit -1
-	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
+	$(WGET) ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$(PCRE).tar.bz2
 	$(WGET) ftp://ftp.gnu.org/gnu/octave/$(OCTAVE).tar.bz2
+	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
+	$(WGET) http://downloads.sourceforge.net/project/maxima/Maxima-source/$(MAXIMA_VER)-source/$(MAXIMA).tar.gz
+	
