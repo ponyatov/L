@@ -13,3 +13,6 @@ blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) &&\
 	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
 #	$(XPATH) $(TARGET)-gfortran -shared -g0 -O2 *.f -o $(ROOT)/lib/libblas.so -fPIC
+
+.PHONY: atlas
+atlas: $(SRC)/ATLAS/README

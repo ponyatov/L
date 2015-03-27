@@ -34,6 +34,7 @@ FREETYPE = freetype-$(FREETYPE_VER)
 ## math
 PCRE = pcre-$(PCRE_VER)
 BLAS = BLAS
+ATLAS = atlas$(ATLAS_VER)
 
 # extra
 ## SDK
