@@ -11,6 +11,5 @@ CFG_BLAS = FORTRAN="$(TFORTRAN)" BLASLIB=$(ROOT)/lib/libblas.a
 .PHONY: blas
 blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) &&\
-	$(XPATH) $(TARGET)-gfortran -shared -g0 -O2 *.f -o $(ROOT)/lib/libblas.so -fPIC
-#	$(XPATH) $(TFORTRAN) -shared -O3 *.f -o $(ROOT)/lib/libblas.so -fPIC
-#	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
+	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
+#	$(XPATH) $(TARGET)-gfortran -shared -g0 -O2 *.f -o $(ROOT)/lib/libblas.so -fPIC
