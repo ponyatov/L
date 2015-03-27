@@ -16,14 +16,14 @@ CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--without-headers --with-newlib \
 	--enable-languages="c"
 
+LANGUAGES += c,c++
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--enable-threads --enable-libgomp \
-	--enable-languages="c,c++" \
+	--enable-languages="$(LANGUAGES)" \
 	--enable-shared \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
 	--enable-libstdcxx-pch
-CFG_GCCF = $(CFG_GCC) --enable-languages="c,c++,fortran"
 
 .PHONY: cross0
 cross0: binutils0 cclibs0 gcc0
@@ -74,20 +74,6 @@ gcc: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC)
-	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
-	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
-	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	mkdir -p $(ROOT)/lib &&\
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/
-
-.PHONY: gccf
-gccf: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCCF)
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc

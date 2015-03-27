@@ -1,15 +1,3 @@
-
-CFG_FORTRAN = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
-	--enable-languages="fortran" --prefix=$(TC)/fortran
-#--enable-threads --enable-libgomp	
-.PHONY: fortran
-fortran: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_FORTRAN)
-	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
-#	cd $(TMP)/$(GCC) && $(MAKE)
 	
 CFG_ECL =
 
