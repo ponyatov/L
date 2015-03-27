@@ -1,3 +1,7 @@
+
+.PHONY: fortran
+fortran:
+	make LANGS="c,c++,fortran" gcc
 	
 CFG_ECL =
 

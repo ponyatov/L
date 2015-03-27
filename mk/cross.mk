@@ -16,10 +16,10 @@ CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--without-headers --with-newlib \
 	--enable-languages="c"
 
-LANGUAGES += c,c++
+LANGS += c,c++
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
 	--enable-threads --enable-libgomp \
-	--enable-languages="$(LANGUAGES)" \
+	--enable-languages="$(LANGS)" \
 	--enable-shared \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
