@@ -79,8 +79,7 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	mkdir -p $(ROOT)/lib &&\
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
 
 .PHONY: fortran
 fortran: $(SRC)/$(GCC)/README

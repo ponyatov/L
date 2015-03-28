@@ -27,8 +27,10 @@ USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
 PACK = $(ROOT)/pack
 ISO = $(TMP)/iso
+LIB = $(ROOT)/lib
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) \
+	$(LIB) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
 
 .PHONY: dirs
 dirs:
