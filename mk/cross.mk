@@ -11,16 +11,12 @@ CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
 
-CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
+CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) --disable-bootstrap \
 	--disable-shared --disable-threads \
-	--without-headers --with-newlib \
-	--enable-languages="c"
+	--without-headers --with-newlib
 
-LANGS += c,c++
-CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) \
-	--enable-threads --enable-libgomp \
-	--enable-languages="$(LANGS)" \
-	--enable-shared \
+CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) --disable-bootstrap \
+	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
 	--enable-libstdcxx-pch
@@ -63,7 +59,7 @@ mpc0: $(SRC)/$(MPC)/README
 gcc0: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0)
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
@@ -73,7 +69,7 @@ gcc0: $(SRC)/$(GCC)/README
 gcc: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC)
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
@@ -82,3 +78,9 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
 	mkdir -p $(ROOT)/lib &&\
 	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(ROOT)/lib/
+
+.PHONY: fortran
+fortran: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="fortran"
