@@ -2,7 +2,10 @@
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
-	--enable-lto --disable-multilib
+	--enable-lto --disable-multilib \
+	CFLAGS="-g0 -Ofast -march=native -mtune=native" \
+	CXXFLAGS="-g0 -Ofast -march=native -mtune=native"
+#	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
 
 CFG_CCLIBS0 = --disable-shared \
 	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
