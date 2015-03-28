@@ -1,3 +1,6 @@
-# universal i686 PC (32 bit) PII+
-CPU = i686
-QEMU_CFG = -M pc -cpu pentium2
+# universal i386 PC (32 bit) i486sx+
+#(pure i386sx not supported by new gcc/kernel) 
+CPU = i486sx
+#i686
+QEMU_CFG = -M pc -cpu 486
+#pentium2
