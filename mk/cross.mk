@@ -7,18 +7,20 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	CXXFLAGS="-g0 -Ofast -march=native -mtune=native"
 #	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
 
-CFG_CCLIBS0 = --disable-shared \
-	--with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC)
+CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) 
+
+CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared \
+	CFLAGS="-g0 -Ofast -march=native -mtune=native"
 	
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
 
-CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_CCLIBS0) --disable-bootstrap \
+CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
 	--without-headers --with-newlib
 
-CFG_GCC = $(CFG_BINUTILS0) $(CFG_CCLIBS0) --disable-bootstrap \
+CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
@@ -42,21 +44,21 @@ gmp0: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
 	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) &&\
-	$(MAKE) && make install-strip
+	$(MAKE) && $(INSTALL)-strip
 
 .PHONY: mpfr0
 mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) &&\
 	cd $(TMP)/$(MPFR) &&\
 	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) &&\
-	$(MAKE) && make install-strip
+	$(MAKE) && $(INSTALL)-strip
 
 .PHONY: mpc0
 mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) &&\
 	cd $(TMP)/$(MPC) &&\
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) &&\
-	$(MAKE) && make install-strip
+	$(MAKE) && $(INSTALL)-strip
 
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
@@ -65,8 +67,8 @@ gcc0: $(SRC)/$(GCC)/README
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
-	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
+#	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+#	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
