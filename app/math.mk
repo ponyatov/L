@@ -1,3 +1,3 @@
 # app: math
-LIBS = zlib 
+LIBS = zlib pcre blas 
 APPS = hello

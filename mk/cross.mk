@@ -88,3 +88,8 @@ fortran: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="fortran"
+	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
+
