@@ -1,2 +1,2 @@
-BOPT = -Ofast -g0 -march=native -tune=native
+BOPT = -Ofast -g0 -march=native -mtune=native
 TOPT = -Ofast -g0 $(CFLAGS_CPU)
