@@ -3,14 +3,12 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
 	--enable-lto --disable-multilib \
-	CFLAGS="-g0 -Ofast -march=native -mtune=native" \
-	CXXFLAGS="-g0 -Ofast -march=native -mtune=native"
+	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
 #	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) 
 
-CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared \
-	CFLAGS="-g0 -Ofast -march=native -mtune=native"
+CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared CFLAGS="$(BOPT)"
 	
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
@@ -92,4 +90,3 @@ fortran: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
-
