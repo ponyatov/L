@@ -1,6 +1,7 @@
 #!/bin/sh
 cat \
 	mk/head.mk \
+	mk/opt.mk \
 	mk/dirs.mk \
 	mk/versions.mk \
 	mk/packages.mk \

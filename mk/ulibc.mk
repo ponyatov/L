@@ -1,5 +1,4 @@
 CFG_ULIBC = CROSS=$(TARGET)- ARCH=$(ARCH) PREFIX=$(ROOT)
-CFG_ULIBC_OPT = -Ofast -g0 $(CFLAGS_CPU)
 
 .PHONY: ulibc
 ulibc: $(SRC)/$(ULIBC)/README
@@ -14,7 +13,7 @@ ulibc: $(SRC)/$(ULIBC)/README
 	# 3
 	echo "CROSS_COMPILER_PREFIX=\"$(TARGET)-\"" >> $(SRC)/$(ULIBC)/.config
 	echo "KERNEL_HEADERS=\"$(ROOT)/include\"" >> $(SRC)/$(ULIBC)/.config
-	echo "UCLIBC_EXTRA_CFLAGS=\"$(CFG_ULIBC_OPT)\"" >> $(SRC)/$(ULIBC)/.config
+	echo "UCLIBC_EXTRA_CFLAGS=\"$(TOPT)\"" >> $(SRC)/$(ULIBC)/.config
 	# 4
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) menuconfig
 	# 5
