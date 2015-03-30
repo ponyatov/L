@@ -16,5 +16,9 @@ blas: $(SRC)/$(BLAS)/README
 	$(XPATH) $(TFORTRAN) -shared -fPIC $(TOPT) -o $(LIB)/libblas.so *.f
 #	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
 
+CFG_LAPACK =
+.PHONY: lapack
+lapack: $(SRC)/$(LAPACK)/README
+
 .PHONY: atlas
 atlas: $(SRC)/ATLAS/README

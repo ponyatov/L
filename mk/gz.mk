@@ -93,7 +93,8 @@ gz_math:
 #	exit -1
 	$(WGET) ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$(PCRE).tar.bz2
 	$(WGET) http://www.netlib.org/blas/blas.tgz
-	$(WGET) http://sourceforge.net/projects/math-atlas/files/Stable/$(ATLAS_VER)/$(ATLAS).tar.bz2
+	$(WGET) http://www.netlib.org/lapack/$(LAPACK).tgz
+#	$(WGET) http://sourceforge.net/projects/math-atlas/files/Stable/$(ATLAS_VER)/$(ATLAS).tar.bz2
 	$(WGET) ftp://ftp.gnu.org/gnu/octave/$(OCTAVE).tar.bz2
 	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
 	$(WGET) http://downloads.sourceforge.net/project/maxima/Maxima-source/$(MAXIMA_VER)-source/$(MAXIMA).tar.gz

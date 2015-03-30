@@ -36,7 +36,8 @@ PNG_VER = 1.6.15
 ## math
 PCRE_VER = 8.36
 BLAS_VER = 3.5.0
-ATLAS_VER = 3.10.2
+#ATLAS_VER = 3.10.2
+LAPACK_VER = 3.5.0
 
 # extra
 

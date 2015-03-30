@@ -1,3 +1,3 @@
 # app: math
-LIBS = zlib pcre blas 
-APPS = hello
+LIBS = zlib pcre blas lapack 
+APPS = hello octave
