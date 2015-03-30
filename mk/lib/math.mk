@@ -1,5 +1,5 @@
 
-CFG_PCRE = 
+CFG_PCRE = CFLAGS="$(TOPT)"
 .PHONY: pcre
 pcre: $(SRC)/$(PCRE)/README
 	rm -rf $(TMP)/$(PCRE) && mkdir $(TMP)/$(PCRE) &&\
