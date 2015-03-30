@@ -8,12 +8,13 @@ pcre: $(SRC)/$(PCRE)/README
 	$(MAKE) && $(INSTALL)
 	mv -f $(ROOT)/bin/pcre-config $(TC)/bin/
 
-CFG_BLAS = FORTRAN="$(TFORTRAN)" BLASLIB=$(ROOT)/lib/libblas.a
+CFG_BLAS = FORTRAN="$(TFORTRAN)" OPTS="$(TOPT)" 
+# BLASLIB=$(ROOT)/lib/libblas.a
 .PHONY: blas
 blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) &&\
-	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
-#	$(XPATH) $(TARGET)-gfortran -shared -g0 -O2 *.f -o $(ROOT)/lib/libblas.so -fPIC
+	$(XPATH) $(TFORTRAN) -shared -fPIC $(TOPT) -o $(LIB)/libblas.so *.f
+#	make clean && $(XPATH) $(MAKE) $(CFG_BLAS)
 
 .PHONY: atlas
 atlas: $(SRC)/ATLAS/README
