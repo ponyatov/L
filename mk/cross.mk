@@ -81,12 +81,17 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
 	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
 
-.PHONY: fortran
-fortran: $(SRC)/$(GCC)/README
+.PHONY: gccf
+gccf: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="fortran"
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++,fortran"
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
+	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
+	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
