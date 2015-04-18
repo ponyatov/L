@@ -2,7 +2,8 @@
 
 .PHONY: gz
 gz:
-#	exit -1
+	make gz_$(APP)
+	exit -1
 	make gz_cc
 	make gz_core
 	make gz_libs
@@ -98,3 +99,7 @@ gz_math:
 	$(WGET) ftp://ftp.gnu.org/gnu/octave/$(OCTAVE).tar.bz2
 	$(WGET) http://downloads.sourceforge.net/project/ecls/ecls/$(ECL_VER_A)/$(ECL).tgz
 	$(WGET) http://downloads.sourceforge.net/project/maxima/Maxima-source/$(MAXIMA_VER)-source/$(MAXIMA).tar.gz
+
+.PHONY: gz_desk
+gz_desk:
+		
