@@ -54,3 +54,6 @@ MAXIMA = maxima-$(MAXIMA_VER)
 # apps
 LINKS = links-$(LINKS_VER)
 ELINKS = elinks-$(ELINKS_VER)
+
+# X11R7.7
+X_SERVER = xorg-server-$(X_SERVER_VER)

@@ -102,4 +102,4 @@ gz_math:
 
 .PHONY: gz_desk
 gz_desk:
-		
+	$(WGET) http://www.x.org/releases/$(X_RELEASE)/src/xserver/$(X_SERVER).tar.bz2
