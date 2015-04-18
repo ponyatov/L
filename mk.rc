@@ -26,4 +26,5 @@ cat \
 	mk/root.mk \
 	mk/boot.mk \
 	mk/info.mk \
+	mk/xorg.mk \
 > Makefile
