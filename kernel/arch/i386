@@ -2,6 +2,9 @@ CONFIG_X86_GENERIC=y
 
 # buses
 CONFIG_ISA=y
+CONFIG_ISAPNP=y
+CONFIG_PNPBIOS=y
+
 CONFIG_PCI=y
 
 # power management
