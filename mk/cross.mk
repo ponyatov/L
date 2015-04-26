@@ -95,3 +95,4 @@ gccf: $(SRC)/$(GCC)/README
 	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
+

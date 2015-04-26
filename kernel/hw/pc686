@@ -1,0 +1,18 @@
+# enable real-time for desktop system with fast response
+CONFIG_HZ_1000=n
+CONFIG_HZ_100=y
+
+# enable modules for universal system: 
+# huge pack of drivers must be prebuilded
+CONFIG_MODULES=y
+
+# optional net options
+## network gateway/router: not required for desktop computer
+CONFIG_NF_CONNTRACK=m
+CONFIG_IP_NF_IPTABLES=m
+
+# netcards
+# wifi
+# video
+# sound
+# v4l

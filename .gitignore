@@ -17,6 +17,9 @@ qemu386clock.cross
 x86clock
 x86clock.cross
 
+pc686desk
+pc686desk.cross
+
 etc/README-SDL.txt
 
 rpimicro

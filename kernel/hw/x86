@@ -1,1 +1,5 @@
-CONFIG_MODULES=y
+# disable real-time
+CONFIG_HZ_1000=n
+CONFIG_HZ_100=y
+# disable modules
+CONFIG_MODULES=n
