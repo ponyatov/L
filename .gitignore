@@ -19,6 +19,8 @@ x86clock.cross
 
 pc686desk
 pc686desk.cross
+pc686math
+pc686math.cross
 
 etc/README-SDL.txt
 

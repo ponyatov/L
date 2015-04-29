@@ -1,2 +1,2 @@
 .PHONY: core
-core: kernel ulibc gcc busybox
+core: kernel ulibc ramclean gcc busybox ramclean

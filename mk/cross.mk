@@ -25,7 +25,7 @@ CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-libstdcxx-pch
 
 .PHONY: cross0
-cross0: binutils0 cclibs0 gcc0
+cross0: binutils0 cclibs0 ramclean gcc0 ramclean
 
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README

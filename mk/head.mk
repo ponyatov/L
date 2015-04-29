@@ -16,11 +16,7 @@ all:
 	make dirs 
 	make gz 
 	make cross0
-	make ramclean
-	make kernel
-	make ulibc
-	make busybox
+	make core
 	make libs
-	make ramclean
 	make apps
 	make root
