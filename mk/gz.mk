@@ -3,7 +3,7 @@
 .PHONY: gz
 gz:
 	make gz_$(APP)
-	exit -1
+#	exit -1
 	make gz_cc
 	make gz_core
 	make gz_libs
