@@ -5,6 +5,8 @@
 BINUTILS	= binutils-$(BINUTILS_VER)
 GMP			= gmp-$(GMP_VER)
 MPFR		= mpfr-$(MPFR_VER)
+ISL			= isl-$(ISL_VER)
+CLOOG		= cloog-$(CLOOG_VER)
 MPC = mpc-$(MPC_VER)
 GCC = gcc-$(GCC_VER)
 
