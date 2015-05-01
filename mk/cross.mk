@@ -13,6 +13,7 @@ CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared CFLAGS="$(BOPT)"
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
+CFG_ISL0 = $(CFG_CCLIBS0)	
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
@@ -66,9 +67,12 @@ cloog0: $(SRC)/$(CLOOG)/README
 	
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
+	cd $(SRC)/$(GCC) && ln -fs ../$(ISL) isl
+	cd $(SRC)/$(GCC) && ln -fs ../$(CLOOG) cloog
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
+	exit -1
 	make gccall
 
 .PHONY: gccall
