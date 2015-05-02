@@ -6,14 +6,15 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
 #	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
 
-CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) 
+CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
+	--with-isl=$(TC)  
 
 CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared CFLAGS="$(BOPT)"
 	
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
-CFG_ISL0 = $(CFG_CCLIBS0)	
+CFG_ISL0 = --with-gmp-prefix=$(TC) --disable-shared CFLAGS="$(BOPT)"
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
@@ -61,14 +62,16 @@ mpc0: $(SRC)/$(MPC)/README
 	
 .PHONY: isl0
 isl0: $(SRC)/$(ISL)/README
+	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) &&\
+	cd $(TMP)/$(ISL) &&\
+	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) &&\
+	$(MAKE) && $(INSTALL)-strip
 	
 .PHONY: cloog0
 cloog0: $(SRC)/$(CLOOG)/README
 	
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
-	cd $(SRC)/$(GCC) && ln -fs ../$(ISL) isl
-	cd $(SRC)/$(GCC) && ln -fs ../$(CLOOG) cloog
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
