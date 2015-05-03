@@ -7,55 +7,55 @@ GMP			= gmp-$(GMP_VER)
 MPFR		= mpfr-$(MPFR_VER)
 ISL			= isl-$(ISL_VER)
 CLOOG		= cloog-$(CLOOG_VER)
-MPC = mpc-$(MPC_VER)
-GCC = gcc-$(GCC_VER)
+MPC 		= mpc-$(MPC_VER)
+GCC 		= gcc-$(GCC_VER)
 
 # core
 
-KERNEL = linux-$(KERNEL_VER)
-ULIBC = uClibc-$(ULIBC_VER)
-BUSYBOX = busybox-$(BUSYBOX_VER)
+KERNEL 		= linux-$(KERNEL_VER)
+ULIBC 		= uClibc-$(ULIBC_VER)
+BUSYBOX 	= busybox-$(BUSYBOX_VER)
 
 # loaders
 
-SYSLINUX = syslinux-$(SYSLINUX_VER)
-UBOOT = u-boot-$(UBOOT_VER)
+SYSLINUX 	= syslinux-$(SYSLINUX_VER)
+UBOOT 		= u-boot-$(UBOOT_VER)
 
 # libs
 
 ## SDL2 not works with FB
-SDL = SDL-$(SDL_VER)
-SDL_IMAGE = SDL_image-$(SDL_IMAGE_VER)
-SDL_TTF = SDL_ttf-$(SDL_TTF_VER)
+SDL 		= SDL-$(SDL_VER)
+SDL_IMAGE 	= SDL_image-$(SDL_IMAGE_VER)
+SDL_TTF 	= SDL_ttf-$(SDL_TTF_VER)
 
 ## extra
-ZLIB = zlib-$(ZLIB_VER)
-PNG = libpng-$(PNG_VER)
-FREETYPE = freetype-$(FREETYPE_VER)
+ZLIB 		= zlib-$(ZLIB_VER)
+PNG 		= libpng-$(PNG_VER)
+FREETYPE 	= freetype-$(FREETYPE_VER)
 
 ## math
-PCRE = pcre-$(PCRE_VER)
-BLAS = BLAS
-#ATLAS = atlas$(ATLAS_VER)
-LAPACK = lapack-$(LAPACK_VER)
+PCRE 		= pcre-$(PCRE_VER)
+BLAS 		= BLAS
+#ATLAS 		= atlas$(ATLAS_VER)
+LAPACK 		= lapack-$(LAPACK_VER)
 
 # extra
 ## SDK
 
 ### Python
-PYTHON = Python-$(PYTHON_VER)
+PYTHON 		= Python-$(PYTHON_VER)
 
 ### PASCAL
-FPC = fpc-$(FPC_VER)
+FPC 		= fpc-$(FPC_VER)
 
 # math
-ECL = ecl-$(ECL_VER)
-OCTAVE = octave-$(OCTAVE_VER)
-MAXIMA = maxima-$(MAXIMA_VER)
+ECL 		= ecl-$(ECL_VER)
+OCTAVE 		= octave-$(OCTAVE_VER)
+MAXIMA 		= maxima-$(MAXIMA_VER)
 
 # apps
-LINKS = links-$(LINKS_VER)
-ELINKS = elinks-$(ELINKS_VER)
+LINKS 		= links-$(LINKS_VER)
+ELINKS 		= elinks-$(ELINKS_VER)
 
 # X11R7.7
-X_SERVER = xorg-server-$(X_SERVER_VER)
+X_SERVER 	= xorg-server-$(X_SERVER_VER)
