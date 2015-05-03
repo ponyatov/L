@@ -3,4 +3,4 @@ ARCH = i386
 # target triplet for embedded linux
 TARGET = i686-linux-uclibc
 # target CPU configure params
-CFG_CPU =
+CFG_CPU = --with-arch=i686 --with-tune=i686
