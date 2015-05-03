@@ -1,4 +1,5 @@
-CFG_KERNEL = ARCH=$(ARCH) INSTALL_HDR_PATH=$(ROOT)
+CFG_KERNEL = ARCH=$(ARCH) \
+	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 	
 .PHONY: kernel
 kernel: $(SRC)/$(KERNEL)/README
@@ -19,6 +20,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
 	# 5
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
 	cp $(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
