@@ -9,12 +9,13 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
 	--with-isl=$(TC)  
 
-CFG_CCLIBS0 =  $(CFG_WITHCCLIBS) --disable-shared CFLAGS="$(BOPT)"
+CFG_CCLIBS00 = --disable-shared CFLAGS="$(BOPT)"
+CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
 	
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
-CFG_ISL0 = --with-gmp-prefix=$(TC) --disable-shared CFLAGS="$(BOPT)"
+CFG_ISL0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
