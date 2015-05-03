@@ -52,6 +52,8 @@ FPC 		= fpc-$(FPC_VER)
 ECL 		= ecl-$(ECL_VER)
 OCTAVE 		= octave-$(OCTAVE_VER)
 MAXIMA 		= maxima-$(MAXIMA_VER)
+MPICH		= mpich-$(MPICH_VER)
+HYDRA		= hydra-$(MPICH_VER)
 
 # apps
 LINKS 		= links-$(LINKS_VER)
