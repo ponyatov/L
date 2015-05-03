@@ -8,6 +8,13 @@ emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 	-kernel $(BOOT)/$(HW)$(APP).kernel \
 	-initrd $(BOOT)/$(HW)$(APP).rootfs
 
+.PHONY: emucluster
+emucluster: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
+	make emu &
+	make emu &
+#	make emu &
+#	make emu &
+
 .PHONY: emuk
 emuk: $(BOOT)/$(HW)$(APP).kernel
 	qemu-system-$(ARCH) $(QEMU_CFG) $(QEMU_ALL) \
