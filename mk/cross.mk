@@ -7,7 +7,7 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 #	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
-	--with-isl=$(TC)  
+	--with-isl=$(TC) --with-cloog=$(TC)  
 
 CFG_CCLIBS00 = --disable-shared CFLAGS="$(BOPT)"
 CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
@@ -15,7 +15,8 @@ CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
-CFG_ISL0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
+CFG_ISL0   = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
+CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
@@ -38,7 +39,7 @@ binutils0: $(SRC)/$(BINUTILS)/README
 	$(MAKE) && $(INSTALL)-strip
 
 .PHONY: cclibs0
-cclibs0: gmp0 mpfr0 mpc0
+cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README
@@ -61,6 +62,13 @@ mpc0: $(SRC)/$(MPC)/README
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) &&\
 	$(MAKE) && $(INSTALL)-strip
 	
+.PHONY: cloog0
+cloog0: $(SRC)/$(CLOOG)/README
+	rm -rf $(TMP)/$(CLOOG) && mkdir $(TMP)/$(CLOOG) &&\
+	cd $(TMP)/$(CLOOG) &&\
+	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) &&\
+	$(MAKE) && $(INSTALL)-strip
+	
 .PHONY: isl0
 isl0: $(SRC)/$(ISL)/README
 	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) &&\
@@ -68,15 +76,11 @@ isl0: $(SRC)/$(ISL)/README
 	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) &&\
 	$(MAKE) && $(INSTALL)-strip
 	
-.PHONY: cloog0
-cloog0: $(SRC)/$(CLOOG)/README
-	
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
-	exit -1
 	make gccall
 
 .PHONY: gccall
