@@ -1,5 +1,6 @@
 CFG_OCTAVE = --prefix=$(ROOT)/octave --disable-docs \
 	--disable-readline --disable-java \
+	--with-blas="-lblas" --with-lapack="-llapack" \
 	CFLAGS="$(TOPT)" CXXFLAGS="$(TOPT)" FFLAGS="$(TOPT)" \
 	gl_cv_func_gettimeofday_clobber=no
 # ?octave_cv_fortran_integer_size
