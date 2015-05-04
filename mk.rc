@@ -19,6 +19,7 @@ cat \
 	mk/sdk/python.mk \
 	mk/sdk/pascal.mk \
 	mk/sdk/lisp.mk \
+	mk/math/libs.mk \
 	mk/math/octave.mk \
 	mk/math/maxima.mk \
 	mk/math/mpi.mk \
@@ -31,7 +32,6 @@ cat \
 	mk/lib/multiprecision.mk \
 	mk/lib/cpp.mk \
 	mk/lib/pcre.mk \
-	mk/lib/math.mk \
 	mk/apps.mk \
 	mk/emu.mk \
 	mk/root.mk \
