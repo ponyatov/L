@@ -5,16 +5,14 @@ blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) &&\
 	$(XPATH) $(TFORTRAN) -shared -fPIC $(TOPT) -o $(LIB)/libblas.so *.f
 
-LAPACK_REQ = 
-#csteqr.f clansy.f slascl.f slasrt.f chetrd.f ssterf.f \
-#	slae2.f slaev2.f clasr.f slartg.f chetd2.f \
-#	claset.f clascl.f slanst.f classq.f \
-#	slassq.f sisnan.f slapy2.f cungtr.f ilaenv.f \
-#	clarfg.f ../INSTALL/slamch.f clanhe.f clatrd.f \
-#	cungql.f slaisnan.f iparmq.f clacgv.f cungqr.f \
-#	cladiv.f ieeeck.f slapy3.f \
-#	clarfb.f sladiv.f cung2l.f clarft.f cung2r.f clarf.f \
-#	ilaclc.f ilaclr.f
+LAPACK_REQ = \
+	csteqr.f chetrd.f ssterf.f clascl.f cungtr.f \
+	ilaenv.f ../INSTALL/slamch.f clanhe.f \
+	cungql.f slascl.f iparmq.f slasrt.f slae2.f slaev2.f clasr.f slartg.f \
+	chetd2.f cungqr.f claset.f slanst.f classq.f sisnan.f slapy2.f \
+	ieeeck.f clatrd.f clarfb.f slaisnan.f clacgv.f cung2l.f clarft.f \
+	clarf.f slassq.f clarfg.f cung2r.f \
+	ilaclc.f ilaclr.f cladiv.f slapy3.f sladiv.f 
 LAPACK_CHEEV = cheev.f    
     
 CFG_LAPACK = 
