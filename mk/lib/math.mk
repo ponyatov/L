@@ -6,7 +6,8 @@ gsl: $(SRC)/$(GSL)/README
 	$(XPATH) $(SRC)/$(GSL)/$(TCFG) $(CFG_GSL) &&\
 	$(MAKE) && $(INSTALL)-strip && $(MVCONFIG)
 
-CFG_BLAS = FORTRAN="$(TFORTRAN)" OPTS="$(TOPT)" 
+CFG_BLAS = 
+#FORTRAN="$(TFORTRAN)" OPTS="$(TOPT)" 
 .PHONY: blas
 blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) &&\
