@@ -9,6 +9,7 @@ CPU_CORES ?= $(shell grep processor /proc/cpuinfo |wc -l)
 MAKE = $(XPATH) make -j$(CPU_CORES)
 INSTALL  = $(XPATH) make install
 PINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace -e trace=file make install
+MVCONFIG = 	mv -f $(ROOT)/bin/*-config $(TC)/bin/
 
 CCACHE = ccache
 
