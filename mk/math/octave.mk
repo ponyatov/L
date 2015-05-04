@@ -1,10 +1,9 @@
-CFG_OCTAVE = --prefix=$(ROOT)/octave --disable-docs
-#	F77="$(TFORTRAN)" FFLAGS="-ff2c"
-##"$(TFORTRAN) -L$(ROOT)/lib" \
-##	--with-libdir=$(ROOT)/lib FFLAGS="-ff2c"
-##--enable-lite-kernel --disable-docs --help 
+CFG_OCTAVE = --prefix=$(ROOT)/octave --disable-docs \
+	--disable-readline --disable-java \
+	CFLAGS="$(TOPT)" CXXFLAGS="$(TOPT)" FFLAGS="$(TOPT)"
 .PHONY: octave
 octave: $(SRC)/$(OCTAVE)/README
 	rm -rf $(TMP)/$(OCTAVE) && mkdir $(TMP)/$(OCTAVE) &&\
 	cd $(TMP)/$(OCTAVE) &&\
-	$(XPATH) $(SRC)/$(OCTAVE)/$(TCFG) $(CFG_OCTAVE)
+	$(XPATH) $(SRC)/$(OCTAVE)/$(TCFG) $(CFG_OCTAVE) &&\
+	$(MAKE) && $(INSTALL)
