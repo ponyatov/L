@@ -36,7 +36,6 @@ FREETYPE 	= freetype-$(FREETYPE_VER)
 ## math
 PCRE 		= pcre-$(PCRE_VER)
 BLAS 		= BLAS
-#ATLAS 		= atlas$(ATLAS_VER)
 LAPACK 		= lapack-$(LAPACK_VER)
 GSL			= gsl-$(GSL_VER)
 
