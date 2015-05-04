@@ -10,3 +10,7 @@ octave: $(SRC)/$(OCTAVE)/README
 	cd $(TMP)/$(OCTAVE) &&\
 	$(XPATH) $(SRC)/$(OCTAVE)/$(TCFG) $(CFG_OCTAVE) &&\
 	$(MAKE) && $(INSTALL)
+	
+.PHONY: octave-mk
+octave-mk:	
+	cd $(TMP)/$(OCTAVE) && $(MAKE) && $(INSTALL)
