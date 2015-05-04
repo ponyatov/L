@@ -18,9 +18,20 @@ cat \
 	mk/sdk/canadian.mk \
 	mk/sdk/python.mk \
 	mk/sdk/pascal.mk \
-	mk/sdk/math.mk \
+	mk/sdk/lisp.mk \
+	mk/math/octave.mk \
+	mk/math/maxima.mk \
+	mk/math/mpi.mk \
 	mk/user.mk \
 	mk/libs.mk \
+	mk/lib/zlib.mk \
+	mk/lib/png.mk \
+	mk/lib/sdl.mk \
+	mk/lib/freetype.mk \
+	mk/lib/multiprecision.mk \
+	mk/lib/cpp.mk \
+	mk/lib/pcre.mk \
+	mk/lib/math.mk \
 	mk/apps.mk \
 	mk/emu.mk \
 	mk/root.mk \
