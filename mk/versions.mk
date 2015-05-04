@@ -39,10 +39,11 @@ ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
 
 ## math
-PCRE_VER = 8.36
+PCRE_VER = 8.37
 BLAS_VER = 3.5.0
 #ATLAS_VER = 3.10.2
 LAPACK_VER = 3.5.0
+GSL_VER = 1.16
 
 # extra
 
