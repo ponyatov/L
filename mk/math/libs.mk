@@ -13,16 +13,20 @@ lapack: $(SRC)/$(LAPACK)/README
 		-o $(LIB)/liblapack.so \
 		*.f ../INSTALL/?lamch.f ../INSTALL/lsame.f
 
+#	OPTS="$(TOPT) -frecursive" NOOPT="$(TOPT) -frecursive"
 CFG_LAPLAP = \
 	FORTRAN="$(TFORTRAN)" LOADER="$(TFORTRAN)" \
-	OPTS="$(TOPT) -frecursive" \
-	NOOPT="$(TOPT) -frecursive" \
-	LOADOPTS="$(TOPT) -frecursive" 
+	ARCH="$(TARGET)-ar" RANLIB="$(TARGET)-ranlib" \
+	OPTS="-O0 -g0" NOOPT="-O0 -g0"
 .PHONY: laplap
-laplap: $(SRC)/$(LAPACK)/README
-	cp -f $(SRC)/$(LAPACK)/INSTALL/make.inc.gfortran $(SRC)/$(LAPACK)/make.inc  
+laplap: $(SRC)/$(LAPACK)/README $(SRC)/$(LAPACK)/make.inc
 	cd $(SRC)/$(LAPACK) && make clean
-	cd $(SRC)/$(LAPACK) && $(XPATH) make $(CFG_LAPLAP)
+	cd $(SRC)/$(LAPACK) && $(XPATH) $(MAKE) $(CFG_LAPLAP) blaslib
+	cd $(SRC)/$(LAPACK) && $(XPATH) $(MAKE) $(CFG_LAPLAP) lapacklib
+	mv $(SRC)/$(LAPACK)/librefblas.a $(LIB)/
+	mv $(SRC)/$(LAPACK)/liblapack.a $(LIB)/
+$(SRC)/$(LAPACK)/make.inc: $(SRC)/$(LAPACK)/INSTALL/make.inc.gfortran
+	cp -f $< $@ 
 
 CFG_GSL = CFLAGS="$(TOPT)"
 .PHONY: gsl
