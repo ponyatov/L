@@ -1,17 +1,27 @@
 
-CFG_BLAS = 
+CFG_LABLA = FORTRAN="$(TFORTRAN)" LOADER="$(TFORTRAN)" OPTS="$(TOPT)" \
+	ARCH=$(TARGET)-ar RANLIB=$(TARGET)-ranlib
+
+CFG_BLAS = $(CFG_LABLA) BLASLIB=$(LIB)/libblas.a
 .PHONY: blas
 blas: $(SRC)/$(BLAS)/README
-	cd $(SRC)/$(BLAS) &&\
-	$(XPATH) $(TFORTRAN) -shared -fPIC $(TOPT) -o $(LIB)/libblas.so *.f
+	cd $(SRC)/$(BLAS) && touch make.inc &&\
+	$(MAKE) $(CFG_BLAS) clean &&\
+	$(MAKE) $(CFG_BLAS)
+#	$(XPATH) $(TFORTRAN) -shared -fPIC \
+#		-z muldefs -shared -Wl,-soname,libblas.so \
+#		$(LIB)/libblas.so *.o   
 
-CFG_LAPACK = 
+CFG_LAPACK = $(CFG_LABLA)
 .PHONY: lapack
 lapack: $(SRC)/$(LAPACK)/README
-	cd $(SRC)/$(LAPACK)/SRC &&\
-	$(XPATH) $(TFORTRAN) $(TOPT) -shared -fPIC \
-		-o $(LIB)/liblapack.so \
-		*.f ../INSTALL/?lamch.f ../INSTALL/lsame.f
+	cd $(SRC)/$(LAPACK) && touch make.inc &&\
+	$(MAKE) $(CFG_LAPACK) clean
+
+#	cd $(SRC)/$(LAPACK)/SRC &&\
+#	$(XPATH) $(TFORTRAN) $(TOPT) -shared -fPIC \
+#		-o $(LIB)/liblapack.so \
+#		*.f ../INSTALL/?lamch.f ../INSTALL/lsame.f
 
 #	OPTS="$(TOPT) -frecursive" NOOPT="$(TOPT) -frecursive"
 CFG_LAPLAP = \
