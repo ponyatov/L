@@ -1,6 +1,6 @@
 
 CFG_LABLA = FORTRAN="$(TFORTRAN)" LOADER="$(TFORTRAN)" \
-	ARCH=$(TARGET)-ar RANLIB=$(TARGET)-ranlib
+	ARCH=$(TARGET)-ar ARCHFLAGS=ar RANLIB=$(TARGET)-ranlib
 
 CFG_BLAS = $(CFG_LABLA) OPTS="$(TOPT)" BLASLIB=$(LIB)/libblas.a
 .PHONY: blas
@@ -12,12 +12,13 @@ blas: $(SRC)/$(BLAS)/README
 #		-z muldefs -shared -Wl,-soname,libblas.so \
 #		$(LIB)/libblas.so *.o   
 
-CFG_LAPACK = $(CFG_LABLA) OPTS="$(TOPT) -frecursive"
+CFG_LAPACK = $(CFG_LABLA) OPTS="$(TOPT) -frecursive" \
+	LAPACKLIB=liblapack.a TMGLIB=libtmg.a
 .PHONY: lapack
 lapack: $(SRC)/$(LAPACK)/README
 	cd $(SRC)/$(LAPACK) && touch make.inc &&\
 	$(MAKE) $(CFG_LAPACK) clean &&\
-	$(MAKE) $(CFG_LAPACK)
+	$(MAKE) $(CFG_LAPACK) lib
 
 #	cd $(SRC)/$(LAPACK)/SRC &&\
 #	$(XPATH) $(TFORTRAN) $(TOPT) -shared -fPIC \
