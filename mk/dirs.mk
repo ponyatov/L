@@ -29,7 +29,7 @@ PACK = $(ROOT)/pack
 ISO = $(TMP)/iso
 LIB = $(ROOT)/lib
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) \
+DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
 	$(LIB) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
 
 .PHONY: dirs
