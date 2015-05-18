@@ -21,7 +21,7 @@ ULIBC_VER = 0.9.33.2
 BUSYBOX_VER = 1.23.2
 #1.22.1
 
-# loaders
+# boot loaders
 
 SYSLINUX_VER = 6.03
 UBOOT_VER = 2015.01
@@ -37,9 +37,9 @@ FREETYPE_VER = 2.5.5
 ## extra
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
-
-## math
 PCRE_VER = 8.37
+
+## math libs
 BLAS_VER = 3.5.0
 LAPACK_VER = 3.5.0
 GSL_VER = 1.16
@@ -54,7 +54,7 @@ PYTHON_VER = 2.7.9
 ### Pascal
 FPC_VER = 2.6.4
 
-## math
+## math packs
 ECL_VER_A = 15.2
 ECL_VER = $(ECL_VER_A).21
 OCTAVE_VER = 3.8.2

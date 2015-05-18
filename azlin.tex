@@ -240,7 +240,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 Пакет \pack{dirs}\ прописан в файле
 
-\lstx{mk/dirs.mk}{}{../azlin/doc/dirs.mk}{mk}\index{azLinux!пакет!dirs}
+\lstx{mk/dirs.mk}{}{azlin/mk/dirs.mk}{mk}\index{azLinux!пакет!dirs}
 
 Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
 запущен \pack{make}.
@@ -248,28 +248,28 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 \bigskip
 Каталог зеркала архивов исхоных текстов программ
 
-\lstx{GZ}{}{../azlin/doc/gz.dirs}{mk}\index{azLinux!переменная!GZ}
+\lstx{GZ}{}{tmp/azlin_GZ}{mk}\index{azLinux!переменная!GZ}
 
 Каталог распаковки исходных текстов: некоторые пакеты должна собираться в дереве
 исходников
 
-\lstx{SRC}{}{../azlin/doc/src.dirs}{mk}\index{azLinux!переменная!SRC}
+\lstx{SRC}{}{tmp/azlin_SRC}{mk}\index{azLinux!переменная!SRC}
 
 Каталог out-of-tree сборки: остальные пакеты умеют собираться вне дерева
 исходников, если хватает \ram\ этот каталог удобно монировать как \file{tmpfs}
 
-\lstx{TMP}{}{../azlin/doc/tmp.dirs}{mk}\index{azLinux!переменная!TMP}
+\lstx{TMP}{}{tmp/azlin_TMP}{mk}\index{azLinux!переменная!TMP}
 
 Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
 триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
 
-\lstx{BUILD}{}{../azlin/doc/build.dirs}{mk}\index{azLinux!переменная!BUILD}
+\lstx{BUILD}{}{tmp/azlin_BUILD}{mk}\index{azLinux!переменная!BUILD}
 
 Каталог в который собирается кросс-компилятор. Используется триплет
 рабочей \linux-системы.
 
-\lstx{TC}{}{../azlin/doc/tc.dirs}{mk}\index{azLinux!переменная!TC}
+\lstx{TC}{}{tmp/azlin_TC}{mk}\index{azLinux!переменная!TC}
 
 Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
@@ -277,12 +277,12 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 аппаратной платформы \file{HW}\ref{azhw}\ и имени приложения
 \file{APP}\ref{azapp}.
 
-\lstx{ROOT/BOOT}{}{../azlin/doc/root.dirs}{mk}
-\index{azLinux!переменная!ROOT}\index{azLinux!переменная!BOOT}
+\lstx{ROOT}{}{tmp/azlin_ROOT}{mk}\index{azLinux!переменная!ROOT}
+\lstx{BOOT}{}{tmp/azlin_BOOT}{mk}\index{azLinux!переменная!BOOT}
 
 Список всех рабочих каталогов в одной переменной:
 
-\lstx{DIRS}{}{../azlin/doc/dirs.dirs}{mk}\index{azLinux!переменная!DIRS}
+\lstx{DIRS}{}{tmp/azlin_DIRS}{mk}\index{azLinux!переменная!DIRS}
 
 \secrel{\pack{gz}: Загрузка архивов исходников} \label{azgz}
 
@@ -303,7 +303,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
-\lstx{APP @ hw/head.mk}{}{../azlin/doc/app.mk}{mk}
+\lstx{APP @ hw/head.mk}{}{tmp/azlin_APP}{mk}
 \index{azLinux!настройка!приложение}
 \index{azLinux!переменная!APP}
 
@@ -550,9 +550,9 @@ USB & \checkbox\ USB2 \\
 
 \href{http://vocore.io/}{vocore}
 
-% \includegraphics[height=0.45\textheight]{azlin/doc/vocore1.jpg}
+% \includegraphics[height=0.45\textheight]{azlin/mk/vocore1.jpg}
 % 
-% \includegraphics[height=0.45\textheight]{azlin/doc/vocore2.jpg}
+% \includegraphics[height=0.45\textheight]{azlin/mk/vocore2.jpg}
 
 \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
 \begin{tabular}{l}
@@ -617,23 +617,23 @@ $\mu$SD & \checkbox \\
 
 \secrel{Пакеты}\secdown\label{azpacks}
 
-\secrel{\file{versions.mk}: Версии пакетов}\label{azpackver}
+\secrel{\file{mk/versions.mk}: Версии пакетов}\label{azpackver}
 
 \secrel{\pack{tc}: кросс-компилятор}
 
-\lstx{mk/versions.mk}{}{azlin/doc/versions.cross}{mk}
+\lstx{mk/versions.mk}{}{tmp/azlin_versions.cross}{mk}
 
 \secrel{\pack{core}: ядро}
 
-\lstx{mk/versions.mk}{}{azlin/doc/versions.core}{mk}
+\lstx{mk/versions.mk}{}{tmp/azlin_versions.core}{mk}
 
 \secrel{\pack{boot}: загрузчики}
 
-\lstx{mk/versions.mk}{}{azlin/doc/versions.boot}{mk}
+\lstx{mk/versions.mk}{}{tmp/azlin_versions.boot}{mk}
 
 \secrel{\pack{libs}: библиотеки}
 
-\lstx{mk/versions.mk}{}{azlin/doc/versions.libs}{mk}
+\lstx{mk/versions.mk}{}{tmp/azlin_versions.libs}{mk}
 
 \secrel{\pack{tc}: сборка кросс-компилятора} \label{aztc}
 
