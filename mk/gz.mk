@@ -8,8 +8,6 @@ gz:
 	make gz_cross
 	make gz_core
 	make gz_libs
-	make gz_math
-	make gz_apps
 	
 .PHONY: gz_cross
 gz_cross:
@@ -44,8 +42,8 @@ gz_i386:
 gz_arm:
 	$(WGET) ftp://ftp.denx.de/pub/u-boot/$(UBOOT).tar.bz2
 
-.PHONY: gz_apps
-gz_apps:
+.PHONY: gz_micro
+gz_micro:
 
 .PHONY: gz_x86
 gz_x86:
