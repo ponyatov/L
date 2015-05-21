@@ -1,6 +1,0 @@
-branch:minimal targetted as basic azLinux build
-for forking you own build variant, 
-and as sample & emlinux build learning.
-
-All libs removed, make your fork/branch and add libs
-required for your needs. Consult other branches for build options.
