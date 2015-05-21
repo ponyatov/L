@@ -305,8 +305,8 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 
 Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
-загрузчика. Имя \file{ROOT}\ создается из двух переменных, описанных далее: имя
-аппаратной платформы \file{HW}\ref{azhw}\ и имени приложения
+загрузчика. Имя \var{ROOT}\ создается из двух переменных, описанных далее: имя
+аппаратной платформы \var{HW}\ref{azhw}\ и имени приложения
 \file{APP}\ref{azapp}.
 
 \lstx{ROOT}{}{tmp/azlin_ROOT}{mk}\index{azLinux!переменная!ROOT}
@@ -320,7 +320,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 
 \lstx{mk/gz.mk}{}{azlin/mk/gz.mk}{mk}
 
-\secrel{APP: Приложение}\label{azapp}
+\secrel{\var{APP}: Приложение}\label{azapp}
 
 \term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
 в целом.
@@ -335,7 +335,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 
 Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
-\lstx{APP @ hw/head.mk}{}{tmp/azlin_APP}{mk}
+\lstx{\var{APP} @ \file{hw/head.mk}}{}{tmp/azlin_APP}{mk}
 \index{azLinux!настройка!приложение}
 \index{azLinux!переменная!APP}
 
@@ -357,7 +357,7 @@ make APP=micro distclean dirs tc core libs apps
 
 \lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
 
-\secrel{HW: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
+\secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
 переменную \file{HW}, доступные значения приведены в таблице:
