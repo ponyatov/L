@@ -1,8 +1,8 @@
 .PHONY: ramclean
 ramclean:
-	rm -rf $(SRC)/* $(TMP)/* ~/.ccache/*
+	$(RAMCLEAN) $(SRC)/* $(TMP)/* ~/.ccache/*
 
 .PHONY: distclean
 distclean: ramclean
-	rm -rf $(ROOT) $(TC)
+	$(RAMCLEAN) $(ROOT) $(TC)
 	make dirs
