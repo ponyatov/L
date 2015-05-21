@@ -20,7 +20,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
 	# 5
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
+	-cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
 	cp $(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
