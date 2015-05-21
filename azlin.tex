@@ -146,10 +146,30 @@ cd ~/az ; make somename
 добавлять свои пакеты и поддержку железа}\ работайте с вашим
 собственным форком на GitHub.
 
-Получите клон пакета из репозитория:
+\nopagebreak\bigskip
+az\linux\ разрабатывается по нескольким веткам:
+
+\begin{tabular}{l l}
+master & основная универсальная ветка, включает все скрипты сборки и пакеты \\
+& в книгу включается именно эта ветка, набор скриптов в других ветках будет
+отличаться \\
+minimal & минимальная система для нескольких платформ \\
+clock & \linux-powered электронные часы/контроллер умного дома \\
+math & математический софт и библиотеки для вычислительных кластеров beowulf \\
+desk & десктопная сборка с функционалом $\sim$\win 95 \\
+cnc & система управления для станков с ЧПУ \\
+\end{tabular}
+\bigskip
+
+Сделайте свой форк с репозитория \url{https://github.com/ponyatov/azlin}.
+\bigskip
+
+Получите клон системы сборки из репозитория выбрав нужную ветку:
+
 
 \begin{verbatim}
-cd ~ ; git clone --depth=1 -o gh https://github.com/user/azlin az
+cd ~
+git clone --depth=1 -o gh -b minimal git@github.com:user/azlin.git myazlin
 \end{verbatim}
 
 При необходимости обновитесь:
@@ -163,24 +183,38 @@ cd ~/az ; git pull
 Каждый пакет собирается командой:
 
 \begin{verbatim}
-make [HW=rpi] [APP=clock] <package>
+make [HW=rpi] [APP=clock] [CCACHE=] [RAMCLEAN=echo] <package>
 \end{verbatim}
 
-\begin{enumerate}
+\bigskip
+\begin{itemize}[nosep]
+  \item \var{HW} выбор аппаратной платформы \file{hw/}
+  \item \var{APP} выбор приложения \file{app/}
+  \item \var{CCACHE=} пустая переменная блокирует использование \prog{ccache} 
+  \item \var{RAMCLEAN} переменная задает команду, которой передается набор
+  каталогов, которые нужно зачистить; по умолчанию это \file{rm -rf}, заданием
+  \file{echo}\ зачистка отключается (нужно если вы собираете систему в
+  каталогах \file{src/}, \file{tmp/}\ не в \ram, а на диске)
+\end{itemize}
+
+\bigskip
+\begin{enumerate}[nosep]
   \item \pack{dirs} создание дерева каталогов \ref{azdirs}
   \item \pack{gz} закачка архивов исходников \ref{azgz}
-  \item \pack{tc} сборка кросс-компилятора \ref{aztc}
+  \item \pack{cross0} сборка кросс-компилятора \ref{azcross0}
   \begin{enumerate}
-    \item \pack{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
-    \item \pack{cclibs} библиотеки для сборки \pack{gcc} \ref{azcclibs}
+    \item \pack{binutils0} ассемблер, линкер и утилиты \ref{azbinutils0}
+    \item \pack{cclibs0} библиотеки для сборки \pack{gcc} \ref{azcclibs0}
     \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
   \end{enumerate}
   \item \pack{core} сборка основной системы \ref{azcore}
+  \\ \pack{coref} сборка основной системы + GNU Fortran \ref{azcoref}
   \begin{enumerate}
     \item \pack{kernel} ядро \linux\ \ref{azkernel}
     \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
     \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
     \item \pack{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
+    \\ \pack{gccf} кросс-компилятор Си/\cpp/Fortran \ref{azgccf}
   \end{enumerate}
   \item \pack{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
   \item \pack{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
