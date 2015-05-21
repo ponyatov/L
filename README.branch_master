@@ -1,0 +1,4 @@
+branch:master embedded Linux cross-building script set
+
+this branch collects all build subscripts tested and
+shared between all branches
