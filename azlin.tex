@@ -202,14 +202,14 @@ make [HW=rpi] [APP=clock] [CCACHE=] [RAMCLEAN=echo] <package>
   \item \pack{dirs} создание дерева каталогов \ref{azdirs}
   \item \pack{gz} закачка архивов исходников \ref{azgz}
   \item \pack{cross0} сборка кросс-компилятора \ref{azcross0}
-  \begin{enumerate}
+  \begin{enumerate}[nosep]
     \item \pack{binutils0} ассемблер, линкер и утилиты \ref{azbinutils0}
     \item \pack{cclibs0} библиотеки для сборки \pack{gcc} \ref{azcclibs0}
     \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
   \end{enumerate}
   \item \pack{core} сборка основной системы \ref{azcore}
   \\ \pack{coref} сборка основной системы + GNU Fortran \ref{azcoref}
-  \begin{enumerate}
+  \begin{enumerate}[nosep]
     \item \pack{kernel} ядро \linux\ \ref{azkernel}
     \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
     \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
@@ -274,7 +274,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 
 \lstx{mk/dirs.mk}{}{azlin/mk/dirs.mk}{mk}\index{azLinux!пакет!dirs}
 
-Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
+Встроенная переменная \var{PWD}\ содержит полное имя каталога, из которого был
 запущен \pack{make}.
 
 \bigskip
@@ -292,7 +292,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 
 \lstx{TMP}{}{tmp/azlin_TMP}{mk}\index{azLinux!переменная!TMP}
 
-Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
+Переменная \var{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
 триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
 
@@ -307,7 +307,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
 загрузчика. Имя \var{ROOT}\ создается из двух переменных, описанных далее: имя
 аппаратной платформы \var{HW}\ref{azhw}\ и имени приложения
-\file{APP}\ref{azapp}.
+\var{APP}\ref{azapp}.
 
 \lstx{ROOT}{}{tmp/azlin_ROOT}{mk}\index{azLinux!переменная!ROOT}
 \lstx{BOOT}{}{tmp/azlin_BOOT}{mk}\index{azLinux!переменная!BOOT}
@@ -326,14 +326,14 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
 в целом.
 
 Приложение задается в файле \file{mk/head.mk}\ через
-переменную \file{APP}, доступные значения:
+переменную \var{APP}, доступные значения:
 
 \begin{enumerate}
   \item \pack{micro}: минимальная версия системы, только командная консоль
   \item \pack{clock}: простые \linux-powered электронные часы
 \end{enumerate}
 
-Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
+Значение переменной \var{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
 \lstx{\var{APP} @ \file{hw/head.mk}}{}{tmp/azlin_APP}{mk}
 \index{azLinux!настройка!приложение}
@@ -349,8 +349,8 @@ make APP=micro distclean dirs tc core libs apps
 В \file{app/\$\{APP\}.mk}\ в переменных задаются:
 
 \begin{itemize}
-  \item \file{LIBS}: набор используемых библиотек
-  \item \file{PACKS}: набор используемых программных пакетов \ref{azpacks}
+  \item \var{LIBS}: набор используемых библиотек
+  \item \var{PACKS}: набор используемых программных пакетов \ref{azpacks}
 \end{itemize}
 
 \lstx{app/micro.mk}{}{../azlin/app/micro.mk}{mk}\index{azLinux!приложение!micro}
@@ -360,7 +360,7 @@ make APP=micro distclean dirs tc core libs apps
 \secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
-переменную \file{HW}, доступные значения приведены в таблице:
+переменную \var{HW}, доступные значения приведены в таблице:
 
 \noindent
 \begin{tabular}{|l| l l|l l l l l l|l|}
@@ -613,18 +613,18 @@ $\mu$SD & \checkbox \\
 \href{http://habrahabr.ru/post/242731/}{bswift}
 \secup
 
-\secrel{CPU: Конфигурации процессоров}\secdown
+\secrel{\var{CPU}: Конфигурации процессоров}\secdown
 
-Настройки на процессор задаются в файле \file{cpu/\$\{CPU\}.mk}.
+Настройки на процессор задаются в файле \file{cpu/}\var{\$\{CPU\}}\file{.mk}.
 
 \begin{tabular}{p{0.15\textwidth} p{0.8\textwidth}}
-\file{ARCH} & архитектура целевой системы, используется при конфигурировании
+\var{ARCH} & архитектура целевой системы, используется при конфигурировании
 ядра \\
-\file{TARGET} & \term{триплет целевой системы}, параметр задает тип целевой
+\var{TARGET} & \term{триплет целевой системы}, параметр задает тип целевой
 системы при сборке кросс-компилятора и используется во всех скриптах
 \pack{configure}\ при сборке остальных пакетов \\
-\file{CFG\_CPU} & параметры при сборке кросс-компилятора \\
-\file{CPU\_FLAGS} & параметры \pack{gcc}\ для оптимизации кода \\
+\var{CFG\_CPU} & параметры при сборке кросс-компилятора \\
+\var{CPU\_FLAGS} & параметры \prog{gcc}\ для оптимизации кода \\
 \end{tabular}
 
 \secrel{i386}
@@ -651,7 +651,7 @@ $\mu$SD & \checkbox \\
 
 \secrel{\file{mk/versions.mk}: Версии пакетов}\label{azpackver}
 
-\secrel{\pack{tc}: кросс-компилятор}
+\secrel{\pack{cross0}: кросс-компилятор}
 
 \lstx{mk/versions.mk}{}{tmp/azlin_versions.cross}{mk}
 
@@ -667,19 +667,19 @@ $\mu$SD & \checkbox \\
 
 \lstx{mk/versions.mk}{}{tmp/azlin_versions.libs}{mk}
 
-\secrel{\pack{tc}: сборка кросс-компилятора} \label{aztc}
+\secrel{\pack{cross0}: сборка кросс-компилятора} \label{azcross0}
 
 \lstx{}{}{azlin/mk/cross.mk}{mk}
 
 \secrel{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
 
 \begin{tabular}{l l}
---target=\$(TARGET)& триплет целевой платформы\\
-\$(CFG\_ARCH)&параметры архитектуры\\
-\$(CFG\_CPU)&параметры процессора\\
+--target=\$(\var{TARGET})& триплет целевой платформы\\
+\$(\var{CFG\_ARCH})&параметры архитектуры\\
+\$(\var{CFG\_CPU})&параметры процессора\\
 --program-prefix&префикс \verb|<prefix>-(as|ld|..)|\\
 --with-sysroot& каталог в котором находятся хедеры и библиотеки\\
---with-native-system-header-dir=/include&каталог с хедерами\\
+--with-native-system-header-dir=\file{/include}&каталог с хедерами\\
 --enable-lto&[L]ink[T]ime [O]ptimization\\
 \end{tabular}
 
@@ -700,7 +700,7 @@ $\mu$SD & \checkbox \\
 
 \secrel{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
 
-\pack{gmp} \pack{mpfr} \pack{mpc}
+\pack{gmp} \pack{mpfr} \pack{mpc} \pack{isl} \pack{cloog}
 
 \secrel{\pack{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
@@ -726,16 +726,17 @@ $ make CCACHE= gcc0
 \lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
 
 \begin{tabular}{l l}
-\file{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
-\file{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
+\var{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
+\var{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
 \end{tabular}
 
-\begin{enumerate}
+\bigskip
+\begin{enumerate}[nosep]
   \item подготовка к сборке с пустым \term{конфигом}
   \file{src/linux-x.x.x/.config}
   \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
   переопределения переменных конфигурации:
-  \begin{itemize}
+  \begin{itemize}[nosep]
     \item \file{all} универсальные параметры ядра для всех платформ
     \item \file{arch} параметры, специфичные для архитектуры
     \item \file{cpu} параметры, адаптирующие ядро к конкретному процессору
@@ -750,96 +751,95 @@ $ make CCACHE= gcc0
   \item установка параметров кросс-компиляции и имени сборки
   \item запуск интерактивного меню конфигурирования, выйти с сохранением
   \item сборка ядра
-  \item копирование готового файла ядра в \file{\$\{BOOT\}}
-  \item генерация \term{хедеров}\ в \file{\$\{ROOT\}}
+  \item копирование готового файла ядра в \var{\$\{BOOT\}}
+  \item генерация \term{хедеров}\ в \var{\$\{ROOT\}}
 \end{enumerate}
 
 \bigskip
-Все параметры ядра идут с префиксом \file{CONFIG\_}:
+Все параметры ядра идут с префиксом \var{CONFIG\_}:
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item \pack{core.mk}
-  \begin{itemize}
-    \item \file{CROSS\_COMPILE} префикс кросс-компилятора
+  \begin{itemize}[nosep]
+    \item \var{CROSS\_COMPILE} префикс кросс-компилятора
     \verb#<pfx>-(gcc|as|ld..)#
-    \item \file{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
-    \item \file{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
+    \item \var{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
+    \item \var{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
   \end{itemize}
   \item \pack{all} \emph{для всех платформ}
-  \begin{itemize}
-  \item \file{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
-  \item \file{KERNEL\_GZIP=y} ядро сжимать алгоритмом \pack{gzip}\note{важно для
+  \begin{itemize}[nosep]
+  \item \var{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
+  \item \var{KERNEL\_GZIP=y} ядро сжимать алгоритмом \pack{gzip}\note{важно для
   загрузчиков на не-i386 системах}
-
   \item \emph{корневая файловая система в initrd/ramdisk}
-  \begin{itemize}
-  \item \file{BLK\_DEV\_INITRD=y} rootfs в \ram (initrd)
-  \item \file{PROC\_FS=y} файловая подсистема \file{/proc}
-  \item \file{SYSFS=y} файловая подсистема \file{/sys}
-  \item \file{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
+  \begin{itemize}[nosep]
+  \item \var{BLK\_DEV\_INITRD=y} rootfs в \ram (initrd)
+  \item \var{PROC\_FS=y} файловая подсистема \file{/proc}
+  \item \var{SYSFS=y} файловая подсистема \file{/sys}
+  \item \var{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
   устройств)
-  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs}
+  \item \var{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs}
   \end{itemize}
 
   \item \emph{режим реального времени\note{повышенная или
   \emph{гарантированная} отзывчивость системы на внешние события}} \ref{linrt}
-  \begin{itemize}
-  \item \file{PREEMPT=y} \term{вытесняющая многозадачность} в режиме ядра
-  \item \file{HZ\_1000=y} системный таймер 1\,KHz
+  \begin{itemize}[nosep]
+  \item \var{PREEMPT=y} \term{вытесняющая многозадачность} в режиме ядра
+  \item \var{HZ\_1000=y} системный таймер 1\,KHz
   \end{itemize}
 
   \item \emph{исполняемые форматы файлов}
-  \begin{itemize}
-  \item \file{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
-  \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке
-  \item \file{COREDUMP=n} не писать \term{корки} при сбоях
+  \begin{itemize}[nosep]
+  \item \var{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
+  \item \var{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке
+  \item \var{COREDUMP=n} не писать \term{корки} при сбоях
   \end{itemize}
 
   \item \emph{поддержка консоли tty}
-  \begin{itemize}
-  \item \file{TTY=y} последовательные порты и командная консоль
-  \item \file{UNIX98\_PTYS=n} псевдотерминалы UNIX98
-  \item \file{LEGACY\_PTYS=n} псевдотерминалы UNIX/BSD
+  \begin{itemize}[nosep]
+  \item \var{TTY=y} последовательные порты и командная консоль
+  \item \var{UNIX98\_PTYS=n} псевдотерминалы UNIX98
+  \item \var{LEGACY\_PTYS=n} псевдотерминалы UNIX/BSD
   \end{itemize}
 
   \item \emph{клавиатура}
-  \begin{itemize}
-  \item \file{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры
+  \begin{itemize}[nosep]
+  \item \var{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры
   \end{itemize}
 
   \item \emph{мышь}
-  \begin{itemize}
-  \item \file{INPUT\_MOUSE=y}
-  \item \file{INPUT\_MOUSEDEV=y}
-  \item \file{INPUT\_MOUSEDEV\_PSAUX=n} не создавать \verb|/dev/psaux|
+  \begin{itemize}[nosep]
+  \item \var{INPUT\_MOUSE=y}
+  \item \var{INPUT\_MOUSEDEV=y}
+  \item \var{INPUT\_MOUSEDEV\_PSAUX=n} не создавать \verb|/dev/psaux|
   \end{itemize}
 
   \item \emph{USB HID: устройства ввода без драйверов (клавиатура, мышь,
   джойстик, самодельные кнопки)\\включение поддержки USB на i386 не требуется}
-  \begin{itemize}
-  \item \file{HID=y} [H]uman [I]nterface [D]evice
-  \item \file{HID\_GENERIC=y} универсальный драйвер USB HID Class
+  \begin{itemize}[nosep]
+  \item \var{HID=y} [H]uman [I]nterface [D]evice
+  \item \var{HID\_GENERIC=y} универсальный драйвер USB HID Class
   \end{itemize}
 
   \item \emph{Графический режим \term{FrameBuffer}}
-  \begin{itemize}
-  \item \file{FB=y}
-  \item \file{FRAMEBUFFER\_CONSOLE=y} командная консоль
-  \item \file{LOGO=y} вывод пингвина при запуске
-  \item \file{LOGO\_LINUX\_MONO=y} выводить только черно-белый вариант
-  \item \file{LOGO\_LINUX\_VGA16=n}
-  \item \file{LOGO\_LINUX\_CLUT224=n}
+  \begin{itemize}[nosep]
+  \item \var{FB=y}
+  \item \var{FRAMEBUFFER\_CONSOLE=y} командная консоль
+  \item \var{LOGO=y} вывод пингвина при запуске
+  \item \var{LOGO\_LINUX\_MONO=y} выводить только черно-белый вариант
+  \item \var{LOGO\_LINUX\_VGA16=n}
+  \item \var{LOGO\_LINUX\_CLUT224=n}
   \end{itemize}
 
   \item \emph{Отладка и \term{printk} лог ядра}
-  \begin{itemize}
-  \item \file{DEBUG\_KERNEL=y} включение отладочных функций ядра
-  \item \file{EARLY\_PRINTK=y} вывод пусковой части ядра
-  \item \file{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
-  \item \file{PRINTK\_TIME=y} выводить метки времени (для отладки времени
+  \begin{itemize}[nosep]
+  \item \var{DEBUG\_KERNEL=y} включение отладочных функций ядра
+  \item \var{EARLY\_PRINTK=y} вывод пусковой части ядра
+  \item \var{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
+  \item \var{PRINTK\_TIME=y} выводить метки времени (для отладки времени
   запуска)
-  \item \file{SCHED\_DEBUG=n} не отлаживать планировщик
-  \item \file{DEBUG\_PREEMPT=n} не отлаживать вытесняющий режим
+  \item \var{SCHED\_DEBUG=n} не отлаживать планировщик
+  \item \var{DEBUG\_PREEMPT=n} не отлаживать вытесняющий режим
   \end{itemize}
 
   \end{itemize}
@@ -847,67 +847,67 @@ $ make CCACHE= gcc0
 
   \begin{itemize}
 
-\item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров
+\item \var{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров
 
 \item \pack{UART/COM/RS232} \emph{последоваельные порты}
-  \begin{itemize}
-\item \file{SERIAL\_8250=y} UART 8250/16550
-\item \file{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
+  \begin{itemize}[nosep]
+\item \var{SERIAL\_8250=y} UART 8250/16550
+\item \var{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
   \end{itemize}
 
-\item \file{VGA\_CONSOLE=y} командандная консоль на VGA 80$\times$25
+\item \var{VGA\_CONSOLE=y} командандная консоль на VGA 80$\times$25
 
 \item  \emph{FrameBuffer}
-  \begin{itemize}
-\item \file{FB\_VESA=y} универсальный видеодрайвер VESA 2.0+
+  \begin{itemize}[nosep]
+\item \var{FB\_VESA=y} универсальный видеодрайвер VESA 2.0+
   \end{itemize}
 
 \item  \emph{клава}
-  \begin{itemize}
-\item \file{KEYBOARD\_ATKBD=y} клавиатура PC AT / PS2
+  \begin{itemize}[nosep]
+\item \var{KEYBOARD\_ATKBD=y} клавиатура PC AT / PS2
   \end{itemize}
 
 \item  \emph{мышь}
-  \begin{itemize}
-\item \file{MOUSE\_PS2=y} мышь PS/2
-\item \file{MOUSE\_SERIAL=y} (старая) мышь на RS232
+  \begin{itemize}[nosep]
+\item \var{MOUSE\_PS2=y} мышь PS/2
+\item \var{MOUSE\_SERIAL=y} (старая) мышь на RS232
   \end{itemize}
 
-\item \file{NVRAM=y} доступ к памяти CMOS
+\item \var{NVRAM=y} доступ к памяти CMOS
 
 \item \emph{отладка}
-  \begin{itemize}
-\item \file{MAGIC\_SYSRQ=y} волшебная кнопка \keys{Alt+SysRq}
-\item \file{X86\_VERBOSE\_BOOTUP=y} доп.сообщения при пуске ядра
+  \begin{itemize}[nosep]
+\item \var{MAGIC\_SYSRQ=y} волшебная кнопка \keys{Alt+SysRq}
+\item \var{X86\_VERBOSE\_BOOTUP=y} доп.сообщения при пуске ядра
   \end{itemize}
 
   \end{itemize}
 
   \item \pack{cpu} \emph{i386} \file{i486sx}
 
-\begin{itemize}
-  \item \file{M486=y}
-  \item \file{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
+\begin{itemize}[nosep]
+  \item \var{M486=y}
+  \item \var{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
   (FPU) в ядре
 \end{itemize}
 
   \item \pack{hw} \emph{qemu386} \file{qemu386}
 
-\begin{itemize}
-\item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
+\begin{itemize}[nosep]
+\item \var{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
 на процессорах Pentium и старше, которые всегда имеют аппаратный модуль
 плавающей точки
-\item \file{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
+\item \var{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
 имеет смысла,
 
-\item \file{HZ\_100=y} переключаемся на 100\,Hz
+\item \var{HZ\_100=y} переключаемся на 100\,Hz
 \end{itemize}
 
 \item \pack{app} \emph{micro}
 
-\begin{itemize}
-\item \file{FB=n} выключаем поддерку FrameBuffer,..
-\item \file{INPUT\_MOUSE=n} мыши
+\begin{itemize}[nosep]
+\item \var{FB=n} выключаем поддерку FrameBuffer,..
+\item \var{INPUT\_MOUSE=n} мыши
 \end{itemize}
 
 \end{itemize}
