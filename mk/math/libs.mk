@@ -1,13 +1,16 @@
 
-CFG_LABLA = FORTRAN="$(TFORTRAN)" LOADER="$(TFORTRAN)" \
-	ARCH=$(TARGET)-ar ARCHFLAGS=ar RANLIB=$(TARGET)-ranlib
+CFG_LABLA = \
+	FORTRAN="$(TFORTRAN)" OPTS="$(TOPT)" \
+	ARCH=$(TARGET)-ar RANLIB=$(TARGET)-ranlib
+#CFG_LABLA =  LOADER="$(TFORTRAN)" \
+#	 ARCHFLAGS=ar 
 
-CFG_BLAS = $(CFG_LABLA) OPTS="$(TOPT)" BLASLIB=$(LIB)/libblas.a
+CFG_BLAS = $(CFG_LABLA) BLASLIB=$(LIB)/libblas.a
 .PHONY: blas
 blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) && touch make.inc &&\
-	$(MAKE) $(CFG_BLAS) clean &&\
-	$(MAKE) $(CFG_BLAS)
+	$(MAKE) clean &&\
+	$(MAKE) $(CFG_BLAS) &&\
 #	$(XPATH) $(TFORTRAN) -shared -fPIC \
 #		-z muldefs -shared -Wl,-soname,libblas.so \
 #		$(LIB)/libblas.so *.o   
