@@ -1,6 +1,6 @@
-azLinux
+azLinux:math
 ================
-# branch:math computing beowulf cluster infrastructure 
+## computing beowulf cluster infrastructure 
 
 https://github.com/ponyatov/azlin
 
