@@ -8,7 +8,6 @@ gz:
 	make gz_cross
 	make gz_core
 	make gz_libs
-	make gz_apps
 	
 .PHONY: gz_cross
 gz_cross:
