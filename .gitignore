@@ -1,6 +1,5 @@
 *~
 *.swp
-Makefile
 gz
 .project
 doc/*.mk

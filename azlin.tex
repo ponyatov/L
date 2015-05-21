@@ -52,7 +52,7 @@ WiFi, разнообразные носители данных, аппаратн
 для решения узких задач}, и для освоения технологии кросс-компиляции.
 Предполагается что функциональное наполнение не будет развиваться шире набора:
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item ядро (реального времени)
   \item $\mu$libc
   \item урезанная командная оболочка (busybox)
@@ -74,9 +74,8 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 
 \secrel{Требования к системе сборки (\file{BUILD}-хост)}
 
-Требования жесткие\ --- 2х-ядерный процессор, 2+\,Гб \ram, для 4+\, Гб \ram\
-нужен 64х-битный дистрибутив \linux\ (рекомедую Debian), и естественно никаких
-виртуалок.
+2х-ядерный процессор, 2+\,Гб \ram, для 4+\, Гб \ram\ нужен 64х-битный
+дистрибутив \linux\ (рекомедую Debian), и естественно никаких виртуалок.
 Возможна установка системы на флешку, в этом случае требования к \ram\ еще более
 ужесточаются\ --- потребуется каталоги с временными файлами смонтировать как
 \file{tmpfs}:
@@ -91,7 +90,7 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 диск (если найдете место) и оценить возможности этих вариантов на сборке пакета
 \pack{gcc0}. При сборке с флешки на ноутбуке с 2\,Гб \ram\ мне для сборки
 \pack{gcc0}\ пришлось временно размонтировать \file{cross/src}, сделать
-\file{./mk.rc \&\& make gcc ramclean}, а потом примонтировать \file{tmpfs}\
+\file{make gcc ramclean}, а потом примонтировать \file{tmpfs}\
 опять на \file{src}.
 
 Сборка под MinGW/Cygwin совершенно неживая. Если совсем никак без винды\ ---
@@ -119,7 +118,7 @@ somename: [зависимые файлы]
 Если вы запустите команду:
 
 \begin{verbatim}
-cd ~/az ; ./mk.rc && make somename
+cd ~/az ; make somename
 \end{verbatim}
 
 запустится \termdef{сборка пакета}{сборка пакета}\ \pack{somename}.
@@ -134,12 +133,12 @@ cd ~/az ; ./mk.rc && make somename
 поэтому для них правильнее будет фраза \term{запуск пакета}.
 
 \bigskip
-Все действия выполняются с помощью команды \pack{make}. Обратите особое
-внимание на то, что \file{Makefile}\ собирается скриптом \pack{mk.rc}\ из частей
-в каталоге \file{mk/}, поэтому \emph{если вы что-то меняете в скриптах, не
-забудьте сначала запустить \pack{./mk.rc}}.
+Все действия выполняются с помощью команды \pack{make}. Обратите особое внимание
+на то, что \file{Makefile}\ подгружает части из каталога \file{mk/}, поэтому
+\emph{если вы добавляете новый скрипт, не забудьте прописать его в
+\file{Makefile}}.
 
-\lstx{mk.rc}{}{../azlin/mk.rc}{rc}\index{azLinux!скрипт!mk.rc}
+\lstx{Makefile}{}{../azlin/Makefile}{mk}\index{azLinux!скрипт!Makefile}
 
 \secrel{Клонирование проекта \pack{az\linux}} \label{azclone}
 
@@ -164,7 +163,7 @@ cd ~/az ; git pull
 Каждый пакет собирается командой:
 
 \begin{verbatim}
-./mk.rc && make [HW=rpi] [APP=clock] <package>
+make [HW=rpi] [APP=clock] <package>
 \end{verbatim}
 
 \begin{enumerate}
@@ -202,7 +201,7 @@ cd ~/az ; git pull
 нужный вам вариант сборки.
 
 \begin{verbatim}
-./mk.rc && make HW=rpi APP=clock distclean dirs tc core libs apps boot root
+make HW=rpi APP=clock distclean dirs tc core libs apps boot root
 \end{verbatim}
 
 При таком указании все переназначения для этих переменных игнорируются, поэтому
@@ -213,29 +212,28 @@ cd ~/az ; git pull
 После загрузки или обновления запустите пакет \pack{dirs}:
 
 \begin{verbatim}
-$ ./mk.rc && make dirs
+make dirs
 mkdir -p /home/user/Azbuka/azlin/gz /home/user/Azbuka/azlin/src
 /home/user/Azbuka/azlin/tmp /home/user/Azbuka/azlin/x86_64-linux-gnu
 /home/user/Azbuka/azlin/qemu386-clock /home/user/Azbuka/azlin/qemu386-clock/boot
 \end{verbatim}
 \begin{verbatim}
-$ ls -la
-итого 72
--rwxr-xr-x 1 user user   121 Дек  8 11:43 mk.rc
+ls -la
+итого 71
+-rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 mk
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 hw
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 cpu
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 arch
-drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
-drwxr-xr-x 3 user user  4096 Дек  8 13:26 qemu386micro
-drwxr-xr-x 2 user user  4096 Дек  8 13:26 qemu386micro.cross
--rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
--rw-r--r-- 1 user user 17699 Дек  8 13:25 azlin.tex
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
 drwxr-xr-x 2 user user  4096 Дек  8 13:26 src
 drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
--rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
+drwxr-xr-x 3 user user  4096 Дек  8 13:26 x86micro
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
+-rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
+-rw-r--r-- 1 user user 17699 Дек  8 13:25 azlin.tex
 \end{verbatim}
 
 Пакет \pack{dirs}\ прописан в файле
@@ -311,7 +309,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 командной строки при запуске \emph{всех}\ пакетов:
 
 \begin{verbatim}
-./mk.rc && make APP=micro distclean dirs tc core libs apps
+make APP=micro distclean dirs tc core libs apps
 \end{verbatim}
 
 В \file{app/\$\{APP\}.mk}\ в переменных задаются:
@@ -551,7 +549,7 @@ USB & \checkbox\ USB2 \\
 \href{http://vocore.io/}{vocore}
 
 % \includegraphics[height=0.45\textheight]{azlin/mk/vocore1.jpg}
-% 
+%
 % \includegraphics[height=0.45\textheight]{azlin/mk/vocore2.jpg}
 
 \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
@@ -566,7 +564,7 @@ Flash & 16M \\
 % чипсет & Intel NM70 \\
 WiFi & 802.11n 1T/1R (1x1:1) 2.4 GHz \\&150Mbps MAC/BB/PA/RF \\
 Ethernet & \checkbox \\
-% HDD & 2 $\times$ SATA2 (3Gb/s), 1 $\times$ SATA3 (6Gb/s), 1 $\times$ eSATA\\
+% HDD & 2 $\timesSATA2 (3Gb/s), 1 $\timesSATA3 (6Gb/s), 1 $\timeseSATA\\
 USB & \checkbox \\
 % видео & IntelGMA, выходы на VGA D-Sub и HDMI 1.4\\
 % аудио & Realtek ALC887 (HDA) \\
@@ -677,7 +675,7 @@ $\mu$SD & \checkbox \\
 не работает, но при монтировании как tmpfs потребляет слишком много \ram:
 
 \begin{verbatim}
-./mk.rc && make CCACHE= gcc0
+$ make CCACHE= gcc0
 \end{verbatim}
 
 \secrel{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
