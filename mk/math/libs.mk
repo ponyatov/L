@@ -2,8 +2,7 @@
 CFG_LABLA = \
 	FORTRAN="$(TFORTRAN)" OPTS="$(TOPT)" \
 	ARCH=$(TARGET)-ar RANLIB=$(TARGET)-ranlib
-#CFG_LABLA =  LOADER="$(TFORTRAN)" \
-#	 ARCHFLAGS=ar 
+# LOADER="$(TFORTRAN)"
 
 CFG_BLAS = $(CFG_LABLA) BLASLIB=$(LIB)/libblas.a
 .PHONY: blas
@@ -11,9 +10,8 @@ blas: $(SRC)/$(BLAS)/README
 	cd $(SRC)/$(BLAS) && touch make.inc &&\
 	$(MAKE) clean &&\
 	$(MAKE) $(CFG_BLAS) &&\
-#	$(XPATH) $(TFORTRAN) -shared -fPIC \
-#		-z muldefs -shared -Wl,-soname,libblas.so \
-#		$(LIB)/libblas.so *.o   
+	echo $(XPATH) $(TFORTRAN) $(TOPT) -shared -fPIC -o $(LIB)/libblas.so *.f
+#		-z muldefs -Wl,-soname,libblas.so
 
 CFG_LAPACK = $(CFG_LABLA) OPTS="$(TOPT) -frecursive" \
 	LAPACKLIB=liblapack.a TMGLIB=libtmg.a
