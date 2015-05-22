@@ -23,6 +23,10 @@ blaslib:
 lapacklib:	lapack_install
 	( cd SRC; $(MAKE) )
 
+azlin:
+	( cd INSTALL; $(MAKE) )
+	( cd SRC; $(MAKE) )
+
 lapackelib: lapacklib
 	( cd lapacke; $(MAKE) )
 
