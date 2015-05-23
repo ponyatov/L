@@ -52,7 +52,7 @@ WiFi, разнообразные носители данных, аппаратн
 для решения узких задач}, и для освоения технологии кросс-компиляции.
 Предполагается что функциональное наполнение не будет развиваться шире набора:
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item ядро (реального времени)
   \item $\mu$libc
   \item урезанная командная оболочка (busybox)
@@ -70,13 +70,12 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 считать сервисным режимом}, и очень ограниченные графические и мультимедийные
 возможности. Если ваши хотелки выходят за этот функционал, рекомендую сразу
 уходить на использование ширко известной системы кросс-сборки \linux-систем под
-названием \file{BuildRoot}\ref{buildroot}.
+названием \prog{BuildRoot}\ref{buildroot}.
 
-\secrel{Требования к системе сборки (\file{BUILD}-хост)}
+\secrel{Требования к системе сборки (\var{BUILD}-хост)}
 
-Требования жесткие\ --- 2х-ядерный процессор, 2+\,Гб \ram, для 4+\, Гб \ram\
-нужен 64х-битный дистрибутив \linux\ (рекомедую Debian), и естественно никаких
-виртуалок.
+2х-ядерный процессор, 2+\,Гб \ram, для 4+\, Гб \ram\ нужен 64х-битный
+дистрибутив \linux\ (рекомедую Debian), и естественно никаких виртуалок.
 Возможна установка системы на флешку, в этом случае требования к \ram\ еще более
 ужесточаются\ --- потребуется каталоги с временными файлами смонтировать как
 \file{tmpfs}:
@@ -91,7 +90,7 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 диск (если найдете место) и оценить возможности этих вариантов на сборке пакета
 \pack{gcc0}. При сборке с флешки на ноутбуке с 2\,Гб \ram\ мне для сборки
 \pack{gcc0}\ пришлось временно размонтировать \file{cross/src}, сделать
-\file{./mk.rc \&\& make gcc ramclean}, а потом примонтировать \file{tmpfs}\
+\cmd{make gcc ramclean}, а потом примонтировать \file{tmpfs}\
 опять на \file{src}.
 
 Сборка под MinGW/Cygwin совершенно неживая. Если совсем никак без винды\ ---
@@ -119,7 +118,7 @@ somename: [зависимые файлы]
 Если вы запустите команду:
 
 \begin{verbatim}
-cd ~/az ; ./mk.rc && make somename
+cd ~/az ; make somename
 \end{verbatim}
 
 запустится \termdef{сборка пакета}{сборка пакета}\ \pack{somename}.
@@ -134,12 +133,12 @@ cd ~/az ; ./mk.rc && make somename
 поэтому для них правильнее будет фраза \term{запуск пакета}.
 
 \bigskip
-Все действия выполняются с помощью команды \pack{make}. Обратите особое
-внимание на то, что \file{Makefile}\ собирается скриптом \pack{mk.rc}\ из частей
-в каталоге \file{mk/}, поэтому \emph{если вы что-то меняете в скриптах, не
-забудьте сначала запустить \pack{./mk.rc}}.
+Все действия выполняются с помощью команды \pack{make}. Обратите особое внимание
+на то, что \file{Makefile}\ подгружает части из каталога \file{mk/}, поэтому
+\emph{если вы добавляете новый скрипт, не забудьте прописать его в
+\file{Makefile}}.
 
-\lstx{mk.rc}{}{../azlin/mk.rc}{rc}\index{azLinux!скрипт!mk.rc}
+\lstx{Makefile}{}{../azlin/Makefile}{mk}\index{azLinux!скрипт!Makefile}
 
 \secrel{Клонирование проекта \pack{az\linux}} \label{azclone}
 
@@ -147,10 +146,30 @@ cd ~/az ; ./mk.rc && make somename
 добавлять свои пакеты и поддержку железа}\ работайте с вашим
 собственным форком на GitHub.
 
-Получите клон пакета из репозитория:
+\nopagebreak\bigskip
+az\linux\ разрабатывается по нескольким веткам:
+
+\begin{tabular}{l l}
+master & основная универсальная ветка, включает все скрипты сборки и пакеты \\
+& в книгу включается именно эта ветка, набор скриптов в других ветках будет
+отличаться \\
+minimal & минимальная система для нескольких платформ \\
+clock & \linux-powered электронные часы/контроллер умного дома \\
+math & математический софт и библиотеки для вычислительных кластеров beowulf \\
+desk & десктопная сборка с функционалом $\sim$\win 95 \\
+cnc & система управления для станков с ЧПУ \\
+\end{tabular}
+\bigskip
+
+Сделайте свой форк с репозитория \url{https://github.com/ponyatov/azlin}.
+\bigskip
+
+Получите клон системы сборки из репозитория выбрав нужную ветку:
+
 
 \begin{verbatim}
-cd ~ ; git clone --depth=1 -o gh https://github.com/user/azlin az
+cd ~
+git clone --depth=1 -o gh -b minimal git@github.com:user/azlin.git myazlin
 \end{verbatim}
 
 При необходимости обновитесь:
@@ -164,27 +183,41 @@ cd ~/az ; git pull
 Каждый пакет собирается командой:
 
 \begin{verbatim}
-./mk.rc && make [HW=rpi] [APP=clock] <package>
+make [HW=rpi] [APP=clock] [CCACHE=] [RAMCLEAN=echo] <package>
 \end{verbatim}
 
-\begin{enumerate}
+\bigskip
+\begin{itemize}[nosep]
+  \item \var{HW} выбор аппаратной платформы \file{hw/}
+  \item \var{APP} выбор приложения \file{app/}
+  \item \var{CCACHE=} пустая переменная блокирует использование \prog{ccache} 
+  \item \var{RAMCLEAN} переменная задает команду, которой передается набор
+  каталогов, которые нужно зачистить; по умолчанию это \cmd{rm -rf}, заданием
+  \cmd{echo}\ зачистка отключается (нужно если вы собираете систему в
+  каталогах \file{src/}, \file{tmp/}\ не в \ram, а на диске)
+\end{itemize}
+
+\bigskip
+\begin{enumerate}[nosep]
   \item \pack{dirs} создание дерева каталогов \ref{azdirs}
   \item \pack{gz} закачка архивов исходников \ref{azgz}
-  \item \pack{tc} сборка кросс-компилятора \ref{aztc}
-  \begin{enumerate}
-    \item \pack{binutils} ассемблер, линкер и утилиты \ref{azbinutils}
-    \item \pack{cclibs} библиотеки для сборки \pack{gcc} \ref{azcclibs}
+  \item \pack{cross0} сборка кросс-компилятора \ref{azcross0}
+  \begin{enumerate}[nosep]
+    \item \pack{binutils0} ассемблер, линкер и утилиты \ref{azbinutils0}
+    \item \pack{cclibs0} библиотеки для сборки \pack{gcc} \ref{azcclibs0}
     \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
   \end{enumerate}
   \item \pack{core} сборка основной системы \ref{azcore}
-  \begin{enumerate}
+  \\ \pack{coref} сборка основной системы + GNU Fortran \ref{azcoref}
+  \begin{enumerate}[nosep]
     \item \pack{kernel} ядро \linux\ \ref{azkernel}
     \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
     \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
     \item \pack{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
+    \\ \pack{gccf} кросс-компилятор Си/\cpp/Fortran \ref{azgccf}
   \end{enumerate}
-  \item \pack{libs} сборка библиотек \file{\$\{LIBS\}} \ref{azlibs}
-  \item \pack{apps} сборка прикладных пакетов \file{\$\{APPS\}} \ref{azapps}
+  \item \pack{libs} сборка библиотек \var{\$\{LIBS\}} \ref{azlibs}
+  \item \pack{apps} сборка прикладных пакетов \var{\$\{APPS\}} \ref{azapps}
   \item \pack{user} сборка пользовательского кода \ref{azuser}
   \item \pack{root} формирование корневой файловой системы \ref{azroot}
   \item \pack{boot} сборка загрузчика \ref{azboot}
@@ -202,7 +235,7 @@ cd ~/az ; git pull
 нужный вам вариант сборки.
 
 \begin{verbatim}
-./mk.rc && make HW=rpi APP=clock distclean dirs tc core libs apps boot root
+make HW=rpi APP=clock distclean dirs tc core libs apps boot root
 \end{verbatim}
 
 При таком указании все переназначения для этих переменных игнорируются, поэтому
@@ -213,36 +246,35 @@ cd ~/az ; git pull
 После загрузки или обновления запустите пакет \pack{dirs}:
 
 \begin{verbatim}
-$ ./mk.rc && make dirs
+make dirs
 mkdir -p /home/user/Azbuka/azlin/gz /home/user/Azbuka/azlin/src
 /home/user/Azbuka/azlin/tmp /home/user/Azbuka/azlin/x86_64-linux-gnu
 /home/user/Azbuka/azlin/qemu386-clock /home/user/Azbuka/azlin/qemu386-clock/boot
 \end{verbatim}
 \begin{verbatim}
-$ ls -la
-итого 72
--rwxr-xr-x 1 user user   121 Дек  8 11:43 mk.rc
+ls -la
+итого 71
+-rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 mk
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 hw
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 cpu
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 arch
-drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
-drwxr-xr-x 3 user user  4096 Дек  8 13:26 qemu386micro
-drwxr-xr-x 2 user user  4096 Дек  8 13:26 qemu386micro.cross
--rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
--rw-r--r-- 1 user user 17699 Дек  8 13:25 azlin.tex
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
 drwxr-xr-x 2 user user  4096 Дек  8 13:26 src
 drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
--rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
+drwxr-xr-x 3 user user  4096 Дек  8 13:26 x86micro
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
+-rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
+-rw-r--r-- 1 user user 17699 Дек  8 13:25 azlin.tex
 \end{verbatim}
 
 Пакет \pack{dirs}\ прописан в файле
 
 \lstx{mk/dirs.mk}{}{azlin/mk/dirs.mk}{mk}\index{azLinux!пакет!dirs}
 
-Встроенная переменная \file{PWD}\ содержит полное имя каталога, из которого был
+Встроенная переменная \var{PWD}\ содержит полное имя каталога, из которого был
 запущен \pack{make}.
 
 \bigskip
@@ -260,7 +292,7 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 \lstx{TMP}{}{tmp/azlin_TMP}{mk}\index{azLinux!переменная!TMP}
 
-Переменная \file{BUILD}\ задает \term{триплет}\ системы, на которой вы
+Переменная \var{BUILD}\ задает \term{триплет}\ системы, на которой вы
 собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
 триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
 
@@ -273,9 +305,9 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
 будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
-загрузчика. Имя \file{ROOT}\ создается из двух переменных, описанных далее: имя
-аппаратной платформы \file{HW}\ref{azhw}\ и имени приложения
-\file{APP}\ref{azapp}.
+загрузчика. Имя \var{ROOT}\ создается из двух переменных, описанных далее: имя
+аппаратной платформы \var{HW}\ref{azhw}\ и имени приложения
+\var{APP}\ref{azapp}.
 
 \lstx{ROOT}{}{tmp/azlin_ROOT}{mk}\index{azLinux!переменная!ROOT}
 \lstx{BOOT}{}{tmp/azlin_BOOT}{mk}\index{azLinux!переменная!BOOT}
@@ -288,22 +320,22 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 
 \lstx{mk/gz.mk}{}{azlin/mk/gz.mk}{mk}
 
-\secrel{APP: Приложение}\label{azapp}
+\secrel{\var{APP}: Приложение}\label{azapp}
 
 \term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
 в целом.
 
 Приложение задается в файле \file{mk/head.mk}\ через
-переменную \file{APP}, доступные значения:
+переменную \var{APP}, доступные значения:
 
 \begin{enumerate}
   \item \pack{micro}: минимальная версия системы, только командная консоль
   \item \pack{clock}: простые \linux-powered электронные часы
 \end{enumerate}
 
-Значение переменной \file{APP}\ по умолчанию задано в \file{mk/head.mk}:
+Значение переменной \var{APP}\ по умолчанию задано в \file{mk/head.mk}:
 
-\lstx{APP @ hw/head.mk}{}{tmp/azlin_APP}{mk}
+\lstx{\var{APP} @ \file{hw/head.mk}}{}{tmp/azlin_APP}{mk}
 \index{azLinux!настройка!приложение}
 \index{azLinux!переменная!APP}
 
@@ -311,24 +343,24 @@ drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
 командной строки при запуске \emph{всех}\ пакетов:
 
 \begin{verbatim}
-./mk.rc && make APP=micro distclean dirs tc core libs apps
+make APP=micro distclean dirs tc core libs apps
 \end{verbatim}
 
 В \file{app/\$\{APP\}.mk}\ в переменных задаются:
 
 \begin{itemize}
-  \item \file{LIBS}: набор используемых библиотек
-  \item \file{PACKS}: набор используемых программных пакетов \ref{azpacks}
+  \item \var{LIBS}: набор используемых библиотек
+  \item \var{PACKS}: набор используемых программных пакетов \ref{azpacks}
 \end{itemize}
 
 \lstx{app/micro.mk}{}{../azlin/app/micro.mk}{mk}\index{azLinux!приложение!micro}
 
 \lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
 
-\secrel{HW: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
+\secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
-переменную \file{HW}, доступные значения приведены в таблице:
+переменную \var{HW}, доступные значения приведены в таблице:
 
 \noindent
 \begin{tabular}{|l| l l|l l l l l l|l|}
@@ -551,7 +583,7 @@ USB & \checkbox\ USB2 \\
 \href{http://vocore.io/}{vocore}
 
 % \includegraphics[height=0.45\textheight]{azlin/mk/vocore1.jpg}
-% 
+%
 % \includegraphics[height=0.45\textheight]{azlin/mk/vocore2.jpg}
 
 \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
@@ -566,7 +598,7 @@ Flash & 16M \\
 % чипсет & Intel NM70 \\
 WiFi & 802.11n 1T/1R (1x1:1) 2.4 GHz \\&150Mbps MAC/BB/PA/RF \\
 Ethernet & \checkbox \\
-% HDD & 2 $\times$ SATA2 (3Gb/s), 1 $\times$ SATA3 (6Gb/s), 1 $\times$ eSATA\\
+% HDD & 2 $\timesSATA2 (3Gb/s), 1 $\timesSATA3 (6Gb/s), 1 $\timeseSATA\\
 USB & \checkbox \\
 % видео & IntelGMA, выходы на VGA D-Sub и HDMI 1.4\\
 % аудио & Realtek ALC887 (HDA) \\
@@ -581,18 +613,18 @@ $\mu$SD & \checkbox \\
 \href{http://habrahabr.ru/post/242731/}{bswift}
 \secup
 
-\secrel{CPU: Конфигурации процессоров}\secdown
+\secrel{\var{CPU}: Конфигурации процессоров}\secdown
 
-Настройки на процессор задаются в файле \file{cpu/\$\{CPU\}.mk}.
+Настройки на процессор задаются в файле \file{cpu/}\var{\$\{CPU\}}\file{.mk}.
 
 \begin{tabular}{p{0.15\textwidth} p{0.8\textwidth}}
-\file{ARCH} & архитектура целевой системы, используется при конфигурировании
+\var{ARCH} & архитектура целевой системы, используется при конфигурировании
 ядра \\
-\file{TARGET} & \term{триплет целевой системы}, параметр задает тип целевой
+\var{TARGET} & \term{триплет целевой системы}, параметр задает тип целевой
 системы при сборке кросс-компилятора и используется во всех скриптах
 \pack{configure}\ при сборке остальных пакетов \\
-\file{CFG\_CPU} & параметры при сборке кросс-компилятора \\
-\file{CPU\_FLAGS} & параметры \pack{gcc}\ для оптимизации кода \\
+\var{CFG\_CPU} & параметры при сборке кросс-компилятора \\
+\var{CPU\_FLAGS} & параметры \prog{gcc}\ для оптимизации кода \\
 \end{tabular}
 
 \secrel{i386}
@@ -619,7 +651,7 @@ $\mu$SD & \checkbox \\
 
 \secrel{\file{mk/versions.mk}: Версии пакетов}\label{azpackver}
 
-\secrel{\pack{tc}: кросс-компилятор}
+\secrel{\pack{cross0}: кросс-компилятор}
 
 \lstx{mk/versions.mk}{}{tmp/azlin_versions.cross}{mk}
 
@@ -635,19 +667,19 @@ $\mu$SD & \checkbox \\
 
 \lstx{mk/versions.mk}{}{tmp/azlin_versions.libs}{mk}
 
-\secrel{\pack{tc}: сборка кросс-компилятора} \label{aztc}
+\secrel{\pack{cross0}: сборка кросс-компилятора} \label{azcross0}
 
 \lstx{}{}{azlin/mk/cross.mk}{mk}
 
 \secrel{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
 
 \begin{tabular}{l l}
---target=\$(TARGET)& триплет целевой платформы\\
-\$(CFG\_ARCH)&параметры архитектуры\\
-\$(CFG\_CPU)&параметры процессора\\
+--target=\$(\var{TARGET})& триплет целевой платформы\\
+\$(\var{CFG\_ARCH})&параметры архитектуры\\
+\$(\var{CFG\_CPU})&параметры процессора\\
 --program-prefix&префикс \verb|<prefix>-(as|ld|..)|\\
 --with-sysroot& каталог в котором находятся хедеры и библиотеки\\
---with-native-system-header-dir=/include&каталог с хедерами\\
+--with-native-system-header-dir=\file{/include}&каталог с хедерами\\
 --enable-lto&[L]ink[T]ime [O]ptimization\\
 \end{tabular}
 
@@ -668,7 +700,7 @@ $\mu$SD & \checkbox \\
 
 \secrel{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
 
-\pack{gmp} \pack{mpfr} \pack{mpc}
+\pack{gmp} \pack{mpfr} \pack{mpc} \pack{isl} \pack{cloog}
 
 \secrel{\pack{gcc0}: сборка минимального кросс-компилятора Си}
 \label{azgcc0}
@@ -677,7 +709,7 @@ $\mu$SD & \checkbox \\
 не работает, но при монтировании как tmpfs потребляет слишком много \ram:
 
 \begin{verbatim}
-./mk.rc && make CCACHE= gcc0
+$ make CCACHE= gcc0
 \end{verbatim}
 
 \secrel{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
@@ -694,16 +726,17 @@ $\mu$SD & \checkbox \\
 \lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
 
 \begin{tabular}{l l}
-\file{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
-\file{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
+\var{ARCH} & архитектура: \file{src/linux-x.x.x/arch/*} \\
+\var{INSTALL\_HDR\_PATH} & путь установки \term{хедеров ядра} \\
 \end{tabular}
 
-\begin{enumerate}
+\bigskip
+\begin{enumerate}[nosep]
   \item подготовка к сборке с пустым \term{конфигом}
   \file{src/linux-x.x.x/.config}
   \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
   переопределения переменных конфигурации:
-  \begin{itemize}
+  \begin{itemize}[nosep]
     \item \file{all} универсальные параметры ядра для всех платформ
     \item \file{arch} параметры, специфичные для архитектуры
     \item \file{cpu} параметры, адаптирующие ядро к конкретному процессору
@@ -718,96 +751,95 @@ $\mu$SD & \checkbox \\
   \item установка параметров кросс-компиляции и имени сборки
   \item запуск интерактивного меню конфигурирования, выйти с сохранением
   \item сборка ядра
-  \item копирование готового файла ядра в \file{\$\{BOOT\}}
-  \item генерация \term{хедеров}\ в \file{\$\{ROOT\}}
+  \item копирование готового файла ядра в \var{\$\{BOOT\}}
+  \item генерация \term{хедеров}\ в \var{\$\{ROOT\}}
 \end{enumerate}
 
 \bigskip
-Все параметры ядра идут с префиксом \file{CONFIG\_}:
+Все параметры ядра идут с префиксом \var{CONFIG\_}:
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item \pack{core.mk}
-  \begin{itemize}
-    \item \file{CROSS\_COMPILE} префикс кросс-компилятора
+  \begin{itemize}[nosep]
+    \item \var{CROSS\_COMPILE} префикс кросс-компилятора
     \verb#<pfx>-(gcc|as|ld..)#
-    \item \file{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
-    \item \file{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
+    \item \var{LOCALVERSION} суффикс ядра \verb|linux-x.x.x-suffix|
+    \item \var{DEFAULT\_HOSTNAME} имя компьютера \file{<host>.<domain>}
   \end{itemize}
   \item \pack{all} \emph{для всех платформ}
-  \begin{itemize}
-  \item \file{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
-  \item \file{KERNEL\_GZIP=y} ядро сжимать алгоритмом \pack{gzip}\note{важно для
+  \begin{itemize}[nosep]
+  \item \var{NOHIGHMEM=y} сборка в режиме $\leq 1$\,Gb \ram
+  \item \var{KERNEL\_GZIP=y} ядро сжимать алгоритмом \pack{gzip}\note{важно для
   загрузчиков на не-i386 системах}
-
   \item \emph{корневая файловая система в initrd/ramdisk}
-  \begin{itemize}
-  \item \file{BLK\_DEV\_INITRD=y} rootfs в \ram (initrd)
-  \item \file{PROC\_FS=y} файловая подсистема \file{/proc}
-  \item \file{SYSFS=y} файловая подсистема \file{/sys}
-  \item \file{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
+  \begin{itemize}[nosep]
+  \item \var{BLK\_DEV\_INITRD=y} rootfs в \ram (initrd)
+  \item \var{PROC\_FS=y} файловая подсистема \file{/proc}
+  \item \var{SYSFS=y} файловая подсистема \file{/sys}
+  \item \var{DEVTMPFS=y} файловая подсистема \file{/dev} (интерфейсы драйверов
   устройств)
-  \item \file{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs}
+  \item \var{DEVTMPFS\_MOUNT=y} автоматически монтировать \pack{devfs}
   \end{itemize}
 
   \item \emph{режим реального времени\note{повышенная или
   \emph{гарантированная} отзывчивость системы на внешние события}} \ref{linrt}
-  \begin{itemize}
-  \item \file{PREEMPT=y} \term{вытесняющая многозадачность} в режиме ядра
-  \item \file{HZ\_1000=y} системный таймер 1\,KHz
+  \begin{itemize}[nosep]
+  \item \var{PREEMPT=y} \term{вытесняющая многозадачность} в режиме ядра
+  \item \var{HZ\_1000=y} системный таймер 1\,KHz
   \end{itemize}
 
   \item \emph{исполняемые форматы файлов}
-  \begin{itemize}
-  \item \file{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
-  \item \file{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке
-  \item \file{COREDUMP=n} не писать \term{корки} при сбоях
+  \begin{itemize}[nosep]
+  \item \var{BINFMT\_ELF=y} бинарные файлы в формате \pack{ELF}
+  \item \var{BINFMT\_SCRIPT=y} файлы скриптов с \verb|#!/bin/sh| в заголовке
+  \item \var{COREDUMP=n} не писать \term{корки} при сбоях
   \end{itemize}
 
   \item \emph{поддержка консоли tty}
-  \begin{itemize}
-  \item \file{TTY=y} последовательные порты и командная консоль
-  \item \file{UNIX98\_PTYS=n} псевдотерминалы UNIX98
-  \item \file{LEGACY\_PTYS=n} псевдотерминалы UNIX/BSD
+  \begin{itemize}[nosep]
+  \item \var{TTY=y} последовательные порты и командная консоль
+  \item \var{UNIX98\_PTYS=n} псевдотерминалы UNIX98
+  \item \var{LEGACY\_PTYS=n} псевдотерминалы UNIX/BSD
   \end{itemize}
 
   \item \emph{клавиатура}
-  \begin{itemize}
-  \item \file{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры
+  \begin{itemize}[nosep]
+  \item \var{INPUT\_KEYBOARD=y} ввод с аппаратной клавиатуры
   \end{itemize}
 
   \item \emph{мышь}
-  \begin{itemize}
-  \item \file{INPUT\_MOUSE=y}
-  \item \file{INPUT\_MOUSEDEV=y}
-  \item \file{INPUT\_MOUSEDEV\_PSAUX=n} не создавать \verb|/dev/psaux|
+  \begin{itemize}[nosep]
+  \item \var{INPUT\_MOUSE=y}
+  \item \var{INPUT\_MOUSEDEV=y}
+  \item \var{INPUT\_MOUSEDEV\_PSAUX=n} не создавать \verb|/dev/psaux|
   \end{itemize}
 
   \item \emph{USB HID: устройства ввода без драйверов (клавиатура, мышь,
   джойстик, самодельные кнопки)\\включение поддержки USB на i386 не требуется}
-  \begin{itemize}
-  \item \file{HID=y} [H]uman [I]nterface [D]evice
-  \item \file{HID\_GENERIC=y} универсальный драйвер USB HID Class
+  \begin{itemize}[nosep]
+  \item \var{HID=y} [H]uman [I]nterface [D]evice
+  \item \var{HID\_GENERIC=y} универсальный драйвер USB HID Class
   \end{itemize}
 
   \item \emph{Графический режим \term{FrameBuffer}}
-  \begin{itemize}
-  \item \file{FB=y}
-  \item \file{FRAMEBUFFER\_CONSOLE=y} командная консоль
-  \item \file{LOGO=y} вывод пингвина при запуске
-  \item \file{LOGO\_LINUX\_MONO=y} выводить только черно-белый вариант
-  \item \file{LOGO\_LINUX\_VGA16=n}
-  \item \file{LOGO\_LINUX\_CLUT224=n}
+  \begin{itemize}[nosep]
+  \item \var{FB=y}
+  \item \var{FRAMEBUFFER\_CONSOLE=y} командная консоль
+  \item \var{LOGO=y} вывод пингвина при запуске
+  \item \var{LOGO\_LINUX\_MONO=y} выводить только черно-белый вариант
+  \item \var{LOGO\_LINUX\_VGA16=n}
+  \item \var{LOGO\_LINUX\_CLUT224=n}
   \end{itemize}
 
   \item \emph{Отладка и \term{printk} лог ядра}
-  \begin{itemize}
-  \item \file{DEBUG\_KERNEL=y} включение отладочных функций ядра
-  \item \file{EARLY\_PRINTK=y} вывод пусковой части ядра
-  \item \file{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
-  \item \file{PRINTK\_TIME=y} выводить метки времени (для отладки времени
+  \begin{itemize}[nosep]
+  \item \var{DEBUG\_KERNEL=y} включение отладочных функций ядра
+  \item \var{EARLY\_PRINTK=y} вывод пусковой части ядра
+  \item \var{PRINTK=y} вывод главного ситемного лога ядра \term{printk}
+  \item \var{PRINTK\_TIME=y} выводить метки времени (для отладки времени
   запуска)
-  \item \file{SCHED\_DEBUG=n} не отлаживать планировщик
-  \item \file{DEBUG\_PREEMPT=n} не отлаживать вытесняющий режим
+  \item \var{SCHED\_DEBUG=n} не отлаживать планировщик
+  \item \var{DEBUG\_PREEMPT=n} не отлаживать вытесняющий режим
   \end{itemize}
 
   \end{itemize}
@@ -815,67 +847,67 @@ $\mu$SD & \checkbox \\
 
   \begin{itemize}
 
-\item \file{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров
+\item \var{X86\_GENERIC=y} универсальная оптимизация для всех i386-процессоров
 
 \item \pack{UART/COM/RS232} \emph{последоваельные порты}
-  \begin{itemize}
-\item \file{SERIAL\_8250=y} UART 8250/16550
-\item \file{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
+  \begin{itemize}[nosep]
+\item \var{SERIAL\_8250=y} UART 8250/16550
+\item \var{SERIAL\_8250\_CONSOLE=y} командандная консоль на COM-портах
   \end{itemize}
 
-\item \file{VGA\_CONSOLE=y} командандная консоль на VGA 80$\times$25
+\item \var{VGA\_CONSOLE=y} командандная консоль на VGA 80$\times$25
 
 \item  \emph{FrameBuffer}
-  \begin{itemize}
-\item \file{FB\_VESA=y} универсальный видеодрайвер VESA 2.0+
+  \begin{itemize}[nosep]
+\item \var{FB\_VESA=y} универсальный видеодрайвер VESA 2.0+
   \end{itemize}
 
 \item  \emph{клава}
-  \begin{itemize}
-\item \file{KEYBOARD\_ATKBD=y} клавиатура PC AT / PS2
+  \begin{itemize}[nosep]
+\item \var{KEYBOARD\_ATKBD=y} клавиатура PC AT / PS2
   \end{itemize}
 
 \item  \emph{мышь}
-  \begin{itemize}
-\item \file{MOUSE\_PS2=y} мышь PS/2
-\item \file{MOUSE\_SERIAL=y} (старая) мышь на RS232
+  \begin{itemize}[nosep]
+\item \var{MOUSE\_PS2=y} мышь PS/2
+\item \var{MOUSE\_SERIAL=y} (старая) мышь на RS232
   \end{itemize}
 
-\item \file{NVRAM=y} доступ к памяти CMOS
+\item \var{NVRAM=y} доступ к памяти CMOS
 
 \item \emph{отладка}
-  \begin{itemize}
-\item \file{MAGIC\_SYSRQ=y} волшебная кнопка \keys{Alt+SysRq}
-\item \file{X86\_VERBOSE\_BOOTUP=y} доп.сообщения при пуске ядра
+  \begin{itemize}[nosep]
+\item \var{MAGIC\_SYSRQ=y} волшебная кнопка \keys{Alt+SysRq}
+\item \var{X86\_VERBOSE\_BOOTUP=y} доп.сообщения при пуске ядра
   \end{itemize}
 
   \end{itemize}
 
   \item \pack{cpu} \emph{i386} \file{i486sx}
 
-\begin{itemize}
-  \item \file{M486=y}
-  \item \file{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
+\begin{itemize}[nosep]
+  \item \var{M486=y}
+  \item \var{MATH\_EMULATION=y} включить программную эмуляцию мат.сопроцессора
   (FPU) в ядре
 \end{itemize}
 
   \item \pack{hw} \emph{qemu386} \file{qemu386}
 
-\begin{itemize}
-\item \file{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
+\begin{itemize}[nosep]
+\item \var{MATH\_EMULATION=n} выключить эмуляцию FPU: \pack{QEMU} запускается
 на процессорах Pentium и старше, которые всегда имеют аппаратный модуль
 плавающей точки
-\item \file{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
+\item \var{HZ\_1000=n}  в режиме эмуляции быстрый таймер не
 имеет смысла,
 
-\item \file{HZ\_100=y} переключаемся на 100\,Hz
+\item \var{HZ\_100=y} переключаемся на 100\,Hz
 \end{itemize}
 
 \item \pack{app} \emph{micro}
 
-\begin{itemize}
-\item \file{FB=n} выключаем поддерку FrameBuffer,..
-\item \file{INPUT\_MOUSE=n} мыши
+\begin{itemize}[nosep]
+\item \var{FB=n} выключаем поддерку FrameBuffer,..
+\item \var{INPUT\_MOUSE=n} мыши
 \end{itemize}
 
 \end{itemize}
@@ -884,12 +916,12 @@ $\mu$SD & \checkbox \\
 
 \lstx{mk/ulibc.mk}{}{azlin/mk/ulibc.mk}{mk}
 
-\begin{enumerate}
+\begin{enumerate}[nosep]
   \item подготовка к сборке с пустым \term{конфигом}
   \file{src/uClibc-x.x.x/.config}
   \item накатываем на пустой \file{.config} файлы-модификаторы, содержащие
   переопределения переменных конфигурации:
-  \begin{itemize}
+  \begin{itemize}[nosep]
     \item \file{all} универсальные параметры \pack{ulibc} для всех платформ
     \item \file{arch} параметры, специфичные для архитектуры
     \item \file{cpu} параметры, адаптирующие \pack{ulibc} к конкретному
@@ -901,58 +933,55 @@ $\mu$SD & \checkbox \\
   \item установка параметров кросс-компиляции и \emph{пути к хедерам ядра}
   \item запуск интерактивного меню конфигурирования, выйти с сохранением
   \item сборка \pack{ulibc}
-  \item инсталляция в \pack{ROOT}
+  \item инсталляция в \var{ROOT}
   \item инсталляция утилит для работы с shared библиотеками \emph{на целевой
   системе}
-  \item инсталляция утилит для \emph{\file{BUILD}-системы}
+  \item инсталляция утилит для \emph{\var{BUILD}-системы}
   \item создание \file{/etc/ld.so.cache} (выполняется в пакете \pack{root})
 \end{enumerate}
 \bigskip
 
-\begin{itemize}
+\begin{itemize}[nosep]
 \item
-\begin{itemize}
-\item \file{ARCH\_HAS\_MMU=y} \emph{всегда включено}
-\item \file{ARCH\_USE\_MMU=y} \emph{всегда включено}
-\item \file{UCLIBC\_HAS\_FPU=y} \emph{всегда включено}: используется эмулятор в
+\begin{itemize}[nosep]
+\item \var{ARCH\_HAS\_MMU=y} \emph{всегда включено}
+\item \var{ARCH\_USE\_MMU=y} \emph{всегда включено}
+\item \var{UCLIBC\_HAS\_FPU=y} \emph{всегда включено}: используется эмулятор в
 ядре
-\item \file{UCLIBC\_HAS\_FLOATS=y} функции плавающей точки
-\item \file{DO\_C99\_MATH=n} функции float math C99
-\item \file{UCLIBC\_CTOR\_DTOR=y} конструктор/декструктор
-\item \file{UCLIBC\_HAS\_LFS=y} большие файлы
+\item \var{UCLIBC\_HAS\_FLOATS=y} функции плавающей точки
+\item \var{DO\_C99\_MATH=n} функции float math C99
+\item \var{UCLIBC\_CTOR\_DTOR=y} конструктор/декструктор
+\item \var{UCLIBC\_HAS\_LFS=y} большие файлы
 \end{itemize}
 \item \emph{разделяемые \term{shared} библиотеки}
-\begin{itemize}
-  \item \file{HAVE\_SHARED=y}
-  \item \file{LDSO\_CACHE\_SUPPORT=y} \file{/etc/ld.co.conf}
-  \item \file{LDSO\_PRELOAD\_ENV\_SUPPORT=n} переменная \file{LD\_PRELOAD}
+\begin{itemize}[nosep]
+  \item \var{HAVE\_SHARED=y}
+  \item \var{LDSO\_CACHE\_SUPPORT=y} \file{/etc/ld.co.conf}
+  \item \var{LDSO\_PRELOAD\_ENV\_SUPPORT=n} переменная \var{LD\_PRELOAD}
   содержит список библиотек, загружаемых первыми
-  \item \file{LDSO\_LD\_LIBRARY\_PATH=n} отключить
-  переменную \file{LD\_LIBRARY\_PATH} со списком каталогов поиска shared
+  \item \var{LDSO\_LD\_LIBRARY\_PATH=n} отключить
+  переменную \var{LD\_LIBRARY\_PATH} со списком каталогов поиска shared
   библиотек
 \end{itemize}
 \item \emph{многопоточные \term{threads} программы }
-\begin{itemize}
-  \item \file{LINUXTHREADS\_OLD=y} \emph{старый} вариант потоков, новый вызывает
+\begin{itemize}[nosep]
+  \item \var{LINUXTHREADS\_OLD=y} \emph{старый} вариант потоков, новый вызывает
   segfault при использовании ключей gcc -lpthread и использовании shared ulibc
 \end{itemize}
 \item \emph{параметры установки}
-\begin{itemize}
-\item \file{DOSTRIP=y}
-\item \file{RUNTIME\_PREFIX=""}
-\item \file{DEVEL\_PREFIX=""}
+\begin{itemize}[nosep]
+\item \var{DOSTRIP=y}
+\item \var{RUNTIME\_PREFIX=""}
+\item \var{DEVEL\_PREFIX=""}
 \end{itemize}
 \item \emph{опции необходимые \pack{busybox}}
-\begin{itemize}
-\item \file{UCLIBC\_HAS\_CTYPE\_TABLES=y}
-\item \file{UCLIBC\_HAS\_NETWORK\_SUPPORT=y}
-\item \file{UCLIBC\_HAS\_FNMATCH=y}
-\item \file{UCLIBC\_HAS\_GNU\_GETOPT=y}
-\item \file{UCLIBC\_HAS\_REGEX=y}
-\item \file{UCLIBC\_SUSV3\_LEGACY=y}
-\end{itemize}
-\item
-\begin{itemize}
+\begin{itemize}[nosep]
+\item \var{UCLIBC\_HAS\_CTYPE\_TABLES=y}
+\item \var{UCLIBC\_HAS\_NETWORK\_SUPPORT=y}
+\item \var{UCLIBC\_HAS\_FNMATCH=y}
+\item \var{UCLIBC\_HAS\_GNU\_GETOPT=y}
+\item \var{UCLIBC\_HAS\_REGEX=y}
+\item \var{UCLIBC\_SUSV3\_LEGACY=y}
 \end{itemize}
 \end{itemize}
 
@@ -971,11 +1000,11 @@ $\mu$SD & \checkbox \\
 
 \lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
 
-\begin{enumerate}
+\begin{enumerate}[nosep]
   \item подготовка к сборке с пустым \term{конфигом}
   \item интерактивное меню конфигурирования \emph{с сохранением конфига в
-  \file{app/\$\{APP\}.bb}}
-  \item сборка и инсталляция в \file{ROOT}
+  \file{app/\$\{\var{APP}\}.bb}}
+  \item сборка и инсталляция в \var{ROOT}
 \end{enumerate}
 
 \bigskip
@@ -985,9 +1014,9 @@ $\mu$SD & \checkbox \\
 свое приложение, скопируйте \file{app/micro.bb} в качестве базовой версии вашего
 \file{app/userapp.bb}.
 
-\secrel{\pack{libs}: сборка библиотек \file{\$\{LIBS\}}} \label{azlibs}
+\secrel{\pack{libs}: сборка библиотек \var{\$\{LIBS\}}} \label{azlibs}
 
-\secrel{\pack{apps}: сборка прикладных пакетов \file{\$\{APPS\}}}
+\secrel{\pack{apps}: сборка прикладных пакетов \var{\$\{APPS\}}}
 \label{azapps}
 
 \secrel{\pack{user}: сборка пользовательского кода} \label{azuser}
@@ -996,20 +1025,20 @@ $\mu$SD & \checkbox \\
 
 \lstx{mk/root.mk}{}{azlin/mk/root.mk}{mk}
 
-\begin{enumerate}
+\begin{enumerate}[nosep]
   \item пересоздание \file{/etc/}
   \item генерация \term{кеша динамических библиотек} \file{/etc/ld.so.cache}
   \item \file{/sbin/init} $\rightarrow$ \file{/init}
   \item \file{/share/}
   \item создание \pack{initrd} используя фильтрацию файлов \term{регулярным
-  выражением} в переменной \file{ROOTREX}
+  выражением} в переменной \var{ROOTREX}
 \end{enumerate}
 
 \lst{/etc/inittab}{}{azlin/etc/inittab}
 
 \lstx{/etc/init.d/rcS}{}{azlin/etc/init.d/rcS}{rc}
 
-\begin{enumerate}
+\begin{enumerate}[nosep]
   \item создание системных каталогов
   \item запуск \term{демона} \pack{mdev}, обслуживающего \file{devfs}:
   создание/удаление устройств в \file{/dev}, автомонтирование, загрузка
@@ -1033,13 +1062,13 @@ $\mu$SD & \checkbox \\
 \secrel{\pack{emu}: запуск собранной системы в эмуляторе} \label{azemu}
 
 Для отладки кода, не связанного жестко с железом, для которого
-допускается выполнение в эмуляторе, используется \pack{QEMU}.
+допускается выполнение в эмуляторе, используется \prog{QEMU}.
 
 \lstx{mk/emu.mk}{}{azlin/mk/emu.mk}{mk}
 
 \lstx{hw/qemu386.mk}{}{azlin/hw/qemu386.mk}{mk}
 
-Переменная \verb|QEMU_CFG| задает параметры запуска \pack{QEMU}:
+Переменная \var{QEMU\_CFG}\ задает параметры запуска \prog{QEMU}:
 
 \begin{tabular}{l l}
 \file{-m} & объем \ram\ на эмулируемой системе \\
@@ -1074,20 +1103,33 @@ $\mu$SD & \checkbox \\
 
 \secrel{RT-патч}
 
+\secrel{math: компьютерная математика}\secdown
+
+\secrel{\pack{blas}: библиотека \prog{BLAS}}\label{azblas}
+
+\secrel{\pack{lapack}: библиотека \prog{LAPACK}}\label{azlapack}
+
+\secrel{\pack{octave}: cистема численных методов \prog{Octave}}\label{azoctave}
+
+\secrel{\pack{maxima}: система аналитической математики
+\prog{Maxima}}\label{azmaxima}
+
+\secup
+
 \secrel{SDK: расширения для on-board разработки}\secdown
 
 Иногда на целевой системе требуется набор средств программирования, для
 выполнения
 
-\begin{itemize}
+\begin{itemize}[nosep]
   \item
 сложных скриптов (Python \ref{azpython}),
   \item
 математических вычислений\note{в т.ч. и символьных (аналитических, не
-численных)} (GCL \ref{azgcl}/Maxima \ref{azmaxima}),
+численных)} (GCL \ref{azgcl}/\prog{Maxima}\ref{azmaxima}),
   \item
 или компиляции неизвестных заранее исходников:
-\begin{itemize}
+\begin{itemize}[nosep]
  \item обновления или отладка прошивок для периферийных контроллеров
  \item пересборки программ в хост-системе
  \item отладки программ, активно работающих со специфичным железом
@@ -1102,12 +1144,13 @@ $\mu$SD & \checkbox \\
 \termdef{Канадский крест}{канадский крест}\ --- метод кросс-компиляции
 \prog{binutils}/\prog{gcc}, когда явно указываются три \term{триплета}:
 
-\begin{description}
+\bigskip
+\begin{description}[nosep]
   \item[--build] платформа, на которой выполняется сборка, т.е. ваш
   билд-сервер: x86\_64 или i686
   \item[--host] платформа, на которой будет выполняться собранный
-  кросс-компилятор, т.е. TARGET нашей встраиваемой системы: i386-linux-uclibc,
-  arm-linux-gnueabihf или что-то подобное
+  кросс-компилятор, т.е. \var{TARGET}\ нашей встраиваемой системы:
+  i386-linux-uclibc, arm-linux-gnueabihf или что-то подобное
   \item[--target] платформа или микропроцессор, для которого кросс-компилятор
   будет генерировать код, например \cm{3}.
 \end{description}
@@ -1136,9 +1179,6 @@ Atmel ATmega (AVR8).
 \secrel{\pack{python}: интерпретатор Python}\label{azpython}
 
 \secrel{\pack{gcl}: GNU Common Lisp}\label{azgcl}
-
-\secrel{\pack{maxima}: система символьной математики
-\prog{Maxima}}\label{azmaxima}
 
 \secup
 

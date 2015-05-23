@@ -26,3 +26,5 @@ LDCONFIG = $(XPATH) $(TARGET)-ldconfig
 GETCONF = $(XPATH) $(TARGET)-getconf
 
 MKISO = genisoimage
+
+RAMCLEAN ?= rm -rf
