@@ -5,7 +5,7 @@ QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
 
 .PHONY: emu
 emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
-	qemu-system-$(ARCH) $(QEMU_CFG) $(QEMU_ALL) \
+	qemu-system-$(ARCH) $(QEMU_ALL) $(QEMU_CFG) \
 	-kernel $(BOOT)/$(HW)$(APP).kernel \
 	-initrd $(BOOT)/$(HW)$(APP).rootfs
 
