@@ -1,6 +1,5 @@
 *~
 *.swp
-Makefile
 gz
 .project
 doc/*.mk
@@ -13,6 +12,9 @@ qemu386micro
 qemu386micro.cross
 qemu386clock
 qemu386clock.cross
+
+x86micro
+x86micro.cross
 
 x86clock
 x86clock.cross
@@ -44,4 +46,5 @@ patch/python
 x86math
 x86math.cross
 
-/azlin.log
+ttyS0.log
+
