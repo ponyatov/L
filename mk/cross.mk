@@ -90,12 +90,19 @@ gccall:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 
-,PHONY: gccpp
+.PHONY: gcclibsinst
+gcclibsinst:
+	mv $(TC)/$(TARGET)/lib/lib*.so* $(LIB)/
+	mv $(LIB)/libstdc*.py $(TC)/$(TARGET)/lib/
+	mv $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
+	mv $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
+
+.PHONY: gccpp
 gccpp:
 	make gccall
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
+	make gcclibsinst
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
