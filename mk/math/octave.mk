@@ -1,4 +1,5 @@
 CFG_OCTAVE = --prefix=$(ROOT)/octave \
+	--bindir=$(USRBIN) --libdir=$(USRLIB) --includedir=$(USR)/include \
 	--with-blas="-lblas" --with-lapack="-llapack" \
 	--disable-docs --disable-readline --disable-java \
 	CFLAGS="$(TOPT)" CXXFLAGS="$(TOPT)" FFLAGS="$(TOPT)" \
