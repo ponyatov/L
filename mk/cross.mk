@@ -92,9 +92,10 @@ gccall:
 
 .PHONY: gcclibsinst
 gcclibsinst:
-	cp $(TC)/$(TARGET)/lib/lib*.so* $(LIB)/ && rm $(LIB)/libstdc*.py
-	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
-	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
+	cp -a $(TC)/$(TARGET)/lib/libstdc++.so* $(LIB)/ && rm $(LIB)/libstdc++*.py
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s.so* $(LIB)/ 
+#	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
+#	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
 
 .PHONY: gccpp
 gccpp:

@@ -3,7 +3,6 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	cout << endl << argv[0] << endl;
-//	cout << "\nC++ test passes\n" << endl;
+	cerr << endl << argv[0] << endl;
 	return 0;
 }
