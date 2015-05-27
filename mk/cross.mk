@@ -26,7 +26,8 @@ CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
-	--enable-libstdcxx-pch
+	--enable-libstdcxx-pch \
+	--enable-__cxa_atexit
 
 .PHONY: cross0
 cross0: binutils0 cclibs0 ramclean gcc0 ramclean
@@ -92,9 +93,10 @@ gccall:
 
 .PHONY: gcclibsinst
 gcclibsinst:
-	cp $(TC)/$(TARGET)/lib/lib*.so* $(LIB)/ && rm $(LIB)/libstdc*.py
-	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
-	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
+	cp -a $(TC)/$(TARGET)/lib/libstdc++.so* $(LIB)/ && rm $(LIB)/libstdc++*.py
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s.so* $(LIB)/ 
+#	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
+#	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
 
 .PHONY: gccpp
 gccpp:
