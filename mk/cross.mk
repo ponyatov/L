@@ -26,11 +26,16 @@ CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
-	--enable-libstdcxx-pch \
-	--enable-__cxa_atexit
+	--enable-libstdcxx-pch
+#	--enable-__cxa_atexit
 
 .PHONY: cross0
-cross0: binutils0 cclibs0 ramclean gcc0 ramclean
+cross0:
+	make binutils0
+	make cclibs0
+	make ramclean
+	make gcc0
+	make ramclean
 
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
