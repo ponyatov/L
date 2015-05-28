@@ -1,6 +1,6 @@
-azLinux:minimal
+azLinux:ILL
 ================
-## minimal system for some hardware platforms
+## ILL problem works: C++ program outputs ILL string on any iostream output
 
 https://github.com/ponyatov/azlin
 
