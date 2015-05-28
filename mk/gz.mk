@@ -42,8 +42,8 @@ gz_i386:
 gz_arm:
 	$(WGET) ftp://ftp.denx.de/pub/u-boot/$(UBOOT).tar.bz2
 
-.PHONY: gz_minimal
-gz_minimal:
+.PHONY: gz_micro
+gz_micro:
 
 .PHONY: gz_x86
 gz_x86:

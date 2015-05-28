@@ -19,11 +19,6 @@ include mk/sdk/python.mk
 include mk/sdk/pascal.mk
 include mk/sdk/lisp.mk
 
-include mk/math/libs.mk
-include mk/math/octave.mk
-include mk/math/maxima.mk
-include mk/math/mpi.mk
-
 include mk/user.mk
 
 include mk/libs.mk
@@ -31,8 +26,6 @@ include mk/lib/zlib.mk
 include mk/lib/png.mk
 include mk/lib/sdl.mk
 include mk/lib/freetype.mk
-include mk/lib/multiprecision.mk
-include mk/lib/pcre.mk
 
 include mk/apps.mk
 include mk/emu.mk
