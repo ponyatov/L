@@ -27,9 +27,15 @@ CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
 	--enable-libstdcxx-pch
+#	--enable-__cxa_atexit
 
 .PHONY: cross0
-cross0: binutils0 cclibs0 ramclean gcc0 ramclean
+cross0:
+	make binutils0
+	make cclibs0
+	make ramclean
+	make gcc0
+	make ramclean
 
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
@@ -90,12 +96,19 @@ gccall:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 
-,PHONY: gccpp
+.PHONY: gcclibsinst
+gcclibsinst:
+	cp -a $(TC)/$(TARGET)/lib/libstdc++.so* $(LIB)/ && rm $(LIB)/libstdc++*.py
+	cp -a $(TC)/$(TARGET)/lib/libgcc_s.so* $(LIB)/ 
+#	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
+#	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
+
+.PHONY: gccpp
 gccpp:
 	make gccall
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
+	make gcclibsinst
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
