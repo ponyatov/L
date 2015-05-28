@@ -3,13 +3,14 @@ CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
 	--enable-lto \
-	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
-#	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
+	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)"
+#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
-	--with-isl=$(TC) --with-cloog=$(TC)  
+	--with-isl=$(TC) --with-cloog=$(TC)
 
-CFG_CCLIBS00 = --disable-shared CFLAGS="$(BOPT)"
+CFG_CCLIBS00 = --disable-shared 
+#CFLAGS="$(BOPT)"
 CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
 	
 CFG_GMP0 = $(CFG_CCLIBS0)
