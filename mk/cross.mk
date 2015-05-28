@@ -2,10 +2,9 @@
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) \
 	--with-native-system-header-dir=/include \
-	--enable-lto
-#	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)" \
-#	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)"
-#	CFLAGS_FOR_BUILD="$(BOPT)" CFLAGS_FOR_TARGET="$(TOPT)"
+	--enable-lto \
+	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)"
+#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
 	--with-isl=$(TC) --with-cloog=$(TC)
