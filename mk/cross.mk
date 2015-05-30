@@ -1,6 +1,5 @@
 
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
-	--disable-werror \
 	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
 	--enable-lto \
 	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)" \
@@ -100,17 +99,13 @@ gccall:
 
 .PHONY: gcclibsinst
 gcclibsinst:
-	cp -a $(TC)/$(TARGET)/lib/libstdc++.so* $(LIB)/ && rm $(LIB)/libstdc++*.py
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s.so* $(LIB)/ 
-#	cp $(TC)/$(TARGET)/lib/lib*.a $(LIB)/
-#	cp $(TC)/$(TARGET)/lib/lib*.la $(LIB)/
+	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
 
 .PHONY: gccpp
 gccpp:
 	make gccall
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	make gcclibsinst
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
@@ -118,6 +113,7 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
 	make gccpp
+	make gcclibsinst
 
 .PHONY: gccf
 gccf: $(SRC)/$(GCC)/README
@@ -127,3 +123,4 @@ gccf: $(SRC)/$(GCC)/README
 	make gccpp
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
+	make gcclibsinst

@@ -19,7 +19,7 @@ CFG_LAPACK = $(CFG_LABLA) LAPACKLIB=$(LIB)/liblapack.a \
 # TMGLIB=libtmg.a
 .PHONY: lapack
 lapack: $(SRC)/$(LAPACK)/README
-	git checkout $(SRC)/$(LAPACK)/Makefile $(SRC)/$(LAPACK)/SRC/Makefile
+	git checkout src/$(LAPACK)/Makefile src/$(LAPACK)/SRC/Makefile
 	cd $(SRC)/$(LAPACK) && touch make.inc &&\
 	$(MAKE) clean && $(MAKE) $(CFG_LAPACK) azlin
 #	$(XPATH) $(TFORTRAN) $(TOPT) -shared -fPIC -o $(LIB)/liblapack.so \
