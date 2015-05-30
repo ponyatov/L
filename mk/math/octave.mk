@@ -17,3 +17,4 @@ octave-links:
 	ln -fs /octave/bin/octave $(USRBIN)/octave
 	ln -fs /octave/lib/octave/$(OCTAVE_VER)/liboctave.so.2 $(USRLIB)/liboctave.so.2
 	ln -fs /octave/lib/octave/$(OCTAVE_VER)/liboctinterp.so.2 $(USRLIB)/liboctinterp.so.2
+	touch $(ROOT)/octave/share/octave/$(OCTAVE_VER)/etc/built-in-docstrings
