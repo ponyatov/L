@@ -7,8 +7,6 @@
 	<buildSpec>
 	</buildSpec>
 	<natures>
-		<nature>net.sourceforge.texlipse.builder.TexlipseNature</nature>
-		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
 	<filteredResources>
 		<filter>
