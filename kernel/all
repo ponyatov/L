@@ -249,6 +249,3 @@ CONFIG_SIS190=y
 
 ## PHYed (MII)
 CONFIG_PHYLIB=n
-
-
-
