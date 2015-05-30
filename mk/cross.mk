@@ -1,17 +1,17 @@
 
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
-	--with-sysroot=$(ROOT) \
-	--with-native-system-header-dir=/include \
+	--disable-werror \
+	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
 	--enable-lto \
-	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)"
+	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)" \
+	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
 	--with-isl=$(TC) --with-cloog=$(TC)
 
-CFG_CCLIBS00 = --disable-shared
-#CFLAGS="$(BOPT)"
+CFG_CCLIBS00 = --disable-shared CFLAGS="$(BOPT)"
 CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
-	
+
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
@@ -20,13 +20,15 @@ CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
-	--without-headers --with-newlib
+	--without-headers --with-newlib \
+	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
 	--enable-libstdcxx-pch
+#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 #	--enable-__cxa_atexit
 
 .PHONY: cross0
