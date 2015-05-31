@@ -10,7 +10,11 @@ hello: $(USRBIN)/hello
 sdlrect: $(USRBIN)/sdl_rect 
 
 .PHONY: cpptest
-cpptest: $(USRBIN)/cpptest 
+cpptest: $(USRBIN)/cpptest
+
+.PHONY: pij
+pij:
+	cp -r user/$@ $(ROOT)/ 
 
 # rules
 
