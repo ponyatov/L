@@ -14,8 +14,8 @@ cpptest: $(USRBIN)/cpptest
 
 # rules
 
-TCFLAGS = -std=gnu99
-TCXXFLAGS =
+TCFLAGS = $(TOPT) -std=gnu99
+TCXXFLAGS = $(TOPT)
 TSDLFLAGS =  -lfreetype -lSDL -lSDL_ttf -lSDL_image
 #	   -lpthread   
 
