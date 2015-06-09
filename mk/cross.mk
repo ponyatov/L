@@ -1,17 +1,17 @@
 
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
-	--with-sysroot=$(ROOT) \
-	--with-native-system-header-dir=/include \
+	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
 	--enable-lto \
+	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)" \
 	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
-#	CFLAGS_FOR_BUILD="-g0 -Ofast -march=native -mtune=native"
+#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
-	--with-isl=$(TC) --with-cloog=$(TC)  
+	--with-isl=$(TC) --with-cloog=$(TC)
 
 CFG_CCLIBS00 = --disable-shared CFLAGS="$(BOPT)"
 CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
-	
+
 CFG_GMP0 = $(CFG_CCLIBS0)
 CFG_MPFR0 = $(CFG_CCLIBS0)
 CFG_MPC0 = $(CFG_CCLIBS0)
@@ -20,16 +20,23 @@ CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
-	--without-headers --with-newlib
+	--without-headers --with-newlib \
+	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
 	--enable-libstdcxx-time \
 	--enable-libstdcxx-threads \
 	--enable-libstdcxx-pch
+#	--enable-__cxa_atexit
 
 .PHONY: cross0
-cross0: binutils0 cclibs0 ramclean gcc0 ramclean
+cross0:
+	make binutils0
+	make cclibs0
+	make ramclean
+	make gcc0
+	make ramclean
 
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
@@ -90,12 +97,15 @@ gccall:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
 
-,PHONY: gccpp
+.PHONY: gcclibsinst
+gcclibsinst:
+	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
+
+.PHONY: gccpp
 gccpp:
 	make gccall
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
-	cp -a $(TC)/$(TARGET)/lib/libgcc_s* $(LIB)/
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
@@ -103,6 +113,7 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
 	make gccpp
+	make gcclibsinst
 
 .PHONY: gccf
 gccf: $(SRC)/$(GCC)/README
@@ -112,3 +123,4 @@ gccf: $(SRC)/$(GCC)/README
 	make gccpp
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
+	make gcclibsinst
