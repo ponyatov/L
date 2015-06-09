@@ -1,3 +1,6 @@
 # app: clock
 LIBS = zlib png sdl
-APPS = hello $(USRBIN)/sdl_hello $(USRBIN)/sdl_rect $(USRBIN)/sdl_clock
+APPS = $(USRBIN)/hello $(USRBIN)/sdl_hello $(USRBIN)/sdl_rect $(USRBIN)/sdl_clock
+
+QEMU_APPEND += vga=0x315
+QEMU_APP = 
