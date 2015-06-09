@@ -1,5 +1,4 @@
-# i486sx cpu with emulated math 
-# (Vortex86sx microPC & old computers adapted)
+# i486dx cpu with integrated FPU math coprocessor
 # target arch is Intel x86 (32 bit)
 ARCH = i386
 # target triplet for embedded linux
