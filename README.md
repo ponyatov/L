@@ -1,5 +1,6 @@
-azLinux
+azLinux:clock
 ================
+## wall clock firmware
 
 https://github.com/ponyatov/azlin
 
