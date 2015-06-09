@@ -2,8 +2,8 @@
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
 	--enable-lto \
-	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)" \
-	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
+	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)"
+#	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
 #	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
@@ -20,8 +20,8 @@ CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_GCC0 = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--disable-shared --disable-threads \
-	--without-headers --with-newlib \
-	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
+	--without-headers --with-newlib
+#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp \
