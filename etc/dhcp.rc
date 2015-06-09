@@ -9,6 +9,7 @@ BROADCAST=""
 
 case "$1" in
 	deconfig)
+		killall ntpd
 		ifconfig $interface 0.0.0.0
 	;;
 	renew|bound)
@@ -24,5 +25,7 @@ case "$1" in
 		# routing
 		route add default gw $router dev $interface
 		route
+		# start ntp daemon
+		ntpd -p pool.ntp.org
 	;;
 esac
