@@ -1,4 +1,4 @@
-BOPT = -O2 -g0 -march=native -mtune=native 
+BOPT = --bopt-disabled 
 
 #OPT_LTO = -flto
 OPT_LTO =
