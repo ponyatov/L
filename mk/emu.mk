@@ -1,5 +1,6 @@
 
-QEMU_ALL =  -m 64M -net nic -net tap,ifname=tap0 -localtime -append "$(QEMU_APPEND)"
+QEMU_NET = -net nic -net tap,ifname=tap0,script=no,downscript=no
+QEMU_ALL =  -m 64M $(QEMU_NET) -localtime -append "$(QEMU_APPEND)"
 QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
 
 QEMU_CFG = $(QEMU_ALL) $(QEMU_HW) $(QEMU_ARCH) $(QEMU_CPU) $(QEMU_APP)
