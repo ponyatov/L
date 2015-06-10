@@ -3,4 +3,5 @@ DEFAULT x86
 LABEL x86
 KERNEL x86clock.kernel
 INITRD x86clock.rootfs
-APPEND vga=0x312
+# VESA 640x480x16
+APPEND vga=0x311
