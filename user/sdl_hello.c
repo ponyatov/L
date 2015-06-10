@@ -9,7 +9,7 @@ int main() {
 		abort();
 	}
 	// start window/fullscreen
-	SDL_Surface* screen = SDL_SetVideoMode( 640, 480, 0, SDL_SWSURFACE );
+	SDL_Surface* screen = SDL_SetVideoMode(   0,   0, 0, SDL_SWSURFACE );
 	// hide mouse cursor
 	SDL_ShowCursor(0);
 	// load hello image
