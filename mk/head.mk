@@ -16,7 +16,7 @@ all:
 	make dirs 
 	make gz 
 	make cross0
-	make coref
+	make core
 	make libs
 	make apps
 	make root
