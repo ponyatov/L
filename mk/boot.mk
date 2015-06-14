@@ -28,16 +28,22 @@ boot_arm: uboot
 .PHONY: boot_armhf
 boot_armhf: uboot
 
-UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)"
+UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)" CC="$(TCC)"
 
 .PHONY: uboot
 uboot: $(SRC)/$(UBOOT)/README
-	cd $(SRC)/$(UBOOT) && make $(UBOOT_CFG) distclean
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) distclean
 	make uboot_$(HW)
+#	cat boot/uboot/all >> $(SRC)/$(UBOOT)/.config
+	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(UBOOT)/.config
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) menuconfig
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) u-boot.img
+	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/u-boot.img
+#	cp $(SRC)/$(UBOOT)/u-boot.img $(BOOT)/
 .PHONY: uboot_rpiB
 uboot_rpiB:
-	cd $(SRC)/$(UBOOT) && make $(UBOOT_CFG) rpi_defconfig
-	cat boot/uboot/all >> $(SRC)/$(UBOOT)/.config
-	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(UBOOT)/.config
-	cd $(SRC)/$(UBOOT) && make $(UBOOT_CFG) menuconfig
-	cd $(SRC)/$(UBOOT) && $(XPATH) make $(UBOOT_CFG) u-boot.img
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) rpi_defconfig
+	cp -r boot/rpi/* $(BOOT)/
+.PHONY: uboot_net
+uboot_net:
+	$(SRC)/$(UBOOT)/tools/mkimage
