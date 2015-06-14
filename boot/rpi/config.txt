@@ -1,0 +1,2 @@
+boot_delay 5
+kernel=uboot.img

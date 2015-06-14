@@ -3,7 +3,7 @@
 ARCH = armhf
 # target triplet in armhf.mk
 # target CPU configure params
-CFG_CPU =--with-cpu=arm1176jzf-s
+CFG_CPU = --with-cpu=arm1176jzf-s
 CFLAGS_CPU = -mcpu=arm1176jzf-s
 ## --with-arch=armv6  
 #
