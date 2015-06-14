@@ -41,6 +41,11 @@ gz_i386:
 .PHONY: gz_arm
 gz_arm:
 	$(WGET) ftp://ftp.denx.de/pub/u-boot/$(UBOOT).tar.bz2
+.PHONY: gz_armhf
+gz_armhf: gz_arm
+
+.PHONY: gz_rpiB
+gz_rpiB:
 
 .PHONY: gz_x86
 gz_x86:

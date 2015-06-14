@@ -24,7 +24,7 @@ BUSYBOX_VER = 1.23.2
 # boot loaders
 
 SYSLINUX_VER = 6.03
-UBOOT_VER = 2015.01
+UBOOT_VER = 2015.04
 
 # libs
 
