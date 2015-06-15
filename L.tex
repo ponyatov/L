@@ -1,8 +1,8 @@
-\secrel{ALYEH:Linux}\label{L}\secdown
+\secrel{\al}\label{L}\secdown
 
 Чтобы разобраться как можно собрать встраивамый \linux, в этом разделе описан
 набор \make-файлов и файлов конфигурации для сборки минимального em\linux. Этот
-раздел описывает L-компонент платформы ALYEH.
+раздел описывает L-компонент платформы ALYEH: \al.
 
 \bigskip
 
@@ -97,13 +97,13 @@ NAND и GPIO гребенка}. \emph{Интерактивная работа}\ 
 
 \secrel{Понятие \term{пакет}}
 
-Прежде чем продолжить, введем понятие \termdef{пакет}{пакет}. В az\linux\
+Прежде чем продолжить, введем понятие \termdef{пакет}{пакет}. В \L\
 \term{пакетом}\ называется одна или несколько частей скриптов сборки,
 обозначаемых именем. В чем-то это похоже на бинарные пакеты обычных
 дистрибутивов \linux\ --- чтобы добавить в систему какой-то функционал, мы
 устанавливаем \term{бинарный пакет}.
 Но есть и отличие: пакет дистрибутива это реальный архивный файл, содержащий в
-себе файлы программ, данных; в az\linux\ пакет\ --- виртуальная штука с именем.
+себе файлы программ, данных; в \al\ пакет\ --- виртуальная штука с именем.
 
 Просматривая файлы в каталоге \file{mk/}, легко найти имена пакетов по шаблону:
 
@@ -117,7 +117,7 @@ somename: [зависимые файлы]
 Если вы запустите команду:
 
 \begin{verbatim}
-cd ~/az ; make somename
+cd ~/L ; make somename
 \end{verbatim}
 
 запустится \termdef{сборка пакета}{сборка пакета}\ \pack{somename}.
@@ -137,261 +137,266 @@ cd ~/az ; make somename
 \emph{если вы добавляете новый скрипт, не забудьте прописать его в
 \file{Makefile}}.
 
-\lstx{Makefile}{}{L/Makefile}{mk}\index{L!скрипт!Makefile}
+\lstx{Makefile}{}{tmp/L_Makefile.mk}{mk}\index{L!Makefile}
 
-% \secrel{Клонирование проекта \pack{az\linux}} \label{azclone}
-% 
-% При необходимости вносить правки\note{что естественно\ --- вам потребуется
-% добавлять свои пакеты и поддержку железа}\ работайте с вашим
-% собственным форком на GitHub.
-% 
-% \nopagebreak\bigskip
-% az\linux\ разрабатывается по нескольким веткам:
-% 
-% \begin{tabular}{l l}
-% master & основная универсальная ветка, включает все скрипты сборки и пакеты \\
-% & в книгу включается именно эта ветка, набор скриптов в других ветках будет
-% отличаться \\
-% minimal & минимальная система для нескольких платформ \\
-% clock & \linux-powered электронные часы/контроллер умного дома \\
-% math & математический софт и библиотеки для вычислительных кластеров beowulf \\
-% desk & десктопная сборка с функционалом $\sim$\win 95 \\
-% cnc & система управления для станков с ЧПУ \\
-% \end{tabular}
-% \bigskip
-% 
-% Сделайте свой форк с репозитория \url{https://github.com/ponyatov/azlin}.
-% \bigskip
-% 
-% Получите клон системы сборки из репозитория выбрав нужную ветку:
-% 
-% 
-% \begin{verbatim}
-% cd ~
-% git clone --depth=1 -o gh -b minimal git@github.com:user/azlin.git myazlin
-% \end{verbatim}
-% 
-% При необходимости обновитесь:
-% 
-% \begin{verbatim}
-% cd ~/az ; git pull
-% \end{verbatim}
-% 
-% \secrel{Общий порядок сборки}
-% 
-% Каждый пакет собирается командой:
-% 
-% \begin{verbatim}
-% make [HW=rpi] [APP=clock] [CCACHE=] [RAMCLEAN=echo] <package>
-% \end{verbatim}
-% 
-% \bigskip
-% \begin{itemize}[nosep]
-%   \item \var{HW} выбор аппаратной платформы \file{hw/}
-%   \item \var{APP} выбор приложения \file{app/}
-%   \item \var{CCACHE=} пустая переменная блокирует использование \prog{ccache} 
-%   \item \var{RAMCLEAN} переменная задает команду, которой передается набор
-%   каталогов, которые нужно зачистить; по умолчанию это \cmd{rm -rf}, заданием
-%   \cmd{echo}\ зачистка отключается (нужно если вы собираете систему в
-%   каталогах \file{src/}, \file{tmp/}\ не в \ram, а на диске)
-% \end{itemize}
-% 
-% \bigskip
-% \begin{enumerate}[nosep]
-%   \item \pack{dirs} создание дерева каталогов \ref{azdirs}
-%   \item \pack{gz} закачка архивов исходников \ref{azgz}
-%   \item \pack{cross0} сборка кросс-компилятора \ref{azcross0}
-%   \begin{enumerate}[nosep]
-%     \item \pack{binutils0} ассемблер, линкер и утилиты \ref{azbinutils0}
-%     \item \pack{cclibs0} библиотеки для сборки \pack{gcc} \ref{azcclibs0}
-%     \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
-%   \end{enumerate}
-%   \item \pack{core} сборка основной системы \ref{azcore}
-%   \\ \pack{coref} сборка основной системы + GNU Fortran \ref{azcoref}
-%   \begin{enumerate}[nosep]
-%     \item \pack{kernel} ядро \linux\ \ref{azkernel}
-%     \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
-%     \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
-%     \item \pack{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
-%     \\ \pack{gccf} кросс-компилятор Си/\cpp/Fortran \ref{azgccf}
-%   \end{enumerate}
-%   \item \pack{libs} сборка библиотек \var{\$\{LIBS\}} \ref{azlibs}
-%   \item \pack{apps} сборка прикладных пакетов \var{\$\{APPS\}} \ref{azapps}
-%   \item \pack{user} сборка пользовательского кода \ref{azuser}
-%   \item \pack{root} формирование корневой файловой системы \ref{azroot}
-%   \item \pack{boot} сборка загрузчика \ref{azboot}
-%    \pack{syslinux}/\pack{grub}/\pack{uboot}
-%   \item \pack{emu} запуск собранной системы в эмуляторе \ref{azemu}
-%   \item \pack{netboot} сетевая загрузка \ref{aznetboot}
-%   \item \pack{firmware} прошивка на устройство \ref{azfirmware}
-% \end{enumerate}
-% 
-% \secrel{Фиксация переменных}
-% 
-% Если вам требуется собрать систему со значениями переменных, отличающихся от
-% тех, которые прописаны в make-файлах, при запуске \emph{всех}\ пакетов нужно
-% указывать трюбуемые значения в командной строке. Это позволить легко выбрать
-% нужный вам вариант сборки.
-% 
-% \begin{verbatim}
-% make HW=rpi APP=clock distclean dirs tc core libs apps boot root
-% \end{verbatim}
-% 
-% При таком указании все переназначения для этих переменных игнорируются, поэтому
-% возможны некоторые сложности с указанием например опций оптимизации.
-% 
-% \secrel{\pack{dirs}: Создание дерева каталогов} \label{azdirs}
-% 
-% После загрузки или обновления запустите пакет \pack{dirs}:
-% 
-% \begin{verbatim}
-% make dirs
-% mkdir -p /home/user/Azbuka/azlin/gz /home/user/Azbuka/azlin/src
-% /home/user/Azbuka/azlin/tmp /home/user/Azbuka/azlin/x86_64-linux-gnu
-% /home/user/Azbuka/azlin/qemu386-clock /home/user/Azbuka/azlin/qemu386-clock/boot
-% \end{verbatim}
-% \begin{verbatim}
-% ls -la
-% итого 71
-% -rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 mk
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 hw
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 cpu
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 arch
-% drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
-% drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
-% drwxr-xr-x 2 user user  4096 Дек  8 13:26 src
-% drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
-% drwxr-xr-x 3 user user  4096 Дек  8 13:26 x86micro
-% drwxr-xr-x 2 user user  4096 Дек  8 13:26 x86micro.cross
-% -rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
-% -rw-r--r-- 1 user user 17699 Дек  8 13:25 azlin.tex
-% \end{verbatim}
-% 
-% Пакет \pack{dirs}\ прописан в файле
-% 
-% \lstx{mk/dirs.mk}{}{azlin/mk/dirs.mk}{mk}\index{azLinux!пакет!dirs}
-% 
-% Встроенная переменная \var{PWD}\ содержит полное имя каталога, из которого был
-% запущен \pack{make}.
-% 
-% \bigskip
-% Каталог зеркала архивов исхоных текстов программ
-% 
-% \lstx{GZ}{}{tmp/azlin_GZ}{mk}\index{azLinux!переменная!GZ}
-% 
-% Каталог распаковки исходных текстов: некоторые пакеты должна собираться в дереве
-% исходников
-% 
-% \lstx{SRC}{}{tmp/azlin_SRC}{mk}\index{azLinux!переменная!SRC}
-% 
-% Каталог out-of-tree сборки: остальные пакеты умеют собираться вне дерева
-% исходников, если хватает \ram\ этот каталог удобно монировать как \file{tmpfs}
-% 
-% \lstx{TMP}{}{tmp/azlin_TMP}{mk}\index{azLinux!переменная!TMP}
-% 
-% Переменная \var{BUILD}\ задает \term{триплет}\ системы, на которой вы
-% собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
-% триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
-% 
-% \lstx{BUILD}{}{tmp/azlin_BUILD}{mk}\index{azLinux!переменная!BUILD}
-% 
-% Каталог в который собирается кросс-компилятор. Используется триплет
-% рабочей \linux-системы.
-% 
-% \lstx{TC}{}{tmp/azlin_TC}{mk}\index{azLinux!переменная!TC}
-% 
-% Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
-% будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
-% загрузчика. Имя \var{ROOT}\ создается из двух переменных, описанных далее: имя
-% аппаратной платформы \var{HW}\ref{azhw}\ и имени приложения
-% \var{APP}\ref{azapp}.
-% 
-% \lstx{ROOT}{}{tmp/azlin_ROOT}{mk}\index{azLinux!переменная!ROOT}
-% \lstx{BOOT}{}{tmp/azlin_BOOT}{mk}\index{azLinux!переменная!BOOT}
-% 
-% Список всех рабочих каталогов в одной переменной:
-% 
-% \lstx{DIRS}{}{tmp/azlin_DIRS}{mk}\index{azLinux!переменная!DIRS}
-% 
-% \secrel{\pack{gz}: Загрузка архивов исходников} \label{azgz}
-% 
-% \lstx{mk/gz.mk}{}{azlin/mk/gz.mk}{mk}
-% 
-% \secrel{\var{APP}: Приложение}\label{azapp}
-% 
-% \term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
-% в целом.
-% 
-% Приложение задается в файле \file{mk/head.mk}\ через
-% переменную \var{APP}, доступные значения:
-% 
-% \begin{enumerate}
-%   \item \pack{micro}: минимальная версия системы, только командная консоль
-%   \item \pack{clock}: простые \linux-powered электронные часы
-% \end{enumerate}
-% 
-% Значение переменной \var{APP}\ по умолчанию задано в \file{mk/head.mk}:
-% 
-% \lstx{\var{APP} @ \file{hw/head.mk}}{}{tmp/azlin_APP}{mk}
-% \index{azLinux!настройка!приложение}
-% \index{azLinux!переменная!APP}
-% 
-% Если вам нужно собрать другое приложение, вы можете переопределить значение из
-% командной строки при запуске \emph{всех}\ пакетов:
-% 
-% \begin{verbatim}
-% make APP=micro distclean dirs tc core libs apps
-% \end{verbatim}
-% 
-% В \file{app/\$\{APP\}.mk}\ в переменных задаются:
-% 
-% \begin{itemize}
-%   \item \var{LIBS}: набор используемых библиотек
-%   \item \var{PACKS}: набор используемых программных пакетов \ref{azpacks}
-% \end{itemize}
-% 
-% \lstx{app/micro.mk}{}{../azlin/app/micro.mk}{mk}\index{azLinux!приложение!micro}
-% 
-% \lstx{app/clock.mk}{}{../azlin/app/clock.mk}{mk}\index{azLinux!приложение!clock}
-% 
-% \secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{azLinux!железо}
-% 
-% Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
-% переменную \var{HW}, доступные значения приведены в таблице:
-% 
-% \noindent
-% \begin{tabular}{|l| l l|l l l l l l|l|}
-% \hline
-% HW & CPU & ARCH & RAM & HD & SD & USB & Eth & WiFi & GPIO \\
-% \hline
-% qemu386 \ref{qemu3865} & i486sx & i386 & 32M+ & \uncheckbox\ IDE & & \uncheckbox
-% & ne2k &&\\
-% eeepc701 \ref{eeepc701} & CeleronM & i386 & 512M+ & \uncheckbox\ SSD &
-% \uncheckbox\ SD & \checkbox & A?? & \uncheckbox\ AR2425 &\\
-% gac1037 \ref{gac1037} & Celeron1037U & x86\_64 & 1G+ & \uncheckbox\ SATA & &
-% \checkbox & 2$\times$RTL8111 &&\\
-% \hline
-% qemuARM & & arm & 32M+ &&&&&&\\
-% cubie1 \ref{cubie1} & AllWinnerA10 & armhf & 1G && \uncheckbox\ $\mu$SD &
-% \checkbox &&&\\
-% rpi \ref{rpi} & BCM2835 & armel & 512M && \uncheckbox\ SD&\checkbox&&&\\
-% tion \ref{tion} & PXA270 & arm?? &&&&&&&\\
-% mb77 \ref{mb77} & К1879ХБ1Я & arm?? &&&&&&&\\
-% \hline
-% qemuMIPS & &mips& 32M+ & & & & &&\\
-% mr3020 \ref{mr3020} & AR7240 &mips& 32M & 4M & & \checkbox && \uncheckbox\
-% AR9331 &\\
-% vocore \ref{vocore} & RT5350 &mips& 32M & 8M & & \uncheckbox
-% && \uncheckbox\ SoC &\\
-% bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
-% \hline
-% \end{tabular}
-% 
-% \lstx{mk/head.mk}{}{../azlin/mk/head.mk}{mk}
-% 
-% \secrel{i386}\secdown\index{azLinux!железо!i386}
+\secrel{Клонирование проекта \pack{\al}} \label{azclone}
+
+При необходимости вносить правки\note{что естественно\ --- вам потребуется
+добавлять свои пакеты и поддержку железа}\ работайте с вашим
+собственным форком на GitHub.
+
+\nopagebreak\bigskip
+\al\ разрабатывается по нескольким веткам:
+
+\begin{tabular}{l l}
+master & основная универсальная ветка, включает все скрипты сборки и пакеты \\
+& в книгу включается именно эта ветка, набор скриптов в других ветках будет
+отличаться \\
+minimal & минимальная система для нескольких платформ \\
+clock & \linux-powered электронные часы/контроллер умного дома \\
+math & математический софт и библиотеки для вычислительных кластеров beowulf \\
+desk & десктопная сборка с функционалом $\sim$\win 95 \\
+cnc & система управления для станков с ЧПУ \\
+\end{tabular}
+\bigskip
+
+Сделайте свой форк с репозитория \url{https://github.com/ponyatov/azlin}.
+\bigskip
+
+Получите клон системы сборки из репозитория выбрав нужную ветку:
+
+\begin{verbatim}
+cd ~
+git clone --depth=1 -o gh -b minimal git@github.com:user/L.git myL
+\end{verbatim}
+
+При необходимости обновитесь:
+
+\begin{verbatim}
+cd ~/myL ; git pull
+\end{verbatim}
+
+\secrel{Общий порядок сборки}
+
+Каждый пакет собирается командой:
+
+\begin{verbatim}
+make [HW=rpi] [APP=clock] [CCACHE=] [RAMCLEAN=echo] <package>
+\end{verbatim}
+
+\bigskip
+\begin{itemize}[nosep]
+  \item \var{HW} выбор аппаратной платформы \file{hw/}
+  \item \var{APP} выбор приложения \file{app/}
+  \item \var{CCACHE=} пустая переменная блокирует использование \prog{ccache}
+  \item \var{RAMCLEAN} переменная задает команду, которой передается набор
+  каталогов, которые нужно зачистить; по умолчанию это \cmd{rm -rf}, заданием
+  \cmd{echo}\ зачистка отключается (нужно если вы собираете систему в
+  каталогах \file{src/}, \file{tmp/}\ не в \ram, а на диске)
+\end{itemize}
+
+\bigskip
+\begin{enumerate}[nosep]
+  \item \pack{dirs} создание дерева каталогов \ref{azdirs}
+  \item \pack{gz} закачка архивов исходников \ref{azgz}
+  \item \pack{cross0} сборка кросс-компилятора \ref{azcross0}
+  \begin{enumerate}[nosep]
+    \item \pack{binutils0} ассемблер, линкер и утилиты \ref{azbinutils0}
+    \item \pack{cclibs0} библиотеки для сборки \pack{gcc} \ref{azcclibs0}
+    \item \pack{gcc0} сборка минимального кросс-компилятора Си \ref{azgcc0}
+  \end{enumerate}
+  \item \pack{core} сборка основной системы \ref{azcore}
+  \\ \pack{coref} сборка основной системы + GNU Fortran \ref{azcoref}
+  \begin{enumerate}[nosep]
+    \item \pack{kernel} ядро \linux\ \ref{azkernel}
+    \item \pack{ulibc} библиотека \pack{uClibc} \ref{azulibc}
+    \item \pack{busybox} набор утилит \pack{busybox} \ref{azbb}
+    \item \pack{gcc} пересборка полного кросс-компилятора Си/\cpp \ref{azgcc}
+    \\ \pack{gccf} кросс-компилятор Си/\cpp/Fortran \ref{azgccf}
+  \end{enumerate}
+  \item \pack{libs} сборка библиотек \var{\$\{LIBS\}} \ref{azlibs}
+  \item \pack{apps} сборка прикладных пакетов \var{\$\{APPS\}} \ref{azapps}
+  \item \pack{user} сборка пользовательского кода \ref{azuser}
+  \item \pack{root} формирование корневой файловой системы \ref{azroot}
+  \item \pack{boot} сборка загрузчика \ref{azboot}
+   \pack{syslinux}/\pack{grub}/\pack{uboot}
+  \item \pack{emu} запуск собранной системы в эмуляторе \ref{azemu}
+  \item \pack{netboot} сетевая загрузка \ref{aznetboot}
+  \item \pack{firmware} прошивка на устройство \ref{azfirmware}
+\end{enumerate}
+
+\secrel{Фиксация переменных}
+
+Если вам требуется собрать систему со значениями переменных, отличающихся от
+тех, которые прописаны в make-файлах, при запуске \emph{всех}\ пакетов нужно
+указывать трюбуемые значения в командной строке. Это позволить легко выбрать
+нужный вам вариант сборки.
+
+\begin{verbatim}
+make HW=rpi APP=clock distclean dirs gz cross0 core libs apps boot root
+\end{verbatim}
+
+При таком указании все переназначения для этих переменных игнорируются, поэтому
+возможны некоторые сложности с указанием например опций оптимизации.
+
+\secrel{\pack{dirs}: Создание дерева каталогов} \label{azdirs}
+
+После загрузки или обновления запустите пакет \pack{dirs}:
+
+\begin{verbatim}
+make dirs
+mkdir -p /home/user/myL/gz /home/user/myL/src
+/home/user/myL/tmp /home/user/myL/rpiBclock.cross
+/home/user/myL/rpiBclock /home/user/myL/rpiBclock/boot
+\end{verbatim}
+\begin{verbatim}
+ls -la
+итого 71
+-rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 mk
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 hw
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 cpu
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 arch
+drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 gz
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 src
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 tmp
+drwxr-xr-x 3 user user  4096 Дек  8 13:26 rpiBclock
+drwxr-xr-x 2 user user  4096 Дек  8 13:26 rpiBclock.cross
+-rw-r--r-- 1 user user   147 Дек  8 11:43 README.md
+-rw-r--r-- 1 user user 17699 Дек  8 13:25 L.tex
+\end{verbatim}
+
+Пакет \pack{dirs}\ прописан в файле
+
+\lstx{mk/dirs.mk}{}{L/mk/dirs.mk}{mk}\index{L!dirs}
+
+Встроенная переменная \var{PWD}\ содержит полное имя каталога, из которого был
+запущен \pack{make}.
+
+\bigskip
+Каталог зеркала архивов исхоных текстов программ
+
+\lstx{GZ}{}{tmp/L_GZ.mk}{mk}\index{L!GZ}
+
+Каталог распаковки исходных текстов: некоторые пакеты должна собираться в дереве
+исходников
+
+\lstx{SRC}{}{tmp/L_SRC.mk}{mk}\index{L!SRC}
+
+Каталог out-of-tree сборки: остальные пакеты умеют собираться вне дерева
+исходников, если хватает \ram\ этот каталог удобно монировать как \file{tmpfs}
+
+\lstx{TMP}{}{tmp/L_TMP.mk}{mk}\index{L!TMP}
+
+Переменная \var{BUILD}\ задает \term{триплет}\ системы, на которой вы
+собираете: x86\_64-linux-gnu, i686-linux-gnu или что-то подобное. Для получения
+триплета используется подстановка строки, выдаваемой запуском \pack{gcc}.
+
+\lstx{BUILD}{}{tmp/L_BUILD.mk}{mk}\index{L!BUILD}
+
+Каталог в который собирается кросс-компилятор. Используется триплет
+рабочей \linux-системы.
+
+\lstx{TC}{}{tmp/L_TC.mk}{mk}\index{L!TC}
+
+Каталог целевой \file{rootfs}. Отдельно прописан загрузочный каталог, в который
+будет записываться собранное ядро, образ \term{initrd}, бинарники и конфиги
+загрузчика. Имя \var{ROOT}\ создается из двух переменных, описанных далее: имя
+аппаратной платформы \var{HW}\ref{azhw}\ и имени приложения
+\var{APP}\ref{azapp}.
+
+\lstx{ROOT}{}{tmp/L_ROOT.mk}{mk}\index{L!ROOT}
+\lstx{BOOT}{}{tmp/L_BOOT.mk}{mk}\index{L!BOOT}
+
+Список всех рабочих каталогов в одной переменной:
+
+\lstx{DIRS}{}{tmp/L_DIRS.mk}{mk}\index{L!DIRS}
+
+\secrel{\pack{gz}: Загрузка архивов исходников} \label{azgz}
+
+\lstx{mk/gz.mk}{}{L/mk/gz.mk}{mk}
+
+\secrel{\var{APP}: Приложение}\label{azapp}
+
+\term{Приложение}\ --- короткое кодовое название вашего варианта сборки системы
+в целом.
+
+Приложение задается в файле \file{mk/head.mk}\ через переменную \var{APP},
+доступные значения:
+
+\begin{enumerate}
+  \item \pack{micro}: минимальная версия системы, только командная консоль
+  \item \pack{clock}: простые \linux-powered электронные часы
+  \item \pack{math}: система кластерных вычислений
+\end{enumerate}
+
+Значение переменной \var{APP}\ по умолчанию задано в \file{mk/head.mk}:
+
+\lstx{\var{APP} @ \file{hw/head.mk}}{}{tmp/L_APP.mk}{mk}
+\index{L!настройка!приложение}
+\index{L!переменная!APP}
+
+Если вам нужно собрать другое приложение, вы можете переопределить значение из
+командной строки при запуске \emph{всех}\ пакетов:
+
+\begin{verbatim}
+make APP=micro distclean dirs gz cross0 core libs apps
+\end{verbatim}
+
+В \file{app/\$\{APP\}.mk}\ в переменных задаются:
+
+\begin{itemize}
+  \item \var{LIBS}: набор используемых библиотек
+  \item \var{PACKS}: набор используемых программных пакетов \ref{azpacks}
+\end{itemize}
+
+\lstx{app/micro.mk}{}{L/app/micro.mk}{mk}\index{L!приложение!micro}
+
+\lstx{app/clock.mk}{}{L/app/clock.mk}{mk}\index{L!приложение!clock}
+
+\secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{L!железо}
+
+Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
+переменную \var{HW}, доступные значения приведены в таблице:
+
+\noindent
+\begin{tabular}{|l| l l|l l l l l l|l|}
+\hline
+HW & CPU & ARCH & RAM & HD & SD & USB & Eth & WiFi & GPIO \\
+\hline
+qemu386 \ref{qemu3865} & i486dx \ref{i486dx} & i386 & 32M+ & \uncheckbox\ IDE &
+& \uncheckbox & ne2k &&\\
+x86 \ref{x86} & i486sx \ref{i486sx} & i386 & 32M+ & \uncheckbox\ IDE &&
+\checkbox\ \\ 
+pc686 \ref{pc686} & i686 \ref{i686} & i386 & 32M+ & \uncheckbox\ IDE &&
+\checkbox\ \\
+eeepc701 \ref{eeepc701} & CeleronM & i386 & 512M+ & \checkbox\ SSD &
+\uncheckbox\ SD & \checkbox & A?? & \uncheckbox\ AR2425 &\\
+gac1037 \ref{gac1037} & Celeron1037U & x86\_64 & 1G+ & \uncheckbox\ SATA & &
+\checkbox & 2$\times$RTL8111 &&\\
+\hline
+qemuARM & & arm & 32M+ &&&&&&\\
+cubie1 \ref{cubie1} & AllWinnerA10 & armhf & 1G && \checkbox\ $\mu$SD &
+\checkbox &&&\\
+rpiB \ref{rpiB} & BCM2835 \ref{BCM2835} & armhf & 512M && \checkbox\
+SD&\checkbox&&&\\
+tion \ref{tion} & PXA270 & arm?? &&&&&&&\\
+mb77 \ref{mb77} & К1879ХБ1Я & arm?? &&&&&&&\\
+\hline
+qemuMIPS & &mips& 32M+ & & & & &&\\
+mr3020 \ref{mr3020} & AR7240 &mips& 32M & 4M & & \checkbox && \uncheckbox\
+AR9331 &\\
+vocore \ref{vocore} & RT5350 &mips& 32M & 8M & & \uncheckbox
+&& \uncheckbox\ SoC &\\
+bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
+\hline
+\end{tabular}
+
+\lstx{mk/head.mk}{}{L/mk/head.mk}{mk}
+
+% \secrel{i386}\secdown\index{L!железо!i386}
 % 
 % Персоналки с архитектурой \file{i386}\ --- самое сложное семейство с точки
 % зрения поддержки. Комбинации процессоров, материнских плат и плат расширений
@@ -402,7 +407,7 @@ cd ~/az ; make somename
 % 
 % \secrel{qemu386: эмулятор QEMU}
 % 
-% \lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}\index{azLinux!железо!QEMU}
+% \lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}\index{L!железо!QEMU}
 % 
 % \clearpage
 % \secrel{eeepc701: ASUS Eee PC 701}\label{eeepc701}
@@ -426,7 +431,7 @@ cd ~/az ; make somename
 % 
 % \bigskip
 % 
-% \lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{azLinux!железо!ASUS Eee PC 701}
+% \lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{L!железо!ASUS Eee PC 701}
 % 
 % \clearpage
 % \secrel{gac1037: Gigabyte GA-C1037UN-EU rev.2}
@@ -486,14 +491,14 @@ cd ~/az ; make somename
 % \end{tabular}
 % \bigskip
 % 
-% \lstx{hw/gac1037.mk}{}{../azlin/hw/gac1037.mk}{mk}\index{azLinux!железо!Gigabyte GA-C1037UN-EU}
+% \lstx{hw/gac1037.mk}{}{../azlin/hw/gac1037.mk}{mk}\index{L!железо!Gigabyte GA-C1037UN-EU}
 % 
 % \secup
 % 
 % \secrel{ARM}\secdown
 % 
 % \secrel{qemuARM: эмулятор QEMU}
-% \lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{azLinux!железо!QEMU}
+% \lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{L!железо!QEMU}
 % 
 % \secrel{cubie1: Cubie Board v.1}\label{cubie1}
 % 
@@ -551,7 +556,7 @@ cd ~/az ; make somename
 % 
 % \secrel{MIPS}\secdown
 % \secrel{qemuMIPS: эмулятор QEMU}
-% \lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{azLinux!железо!QEMU}
+% \lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{L!железо!QEMU}
 % 
 % \clearpage
 % \secrel{mr3020: роутер MR3020}
@@ -577,7 +582,7 @@ cd ~/az ; make somename
 % \end{tabular}
 % 
 % \clearpage
-% \secrel{vocore: VoCore}\label{vocore} \index{azLinux!железо!VoCore}
+% \secrel{vocore: VoCore}\label{vocore} \index{L!железо!VoCore}
 % 
 % \href{http://vocore.io/}{vocore}
 % 
@@ -608,7 +613,7 @@ cd ~/az ; make somename
 % \\
 % \end{tabular}
 % 
-% \secrel{bswift: BlackSwift} \index{azLinux!железо!BlackSwift}
+% \secrel{bswift: BlackSwift} \index{L!железо!BlackSwift}
 % \href{http://habrahabr.ru/post/242731/}{bswift}
 % \secup
 % 
@@ -629,20 +634,20 @@ cd ~/az ; make somename
 % \secrel{i386}
 % 
 % \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
-% \index{azLinux!железо!i486sx}
+% \index{L!железо!i486sx}
 % 
 % \lstx{cpu/CeleronM.mk}{}{azlin/cpu/CeleronM.mk}{mk}
-% \index{azLinux!железо!CeleronM}
+% \index{L!железо!CeleronM}
 % 
 % \lstx{cpu/Celeron1037U.mk}{}{azlin/cpu/Celeron1037U.mk}{mk}
-% \index{azLinux!железо!Celeron1037U}
+% \index{L!железо!Celeron1037U}
 % 
 % \secrel{ARM}
 % \secrel{MIPS}
 % 
-% \lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}\index{azLinux!железо!AR7240}
+% \lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}\index{L!железо!AR7240}
 % 
-% \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{azLinux!железо!RT5350}
+% \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{L!железо!RT5350}
 % 
 % \secup
 % 
