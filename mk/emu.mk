@@ -1,5 +1,7 @@
 
-QEMU_ALL =  -m 64M -net nic -net user -localtime -append "$(QEMU_APPEND)"
+QEMU_TAP ?= tap0
+QEMU_NET = -net nic -net tap,ifname=$(QEMU_TAP),script=no,downscript=no
+QEMU_ALL =  -m 64M $(QEMU_NET) -localtime
 QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
 
 QEMU_CFG = $(QEMU_ALL) $(QEMU_HW) $(QEMU_ARCH) $(QEMU_CPU) $(QEMU_APP)
@@ -7,20 +9,25 @@ QEMU_CFG = $(QEMU_ALL) $(QEMU_HW) $(QEMU_ARCH) $(QEMU_CPU) $(QEMU_APP)
 .PHONY: emu
 emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 	qemu-system-$(ARCH) $(QEMU_CFG) \
-	-kernel $(BOOT)/$(HW)$(APP).kernel \
+	-kernel $(BOOT)/$(HW)$(APP).kernel -append "$(QEMU_APPEND)" \
 	-initrd $(BOOT)/$(HW)$(APP).rootfs
+	
+.PHONY: pxemu
+pxemu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
+	qemu-system-$(ARCH) $(QEMU_CFG) -boot n
 
 .PHONY: emucluster
 emucluster: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
-	make emu &
-	make emu &
-#	make emu &
-#	make emu &
+	make pxemu QEMU_TAP=tap0
+	make pxemu QEMU_TAP=tap1
+#	make pxemu QEMU_TAP=tap2 &
+#	make pxemu QEMU_TAP=tap3 &
+#	make pxemu QEMU_TAP=tap4 &
 
 .PHONY: emuk
 emuk: $(BOOT)/$(HW)$(APP).kernel
 	qemu-system-$(ARCH) $(QEMU_CFG) $(QEMU_ALL) \
-	-kernel $(BOOT)/$(HW)$(APP).kernel \
+	-kernel $(BOOT)/$(HW)$(APP).kernel -append "$(QEMU_APPEND)" \
 	$(QEMU_SERIAL_LOG)
 
 .PHONY: emuiso
