@@ -20,3 +20,30 @@ syslinux/isolinux.cfg
 	$(MKISO) -no-emul-boot -boot-info-table -b isolinux.bin \
 		-o $(BOOT)/$(HW)$(APP).iso $(ISO)
 #-r -J
+
+.PHONY: boot
+boot: boot_$(ARCH)
+.PHONY: boot_arm
+boot_arm: uboot
+.PHONY: boot_armhf
+boot_armhf: uboot
+
+UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)" CC="$(TCC)"
+
+.PHONY: uboot
+uboot: $(SRC)/$(UBOOT)/README
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) distclean
+	make uboot_$(HW)
+#	cat boot/uboot/all >> $(SRC)/$(UBOOT)/.config
+	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(UBOOT)/.config
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) menuconfig
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) u-boot.img
+	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/u-boot.img
+#	cp $(SRC)/$(UBOOT)/u-boot.img $(BOOT)/
+.PHONY: uboot_rpiB
+uboot_rpiB:
+	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) rpi_defconfig
+	cp -r boot/rpi/* $(BOOT)/
+.PHONY: uboot_net
+uboot_net:
+	$(SRC)/$(UBOOT)/tools/mkimage
