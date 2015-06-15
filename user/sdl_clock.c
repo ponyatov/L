@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
-	SDL_Surface* screen = SDL_SetVideoMode(640, 480, 0, SDL_SWSURFACE);
+	SDL_Surface* screen = SDL_SetVideoMode(0, 0, 0, SDL_SWSURFACE);
 	// hide mouse cursor
 	SDL_ShowCursor(0);
 	// init ttf
