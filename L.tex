@@ -245,13 +245,12 @@ make HW=rpi APP=clock distclean dirs gz cross0 core libs apps boot root
 
 \begin{verbatim}
 make dirs
-mkdir -p /home/user/myL/gz /home/user/myL/src
-/home/user/myL/tmp /home/user/myL/rpiBclock.cross
-/home/user/myL/rpiBclock /home/user/myL/rpiBclock/boot
+mkdir -p /home/user/myL/gz /home/user/myL/src /home/user/myL/tmp
+/home/user/myL/rpiBclock.cross /home/user/myL/rpiBclock
+/home/user/myL/rpiBclock/boot
 \end{verbatim}
 \begin{verbatim}
 ls -la
-итого 71
 -rw-r--r-- 1 user user  2087 Дек  8 13:26 Makefile
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 mk
 drwxr-xr-x 2 user user  4096 Дек  8 11:43 app
