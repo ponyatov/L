@@ -1,0 +1,59 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+#allow-hotplug eth0
+#iface eth0 inet dhcp
+#auto eth0
+iface eth0 inet manual
+	post-up /sbin/ifconfig eth0 promisc
+
+#auto tap0
+iface tap0 inet manual
+	up ip tuntap add dev tap0 mode tap user ponyatov
+#	up ip link set tap0 up
+#	down ip link set tap0 down
+	down ip tuntap del dev tap0 mode tap	
+
+auto br0
+iface br0 inet manual
+	up brctl addbr br0
+	up ifup eth0
+	up ip link set dev eth0 down
+	up ifup tap0
+#	up ip link set dev tap0 down
+	up brctl addif br0 eth0
+	up brctl addif br0 tap0
+	up ip link set dev eth0 up
+	up ip link set dev tap0 up
+	up ip link set dev br0 up
+
+	bridge_stp off
+	bridge_maxwait 0
+	bridge_fd 0
+
+	post-up dhclient -v br0
+
+	down ip link set dev br0 down
+	down ip link set dev tap0 down
+	down ip link set dev eth0 down
+	down brctl delif br0 eth0
+	down ip link set dev eth0 up
+	down brctl delif br0 tap0
+#	down ip link set dev tap0 up
+	down brctl delbr br0
+	down ifdown tap0
+
+#auto br0
+#iface br0 inet dhcp
+#	bridge_ports all tap0
+#	bridge_stp off
+#	bridge_maxwait 0
+#	bridge_fd      0
+#	post-down ip link set tap0 down
+#	post-down ip tuntap del dev tap0 mode tap
+

@@ -1,0 +1,4 @@
+sdtv_mode=0
+sdtv_aspect=1
+hdmi_ignore_hotplug=1
+kernel=u-boot.img
