@@ -1,5 +1,7 @@
 \secrel{\al}\label{L}\secdown
 
+\secrel{Общая информация}\secdown
+
 Чтобы разобраться как можно собрать встраивамый \linux, в этом разделе описан
 набор \make-файлов и файлов конфигурации для сборки минимального em\linux. Этот
 раздел описывает L-компонент платформы ALYEH: \al.
@@ -176,7 +178,9 @@ git clone --depth=1 -o gh -b minimal git@github.com:user/L.git myL
 cd ~/myL ; git pull
 \end{verbatim}
 
-\secrel{Общий порядок сборки}
+\secup
+
+\secrel{Порядок сборки}\secdown
 
 Каждый пакет собирается командой:
 
@@ -355,6 +359,8 @@ make APP=micro distclean dirs gz cross0 core libs apps
 
 \lstx{app/clock.mk}{}{L/app/clock.mk}{mk}\index{L!приложение!clock}
 
+\secup
+
 \secrel{\var{HW}: Поддерживаемое железо}\label{azhw}\index{L!железо}
 
 Конфигурация целевого железа задается в файле \file{mk/head.mk}\ через
@@ -395,22 +401,24 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 
 \lstx{mk/head.mk}{}{L/mk/head.mk}{mk}
 
-% \secrel{i386}\secdown\index{L!железо!i386}
-% 
+\secdown
+
+\secrel{i386}\secdown\index{L!железо!i386}
+
 % Персоналки с архитектурой \file{i386}\ --- самое сложное семейство с точки
 % зрения поддержки. Комбинации процессоров, материнских плат и плат расширений
 % дают сотни вариантов конфигураций, в т.ч. десятки моделей компьютеров в формате
 % PC/104 и промышленных панелей. Особенно доставляет тот факт, что 95\% периферии
 % имеет закрытые бинарные драйвера только для \win, поэтому будьте аккуратны с
 % выбором железа.
-% 
-% \secrel{qemu386: эмулятор QEMU}
-% 
+
+\secrel{qemu386: эмулятор QEMU}
+
 % \lstx{hw/qemu386.mk}{}{../azlin/hw/qemu386.mk}{mk}\index{L!железо!QEMU}
-% 
-% \clearpage
-% \secrel{eeepc701: ASUS Eee PC 701}\label{eeepc701}
-% 
+
+\clearpage
+\secrel{eeepc701: ASUS Eee PC 701}\label{eeepc701}
+
 % \bigskip
 % \begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
 % \includegraphics[width=0.35\textwidth]{azlin/doc/eeepc701.jpg}
@@ -431,10 +439,10 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \bigskip
 % 
 % \lstx{hw/eeepc701.mk}{}{../azlin/hw/eeepc701.mk}{mk}\index{L!железо!ASUS Eee PC 701}
-% 
-% \clearpage
-% \secrel{gac1037: Gigabyte GA-C1037UN-EU rev.2}
-% 
+
+\clearpage
+\secrel{gac1037: Gigabyte GA-C1037UN-EU rev.2}
+
 % \begin{tabular}{p{0.45\textheight} p{0.45\textheight}}
 % \includegraphics[height=0.45\textheight]{azlin/doc/gac1037.jpg} &
 % \begin{tabular}{l l}
@@ -491,21 +499,22 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \bigskip
 % 
 % \lstx{hw/gac1037.mk}{}{../azlin/hw/gac1037.mk}{mk}\index{L!железо!Gigabyte GA-C1037UN-EU}
-% 
-% \secup
-% 
-% \secrel{ARM}\secdown
-% 
-% \secrel{qemuARM: эмулятор QEMU}
+
+\secup
+
+\secrel{ARM}\secdown
+
+\secrel{qemuARM: эмулятор QEMU}
+
 % \lstx{hw/qemuARM.mk}{}{../azlin/hw/qemuARM.mk}{mk}\index{L!железо!QEMU}
-% 
-% \secrel{cubie1: Cubie Board v.1}\label{cubie1}
-% 
-% \secrel{rpi: Raspberry Pi model B}\label{rpi}
-% 
-% \clearpage
-% \secrel{tion: ТионПро270}\label{tion}
-% 
+
+\secrel{cubie1: Cubie Board v.1}\label{cubie1}
+
+\secrel{rpi: Raspberry Pi model B}\label{rpi}
+
+\clearpage
+\secrel{tion: ТионПро270}\label{tion}
+
 % ЗАО ``Завод Электрооборудования''
 % 
 % \url{http://www.zao-zeo.ru/catalog/sbc/67-tion-pro270}
@@ -525,10 +534,10 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{tabular}
 % \\
 % \end{tabular}
-% 
-% \clearpage
-% \secrel{mb77: Микрокомпьютер МВ77.07 на базе СБИС К1879ХБ1Я}\label{mb77}
-% 
+
+\clearpage
+\secrel{mb77: Микрокомпьютер МВ77.07 на базе СБИС К1879ХБ1Я}\label{mb77}
+
 % ЗАО НТЦ ``Модуль''
 % 
 % \url{http://www.module.ru/catalog/micro/micro_pc/}
@@ -550,16 +559,18 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{tabular}
 % \\
 % \end{tabular}
-% 
-% \secup
-% 
-% \secrel{MIPS}\secdown
-% \secrel{qemuMIPS: эмулятор QEMU}
+
+\secup
+
+\secrel{MIPS}\secdown
+
+\secrel{qemuMIPS: эмулятор QEMU}
+
 % \lstx{hw/qemuMIPS.mk}{}{../azlin/hw/qemuMIPS.mk}{mk}\index{L!железо!QEMU}
-% 
-% \clearpage
-% \secrel{mr3020: роутер MR3020}
-% 
+
+\clearpage
+\secrel{mr3020: роутер MR3020}
+
 % \url{http://wiki.openwrt.org/ru/toh/tp-link/tl-mr3020}
 % 
 % \bigskip
@@ -579,10 +590,10 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{tabular}
 % \\
 % \end{tabular}
-% 
-% \clearpage
-% \secrel{vocore: VoCore}\label{vocore} \index{L!железо!VoCore}
-% 
+
+\clearpage
+\secrel{vocore: VoCore}\label{vocore} \index{L!железо!VoCore}
+
 % \href{http://vocore.io/}{vocore}
 % 
 % % \includegraphics[height=0.45\textheight]{azlin/mk/vocore1.jpg}
@@ -611,13 +622,15 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{tabular}
 % \\
 % \end{tabular}
-% 
-% \secrel{bswift: BlackSwift} \index{L!железо!BlackSwift}
-% \href{http://habrahabr.ru/post/242731/}{bswift}
-% \secup
-% 
-% \secrel{\var{CPU}: Конфигурации процессоров}\secdown
-% 
+
+\secrel{bswift: BlackSwift} \index{L!железо!BlackSwift}
+
+\href{http://habrahabr.ru/post/242731/}{bswift}
+
+\secup\secup
+
+\secrel{\var{CPU}: Конфигурации процессоров}\secdown
+
 % Настройки на процессор задаются в файле \file{cpu/}\var{\$\{CPU\}}\file{.mk}.
 % 
 % \begin{tabular}{p{0.15\textwidth} p{0.8\textwidth}}
@@ -629,9 +642,9 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \var{CFG\_CPU} & параметры при сборке кросс-компилятора \\
 % \var{CPU\_FLAGS} & параметры \prog{gcc}\ для оптимизации кода \\
 % \end{tabular}
-% 
-% \secrel{i386}
-% 
+
+\secrel{i386}
+
 % \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
 % \index{L!железо!i486sx}
 % 
@@ -640,42 +653,33 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % 
 % \lstx{cpu/Celeron1037U.mk}{}{azlin/cpu/Celeron1037U.mk}{mk}
 % \index{L!железо!Celeron1037U}
-% 
-% \secrel{ARM}
-% \secrel{MIPS}
-% 
+
+\secrel{ARM}
+
+\secrel{MIPS}
+
 % \lstx{cpu/AR7240.mk}{}{../azlin/cpu/AR7240.mk}{mk}\index{L!железо!AR7240}
 % 
 % \lstx{cpu/RT5350.mk}{}{../azlin/cpu/RT5350.mk}{mk}\index{L!железо!RT5350}
-% 
-% \secup
-% 
-% \secrel{Пакеты}\secdown\label{azpacks}
-% 
-% \secrel{\file{mk/versions.mk}: Версии пакетов}\label{azpackver}
-% 
-% \secrel{\pack{cross0}: кросс-компилятор}
-% 
+
+\secup
+
+\secrel{Пакеты}\secdown\label{azpacks}
+
+\secrel{\file{mk/versions.mk}: Версии пакетов}\label{azpackver}
+
+\secrel{\pack{cross0}: сборка минимального кросс-компилятора}\label{azcross0}
+\secdown
+
 % \lstx{mk/versions.mk}{}{tmp/azlin_versions.cross}{mk}
-% 
-% \secrel{\pack{core}: ядро}
-% 
-% \lstx{mk/versions.mk}{}{tmp/azlin_versions.core}{mk}
-% 
-% \secrel{\pack{boot}: загрузчики}
-% 
-% \lstx{mk/versions.mk}{}{tmp/azlin_versions.boot}{mk}
-% 
-% \secrel{\pack{libs}: библиотеки}
-% 
-% \lstx{mk/versions.mk}{}{tmp/azlin_versions.libs}{mk}
-% 
-% \secrel{\pack{cross0}: сборка кросс-компилятора} \label{azcross0}
-% 
 % \lstx{}{}{azlin/mk/cross.mk}{mk}
-% 
-% \secrel{\pack{binutils}: ассемблер, линкер и утилиты} \label{azbinutils}
-% 
+
+\secrel{\pack{cclibs0}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
+
+% \pack{gmp} \pack{mpfr} \pack{mpc} \pack{isl} \pack{cloog}
+
+\secrel{\pack{binutils0}: ассемблер, линкер и утилиты} \label{azbinutils0}
+
 % \begin{tabular}{l l}
 % --target=\$(\var{TARGET})& триплет целевой платформы\\
 % \$(\var{CFG\_ARCH})&параметры архитектуры\\
@@ -700,32 +704,25 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{tabular}
 % 
 % \lstx{cpu/i486sx.mk}{}{azlin/cpu/i486sx.mk}{mk}
-% 
-% \secrel{\pack{cclibs}: библиотеки для сборки \pack{gcc}} \label{azcclibs}
-% 
-% \pack{gmp} \pack{mpfr} \pack{mpc} \pack{isl} \pack{cloog}
-% 
-% \secrel{\pack{gcc0}: сборка минимального кросс-компилятора Си}
-% \label{azgcc0}
-% 
+
+\secrel{\pack{gcc0}: сборка минимального кросс-компилятора Си}\label{azgcc0}
+
 % При сборке \pack{gcc0}/\pack{gcc} отключайте \pack{ccache}: кэш при разовых сборках
 % не работает, но при монтировании как tmpfs потребляет слишком много \ram:
 % 
 % \begin{verbatim}
 % $ make CCACHE= gcc0
 % \end{verbatim}
-% 
-% \secrel{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}
-% \label{azgcc}
-% %
-% Пакет собирается \emph{после сборки \pack{core}}.
-% 
-% \secrel{\pack{core}: сборка основной системы} \label{azcore}
-% 
+
+\secup
+
+\secrel{\pack{core}: сборка основной системы} \label{azcore}\secdown
+
+% \lstx{mk/versions.mk}{}{tmp/azlin_versions.core}{mk}
 % \lstx{mk/core.mk}{}{azlin/mk/core.mk}{mk}
-% 
-% \secrel{\pack{kernel}: ядро \linux} \label{azkernel}
-% 
+
+\secrel{\pack{kernel}: ядро \linux} \label{azkernel}
+
 % \lstx{mk/kernel.mk}{}{azlin/mk/kernel.mk}{mk}
 % 
 % \begin{tabular}{l l}
@@ -914,9 +911,9 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{itemize}
 % 
 % \end{itemize}
-% 
-% \secrel{\pack{ulibc}: библиотека \pack{uClibc}} \label{azulibc}
-% 
+
+\secrel{\pack{ulibc}: библиотека \pack{uClibc}} \label{azulibc}
+
 % \lstx{mk/ulibc.mk}{}{azlin/mk/ulibc.mk}{mk}
 % 
 % \begin{enumerate}[nosep]
@@ -993,14 +990,14 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \lstx{ulibc/arch/i386}{}{azlin/ulibc/arch/i386}{mk}
 % 
 % \lstx{ulibc/cpu/i486sx}{}{azlin/ulibc/cpu/i486sx}{mk}
-% 
-% \secrel{\pack{gcc}: пересборка полного \pack{gcc}} \label{azgcc}
-% 
-% После сборки \pack{ulibc}\ необходимо еще раз пересобрать \pack{gcc}\ с полными
-% настройками.
-% 
-% \secrel{\pack{busybox}: набор утилит \pack{busybox}} \label{azbb}
-% 
+
+\secrel{\pack{gcc}: пересборка полного кросс-компилятора Си/\cpp}\label{azgcc}
+
+После сборки \pack{ulibc}\ необходимо еще раз пересобрать \pack{gcc}\ с полными
+настройками. Пакет собирается \emph{после сборки \pack{core}}.
+
+\secrel{\pack{busybox}: набор базовых утилит UNIX} \label{azbb}
+
 % \lstx{mk/busybox.mk}{}{azlin/mk/busybox.mk}{mk}
 % 
 % \begin{enumerate}[nosep]
@@ -1016,16 +1013,19 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \file{app/*.bb} настройки для каждого приложения полностью. Если вы создаете
 % свое приложение, скопируйте \file{app/micro.bb} в качестве базовой версии вашего
 % \file{app/userapp.bb}.
-% 
-% \secrel{\pack{libs}: сборка библиотек \var{\$\{LIBS\}}} \label{azlibs}
-% 
-% \secrel{\pack{apps}: сборка прикладных пакетов \var{\$\{APPS\}}}
-% \label{azapps}
-% 
-% \secrel{\pack{user}: сборка пользовательского кода} \label{azuser}
-% 
-% \secrel{\pack{root}: формирование корневой файловой системы} \label{azroot}
-% 
+
+\secup
+
+\secrel{\pack{libs}: сборка библиотек \var{\$\{LIBS\}}} \label{azlibs}
+
+% \lstx{mk/versions.mk}{}{tmp/azlin_versions.libs}{mk}
+
+\secrel{\pack{apps}: сборка прикладных пакетов \var{\$\{APPS\}}}\label{azapps}
+
+\secrel{\pack{user}: сборка пользовательского кода} \label{azuser}
+
+\secrel{\pack{root}: формирование корневой файловой системы} \label{azroot}
+
 % \lstx{mk/root.mk}{}{azlin/mk/root.mk}{mk}
 % 
 % \begin{enumerate}[nosep]
@@ -1050,20 +1050,34 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{enumerate}
 % 
 % \lstx{/etc/init.d/rcD}{}{azlin/etc/init.d/rcD}{rc}
-% 
-% \secrel{\pack{boot}: сборка загрузчика
-% \pack{syslinux}/\pack{grub}/\pack{uboot}} \label{azboot}
-% 
+
+\secrel{\pack{boot}: сборка загрузчика}\label{azboot}
+\secdown
+
+% \lstx{mk/versions.mk}{}{tmp/azlin_versions.boot}{mk}
 % \lstx{mk/boot.mk}{}{azlin/mk/boot.mk}{mk}
-% 
-% \secrel{\pack{syslinux}}
-% 
-% \secrel{\pack{grub}}
-% 
-% \secrel{\pack{uboot}}
-% 
-% \secrel{\pack{emu}: запуск собранной системы в эмуляторе} \label{azemu}
-% 
+
+\secrel{\pack{syslinux} /i386/}
+
+\secrel{\pack{grub} /i386/}
+
+\secrel{\pack{uboot}: загрузчик u-boot}
+
+\secup
+
+\secup
+
+\secrel{\pack{netboot}: Сетевая загрузка}\label{aznetboot}
+\secdown
+
+\secrel{\pack{pxeboot} /i386/}
+
+\secrel{сетевая загрузка через u-boot}
+
+\secup
+
+\secrel{\pack{emu}: запуск собранной системы в эмуляторе} \label{azemu}
+
 % Для отладки кода, не связанного жестко с железом, для которого
 % допускается выполнение в эмуляторе, используется \prog{QEMU}.
 % 
@@ -1099,28 +1113,26 @@ bswift && AR9331 &mips& 64M & 16M & \uncheckbox\ & & & 20+ \\
 % \end{verbatim}
 % 
 % \secup
-% 
-% \secrel{\pack{netboot}: Сетевая загрузка} \label{aznetboot}
-% 
-% \secrel{Прошивка на устройство} \label{azfirmware}
-% 
-% \secrel{RT-патч}
-% 
-% \secrel{math: компьютерная математика}\secdown
-% 
-% \secrel{\pack{blas}: библиотека \prog{BLAS}}\label{azblas}
-% 
-% \secrel{\pack{lapack}: библиотека \prog{LAPACK}}\label{azlapack}
-% 
-% \secrel{\pack{octave}: cистема численных методов \prog{Octave}}\label{azoctave}
-% 
+
+\secrel{Прошивка на устройство} \label{azfirmware}
+
+\secrel{RT-патч}
+
+\secrel{math: компьютерная математика}\secdown
+
+\secrel{\pack{blas}: библиотека \prog{BLAS}}\label{azblas}
+
+\secrel{\pack{lapack}: библиотека \prog{LAPACK}}\label{azlapack}
+
+\secrel{\pack{octave}: cистема численных методов \prog{Octave}}\label{azoctave}
+
 % \secrel{\pack{maxima}: система аналитической математики
 % \prog{Maxima}}\label{azmaxima}
 % 
 % \secup
-% 
+
 % \secrel{SDK: расширения для on-board разработки}\secdown
-% 
+
 % Иногда на целевой системе требуется набор средств программирования, для
 % выполнения
 % 
