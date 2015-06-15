@@ -18,6 +18,8 @@ x86micro.cross
 
 x86clock
 x86clock.cross
+rpiBclock
+rpiBclock.cross
 
 pc686desk
 pc686desk.cross
@@ -48,3 +50,5 @@ x86math.cross
 
 ttyS0.log
 
+qemu386math
+qemu386math.cross
