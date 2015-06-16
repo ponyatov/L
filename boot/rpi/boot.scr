@@ -1,0 +1,13 @@
+ncip=192.168.111.1
+stdout=nc
+stdin=nc
+console=nc
+echo ==================
+sleep 9999
+
+saveenv
+printenv
+sleep 9999
+#usb start
+#dhcp ${kernel_addr_r} zImage
+#printenv

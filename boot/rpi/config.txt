@@ -1,4 +1,51 @@
-sdtv_mode=0
-sdtv_aspect=1
-hdmi_ignore_hotplug=1
-kernel=u-boot.img
+# Raspberry Pi Boot Configuration File
+
+## Composite Output Settings
+
+# SDTV Mode
+# This defines the TV standard for composite output (default = 0)
+sdtv_mode=0   #Normal NTSC
+#sdtv_mode=1   #Japanese version of NTSC – no pedestal
+#sdtv_mode=2   #Normal PAL
+#sdtv_mode=3   #Brazilian version of PAL – 525/60 rather than 625/50, different subcarrier
+
+# SDTV Aspect
+# This defines the aspect ratio for composite output (default=1)
+sdtv_aspect=1   #Sets to 4:3
+#sdtv_aspect=2   #Sets to 14:9
+#sdtv_aspect=3   #Sets to 16:9
+
+# SDTV Colourburst
+# This option disables colour burst on composite output.
+# The picture will be monochrome, but possibly sharper.
+sdtv_disable_colourburst=1   #Colour burst is disabled
+
+## HDMI Output Settings
+
+hdmi_ignore_hotplug=1   #Use composite mode even if HDMI monitor is detected
+
+## Overscan & Framebuffer Settings
+
+# Disable Overscan
+# Set this if your display has a black border of unused pixels visible and your
+# display can output without overscan
+disable_overscan=1   #Set to 1 to disable overscan
+
+# Overscan
+# Uncomment the following properties to adjust overscan. Use positive numbers
+# if console goes off screen, and negative if there is too much border showing.
+
+## home flip car screen
+#overscan_left=-55     #Number of pixels to skip on left
+#overscan_right=55    #Number of pixels to skip on right
+#overscan_top=16      #Number of pixels to skip on top
+#overscan_bottom=16   #number of pixels to skip on bottom
+
+## Boot Options
+
+# Boot Delay
+# Waits for given number of seconds in start.elf before loading kernel.img.
+boot_delay=1
+
+# Kernel 
+kernel u-boot.img

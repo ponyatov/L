@@ -22,7 +22,19 @@ syslinux/isolinux.cfg
 #-r -J
 
 .PHONY: boot
-boot: boot_$(ARCH)
+boot: boot_$(HW)
+
+RPI_SD ?= /dev/sdb1
+.PHONY: boot_rpiB
+boot_rpiB: $(BOOT)/u-boot.img
+	make uboot-scr
+	mkdir -p $(TMP)/SD
+	-sudo mount $(RPI_SD) $(TMP)/SD
+#	sudo cp -r boot/rpi/* $(TMP)/SD/ 
+	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
+	sudo cp -r $(BOOT)/u-boot.img $(TMP)/SD/
+	sudo umount $(TMP)/SD
+
 .PHONY: boot_arm
 boot_arm: uboot
 .PHONY: boot_armhf
@@ -34,16 +46,23 @@ UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)" CC="$(TCC)"
 uboot: $(SRC)/$(UBOOT)/README
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) distclean
 	make uboot_$(HW)
-#	cat boot/uboot/all >> $(SRC)/$(UBOOT)/.config
+	cat boot/uboot/all >> $(SRC)/$(UBOOT)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(UBOOT)/.config
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) menuconfig
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) u-boot.img
 	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/u-boot.img
 #	cp $(SRC)/$(UBOOT)/u-boot.img $(BOOT)/
+#$(BOOT)/u-boot.img: $(SRC)/$(UBOOT)/README
+
+.PHONY: uboot-scr
+uboot-scr:
+	$(SRC)/$(UBOOT)/tools/mkimage \
+		-A arm -O linux -T script -C none \
+		-n boot.scr -d boot/rpi/boot.scr \
+		$(BOOT)/boot.scr.uimg
+
+
 .PHONY: uboot_rpiB
 uboot_rpiB:
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) rpi_defconfig
-	cp -r boot/rpi/* $(BOOT)/
-.PHONY: uboot_net
-uboot_net:
-	$(SRC)/$(UBOOT)/tools/mkimage
+#	cp -r boot/rpi/* $(BOOT)/
