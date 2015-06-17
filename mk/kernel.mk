@@ -24,7 +24,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	-cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
-	cp $(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
+	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
 	# 7
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) headers_install
 	
@@ -34,5 +34,7 @@ kernel-i386-fix:
 		$(SRC)/$(KERNEL)/arch/$(ARCH)/boot/bzImage \
 		$(SRC)/$(KERNEL)/arch/$(ARCH)/boot/zImage
 
-.PHONY: kernel-arm-fix
-kernel-arm-fix:
+.PHONY: kernel-armle-fix
+kernel-armle-fix:
+.PHONY: kernel-armhf-fix
+kernel-armhf-fix:
