@@ -38,3 +38,6 @@ kernel-i386-fix:
 kernel-armle-fix:
 .PHONY: kernel-armhf-fix
 kernel-armhf-fix:
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
+	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
+		$(BOOT)/$(HW)$(APP).kernel.uimg

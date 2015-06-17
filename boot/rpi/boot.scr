@@ -1,8 +1,16 @@
-setenv ncip 192.168.111.1
-setenv stdout nc
-setenv stdin nc
-setenv console nc
 echo ==================
+env set ncip 192.168.111.1
+env set stdout nc
+env set stdin nc
+env set console nc
+echo ==================
+tftpboot ${kloadaddr} /rpiBclock.kernel.uimg
+echo ==================
+setenv bootargs earlyprintk console=tty0 root=/dev/mmcblk0p2 rootwait
+bootm ${kloadaddr}
+echo ==================
+sleep 9999
+
 bdinfo
 echo ==================
 echo ==================
