@@ -52,15 +52,16 @@ uboot: $(SRC)/$(UBOOT)/README
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) u-boot.img
 	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/u-boot.img
 #	cp $(SRC)/$(UBOOT)/u-boot.img $(BOOT)/
+	cp $(SRC)/$(UBOOT)/tools/mkimage $(TC)/bin/
+	cp $(SRC)/$(UBOOT)/tools/netconsole $(TC)/bin/
 #$(BOOT)/u-boot.img: $(SRC)/$(UBOOT)/README
 
 .PHONY: uboot-scr
 uboot-scr:
-	$(SRC)/$(UBOOT)/tools/mkimage \
+	$(TC)/bin/mkimage \
 		-A arm -O linux -T script -C none \
 		-n boot.scr -d boot/rpi/boot.scr \
 		$(BOOT)/boot.scr.uimg
-
 
 .PHONY: uboot_rpiB
 uboot_rpiB:
