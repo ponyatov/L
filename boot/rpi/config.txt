@@ -48,4 +48,4 @@ disable_overscan=1   #Set to 1 to disable overscan
 boot_delay=1
 
 # Kernel 
-kernel u-boot.img
+kernel u-boot.bin

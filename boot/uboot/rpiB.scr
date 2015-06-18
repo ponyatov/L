@@ -1,10 +1,22 @@
 echo ==================
+#dhcp
 mmc dev 0
+#tftp ${kernel_addr_r} /rpiBclock.kernel
 fatload mmc 0:1 ${kernel_addr_r} rpiBclock.kernel
-fatload mmc 0:1 ${fdt_addr_r} bcm2835-rpi-b.dtb
+#tftp ${fdt_addr_r} /bcm2708-rpi-b.dtb
+fatload mmc 0:1 ${fdt_addr_r} bcm2708-rpi-b.dtb
 bootz ${kernel_addr_r} - ${fdt_addr_r}
 echo ==================
 sleep 9999
+
+autoload=yes
+autostart=no
+
+ncip=192.168.111.1
+stdout=nc
+stdin=nc
+console=nc
+bootargs=earlyprintk console=tty0 ip=dhcp
 
 echo ==================
 tftpboot ${kloadaddr} /rpiBclock.kernel.uimg

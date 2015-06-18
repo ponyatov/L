@@ -26,15 +26,15 @@ boot: boot_$(HW)
 
 RPI_SD ?= /dev/sdb1
 .PHONY: boot_rpiB
-boot_rpiB: $(BOOT)/u-boot.img
+boot_rpiB: $(BOOT)/u-boot.bin
 	make uboot-scr
 	mkdir -p $(TMP)/SD
 	-sudo mount $(RPI_SD) $(TMP)/SD
 #	sudo cp -r boot/rpi/* $(TMP)/SD/
 	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
-	sudo cp -r boot/uboot/uEnv.txt $(TMP)/SD/
-	sudo cp -r $(BOOT)/u-boot.img $(TMP)/SD/
+	sudo cp -r $(BOOT)/u-boot.bin $(TMP)/SD/
 	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
+	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
 	sudo umount $(TMP)/SD
 
@@ -53,18 +53,18 @@ uboot: $(SRC)/$(UBOOT)/README
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(UBOOT)/.config
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) menuconfig
 	cd $(SRC)/$(UBOOT) && $(MAKE) $(UBOOT_CFG) u-boot.img
-	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/u-boot.img
-#	cp $(SRC)/$(UBOOT)/u-boot.img $(BOOT)/
+	cp $(SRC)/$(UBOOT)/u-boot.bin $(BOOT)/
 	cp $(SRC)/$(UBOOT)/tools/mkimage $(TC)/bin/
 	cp $(SRC)/$(UBOOT)/tools/netconsole $(TC)/bin/
 #$(BOOT)/u-boot.img: $(SRC)/$(UBOOT)/README
 
 .PHONY: uboot-scr
 uboot-scr:
-	cp boot/uboot/uEnv.txt $(BOOT)/
+	cp boot/rpi/bcm2708-rpi-b.dtb $(BOOT)/ 
+	cp boot/uboot/$(HW).uenv $(BOOT)/uEnv.txt
 	$(TC)/bin/mkimage \
 		-A arm -O linux -T script -C none \
-		-n boot.scr -d boot/rpi/boot.scr \
+		-n boot.scr -d boot/uboot/$(HW).scr \
 		$(BOOT)/boot.scr.uimg
 #	$(TC)/bin/mkimage \
 #		-A arm -O linux -T kernel -C none \
