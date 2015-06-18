@@ -1,12 +1,14 @@
 echo ==================
-env set ncip 192.168.111.1
-env set stdout nc
-env set stdin nc
-env set console nc
+mmc dev 0
+fatload mmc 0:1 ${kernel_addr_r} rpiBclock.kernel
+fatload mmc 0:1 ${fdt_addr_r} bcm2835-rpi-b.dtb
+bootz ${kernel_addr_r} - ${fdt_addr_r}
+echo ==================
+sleep 9999
+
 echo ==================
 tftpboot ${kloadaddr} /rpiBclock.kernel.uimg
 echo ==================
-setenv bootargs earlyprintk console=tty0 root=/dev/mmcblk0p2 rootwait
 bootm ${kloadaddr}
 echo ==================
 sleep 9999
@@ -17,9 +19,6 @@ echo ==================
 echo ==================
 sleep 9999
 
-saveenv
-printenv
-sleep 9999
 #usb start
 #dhcp ${kernel_addr_r} zImage
 #printenv

@@ -30,9 +30,12 @@ boot_rpiB: $(BOOT)/u-boot.img
 	make uboot-scr
 	mkdir -p $(TMP)/SD
 	-sudo mount $(RPI_SD) $(TMP)/SD
-#	sudo cp -r boot/rpi/* $(TMP)/SD/ 
+#	sudo cp -r boot/rpi/* $(TMP)/SD/
 	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
+	sudo cp -r boot/uboot/uEnv.txt $(TMP)/SD/
 	sudo cp -r $(BOOT)/u-boot.img $(TMP)/SD/
+	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
+	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
 	sudo umount $(TMP)/SD
 
 .PHONY: boot_arm
@@ -58,10 +61,16 @@ uboot: $(SRC)/$(UBOOT)/README
 
 .PHONY: uboot-scr
 uboot-scr:
+	cp boot/uboot/uEnv.txt $(BOOT)/
 	$(TC)/bin/mkimage \
 		-A arm -O linux -T script -C none \
 		-n boot.scr -d boot/rpi/boot.scr \
 		$(BOOT)/boot.scr.uimg
+#	$(TC)/bin/mkimage \
+#		-A arm -O linux -T kernel -C none \
+#		-a 0x80008000 -e 0x80008000 \
+#		-n "Linux kernel" -d arch/arm/boot/zImage \
+#		uImage
 
 .PHONY: uboot_rpiB
 uboot_rpiB:

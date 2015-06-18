@@ -2,6 +2,15 @@ KERNEL_ARCH ?= $(ARCH)
 CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 	
+.PHONY: kernel-rpi
+kernel-rpi: $(SRC)/$(KERNEL)/README
+	# 1
+	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
+	# 2
+	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) bcm2835_defconfig
+	# 3
+	make kernel-all
+
 .PHONY: kernel
 kernel: $(SRC)/$(KERNEL)/README
 	# 1
@@ -13,6 +22,11 @@ kernel: $(SRC)/$(KERNEL)/README
 	cat kernel/cpu/$(CPU) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
 	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
+	# 3
+	make kernel-all
+	
+.PHONY: kernel-all
+kernel-all:	
 	# 3
 	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
@@ -38,6 +52,6 @@ kernel-i386-fix:
 kernel-armle-fix:
 .PHONY: kernel-armhf-fix
 kernel-armhf-fix:
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
-	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
-		$(BOOT)/$(HW)$(APP).kernel.uimg
+#	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
+#	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
+#		$(BOOT)/$(HW)$(APP).kernel.uimg
