@@ -1,6 +1,6 @@
 # Raspberry Pi SoC BCM2835: ARM1176JZF-S
 # target arch is ARM11 hard-float
-ARCH = armhf
+ARCH = armel
 # target triplet in armhf.mk
 # target CPU configure params
 CFG_CPU = --with-cpu=arm1176jzf-s

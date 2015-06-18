@@ -33,10 +33,10 @@ boot_rpiB: $(BOOT)/u-boot.bin
 #	sudo cp -r boot/rpi/* $(TMP)/SD/
 	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
 	sudo cp -r $(BOOT)/u-boot.bin $(TMP)/SD/
-	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
-	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
-	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
-#	sudo umount $(TMP)/SD
+#	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
+#	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
+#	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
+	sudo umount $(TMP)/SD
 
 .PHONY: boot_arm
 boot_arm: uboot
