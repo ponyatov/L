@@ -36,14 +36,15 @@ boot_rpiB: $(BOOT)/u-boot.bin
 	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
 	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
-	sudo umount $(TMP)/SD
+#	sudo umount $(TMP)/SD
 
 .PHONY: boot_arm
 boot_arm: uboot
 .PHONY: boot_armhf
 boot_armhf: uboot
 
-UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)" CC="$(TCC)"
+UBOOT_CFG = CROSS_COMPILE=$(TARGET)- HOSTCC="$(BCC)" CC="$(TCC)" \
+	CONFIG_NETCONSOLE=y
 
 .PHONY: uboot
 uboot: $(SRC)/$(UBOOT)/README
