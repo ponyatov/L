@@ -1,3 +1,3 @@
-ALYEH:Linux:clock
+ALYEH:Linux:dos
 =======================
-# wall clock firmware
+# DOS emulator environment
