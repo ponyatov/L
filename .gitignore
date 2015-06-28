@@ -16,6 +16,9 @@ qemu386clock.cross
 x86micro
 x86micro.cross
 
+x86dos
+x86dos.cross
+
 x86clock
 x86clock.cross
 rpiBclock

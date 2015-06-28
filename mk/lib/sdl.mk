@@ -17,7 +17,7 @@ sdl_main: $(SRC)/$(SDL)/README
 	rm -rf $(TMP)/$(SDL) && mkdir $(TMP)/$(SDL) &&\
 	cd $(TMP)/$(SDL) &&\
 	$(XPATH) $(SRC)/$(SDL)/$(TCFG) $(CFG_SDL_MAIN) &&\
-	$(MAKE) && $(INSTALL) &&\
+	$(XPATH) $(MAKE) && $(INSTALL) &&\
 	mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
 
 .PHONY: sdl_image

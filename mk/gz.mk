@@ -55,5 +55,6 @@ gz_x86:
 .PHONY: gz_pc686
 gz_pc686:
 
-.PHONY: gz_clock
-gz_clock:
+.PHONY: gz_dos
+gz_dos:
+	$(WGET) http://prdownloads.sourceforge.net/dosemu/$(DOSEMU).tgz

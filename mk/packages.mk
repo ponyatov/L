@@ -61,3 +61,6 @@ ELINKS 		= elinks-$(ELINKS_VER)
 
 # X11R7.7
 X_SERVER 	= xorg-server-$(X_SERVER_VER)
+
+# dos
+DOSEMU		= dosemu-$(DOSEMU_VER)
