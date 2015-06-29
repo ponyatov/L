@@ -1,0 +1,12 @@
+
+romimage: file=/share/bochs/BIOS-bochs-latest, address=0xe0000
+vgaromimage: file=/share/bochs/VGABIOS-lgpl-latest
+
+floppya: 1_44=/BOOT5.IMA, status=inserted
+boot: floppy
+
+config_interface: textconfig
+
+display_library: sdl, options="fullscreen"
+
+megs: 4

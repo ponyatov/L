@@ -28,3 +28,4 @@ bochs: $(SRC)/$(BOCHS)/README
 	cd $(TMP)/$(BOCHS) &&\
 	$(XPATH) $(SRC)/$(BOCHS)/$(TCFG) $(BOCHS_CFG) &&\
 	$(XPATH) $(MAKE) && $(INSTALL)
+	cp $(GZ)/fdboot.img $(ROOT)/

@@ -57,6 +57,7 @@ gz_pc686:
 
 .PHONY: gz_dos
 gz_dos:
+	$(WGET) http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/$(FREEDOS_VER)/fdboot.img
 	$(WGET) http://downloads.sourceforge.net/project/bochs/bochs/$(BOCHS_VER)/$(BOCHS).tar.gz
 	$(WGET) http://prdownloads.sourceforge.net/dosemu/$(DOSEMU).tgz
 	$(WGET) http://downloads.sourceforge.net/project/dosbox/dosbox/$(DOSBOX_VER)/$(DOSBOX).tar.gz
