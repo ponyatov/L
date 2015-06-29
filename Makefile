@@ -14,9 +14,8 @@ include mk/kernel.mk
 include mk/ulibc.mk
 include mk/busybox.mk
 
-#include mk/sdk/python.mk
-
 include mk/user.mk
+include mk/dos.mk
 
 include mk/libs.mk
 include mk/lib/zlib.mk
