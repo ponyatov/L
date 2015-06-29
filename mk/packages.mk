@@ -64,3 +64,5 @@ X_SERVER 	= xorg-server-$(X_SERVER_VER)
 
 # dos
 DOSEMU		= dosemu-$(DOSEMU_VER)
+DOSBOX		= dosbox-$(DOSBOX_VER)
+BOCHS		= bochs-$(BOCHS_VER)

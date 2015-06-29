@@ -34,7 +34,3 @@ emuk: $(BOOT)/$(HW)$(APP).kernel
 emuiso: $(BOOT)/$(HW)$(APP).iso
 	qemu-system-$(ARCH) $(QEMU_CFG) \
 	-boot d -cdrom $<
-
-.PHONY: bochs
-bochs: $(BOOT)/$(HW)$(APP).iso
-	bochs -f syslinux/bochs.rc
