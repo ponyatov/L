@@ -5,7 +5,7 @@
 BINUTILS_VER = 2.24
 # 2.25 build error
 GMP_VER = 5.1.3
-MPFR_VER = 3.1.2
+MPFR_VER = 3.1.3
 MPC_VER = 1.0.2
 ISL_VER = 0.11.1
 # 0.11 need for binutils build
