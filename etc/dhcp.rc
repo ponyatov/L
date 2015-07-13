@@ -25,6 +25,7 @@ case "$1" in
 		# routing
 		route add default gw $router dev $interface
 		route
+		# set timezone
 		# start ntp daemon
 		ntpd -p $ntpsrv
 	;;
