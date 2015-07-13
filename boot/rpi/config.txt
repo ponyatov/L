@@ -18,7 +18,7 @@ sdtv_aspect=1   #Sets to 4:3
 # SDTV Colourburst
 # This option disables colour burst on composite output.
 # The picture will be monochrome, but possibly sharper.
-sdtv_disable_colourburst=1   #Colour burst is disabled
+#sdtv_disable_colourburst=1   #Colour burst is disabled
 
 ## HDMI Output Settings
 
@@ -29,7 +29,7 @@ hdmi_ignore_hotplug=1   #Use composite mode even if HDMI monitor is detected
 # Disable Overscan
 # Set this if your display has a black border of unused pixels visible and your
 # display can output without overscan
-disable_overscan=1   #Set to 1 to disable overscan
+#disable_overscan=1   #Set to 1 to disable overscan
 
 # Overscan
 # Uncomment the following properties to adjust overscan. Use positive numbers
