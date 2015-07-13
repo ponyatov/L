@@ -4,6 +4,5 @@ CFG_ZLIB = --prefix=$(ROOT)
 zlib: $(SRC)/$(ZLIB)/README
 	cd $(SRC)/$(ZLIB) && make distclean
 	cd $(SRC)/$(ZLIB) && \
-	$(XPATH) CHOST=$(TARGET) CFLAGS="$(TOPT)" \
-		$(SRC)/$(ZLIB)/configure $(CFG_ZLIB) &&\
+	$(XPATH) CHOST=$(TARGET) $(SRC)/$(ZLIB)/configure $(CFG_ZLIB) &&\
 	$(XPATH) $(MAKE) && $(XPATH) $(MAKE) install 

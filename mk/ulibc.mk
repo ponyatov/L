@@ -13,7 +13,6 @@ ulibc: $(SRC)/$(ULIBC)/README
 	# 3
 	echo "CROSS_COMPILER_PREFIX=\"$(TARGET)-\"" >> $(SRC)/$(ULIBC)/.config
 	echo "KERNEL_HEADERS=\"$(ROOT)/include\"" >> $(SRC)/$(ULIBC)/.config
-	echo "UCLIBC_EXTRA_CFLAGS=\"$(TOPT)\"" >> $(SRC)/$(ULIBC)/.config
 	# 4
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) menuconfig
 	# 5

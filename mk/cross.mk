@@ -13,23 +13,14 @@ CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
-	--enable-lto --disable-multilib \
-	CFLAGS_FOR_TARGET="$(TOPT)" CXXFLAGS_FOR_TARGET="$(TOPT)" \
-	$(CFG_WITHCCLIBS)
-#	CFLAGS="$(BOPT)" CXXFLAGS="$(BOPT)"
-#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
+	--enable-lto --disable-multilib $(CFG_WITHCCLIBS)
 
 CFG_GCC0 = $(CFG_BINUTILS0) --disable-bootstrap \
 	--disable-shared --disable-threads \
 	--without-headers --with-newlib
-#	CFLAGS_FOR_BUILD="$(BOPT)" CXXFLAGS_FOR_BUILD="$(BOPT)"
 
 CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp
-#	--enable-libstdcxx-time \
-#	--enable-libstdcxx-threads \
-#	--enable-libstdcxx-pch
-#	--enable-__cxa_atexit
 
 .PHONY: cross0
 cross0:
