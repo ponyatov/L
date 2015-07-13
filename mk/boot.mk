@@ -68,11 +68,11 @@ uboot-scr:
 		-A arm -O linux -T script -C none \
 		-n boot.scr -d boot/uboot/$(HW).scr \
 		$(BOOT)/boot.scr.uimg
-#	$(TC)/bin/mkimage \
-#		-A arm -O linux -T kernel -C none \
-#		-a 0x80008000 -e 0x80008000 \
-#		-n "Linux kernel" -d arch/arm/boot/zImage \
-#		uImage
+	$(TC)/bin/mkimage \
+		-A arm -O linux -T kernel -C none \
+		-a 0x80008000 -e 0x80008000 \
+		-n "Linux kernel" -d $(BOOT)/kernel.img \
+		$(BOOT)/kernel.uimg
 
 .PHONY: uboot_rpiB
 uboot_rpiB:
