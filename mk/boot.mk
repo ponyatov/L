@@ -27,16 +27,17 @@ boot: boot_$(HW)
 RPI_SD ?= /dev/sdb1
 .PHONY: boot_rpiB
 boot_rpiB: $(BOOT)/u-boot.bin
-	make uboot-scr
+#	make uboot-scr
 	mkdir -p $(TMP)/SD
 	-sudo mount $(RPI_SD) $(TMP)/SD
 #	sudo cp -r boot/rpi/* $(TMP)/SD/
 	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
 	sudo cp -r $(BOOT)/u-boot.bin $(TMP)/SD/
 #	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
-#	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
-#	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
 	sudo umount $(TMP)/SD
+	sync
+##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
+##	sudo cp -r $(BOOT)/$(HW)$(APP)* $(TMP)/SD/
 
 .PHONY: boot_arm
 boot_arm: uboot

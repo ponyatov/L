@@ -49,3 +49,4 @@ boot_delay=1
 
 # Kernel 
 kernel u-boot.bin
+#kernel kernel.img
