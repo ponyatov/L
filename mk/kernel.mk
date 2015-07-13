@@ -6,9 +6,15 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 kernel-rpi:
 #	# 0
 #	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
-	# 1
+	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-	cd $(SRC)/linux && make $(CFG_KERNEL) bcmrpi_defconfig
+	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
+	# 2
+#	cat kernel/all >> $(SRC)/linux/.config
+#	cat kernel/arch/$(ARCH) >> $(SRC)/linux/.config
+#	cat kernel/cpu/$(CPU) >> $(SRC)/linux/.config
+	cat kernel/hw/$(HW) >> $(SRC)/linux/.config
+	cat kernel/app/$(APP) >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
 
@@ -39,7 +45,9 @@ kernel-all:
 	-cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
-	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage $(BOOT)/$(HW)$(APP).kernel
+	cp \
+		$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
+		$(BOOT)/$(HW)$(APP).kernel
 	# 7
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) headers_install
 	
@@ -51,11 +59,12 @@ kernel-i386-fix:
 
 .PHONY: kernel-armel-fix
 kernel-armel-fix:
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
-	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
-		$(BOOT)/$(HW)$(APP).kernel.uimg
+	make kernel-arm-fix
 .PHONY: kernel-armhf-fix
 kernel-armhf-fix:
+	make kernel-arm-fix
+.PHONY: kernel-arm-fix
+kernel-arm-fix:
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
 	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
 		$(BOOT)/$(HW)$(APP).kernel.uimg
