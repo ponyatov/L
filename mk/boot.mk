@@ -62,7 +62,7 @@ uboot: $(SRC)/$(UBOOT)/README
 .PHONY: uboot-scr
 uboot-scr:
 	cp boot/rpi/bcm2708-rpi-b.dtb $(BOOT)/ 
-	cp boot/uboot/$(HW).uenv $(BOOT)/uEnv.txt
+#	cp boot/uboot/$(HW).uenv $(BOOT)/uEnv.txt
 	$(TC)/bin/mkimage \
 		-A arm -O linux -T script -C none \
 		-n boot.scr -d boot/uboot/$(HW).scr \

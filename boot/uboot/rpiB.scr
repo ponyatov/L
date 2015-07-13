@@ -1,8 +1,8 @@
 echo ==================
 #usb start
 #dhcp
-#tftp ${kernel_addr_r} /rpiBclock.kernel
-tftp ${kernel_addr_r} /kernel.uimg
+tftp ${kernel_addr_r} /rpiBclock.kernel.uimg
+#tftp ${kernel_addr_r} /kernel.uimg
 tftp ${fdt_addr_r} /bcm2708-rpi-b.dtb
 #tftp ${kernel_addr_r} /rpiBclock.kernel.uimg
 bootm ${kernel_addr_r} - ${fdt_addr_r}
