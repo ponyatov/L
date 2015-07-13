@@ -47,6 +47,9 @@ disable_overscan=1   #Set to 1 to disable overscan
 # Waits for given number of seconds in start.elf before loading kernel.img.
 boot_delay=1
 
+# RamFS
+initramfs clock.rfs
+
 # Kernel 
 #kernel u-boot.bin
 #kernel kernel.img

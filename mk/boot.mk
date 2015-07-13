@@ -32,9 +32,11 @@ boot_rpiB: $(BOOT)/u-boot.bin
 	-sudo mount $(RPI_SD) $(TMP)/SD
 #	sudo cp -r boot/rpi/* $(TMP)/SD/
 	sudo cp -r boot/rpi/config.txt $(TMP)/SD/ 
+	sudo cp -r boot/rpi/cmdline.txt $(TMP)/SD/ 
 	sudo cp -r $(BOOT)/u-boot.bin $(TMP)/SD/
 #	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
 	sudo cp -r $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
+	sudo cp -r $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
 	sudo umount $(TMP)/SD
 	sync
 ##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
