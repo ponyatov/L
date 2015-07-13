@@ -1,14 +1,16 @@
 
 QEMU_TAP ?= tap0
 QEMU_NET = -net nic -net tap,ifname=$(QEMU_TAP),script=no,downscript=no
-QEMU_ALL =  -m 64M $(QEMU_NET) -localtime
+QEMU_NET = -net nic -net user
+QEMU_ALL =  -m 64M $(QEMU_NET)
+# -localtime
 QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
 
 QEMU_CFG = $(QEMU_ALL) $(QEMU_HW) $(QEMU_ARCH) $(QEMU_CPU) $(QEMU_APP)
 
 .PHONY: emu
 emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
-	qemu-system-$(ARCH) $(QEMU_CFG) \
+	qemu-system-$(KERNEL_ARCH) $(QEMU_CFG) \
 	-kernel $(BOOT)/$(HW)$(APP).kernel -append "$(QEMU_APPEND)" \
 	-initrd $(BOOT)/$(HW)$(APP).rootfs
 	

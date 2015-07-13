@@ -26,6 +26,6 @@ case "$1" in
 		route add default gw $router dev $interface
 		route
 		# start ntp daemon
-		ntpd -p pool.ntp.org
+		ntpd -p $ntpsrv
 	;;
 esac

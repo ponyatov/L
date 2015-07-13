@@ -38,7 +38,6 @@ boot_rpiB: $(BOOT)/u-boot.bin
 	sudo rsync $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
 	sudo rsync $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
 	sudo umount $(TMP)/SD
-	sync
 ##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 
 .PHONY: boot_arm

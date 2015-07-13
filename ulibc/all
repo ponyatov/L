@@ -10,6 +10,9 @@ UCLIBC_HAS_FLOATS=y
 DO_C99_MATH=n
 UCLIBC_HAS_LONG_DOUBLE_MATH=n
 
+# timezone
+UCLIBC_HAS_TZ_FILE=y
+
 # shared libs and c++ stuff
 
 HAVE_SHARED=y
