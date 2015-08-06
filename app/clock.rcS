@@ -4,6 +4,6 @@ udhcpc -i eth0 -s /etc/dhcp.rc &
 
 sdl_hello
 sdl_clock
-sdl_rect
-exit
+#sdl_rect
+#exit
 #poweroff
