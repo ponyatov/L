@@ -52,3 +52,5 @@ ttyS0.log
 
 qemu386math
 qemu386math.cross
+x86dos
+x86dos.cross
