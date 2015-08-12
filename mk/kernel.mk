@@ -6,15 +6,16 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 kernel-rpi:
 #	# 0
 #	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
+#	exit -1
 	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
 	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
 	# 2
 #	cat kernel/all >> $(SRC)/linux/.config
-#	cat kernel/arch/$(ARCH) >> $(SRC)/linux/.config
-#	cat kernel/cpu/$(CPU) >> $(SRC)/linux/.config
-	cat kernel/hw/$(HW) >> $(SRC)/linux/.config
-	cat kernel/app/$(APP) >> $(SRC)/linux/.config
+	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
+#	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
+	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
+	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
 
@@ -25,10 +26,10 @@ kernel: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
 	# 2
 	cat kernel/all >> $(SRC)/$(KERNEL)/.config
-	cat kernel/arch/$(ARCH) >> $(SRC)/$(KERNEL)/.config
-	cat kernel/cpu/$(CPU) >> $(SRC)/$(KERNEL)/.config
-	cat kernel/hw/$(HW) >> $(SRC)/$(KERNEL)/.config
-	cat kernel/app/$(APP) >> $(SRC)/$(KERNEL)/.config
+	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
+	cat cpu/$(CPU).kcfg >> $(SRC)/$(KERNEL)/.config
+	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
+	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
 	make kernel-all 
 	
