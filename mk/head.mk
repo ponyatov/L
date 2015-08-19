@@ -1,7 +1,7 @@
 # [H]ard[W]are: qemu386 qemuARM qemuMIPS cubie1 rpi ...
-HW = rpiB
+HW = x86
 # [APP]lication: micro clock math desk ...
-APP = clock
+APP = linuxola
 # load extra hw definitions: ARCH CPU ...
 include hw/$(HW).mk
 # load extra defs for CPU setted in $(HW).mk

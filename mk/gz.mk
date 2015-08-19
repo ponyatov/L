@@ -55,5 +55,5 @@ gz_x86:
 .PHONY: gz_pc686
 gz_pc686:
 
-.PHONY: gz_clock
-gz_clock:
+.PHONY: gz_linuxola
+gz_linuxola:
