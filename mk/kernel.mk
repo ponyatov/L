@@ -66,6 +66,6 @@ kernel-armhf-fix:
 	make kernel-arm-fix
 .PHONY: kernel-arm-fix
 kernel-arm-fix:
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
-	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
-		$(BOOT)/$(HW)$(APP).kernel.uimg
+#	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
+#	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
+#		$(BOOT)/$(HW)$(APP).kernel.uimg

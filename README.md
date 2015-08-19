@@ -1,3 +1,3 @@
-ALYEH:Linux:clock
+ALYEH:Linux:linuxola
 =======================
-# wall clock firmware
+# CarPC firmware
