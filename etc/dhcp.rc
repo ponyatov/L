@@ -27,6 +27,7 @@ case "$1" in
 		route
 		# set timezone
 		# start ntp daemon
-		ntpd -p $ntpsrv
+		ntpd -p pool.ntp.org
+		#$ntpsrv
 	;;
 esac

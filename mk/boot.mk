@@ -1,14 +1,19 @@
 
+.PHONY: boot
+boot: boot_$(HW)
+
+.PHONY: boot_x86
+boot_x86: iso
+
 UNZISO = unzip -jn $(GZ)/$(SYSLINUX).zip -d $(ISO)
 
 .PHONY: iso
-iso: $(BOOT)/$(HW)$(APP).iso 
-$(BOOT)/$(HW)$(APP).iso: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs \
-syslinux/isolinux.cfg	
+iso: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs \
+boot/syslinux/isolinux.cfg	
 	rm -rf $(ISO) && mkdir $(ISO)
 	cp $(BOOT)/$(HW)$(APP).kernel $(ISO)/kernel
 	cp $(BOOT)/$(HW)$(APP).rootfs $(ISO)/rootfs
-	cp syslinux/memtest.krn $(ISO)/
+	cp boot/syslinux/memtest.krn $(ISO)/
 	cp share/splash640x480.png $(ISO)/splash.png
 	$(UNZISO) bios/com32/elflink/ldlinux/ldlinux.c32
 	$(UNZISO) bios/com32/lib/libcom32.c32
@@ -16,13 +21,10 @@ syslinux/isolinux.cfg
 	$(UNZISO) bios/com32/menu/menu.c32
 	$(UNZISO) bios/com32/menu/vesamenu.c32
 	$(UNZISO) bios/core/isolinux.bin
-	cp syslinux/isolinux.cfg $(ISO)/syslinux.cfg
-	$(MKISO) -no-emul-boot -boot-info-table -b isolinux.bin \
+	cp boot/syslinux/isolinux.cfg $(ISO)/syslinux.cfg
+	$(MKISO) -no-emul-boot -boot-info-table -b isolinux.bin -V $(HW)$(APP) \
 		-o $(BOOT)/$(HW)$(APP).iso $(ISO)
-#-r -J
-
-.PHONY: boot
-boot: boot_$(HW)
+##-r -J
 
 RPI_SD ?= /dev/sdb1
 .PHONY: boot_rpiB
