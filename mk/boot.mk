@@ -22,6 +22,8 @@ boot/syslinux/isolinux.cfg
 	$(UNZISO) bios/com32/menu/vesamenu.c32
 	$(UNZISO) bios/core/isolinux.bin
 	cp boot/syslinux/isolinux.cfg $(ISO)/syslinux.cfg
+	cp boot/windows/qemu386.bat $(BOOT)/
+	cp boot/windows/README_win32.txt $(BOOT)/
 	$(MKISO) -no-emul-boot -boot-info-table -b isolinux.bin -V $(HW)$(APP) \
 		-o $(BOOT)/$(HW)$(APP).iso $(ISO)
 ##-r -J
