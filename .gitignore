@@ -54,3 +54,7 @@ qemu386math
 qemu386math.cross
 x86dos
 x86dos.cross
+
+x86linuxola
+x86linuxola.cross
+
