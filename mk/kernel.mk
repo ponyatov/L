@@ -2,8 +2,8 @@ KERNEL_ARCH ?= $(ARCH)
 CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 	
-.PHONY: kernel-rpi
-kernel-rpi:
+.PHONY: kernelrpi
+kernelrpi:
 #	# 0
 #	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
 #	exit -1
