@@ -7,9 +7,9 @@ ulibc: $(SRC)/$(ULIBC)/README
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) allnoconfig
 	# 2
 	cat ulibc/all >> $(SRC)/$(ULIBC)/.config
-	cat ulibc/arch/$(ARCH) >> $(SRC)/$(ULIBC)/.config
-	cat ulibc/cpu/$(CPU) >> $(SRC)/$(ULIBC)/.config
-	cat ulibc/app/$(APP) >> $(SRC)/$(ULIBC)/.config
+	cat arch/$(ARCH).ulibc >> $(SRC)/$(ULIBC)/.config
+	cat cpu/$(CPU).ulibc >> $(SRC)/$(ULIBC)/.config
+	cat app/$(APP).ulibc >> $(SRC)/$(ULIBC)/.config
 	# 3
 	echo "CROSS_COMPILER_PREFIX=\"$(TARGET)-\"" >> $(SRC)/$(ULIBC)/.config
 	echo "KERNEL_HEADERS=\"$(ROOT)/include\"" >> $(SRC)/$(ULIBC)/.config
