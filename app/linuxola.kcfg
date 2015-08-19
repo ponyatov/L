@@ -1,2 +1,14 @@
-CONFIG_BLOCK=n
+# media extra sd/mmc/usbflash
+CONFIG_BLOCK=y
 CONFIG_MTD=n
+CONFIG_ATA=n
+# usb extra
+## modem
+#CONFIG_USB_ACM=y
+## wifi
+#CONFIG_USB_WDM=y
+## garmin gps
+#CONFIG_USB_SERIAL_GARMIN=y
+## qualcomm gsm modem
+#CONFIG_USB_SERIAL_QCAUX=y
+#CONFIG_USB_SERIAL_QUALCOMM=y
