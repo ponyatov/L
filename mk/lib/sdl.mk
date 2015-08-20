@@ -28,6 +28,7 @@ sdl_ttf: $(SRC)/$(SDL_TTF)/README
 	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF) &&\
 	$(MAKE) && $(INSTALL)
 
+WGETWAVS = $(WGET) -P $(ROOT)/share/sounds 
 sdl_sound: $(SRC)/$(SDL_SOUND)/README
 	rm -rf $(TMP)/$(SDL_SOUND) && mkdir $(TMP)/$(SDL_SOUND) &&\
 	cd $(TMP)/$(SDL_SOUND) &&\
@@ -37,3 +38,15 @@ sdl_sound: $(SRC)/$(SDL_SOUND)/README
 	mv $(TMP)/sdl_sound/include/SDL/* $(ROOT)/include/SDL/
 	mv $(TMP)/sdl_sound/lib/* $(ROOT)/lib/
 	rm -rf $(TMP)/sdl_sound
+	mkdir -p $(ROOT)/share/sounds
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/12345adpcm.wav
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/12345gsm.wav
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/choko.mod
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/grateful-dead-02281969-intro.shn
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/leak.aiff
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/piratespenzmodmajgenral.mid
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/psychoex_01.mp3
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/psychoex_02.mp3
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/samp.ogg
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/trainwht.au
+	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/zakk-interview.spx
