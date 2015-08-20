@@ -11,7 +11,7 @@ INSTALL  = $(XPATH) make install
 PINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace -e trace=file make install
 MVCONFIG = 	mv -f $(ROOT)/bin/*-config $(TC)/bin/
 
-CCACHE = ccache
+CCACHE =
 
 BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
