@@ -32,6 +32,8 @@ SDL_SOUND	= SDL_sound-$(SDL_SOUND_VER)
 # multimedia
 ALSA_LIB	= alsa-lib-$(ALSA_VER)
 ALSA_UTILS	= alsa-utils-$(ALSA_VER)
+## codecs
+FFMPEG		= ffmpeg-$(FFMPEG_VER)
 
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)

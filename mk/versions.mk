@@ -49,6 +49,9 @@ GSL_VER = 1.16
 ALSA_VER = 1.0.26
 #27+ ___tls_get_addr error
 
+## codecs
+FFMPEG_VER = 2.7.2
+
 # extra
 
 ## SDK
