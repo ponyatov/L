@@ -8,6 +8,7 @@ gz:
 	make gz_cross
 	make gz_core
 	make gz_libs
+	make gz_media
 	
 .PHONY: gz_cross
 gz_cross:
@@ -33,6 +34,11 @@ gz_libs:
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
+	
+.PHONY: gz_media
+gz_media:
+	$(WGET) ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).tar.bz2
+	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 
 .PHONY: gz_i386
 gz_i386:

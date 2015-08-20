@@ -28,6 +28,10 @@ SDL 		= SDL-$(SDL_VER)
 SDL_IMAGE 	= SDL_image-$(SDL_IMAGE_VER)
 SDL_TTF 	= SDL_ttf-$(SDL_TTF_VER)
 
+# multimedia
+ALSA_LIB	= alsa-lib-$(ALSA_VER)
+ALSA_UTILS	= alsa-utils-$(ALSA_VER)
+
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)
 PNG 		= libpng-$(PNG_VER)
