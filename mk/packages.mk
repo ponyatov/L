@@ -27,6 +27,7 @@ UBOOT 		= u-boot-$(UBOOT_VER)
 SDL 		= SDL-$(SDL_VER)
 SDL_IMAGE 	= SDL_image-$(SDL_IMAGE_VER)
 SDL_TTF 	= SDL_ttf-$(SDL_TTF_VER)
+SDL_SOUND	= SDL_sound-$(SDL_SOUND_VER)
 
 # multimedia
 ALSA_LIB	= alsa-lib-$(ALSA_VER)

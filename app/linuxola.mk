@@ -1,5 +1,5 @@
 # app: linuxola
-LIBS = zlib png sdl
+LIBS = zlib png sdl alsa_lib sdl_sound
 APPS = \
 	$(USRBIN)/hello \
 	$(USRBIN)/sdl_hello $(USRBIN)/sdl_rect $(USRBIN)/sdl_clock \
