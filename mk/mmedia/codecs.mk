@@ -4,9 +4,9 @@ CFG_FFMPEG = --prefix=$(ROOT)/ffmpeg \
 	--enable-cross-compile --cross-prefix=$(TARGET)- \
 	--disable-everything --disable-network \
 	--enable-yasm --enable-zlib --enable-decoder=gsm \
-	--enable-indev=alsa \
-	--list-indevs \
+	--enable-indev=alsa --enable-outdev=alsa,fbdev,sdl \
 	--enable-shared $(CPU_FFMPEG)
+#	--list-outdevs \
 
 .PHONY: ffmpeg
 ffmpeg: $(SRC)/$(FFMPEG)/README
