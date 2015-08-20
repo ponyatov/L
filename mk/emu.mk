@@ -2,7 +2,8 @@
 QEMU_TAP ?= tap0
 QEMU_NET = -net nic -net tap,ifname=$(QEMU_TAP),script=no,downscript=no
 QEMU_NET = -net nic -net user
-QEMU_ALL =  -m 64M $(QEMU_NET)
+QEMU_SOUND = -soundhw es1370
+QEMU_ALL =  -m 64M $(QEMU_NET) $(QEMU_SOUND)
 # -localtime
 QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
 
