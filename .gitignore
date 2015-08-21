@@ -5,6 +5,10 @@ gz
 doc/*.mk
 doc/*.dirs
 
+boot/syslinux/*.c32
+boot/syslinux/syslinux*.zip
+boot/syslinux/syslinux.exe
+
 tmp
 src
 
