@@ -35,26 +35,24 @@ cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README
-	$(call INSTPACK,$(TMP)/$(GMP),$@,-strip)
-	exit -1
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
-	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) &&\
-	$(MAKE) && $(XPATH) strace -o $(PACK)/$@ make install
+	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(GMP),$@,-strip)
 
 .PHONY: mpfr0
 mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) &&\
 	cd $(TMP)/$(MPFR) &&\
-	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(MPFR),$@,-strip)
 
 .PHONY: mpc0
 mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) &&\
 	cd $(TMP)/$(MPC) &&\
-	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(MPC),$@,-strip)
 	
 .PHONY: cloog0
 cloog0: $(SRC)/$(CLOOG)/README
