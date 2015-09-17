@@ -3,7 +3,7 @@
 map<string,int> files;
 map<string,int> dirs;
 struct stat s;
-
+DIR *d;
 %}
 
 %option noyywrap
@@ -16,10 +16,17 @@ X	{F}x86sdk{F}
 
 %%
 {X}							{
-	if (access(yytext,F_OK)!=-1) {
+	if (access(yytext,F_OK)!=-1) {	// if item exists
 		stat(yytext,&s); 
-		if( s.st_mode & S_IFDIR ) dirs[yytext]=1;
-		if( s.st_mode & S_IFREG ) files[yytext]=1;
+		if( s.st_mode & S_IFDIR ) {			// if dir
+			if ((d=opendir(yytext))!=NULL) { // check dir is empty (tar file dublets)
+				readdir(d); readdir(d); 	// skip .. . items
+				if (readdir(d)==NULL)		// if empty	
+					dirs[yytext]=1;
+				closedir(d);
+			}	
+		}
+		if( s.st_mode & S_IFREG ) files[yytext]=1;	// if regular file
 	} 
 }	
 \n							{}	

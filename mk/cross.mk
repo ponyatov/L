@@ -35,7 +35,7 @@ cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README
-	$(call INSTPACK,$(TMP)/$(GMP),$@)
+	$(call INSTPACK,$(TMP)/$(GMP),$@,-strip)
 	exit -1
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
