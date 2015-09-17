@@ -1,9 +1,27 @@
 %{
 #include "pack.hpp"
+map<string,int> files;
+map<string,int> dirs;
+struct stat s;
+
 %}
 
-%option main
+%option noyywrap
+%option yylineno
+
+D	[0-9]+
+S	[ \t]+
+F	[a-zA-Z0-9\_\/\.]*
+X	{F}x86sdk{F}
 
 %%
-.		{ cout<<yytext; }
+{X}							{
+	if (access(yytext,F_OK)!=-1) {
+		stat(yytext,&s); 
+		if( s.st_mode & S_IFDIR ) dirs[yytext]=1;
+		if( s.st_mode & S_IFREG ) files[yytext]=1;
+	} 
+}	
+\n							{}	
+.							{}
 %%

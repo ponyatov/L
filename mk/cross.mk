@@ -35,9 +35,7 @@ cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README
-	cd $(TMP)/$(GMP) &&\
-	$(XPATH) strace -fo $(PACK)/$@ make install &&\
-	grep $(HW)$(APP) < $(PACK)/$@ > $(PACK)/$@.files
+	$(call INSTPACK,$(TMP)/$(GMP),$@)
 	exit -1
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\

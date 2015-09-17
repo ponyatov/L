@@ -28,3 +28,11 @@ GETCONF = $(XPATH) $(TARGET)-getconf
 MKISO = genisoimage
 
 RAMCLEAN ?= rm -rf
+
+PACKREP = $(PWD)/pack/pack
+
+INSTPACK = \
+	cd $1 &&\
+	$(XPATH) strace -fs9999 -o $(TMP)/$2.strace make install &&\
+	$(PACKREP) < $(TMP)/$2.strace > $(PACK)/$(2).files && rm $(TMP)/$2.strace
+#	tar -cmpl -T $(PACK)/$(2).files | gzip -c9 - > $(PACK)/$(2).tgz
