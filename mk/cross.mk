@@ -58,22 +58,22 @@ mpc0: $(SRC)/$(MPC)/README
 cloog0: $(SRC)/$(CLOOG)/README
 	rm -rf $(TMP)/$(CLOOG) && mkdir $(TMP)/$(CLOOG) &&\
 	cd $(TMP)/$(CLOOG) &&\
-	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(CLOOG),$@,-strip)
 	
 .PHONY: isl0
 isl0: $(SRC)/$(ISL)/README
 	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) &&\
 	cd $(TMP)/$(ISL) &&\
-	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(ISL),$@,-strip)
 	
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
-	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) &&\
-	$(MAKE) && $(INSTALL)-strip
+	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) && $(MAKE) &&\
+	$(call INSTPACK,$(TMP)/$(BINUTILS),$@,-strip)
 
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
