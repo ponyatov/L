@@ -1,0 +1,6 @@
+*~
+*.swp
+pack
+lex.yy.c
+pack.tab.?pp
+

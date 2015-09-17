@@ -1,0 +1,9 @@
+%{
+#include "pack.hpp"
+%}
+
+%option main
+
+%%
+.		{ cout<<yytext; }
+%%

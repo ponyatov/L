@@ -12,6 +12,11 @@ boot/syslinux/syslinux.exe
 tmp
 src
 
+x86sdk
+x86sdk.cross
+rpiBsdk
+rpiBsdk.cross
+
 qemu386micro
 qemu386micro.cross
 qemu386clock
