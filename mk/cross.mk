@@ -38,42 +38,42 @@ gmp0: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) &&\
 	cd $(TMP)/$(GMP) &&\
 	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(GMP),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(GMP),$@,install-strip)
 
 .PHONY: mpfr0
 mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) &&\
 	cd $(TMP)/$(MPFR) &&\
 	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPFR),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(MPFR),$@,install-strip)
 
 .PHONY: mpc0
 mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) &&\
 	cd $(TMP)/$(MPC) &&\
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPC),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(MPC),$@,install-strip)
 	
 .PHONY: cloog0
 cloog0: $(SRC)/$(CLOOG)/README
 	rm -rf $(TMP)/$(CLOOG) && mkdir $(TMP)/$(CLOOG) &&\
 	cd $(TMP)/$(CLOOG) &&\
 	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(CLOOG),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(CLOOG),$@,install-strip)
 	
 .PHONY: isl0
 isl0: $(SRC)/$(ISL)/README
 	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) &&\
 	cd $(TMP)/$(ISL) &&\
 	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(ISL),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(ISL),$@,install-strip)
 	
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
 	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(BINUTILS),$@,-strip)
+	$(call INSTPACK,$(TMP)/$(BINUTILS),$@,install-strip)
 
 .PHONY: gcc0
 gcc0: $(SRC)/$(GCC)/README
@@ -85,9 +85,9 @@ gcc0: $(SRC)/$(GCC)/README
 .PHONY: gccall
 gccall:
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-gcc
+	$(call INSTPACK,$(TMP)/$(GCC),$@-gcc,install-gcc)
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgcc
+	$(call INSTPACK,$(TMP)/$(GCC),$@-libgcc,install-target-libgcc)
 
 .PHONY: gcclibsinst
 gcclibsinst:

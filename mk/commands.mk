@@ -33,6 +33,6 @@ PACKREP = $(PWD)/pack/pack
 
 INSTPACK = \
 	cd $1 &&\
-	$(XPATH) strace -fs9999 -o $(TMP)/$2.strace make install$3 &&\
+	$(XPATH) strace -fs9999 -o $(TMP)/$2.strace make $3 &&\
 	$(PACKREP) < $(TMP)/$2.strace > $(PACK)/$(2).files && rm $(TMP)/$2.strace
 #	tar -cmpl -T $(PACK)/$(2).files | gzip -c9 - > $(PACK)/$(2).tgz
