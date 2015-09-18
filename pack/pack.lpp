@@ -4,6 +4,10 @@ map<string,int> files;
 map<string,int> dirs;
 struct stat s;
 DIR *d;
+
+/*
+.+uclibc-gcc.+				{ cerr<<yytext<<"\n"; }
+*/
 %}
 
 %option noyywrap
@@ -15,6 +19,11 @@ F	[a-zA-Z0-9\_\/\.\-]*
 X	{F}x86sdk{F}
 
 %%
+{D}{S}read\(.+				{}
+{D}{S}write\(.+				{}
+{D}{S}l{0,1}stat\(.+		{}
+{D}{S}access\(.+			{}
+{D}{S}exec[a-z]+\(.+		{}
 {X}							{
 	if (access(yytext,F_OK)!=-1) {	// if item exists
 		stat(yytext,&s); 
