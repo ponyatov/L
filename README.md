@@ -1,3 +1,3 @@
-ALYEH:Linux:linuxola
+ALYEH:Linux:sdk
 =======================
-# CarPC firmware
+# Self-hosted SDK system
