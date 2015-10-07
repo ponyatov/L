@@ -13,18 +13,19 @@ $(SRC)/linux/README:
 kernelrpi: $(SRC)/linux/README
 	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
+#	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
+	cd $(SRC)/linux && make $(CFG_KERNEL) bcmrpi_defconfig
 	# 2
-#	cat kernel/all >> $(SRC)/linux/.config
-	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
-#	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
-	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
-	cat app/$(APP).kcfg >> $(SRC)/linux/.config
+##	cat kernel/all >> $(SRC)/linux/.config
+#	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
+##	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
+#	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
+#	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
 
-.PHONY: kernelany
-kernelany: $(SRC)/$(KERNEL)/README
+.PHONY: kernelgeneric
+kernelgeneric: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
