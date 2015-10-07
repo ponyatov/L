@@ -2,8 +2,8 @@ KERNEL_ARCH ?= $(ARCH)
 CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 	
-.PHONY: kernel-rpi
-kernel-rpi:
+.PHONY: kernelrpi
+kernelrpi:
 #	# 0
 #	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
 #	exit -1
@@ -31,7 +31,7 @@ kernel: $(SRC)/$(KERNEL)/README
 	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
-	make kernel-all 
+	make kernel-all
 	
 .PHONY: kernel-all
 kernel-all:	
@@ -43,14 +43,15 @@ kernel-all:
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
 	# 5
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
-	-cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
+	-$(call INSTPACK,$(SRC)/$(KERNEL),kernel-modules,$(CFG_KERNEL) modules_install)
 	# 6
 	make kernel-$(ARCH)-fix
 	cp \
 		$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
 		$(BOOT)/$(HW)$(APP).kernel
+	echo $(BOOT)/$(HW)$(APP).kernel > $(PACK)/kernel-image
 	# 7
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) headers_install
+	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
 	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:
@@ -66,6 +67,6 @@ kernel-armhf-fix:
 	make kernel-arm-fix
 .PHONY: kernel-arm-fix
 kernel-arm-fix:
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
-	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
-		$(BOOT)/$(HW)$(APP).kernel.uimg
+#	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
+#	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
+#		$(BOOT)/$(HW)$(APP).kernel.uimg
