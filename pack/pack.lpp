@@ -24,7 +24,7 @@ string frep(string x) {
 D	[0-9]+
 S	[ \t]+
 F	[a-zA-Z0-9\_\/\.\-]*
-X	{F}x86sdk{F}
+X	{F}HWAPP{F}
 
 %%
 {D}{S}read\(.+				{}

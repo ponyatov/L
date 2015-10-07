@@ -4,3 +4,5 @@ pack
 lex.yy.c
 pack.tab.?pp
 
+hwapp
+hwapp.cpp

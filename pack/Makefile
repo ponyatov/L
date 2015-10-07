@@ -1,10 +1,8 @@
 C = pack.cpp lex.yy.c 
-#pack.tab.cpp
-H = pack.hpp 
-#pack.tab.hpp
-./pack: $(C) $(H)
+H = pack.hpp
+L = pack.lpp hwapp.lpp
+./pack: $(C) $(H) $(L) Makefile
+	flex -o hwapp.cpp hwapp.lpp &&\
+	$(CXX) -o hwapp hwapp.cpp &&\
+	./hwapp $(HW)$(APP) < pack.lpp |flex
 	$(CXX) -o $@ $(C)
-pack.tab.cpp pack.tab.hpp: pack.ypp
-	bison $<
-lex.yy.c: pack.lpp
-	flex $<

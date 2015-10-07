@@ -35,5 +35,4 @@ DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
 .PHONY: dirs
 dirs:
 	mkdir -p $(DIRS)
-	cd pack && make
-
+	cd pack && make HW=$(HW) APP=$(APP)

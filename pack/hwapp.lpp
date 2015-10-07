@@ -1,0 +1,16 @@
+%{
+#include <iostream>
+#include <cassert>
+char *arg;
+%}
+
+%option noyywrap
+
+%%
+^X[ \t]\{F\}HWAPP\{F\}		{ std::cout << "X\t{F}" << arg << "{F}"; }
+%%
+
+int main(int argc, char *argv[]) {
+	assert(argc==2); arg = argv[1];
+	return yylex();
+}
