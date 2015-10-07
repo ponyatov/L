@@ -1,2 +1,3 @@
 #!/bin/sh
-wget http://api.openweathermap.org/data/2.5/forecast?q=Samara,RU
+#wget http://api.openweathermap.org/data/2.5/forecast?q=Samara,RU
+wget -O /tmp/weather.png http://www.meteonova.ru/informer/PNG102_28900_666666_666666_F8F8F8_D7D7D7_FFFFFF_737373_9C9C9C.PNG
