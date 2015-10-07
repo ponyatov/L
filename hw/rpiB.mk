@@ -2,6 +2,9 @@
 CPU = BCM2835
 QEMU_HW =
 
+# custom build for specific vendor  
+VENDOR = rpi
+
 #QEMU_CFG = \
 #	-serial file:serial.log \
 #	-append "console=ttyAMA0,115200"
