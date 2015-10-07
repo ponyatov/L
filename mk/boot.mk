@@ -30,7 +30,8 @@ boot/syslinux/isolinux.cfg
 
 RPI_SD ?= /dev/sdb1
 .PHONY: boot_rpiB
-boot_rpiB: $(BOOT)/u-boot.bin
+boot_rpiB:
+#$(BOOT)/u-boot.bin
 #	make uboot-scr
 	mkdir -p $(TMP)/SD
 	-sudo mount $(RPI_SD) $(TMP)/SD
@@ -41,7 +42,7 @@ boot_rpiB: $(BOOT)/u-boot.bin
 #	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
 	sudo rsync $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
 	sudo rsync $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
-	sudo umount $(TMP)/SD
+#	sudo umount $(TMP)/SD
 ##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 
 .PHONY: boot_arm
