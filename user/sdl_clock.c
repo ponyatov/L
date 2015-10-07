@@ -24,8 +24,10 @@ static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 #define DATEY 20
 #define TIMEX 20
 #define TIMEY 40
-#define WEATHERX 20
-#define WEATHERY 480/2
+#define WEATHERX 10
+#define WEATHERY 480/2-40
+#define ROOTX 640
+#define ROOTY 480
 
 void SDL_err() {
 	SDL_Quit();
@@ -51,9 +53,10 @@ TTF_Font *fdate, *ftime;
 
 SDL_Event event;
 
+SDL_Surface* root;
 SDL_Surface *weather;
 
-SDL_Rect rDATE,rTIME,rWEATHER;
+SDL_Rect rDATE,rTIME,rWEATHER,rROOT;
 
 int main(int argc, char *argv[]) {
 	// get weather on start
@@ -66,6 +69,7 @@ int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
 	SDL_Surface* screen = SDL_SetVideoMode(0, 0, 0, SDL_SWSURFACE);
+	//SDL_GetClipRect(screen,&rROOT);
 	// hide mouse cursor
 	SDL_ShowCursor(0);
 	// init ttf
@@ -73,11 +77,12 @@ int main(int argc, char *argv[]) {
 	fdate = TTF_OpenFont(FNT, FNTDATESZ); if (!fdate) TTF_err();
 	ftime = TTF_OpenFont(FNT, FNTTIMESZ); if (!ftime) TTF_err();
 	// bg bmp update
-	SDL_Surface* root = IMG_Load(BGTUX);
+	root = IMG_Load(BGTUX);
 	// wait keypress
 	for (int done = 0; done == 0;) {
 		// update weather bmp
 		weather = IMG_Load(WEATHER);// if (!weather) SDL_err();
+		//SDL_GetClipRect(weather,&rWEATHER);
 		// fetch date and time
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
@@ -88,9 +93,9 @@ int main(int argc, char *argv[]) {
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
 		// flip screen
 		SDL_BlitSurface(root,  NULL, screen, NULL);
+		SDL_BlitSurface(weather, NULL, screen, &rWEATHER);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
-		SDL_BlitSurface(weather, NULL, screen, &rWEATHER);
 		SDL_Flip(screen);
 		// fix memory leaks
 		SDL_FreeSurface(tdate);
