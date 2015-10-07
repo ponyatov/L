@@ -32,6 +32,7 @@ UBOOT_VER = 2015.04
 SDL_VER = 1.2.15
 SDL_IMAGE_VER = 1.2.12
 SDL_TTF_VER = 2.0.11
+SDL_SOUND_VER = 1.0.3
 FREETYPE_VER = 2.5.5
 
 ## extra
@@ -43,6 +44,13 @@ PCRE_VER = 8.37
 BLAS_VER = 3.5.0
 LAPACK_VER = 3.5.0
 GSL_VER = 1.16
+
+# multimedia
+ALSA_VER = 1.0.26
+#27+ ___tls_get_addr error
+
+## codecs
+FFMPEG_VER = 2.7.2
 
 # extra
 

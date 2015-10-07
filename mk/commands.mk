@@ -11,7 +11,7 @@ INSTALL  = $(XPATH) make install
 PINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace -e trace=file make install
 MVCONFIG = 	mv -f $(ROOT)/bin/*-config $(TC)/bin/
 
-CCACHE = ccache
+CCACHE =
 
 BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
@@ -28,3 +28,11 @@ GETCONF = $(XPATH) $(TARGET)-getconf
 MKISO = genisoimage
 
 RAMCLEAN ?= rm -rf
+
+PACKREP = $(PWD)/pack/pack
+
+INSTPACK = \
+	cd $1 &&\
+	$(XPATH) strace -fs9999 -o $(TMP)/$2.strace make $3 &&\
+	$(PACKREP) < $(TMP)/$2.strace > $(PACK)/$(2) && rm $(TMP)/$2.strace
+#	tar -cmpl -T $(PACK)/$(2).files | gzip -c9 - > $(PACK)/$(2).tgz

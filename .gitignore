@@ -5,8 +5,17 @@ gz
 doc/*.mk
 doc/*.dirs
 
+boot/syslinux/*.c32
+boot/syslinux/syslinux*.zip
+boot/syslinux/syslinux.exe
+
 tmp
 src
+
+x86sdk
+x86sdk.cross
+rpiBsdk
+rpiBsdk.cross
 
 qemu386micro
 qemu386micro.cross
@@ -54,3 +63,7 @@ qemu386math
 qemu386math.cross
 x86dos
 x86dos.cross
+
+x86linuxola
+x86linuxola.cross
+

@@ -1,0 +1,52 @@
+%{
+#include "pack.hpp"
+map<string,int> files;
+map<string,int> dirs;
+struct stat s;
+DIR *d;
+
+/*
+.+uclibc-gcc.+				{ cerr<<yytext<<"\n"; }
+*/
+
+string YT;
+string frep(string x) {
+	string S(x);
+	int f;
+	while ((f=S.find("//"))!=string::npos) S.replace(f,2,"/");
+	return S;
+}
+%}
+
+%option noyywrap
+%option yylineno
+
+D	[0-9]+
+S	[ \t]+
+F	[a-zA-Z0-9\_\/\.\-]*
+X	{F}x86sdk{F}
+
+%%
+{D}{S}read\(.+				{}
+{D}{S}write\(.+				{}
+{D}{S}l{0,1}stat\(.+		{}
+{D}{S}access\(.+			{}
+{D}{S}exec[a-z]+\(.+		{}
+{X}							{
+	YT=frep(yytext);
+	if (access(YT.c_str(),F_OK)!=-1) {	// if item exists
+		stat(YT.c_str(),&s); 
+		if( s.st_mode & S_IFDIR ) {			// if dir
+			if ((d=opendir(YT.c_str()))!=NULL) { // check dir is empty (tar file dublets)
+				readdir(d); readdir(d); 	// skip .. . items
+				if (readdir(d)==NULL)		// if empty	
+					dirs[YT.c_str()]=1;
+				closedir(d);
+			}	
+		}
+		if( s.st_mode & S_IFREG ) files[YT.c_str()]=1;	// if regular file
+	} 
+}	
+\n							{}	
+.							{}
+%%

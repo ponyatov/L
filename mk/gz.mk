@@ -8,6 +8,7 @@ gz:
 	make gz_cross
 	make gz_core
 	make gz_libs
+	make gz_media
 	
 .PHONY: gz_cross
 gz_cross:
@@ -30,9 +31,16 @@ gz_libs:
 	$(WGET) https://www.libsdl.org/release/$(SDL).tar.gz
 	$(WGET) https://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).tar.gz
 	$(WGET) http://www.libsdl.org/projects/SDL_ttf/release/$(SDL_TTF).tar.gz
+	$(WGET) https://www.icculus.org/SDL_sound/downloads/$(SDL_SOUND).tar.gz
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
+	
+.PHONY: gz_media
+gz_media:
+	$(WGET) ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).tar.bz2
+	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
+	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
 
 .PHONY: gz_i386
 gz_i386:
