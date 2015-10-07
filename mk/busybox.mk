@@ -13,4 +13,4 @@ busybox: $(SRC)/$(BUSYBOX)/README
 	cd $(SRC)/$(BUSYBOX) && $(MAKE) $(CFG_BUSYBOX) menuconfig 
 	cp $(SRC)/$(BUSYBOX)/.config app/$(APP).bb
 	# 3
-	cd $(SRC)/$(BUSYBOX) && $(MAKE) $(CFG_BUSYBOX) install
+	$(call INSTPACK,$(SRC)/$(BUSYBOX),$@,$(CFG_BUSYBOX) install)
