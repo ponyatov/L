@@ -1,6 +1,7 @@
 C = pack.cpp lex.yy.c 
 H = pack.hpp
 L = pack.lpp hwapp.lpp
+.PHONY: ./pack
 ./pack: $(C) $(H) $(L) Makefile
 	flex -o hwapp.cpp hwapp.lpp &&\
 	$(CXX) -o hwapp hwapp.cpp &&\
