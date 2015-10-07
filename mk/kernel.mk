@@ -1,12 +1,16 @@
 KERNEL_ARCH ?= $(ARCH)
 CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
+
+.PHONY: kernel
+kernel: kernel$(VENDOR)	
 	
+
 .PHONY: kernelrpi
-kernelrpi:
-#	# 0
-#	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
-#	exit -1
+$(SRC)/linux/README:
+	# 0
+	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
+kernelrpi: $(SRC)/linux/README
 	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
 	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
@@ -19,8 +23,8 @@ kernelrpi:
 	# 3
 	make KERNEL=linux kernel-all
 
-.PHONY: kernel
-kernel: $(SRC)/$(KERNEL)/README
+.PHONY: kernelany
+kernelany: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
