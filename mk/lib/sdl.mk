@@ -1,5 +1,5 @@
 
-CFG_SDL_MAIN =
+CFG_SDL_MAIN = --disable-joystick
 CFG_SDL_IMAGE =
 CFG_SDL_TTF =
 CFG_SDL_SOUND = --prefix=$(TMP)/sdl_sound
@@ -13,8 +13,8 @@ sdl_main: $(SRC)/$(SDL)/README
 	rm -rf $(TMP)/$(SDL) && mkdir $(TMP)/$(SDL) &&\
 	cd $(TMP)/$(SDL) &&\
 	$(XPATH) $(SRC)/$(SDL)/$(TCFG) $(CFG_SDL_MAIN) &&\
-	$(MAKE) && $(INSTALL) &&\
-	mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
+	$(MAKE) && $(INSTALL) && mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
+#	$(call INSTPACK,$(TMP)/$(SDL),$@,install) 
 
 sdl_image: $(SRC)/$(SDL_IMAGE)/README
 	rm -rf $(TMP)/$(SDL_IMAGE) && mkdir $(TMP)/$(SDL_IMAGE) &&\

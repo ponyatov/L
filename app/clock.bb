@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.23.2
-# Wed Oct  7 13:34:56 2015
+# Wed Oct  7 15:02:17 2015
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -652,10 +652,10 @@ CONFIG_FEATURE_VOLUMEID_XFS=y
 # Miscellaneous Utilities
 #
 # CONFIG_CONSPY is not set
-# CONFIG_CROND is not set
-# CONFIG_FEATURE_CROND_D is not set
+CONFIG_CROND=y
+CONFIG_FEATURE_CROND_D=y
 # CONFIG_FEATURE_CROND_CALL_SENDMAIL is not set
-CONFIG_FEATURE_CROND_DIR=""
+CONFIG_FEATURE_CROND_DIR="/tmp"
 CONFIG_LESS=y
 CONFIG_FEATURE_LESS_MAXLINES=9999999
 # CONFIG_FEATURE_LESS_BRACKETS is not set

@@ -1,6 +1,8 @@
 ifconfig lo 127.0.0.1 up
 ifconfig eth0 up
 udhcpc -i eth0 -s /etc/dhcp.rc &
+cp -r /etc/cron /tmp/
+crond -c /tmp/cron -l 0 -L /tmp/cron.log &
 
 sdl_hello
 sdl_clock

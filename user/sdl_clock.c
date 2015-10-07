@@ -9,6 +9,8 @@
 
 #define BGTUX "/share/splash640x480.png"
 
+#define WEATHER "/tmp/weather.png"
+
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
@@ -22,6 +24,8 @@ static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 #define DATEY 20
 #define TIMEX 20
 #define TIMEY 40
+#define WEATHERX 20
+#define WEATHERY 480/2
 
 void SDL_err() {
 	SDL_Quit();
@@ -47,11 +51,17 @@ TTF_Font *fdate, *ftime;
 
 SDL_Event event;
 
-SDL_Rect rDATE,rTIME;
+SDL_Surface *weather;
+
+SDL_Rect rDATE,rTIME,rWEATHER;
 
 int main(int argc, char *argv[]) {
+	// get weather on start
+	system("/bin/sh /etc/weather.rc");
+	// init SDL rectangles
     rDATE.x=DATEX; rDATE.y=DATEY;
     rTIME.x=TIMEX; rTIME.y=TIMEY;
+    rWEATHER.x=WEATHERX; rWEATHER.y=WEATHERY;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
@@ -62,10 +72,12 @@ int main(int argc, char *argv[]) {
 	if (TTF_Init()) TTF_err();
 	fdate = TTF_OpenFont(FNT, FNTDATESZ); if (!fdate) TTF_err();
 	ftime = TTF_OpenFont(FNT, FNTTIMESZ); if (!ftime) TTF_err();
-	// bg bmp
-	SDL_Surface* root = IMG_Load(BGTUX); if (!root) SDL_err();
+	// bg bmp update
+	SDL_Surface* root = IMG_Load(BGTUX);
 	// wait keypress
 	for (int done = 0; done == 0;) {
+		// update weather bmp
+		weather = IMG_Load(WEATHER);// if (!weather) SDL_err();
 		// fetch date and time
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
@@ -78,10 +90,12 @@ int main(int argc, char *argv[]) {
 		SDL_BlitSurface(root,  NULL, screen, NULL);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
+		SDL_BlitSurface(weather, NULL, screen, &rWEATHER);
 		SDL_Flip(screen);
 		// fix memory leaks
 		SDL_FreeSurface(tdate);
 		SDL_FreeSurface(ttime);
+		SDL_FreeSurface(weather);
 		// wait
 		sleep(1);
 		// check keypress
