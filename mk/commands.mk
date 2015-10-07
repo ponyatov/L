@@ -35,4 +35,4 @@ INSTPACK = \
 	cd $1 &&\
 	$(XPATH) strace -fs9999 -o $(TMP)/$2.strace make $3 &&\
 	$(PACKREP) < $(TMP)/$2.strace > $(PACK)/$(2) && rm $(TMP)/$2.strace
-#	tar -cmpl -T $(PACK)/$(2).files | gzip -c9 - > $(PACK)/$(2).tgz
+#	tar -cmpl -T $(PACK)/$(2) | gzip -c9 - > $(PACK)/$(2).tgz
