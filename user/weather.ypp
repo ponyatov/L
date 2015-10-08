@@ -1,0 +1,15 @@
+%{
+#include "weather.hpp"
+%}
+%defines
+%union {
+	char c;
+	char *s;
+}
+%token <c> CHAR EOL
+%%
+weather :
+	| weather EOL		{ W($2); }
+	| weather CHAR		{ W($2); }
+;
+%%
