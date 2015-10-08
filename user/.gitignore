@@ -3,4 +3,6 @@ lex.yy.c
 weather.tab.?pp
 weather.dat
 weather.log
+weather.plot
+weather.png
 

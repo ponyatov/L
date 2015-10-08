@@ -1,24 +1,29 @@
 %{
 #include "weather.hpp"
+
+string dt,temp,hum;
 %}
 %defines
 %union {
 	char c;
 	string *s;
-	sym *o;
 }
-%token <c> CHAR EOL
-%token <o> STR NUM
-%type <o> ex
+%token <c> CHAR EOL COLON COMMA LZ RZ
+%token <s> S NAME CITY DT TEMP HUM SPEED DEG
 %%
 weather :
-	| weather ex		{ W($2); W("\n"); }
-	| weather EOL		{ W($2); }
-	| weather CHAR		{ W($2); }
-;
-
-ex :
-	  STR
-	| NUM
+	| weather NAME COLON S	{
+		cerr<<"set title "<<*$4<<"\n"; 
+		cerr<<"plot 'weather.log' u 1:2 t 'T' w lp,";
+		cerr<<" 'weather.log' u 1:3 t 'H' w lp\n"; }
+	| weather DT COLON S	{ dt = *$4; }
+	| weather HUM COLON S	{ hum = *$4; }
+	| weather TEMP COLON S	{ temp = *$4; 
+		if (dt.size()) cout<<dt<<"\t"<<temp<<"\t"<<hum<<"\n"; 
+		}
+	| weather S			{ }
+	| weather EOL		{ }
+	| weather CHAR		{ }
+	| weather COLON		{ }
 ;
 %%

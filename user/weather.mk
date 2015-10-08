@@ -1,8 +1,8 @@
 .PHONY: go
-go: weather.dat
-	./weather > weather.log
-weather.dat: ./weather 	
-	./weather Samara,RU
+go: ./weather weather.dat
+	./weather 1>weather.log 2>weather.plot
+#weather.dat: ./weather 	
+#	./weather Samara,RU > weather.log
 C = weather.cpp lex.yy.c weather.tab.cpp
 H = weather.hpp weather.tab.hpp
 L = weather.lpp

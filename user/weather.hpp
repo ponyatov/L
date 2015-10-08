@@ -9,12 +9,18 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
+#include <map>
+#include <vector>
 using namespace std;
 
 struct sym {
 	string tag,value;
 	sym(string,string);
-	virtual string dump();
+	vector<sym*> nest;
+	void join(sym*);
+	virtual string dump(int depth=0);
+	string tagval();
+	string pad(int);
 };
 
 extern int yylex();
