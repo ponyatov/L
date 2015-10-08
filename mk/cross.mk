@@ -92,7 +92,7 @@ gcclibsinst:
 gccpp:
 	make gccall
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libstdc++-v3
+	$(call INSTPACK,$(TMP)/$(GCC),$@-libstdc++,install-target-libstdc++-v3)
 
 .PHONY: gcc
 gcc: $(SRC)/$(GCC)/README
