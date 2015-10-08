@@ -4,7 +4,7 @@ udhcpc -i eth0 -s /etc/dhcp.rc &
 cp -r /etc/cron /tmp/
 crond -c /tmp/cron -l 0 -L /tmp/cron.log &
 
-sdl_hello
+#sdl_hello
 sdl_clock
 #sdl_rect
 #exit

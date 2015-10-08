@@ -1,6 +1,6 @@
 // force small CarLCD wide screen
-#define DISPLAY_W 640
-#define DISPLAY_H 400
+//#define DISPLAY_W 640
+//#define DISPLAY_H 400
 // autodetect
 #define DISPLAY_W 0
 #define DISPLAY_H 0
@@ -19,6 +19,9 @@
 
 #define WEATHER "/tmp/weather.png"
 
+#define WE_T	"/share/T.png"
+#define WE_H	"/share/H.png"
+
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
@@ -32,7 +35,7 @@ static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 #define DATEY 0
 #define TIMEX 0
 #define TIMEY 0
-#define WEATHERX 5
+#define WEATHERX 320
 #define WEATHERY 400/2-25
 #define ROOTX 640
 #define ROOTY 480
@@ -63,9 +66,11 @@ SDL_Event event;
 
 SDL_Surface* root;
 SDL_Surface *weather;
+SDL_Surface *we_T;
+SDL_Surface *we_H;
 SDL_Surface *weather2;
 
-SDL_Rect rDATE,rTIME,rWEATHER,rROOT;
+SDL_Rect rDATE,rTIME,rWEATHER,rWE_T,rWE_H,rROOT;
 
 int main(int argc, char *argv[]) {
 	// get weather on start
@@ -74,6 +79,7 @@ int main(int argc, char *argv[]) {
     rDATE.x=DATEX; rDATE.y=DATEY;
     rTIME.x=TIMEX; rTIME.y=TIMEY;
     rWEATHER.x=WEATHERX; rWEATHER.y=WEATHERY;
+    rWE_T.x=0; rWE_H.x=0; rWE_T.y=WEATHERY; rWE_H.y=WEATHERY+100;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
@@ -90,7 +96,9 @@ int main(int argc, char *argv[]) {
 	// wait keypress
 	for (int done = 0; done == 0;) {
 		// update weather bmp
-		weather = IMG_Load(WEATHER);// if (!weather) SDL_err();
+		weather = IMG_Load(WEATHER);
+		we_T = IMG_Load(WE_T);
+		we_H = IMG_Load(WE_H);
 		//SDL_GetClipRect(weather,&rWEATHER);
 		weather2 = zoomSurface(weather,2.5,2.5,0);
 		//SDL_GetClipRect(weather,&rWEATHER);
@@ -104,6 +112,8 @@ int main(int argc, char *argv[]) {
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
 		// flip screen
 		SDL_BlitSurface(root,  NULL, screen, NULL);
+		SDL_BlitSurface(we_T, NULL, screen, &rWE_T);
+		SDL_BlitSurface(we_H, NULL, screen, &rWE_H);
 		SDL_BlitSurface(weather2, NULL, screen, &rWEATHER);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
@@ -111,6 +121,7 @@ int main(int argc, char *argv[]) {
 		// fix memory leaks
 		SDL_FreeSurface(tdate); SDL_FreeSurface(ttime);
 		SDL_FreeSurface(weather); SDL_FreeSurface(weather2);
+		SDL_FreeSurface(we_T); SDL_FreeSurface(we_H);
 		// wait
 		sleep(1);
 		// check keypress
