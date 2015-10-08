@@ -1,6 +1,6 @@
 .PHONY: go
 go: ./weather weather.dat
-	./weather 1>weather.log 2>weather.plot
+	./weather 1>weather.log
 #weather.dat: ./weather 	
 #	./weather Samara,RU > weather.log
 C = weather.cpp lex.yy.c weather.tab.cpp

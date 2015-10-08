@@ -28,12 +28,5 @@ int main(int argc, char *argv[]) {
 		assert( system(os.str().c_str()) ==0);
 	}
 	assert( yyin = fopen(DAT,"r") );
-	//		cerr<<"set terminal png size 320,240\n";
-	//		cerr<<"set output 'weather.png'\n";
-	cerr << "set xdata time\n";
-	cerr << "set timefmt '\"%Y-%m-%d %H:%M:%S\"'\n";
-	cerr << "set format x \"%d/%H\"\n";
-	yyparse();
-	cerr << "pause -1\n";
-	return 0;
+	return yyparse();
 }
