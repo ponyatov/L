@@ -4,12 +4,21 @@
 %defines
 %union {
 	char c;
-	char *s;
+	string *s;
+	sym *o;
 }
 %token <c> CHAR EOL
+%token <o> STR NUM
+%type <o> ex
 %%
 weather :
+	| weather ex		{ W($2); W("\n"); }
 	| weather EOL		{ W($2); }
 	| weather CHAR		{ W($2); }
+;
+
+ex :
+	  STR
+	| NUM
 ;
 %%

@@ -1,5 +1,7 @@
 .PHONY: go
-go: ./weather
+go: weather.dat
+	./weather > weather.log
+weather.dat: ./weather 	
 	./weather Samara,RU
 C = weather.cpp lex.yy.c weather.tab.cpp
 H = weather.hpp weather.tab.hpp

@@ -1,11 +1,19 @@
 %{
 #include "weather.hpp"
-#define TC(X)	{ yylval.c = yytext[0]; return X; }
+#define TC(X)	{ yylval.c = yytext[0]; 			return X; }
+#define TS(X)	{ yylval.s = new string(yytext);	return X; }
+#define TO(C,X)	{ yylval.o = new sym(C,yytext);		return X; }
 %}
 %option noyywrap
 %option yylineno
 
 %%
-\n		TC(EOL)
-.		TC(CHAR)
+\"[^\"]*\"	TO("str",STR)
+[0-9]+		TO("int",NUM)
+\n			TC(EOL)
+.			{}
 %%
+
+/*
+.			TC(CHAR)
+*/

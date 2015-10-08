@@ -1,10 +1,12 @@
 #include "weather.hpp"
 
-#define DAT "weather.dat"
-#define API "api.openweathermap.org/data/2.5/forecast?q="
+sym::sym(string T, string V)	{ tag=T; value=V; }
+string sym::dump()				{ return "<"+tag+":"+value+">"; }
 
-void W(char   c)	{ cout << c ; }
-void W(string s)	{ cout << s ; }
+void W(char    c)	{ cout << c ; }
+void W(string  s)	{ cout <<  s ; }
+void W(string *s)	{ cout << *s ; }
+void W(sym    *o)	{ cout << o->dump(); }
 
 void yyerror ( string msg ) {
 	cerr << "\n\n" << msg << " # " << yylineno << " : " << yytext << "\n\n";
@@ -13,9 +15,10 @@ void yyerror ( string msg ) {
 }
 
 int main(int argc, char *argv[]) {
-	assert(argc==2);
-	ostringstream os; os << "wget -q -O " << DAT << " " << API << argv[1];
-	system(os.str().c_str());
-	//return yyparse();
-	return 0;
+	if (argc==2) {
+		ostringstream os; os << "wget -O " << DAT << " " << API << argv[1];
+		assert( system(os.str().c_str()) ==0);
+	}
+	assert( yyin = fopen(DAT,"r") );
+	return yyparse();
 }
