@@ -5,7 +5,7 @@ CFG_FFMPEG = --prefix=$(ROOT) --mandir=$(TMP)/man \
 	--disable-everything --disable-network \
 	--enable-zlib --enable-decoder=gsm \
 	--enable-indev=alsa,fbdev,v4l2 --enable-outdev=alsa,fbdev,v4l2,sdl \
-	--enable-shared $(CPU_FFMPEG) --enable-ffplay
+	--enable-shared $(CFG_CPU_LIBS) --enable-ffplay
 
 #	--list-indevs --enable-yasm
 

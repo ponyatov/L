@@ -3,7 +3,8 @@ PHONY: alsa alsa_lib alsa_utils
 alsa: alsa_lib alsa_utils
 
 CFG_ALSA_LIB = --disable-alisp
-CFG_ALSA_UTILS = --disable-alsamixer --disable-xmlto --disable-alsaconf --prefix=$(ROOT)/au
+CFG_ALSA_UTILS = --disable-alsamixer --disable-xmlto --disable-alsaconf\
+	--prefix=$(ROOT)/au
 
 alsa_lib: $(SRC)/$(ALSA_LIB)/README
 	rm -rf $(TMP)/$(ALSA_LIB) && mkdir $(TMP)/$(ALSA_LIB) &&\

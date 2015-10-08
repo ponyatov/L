@@ -16,8 +16,8 @@ cpptest: $(USRBIN)/cpptest
 
 TCFLAGS = -std=gnu99
 TCXXFLAGS = 
-TSDLFLAGS =  -lfreetype -lSDL -lSDL_ttf -lSDL_image
-#	   -lpthread   
+TSDLFLAGS =  -lfreetype -lSDL -lSDL_ttf -lSDL_image -lSDL_gfx
+# -lpthread   
 
 $(USRBIN)/sdl%: user/sdl%.c mk/user.mk
 	$(XPATH) $(TCC) $(TCFLAGS) -o $@ $< $(TSDLFLAGS) 

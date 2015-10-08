@@ -1,6 +1,14 @@
+// force small CarLCD wide screen
+#define DISPLAY_W 640
+#define DISPLAY_H 400
+// autodetect
+#define DISPLAY_W 0
+#define DISPLAY_H 0
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_rotozoom.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,18 +22,18 @@
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
-#define FNTTIMESZ	130
+#define FNTTIMESZ	138
 //155
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 
-#define DATEX 20
-#define DATEY 20
-#define TIMEX 20
-#define TIMEY 40
-#define WEATHERX 10
-#define WEATHERY 480/2-40
+#define DATEX 0
+#define DATEY 0
+#define TIMEX 0
+#define TIMEY 0
+#define WEATHERX 5
+#define WEATHERY 400/2-25
 #define ROOTX 640
 #define ROOTY 480
 
@@ -55,6 +63,7 @@ SDL_Event event;
 
 SDL_Surface* root;
 SDL_Surface *weather;
+SDL_Surface *weather2;
 
 SDL_Rect rDATE,rTIME,rWEATHER,rROOT;
 
@@ -68,7 +77,7 @@ int main(int argc, char *argv[]) {
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
-	SDL_Surface* screen = SDL_SetVideoMode(0, 0, 0, SDL_SWSURFACE);
+	SDL_Surface* screen = SDL_SetVideoMode(DISPLAY_W, DISPLAY_H, 0, SDL_SWSURFACE);
 	//SDL_GetClipRect(screen,&rROOT);
 	// hide mouse cursor
 	SDL_ShowCursor(0);
@@ -83,6 +92,8 @@ int main(int argc, char *argv[]) {
 		// update weather bmp
 		weather = IMG_Load(WEATHER);// if (!weather) SDL_err();
 		//SDL_GetClipRect(weather,&rWEATHER);
+		weather2 = zoomSurface(weather,2.5,2.5,0);
+		//SDL_GetClipRect(weather,&rWEATHER);
 		// fetch date and time
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
@@ -93,14 +104,13 @@ int main(int argc, char *argv[]) {
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
 		// flip screen
 		SDL_BlitSurface(root,  NULL, screen, NULL);
-		SDL_BlitSurface(weather, NULL, screen, &rWEATHER);
+		SDL_BlitSurface(weather2, NULL, screen, &rWEATHER);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
 		SDL_Flip(screen);
 		// fix memory leaks
-		SDL_FreeSurface(tdate);
-		SDL_FreeSurface(ttime);
-		SDL_FreeSurface(weather);
+		SDL_FreeSurface(tdate); SDL_FreeSurface(ttime);
+		SDL_FreeSurface(weather); SDL_FreeSurface(weather2);
 		// wait
 		sleep(1);
 		// check keypress

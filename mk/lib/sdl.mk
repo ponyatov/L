@@ -1,7 +1,8 @@
 
-CFG_SDL_MAIN = --disable-joystick
+CFG_SDL_MAIN = --disable-joystick $(CFG_CPU_LIBS)
 CFG_SDL_IMAGE =
 CFG_SDL_TTF =
+CFG_SDL_GFX = $(CFG_CPU_LIBS)
 CFG_SDL_SOUND = --prefix=$(TMP)/sdl_sound
 
 # --disable-audio joystick assembly
@@ -27,6 +28,12 @@ sdl_ttf: $(SRC)/$(SDL_TTF)/README
 	cd $(TMP)/$(SDL_TTF) &&\
 	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF) &&\
 	$(MAKE) && $(INSTALL)
+
+sdl_gfx: $(SRC)/$(SDL_GFX)/README
+	rm -rf $(TMP)/$(SDL_GFX) && mkdir $(TMP)/$(SDL_GFX) &&\
+	cd $(TMP)/$(SDL_GFX) &&\
+	$(XPATH) $(SRC)/$(SDL_GFX)/$(TCFG) $(CFG_SDL_GFX) && $(MAKE)
+	$(call INSTPACK,$(TMP)/$(SDL_GFX),$@,install)
 
 WGETWAVS = $(WGET) -P $(ROOT)/share/sounds 
 sdl_sound: $(SRC)/$(SDL_SOUND)/README
