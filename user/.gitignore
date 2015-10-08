@@ -1,4 +1,5 @@
 weather
 lex.yy.c
 weather.tab.?pp
+weather.dat
 
