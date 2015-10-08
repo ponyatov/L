@@ -13,7 +13,8 @@ include mk/kernel.mk
 include mk/ulibc.mk
 include mk/busybox.mk
 
-#include mk/sdk/python.mk
+include mk/mmedia/alsa.mk
+include mk/mmedia/codecs.mk
 
 include mk/user.mk
 
