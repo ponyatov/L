@@ -10,7 +10,5 @@ CFLAGS_CPU = -mcpu=arm1176jzf-s
 ## -march=armv6  -mfpu=vfp -mfloat-abi=hard
 ## http://www.gurucoding.com/en/rpi_cross_compiler/building_binutils_gcc1_cygwin_vm.php
 CFG_CPU_LIBS = --disable-mmx
-CFG_CPU = --with-cpu=arm1176 --with-tune=arm1176 $(CFG_CPU_LIBS)
-CFLAGS_CPU = -mcpu=arm1176 -mtune=arm1176
 
 QEMU_CPU = -cpu arm1176
