@@ -17,10 +17,10 @@
 
 #define BGTUX "/share/splash640x480.png"
 
-#define WEATHER "/tmp/weather.png"
+#define WEATHER "/tmp/weather/meteonova.png"
 
-#define WE_T	"/share/T.png"
-#define WE_H	"/share/H.png"
+#define WE_T	"/tmp/weather/T.png"
+#define WE_H	"/tmp/weather/H.png"
 
 #define FNT "/share/font/Instruction.ttf"
 
@@ -35,7 +35,7 @@ static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 #define DATEY 0
 #define TIMEX 0
 #define TIMEY 0
-#define WEATHERX 320
+#define WEATHERX 340
 #define WEATHERY 400/2-25
 #define ROOTX 640
 #define ROOTY 480
@@ -73,13 +73,11 @@ SDL_Surface *weather2;
 SDL_Rect rDATE,rTIME,rWEATHER,rWE_T,rWE_H,rROOT;
 
 int main(int argc, char *argv[]) {
-	// get weather on start
-	system("/bin/sh /etc/weather.rc");
 	// init SDL rectangles
     rDATE.x=DATEX; rDATE.y=DATEY;
     rTIME.x=TIMEX; rTIME.y=TIMEY;
     rWEATHER.x=WEATHERX; rWEATHER.y=WEATHERY;
-    rWE_T.x=0; rWE_H.x=0; rWE_T.y=WEATHERY; rWE_H.y=WEATHERY+100;
+    rWE_T.x=0; rWE_H.x=0; rWE_T.y=WEATHERY; rWE_H.y=WEATHERY+120;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen

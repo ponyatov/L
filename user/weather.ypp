@@ -1,7 +1,7 @@
 %{
 #include "weather.hpp"
-
 string dt,temp,hum;
+int lines=0;
 %}
 %defines
 %union {
@@ -16,7 +16,7 @@ weather :
 	| weather DT COLON S	{ dt = *$4; }
 	| weather HUM COLON S	{ hum = *$4; }
 	| weather TEMP COLON S	{ temp = *$4; 
-		if (dt.size()) cout<<dt<<"\t"<<temp<<"\t"<<hum<<"\n"; 
+		if (++lines < 15 && dt.size()) cout<<dt<<"\t"<<temp<<"\t"<<hum<<"\n"; 
 		}
 	| weather S			{ }
 	| weather EOL		{ }

@@ -1,11 +1,10 @@
 #ifndef _H_WEATHER
 #define _H_WEATHER
 
-#define DAT "weather.dat"
-#define API "api.openweathermap.org/data/2.5/forecast?q="
+#define DAT "/tmp/weather/openweather.api"
 
 #include <iostream>
-#include <sstream>
+//#include <sstream>
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>

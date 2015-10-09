@@ -5,16 +5,17 @@
 %}
 %option noyywrap
 %option yylineno
-
+S	[\+\-]{0,1}
+D	[0-9]+
 %%
-\"name\"					TS(NAME)
-\"dt_txt\"					TS(DT)
-\"temp\"					TS(TEMP)
-\"humidity\"				TS(HUM)
-:							TC(COLON)
-[0-9]+						TS(S)
-[0-9]+\.[0-9]+				TS(S)
-\"[^\"]*\"					TS(S)
-\n							{}
-.							{}
+\"name\"			TS(NAME)
+\"dt_txt\"			TS(DT)
+\"temp\"			TS(TEMP)
+\"humidity\"		TS(HUM)
+:					TC(COLON)
+{S}{D}				TS(S)
+{S}{D}\.{D}			TS(S)
+\"[^\"]*\"			TS(S)
+\n					{}
+.					{}
 %%

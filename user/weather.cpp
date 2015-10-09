@@ -23,10 +23,6 @@ void yyerror ( string msg ) {
 }
 
 int main(int argc, char *argv[]) {
-	if (argc==2) {
-		ostringstream os; os << "wget -O " << DAT << " " << API << argv[1];
-		assert( system(os.str().c_str()) ==0);
-	}
 	assert( yyin = fopen(DAT,"r") );
 	return yyparse();
 }
