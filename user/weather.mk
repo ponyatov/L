@@ -1,6 +1,8 @@
 .PHONY: go
 go: ./weather /tmp/weather/openweather.api
 	./weather > weather.log
+/tmp/weather/openweather.api:
+	../etc/weather.rc	
 C = weather.cpp lex.yy.c weather.tab.cpp
 H = weather.hpp weather.tab.hpp
 L = weather.lpp
