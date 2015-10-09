@@ -11,3 +11,5 @@ $(SRC)/BLAS/README: $(GZ)/blas.tgz
 	cd $(SRC) &&  zcat $< | tar x && touch $@
 $(SRC)/ATLAS/README: $(GZ)/$(ATLAS).tar.bz2
 	cd $(SRC) && bzcat $< | tar x && touch $@
+$(SRC)/libgd-$(LIBGD)/README: $(GZ)/$(LIBGD).tar.gz
+	cd $(SRC) && zcat $< | tar x && touch $@

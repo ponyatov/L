@@ -37,6 +37,7 @@ gz_libs:
 	$(WGET) http://download.sourceforge.net/libpng/$(PNG).tar.xz
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
+	$(WGET) https://github.com/libgd/libgd/archive/$(LIBGD).tar.gz
 	
 .PHONY: gz_media
 gz_media:

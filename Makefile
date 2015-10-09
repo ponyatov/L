@@ -16,6 +16,8 @@ include mk/busybox.mk
 include mk/mmedia/alsa.mk
 include mk/mmedia/codecs.mk
 
+include mk/math/gnuplot.mk
+
 include mk/user.mk
 
 include mk/libs.mk
@@ -25,6 +27,7 @@ include mk/lib/sdl.mk
 include mk/lib/freetype.mk
 include mk/lib/multiprecision.mk
 include mk/lib/pcre.mk
+include mk/lib/libgd.mk
 
 include mk/apps.mk
 include mk/emu.mk
