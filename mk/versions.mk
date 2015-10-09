@@ -35,7 +35,8 @@ SDL_TTF_VER = 2.0.11
 SDL_GFX_VER = 2.0.25
 SDL_SOUND_VER = 1.0.3
 FREETYPE_VER = 2.5.5
-LIBGD_VER = 2.1.1
+LIBGD_VER = 2.0.34
+#2.1.1 not configure
 
 ## extra
 ZLIB_VER = 1.2.8
