@@ -9,6 +9,7 @@ gz:
 	make gz_core
 	make gz_libs
 	make gz_media
+	make gz_math
 	
 .PHONY: gz_cross
 gz_cross:
@@ -42,6 +43,11 @@ gz_media:
 	$(WGET) ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).tar.bz2
 	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
+
+.PHONY: gz_math
+gz_math:
+	$(WGET) -O $(GZ)/$(GNUPLOT).tar.gz \
+		"http://downloads.sourceforge.net/project/gnuplot/gnuplot/$(GNUPLOT_VER)/$(GNUPLOT).tar.gz?r=&ts=1444397620&use_mirror=netcologne"
 
 .PHONY: gz_i386
 gz_i386:

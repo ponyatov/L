@@ -46,6 +46,9 @@ BLAS_VER = 3.5.0
 LAPACK_VER = 3.5.0
 GSL_VER = 1.16
 
+# math
+GNUPLOT_VER = 4.6.7
+
 # multimedia
 ALSA_VER = 1.0.26
 #27+ ___tls_get_addr error

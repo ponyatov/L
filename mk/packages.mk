@@ -46,6 +46,7 @@ PCRE 		= pcre-$(PCRE_VER)
 BLAS 		= BLAS
 LAPACK 		= lapack-$(LAPACK_VER)
 GSL			= gsl-$(GSL_VER)
+GNUPLOT		= gnuplot-$(GNUPLOT_VER)
 
 # extra
 ## SDK
