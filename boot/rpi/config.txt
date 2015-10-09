@@ -36,9 +36,9 @@ hdmi_ignore_hotplug=1   #Use composite mode even if HDMI monitor is detected
 # if console goes off screen, and negative if there is too much border showing.
 
 ## home flip car screen
-#overscan_left=-55     #Number of pixels to skip on left
+overscan_left=-11     #Number of pixels to skip on left
 #overscan_right=55    #Number of pixels to skip on right
-#overscan_top=16      #Number of pixels to skip on top
+overscan_top=-11     #Number of pixels to skip on top
 #overscan_bottom=16   #number of pixels to skip on bottom
 
 ## Boot Options
