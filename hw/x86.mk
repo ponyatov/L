@@ -2,4 +2,4 @@
 # (pure i386sx not supported by new gcc/kernel) 
 CPU = i486sx
 QEMU_HW =
-VENDOR =
+VENDOR = generic
