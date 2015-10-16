@@ -1,0 +1,21 @@
+%{
+#include "currency.hpp"
+FILE *w;
+string* curr;
+%}
+%defines
+%union {
+	char c;
+	string *s;
+};
+%token <c> CHAR P
+%token <s> NAME RATE VAL STR U E NUM
+%%
+currency :
+	| currency NAME U { w=usd; curr=$3; }
+	| currency NAME E { w=eur; curr=$3; }
+	| currency RATE STR { fprintf(w,"%s %.2f",curr->c_str(),atof($3->c_str())); }
+	| currency STR	{ W($2); }
+	| currency CHAR	{ W($2); }
+;
+%%

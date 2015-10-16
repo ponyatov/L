@@ -1,0 +1,17 @@
+%{
+#include "currency.hpp"
+#define TC(X)	{ yylval.c = yytext[0]; 			return X; }
+#define TS(X)	{ yylval.s = new string(yytext);	return X; }
+#define TP(X)	{ yylval.s = new string(yytext+1);	yylval.s->erase(yylval.s->size()-1,1); return X; }
+%}
+%option noyywrap
+%option yylineno
+%%
+\"Name\":	TP(NAME)
+\"USD\/[^\"]*\"	TP(U)
+\"EUR\/[^\"]*\"	TP(E)
+\"Rate\":	TP(RATE)
+\"[^\"]*\"	TP(STR)
+\n	TC(CHAR)
+.	TC(CHAR)
+%%

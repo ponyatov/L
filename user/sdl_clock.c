@@ -23,16 +23,22 @@
 #define WE_H	"/tmp/weather/H.png"
 #define WE_P	"/tmp/weather/P.png"
 
+#define CURR_USD	"/tmp/currency/USD"
+#define CURR_EUR	"/tmp/currency/EUR"
+
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
 #define FNTTIMESZ	FNTDATESZ*3
 #define FNTSECSZ	FNTTIMESZ/3
-//155
+#define FNTCURRSZ	22
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 static SDL_Color FNTCLRSEC  = {0x00,0xAA,0xFF};
+
+static SDL_Color FNTCLREUR  = {0xFF,0xAA,0x00};
+static SDL_Color FNTCLRUSD  = {0xAA,0xFF,0x00};
 
 #define ROOTX 640
 #define ROOTY 480
@@ -44,6 +50,8 @@ static SDL_Color FNTCLRSEC  = {0x00,0xAA,0xFF};
 #define SECY  FNTDATESZ/2
 #define WEATHERX 340
 #define WEATHERY 400/2-25
+#define CURRX TIMEX+FNTCURRSZ*3
+#define CURRY WEATHERY-50
 
 void SDL_err() {
 	SDL_Quit();
@@ -57,15 +65,15 @@ void TTF_err() {
 	abort();
 }
 
-char TSDATE[0x100],TSTIME[0x100],TSSEC[0x100];
+char TSDATE[0x100],TSTIME[0x100],TSSEC[0x100],TSUSD[0x100],TSEUR[0x100];
 
 time_t rawtime;
 
 struct tm * timeinfo;
 
-SDL_Surface *tdate,*ttime,*tsec;
+SDL_Surface *tdate,*ttime,*tsec, *tcurr_usd, *tcurr_eur;
 
-TTF_Font *fdate, *ftime, *fsec;
+TTF_Font *fdate, *ftime, *fsec, *fcurr;
 
 SDL_Event event;
 
@@ -76,7 +84,9 @@ SDL_Surface *we_H;
 SDL_Surface *we_P;
 SDL_Surface *weather2;
 
-SDL_Rect rDATE,rTIME,rSEC,rWEATHER,rWE_T,rWE_H,rWE_P,rROOT;
+SDL_Rect rDATE,rTIME,rSEC,rWEATHER,rWE_T,rWE_H,rWE_P,rROOT,rCURR_USD,rCURR_EUR;
+
+FILE *usdfh;  FILE *eurfh;
 
 int main(int argc, char *argv[]) {
 	// init SDL rectangles
@@ -88,6 +98,8 @@ int main(int argc, char *argv[]) {
     rWE_P.y=50;
     rWE_H.y=rWE_P.y+120;
     rWE_T.y=rWE_H.y+120;
+    rCURR_USD.x=CURRX; rCURR_EUR.x=CURRX;
+    rCURR_USD.y=CURRY; rCURR_EUR.y=CURRY+FNTCURRSZ;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
@@ -100,6 +112,7 @@ int main(int argc, char *argv[]) {
 	fdate = TTF_OpenFont(FNT, FNTDATESZ); if (!fdate) TTF_err();
 	ftime = TTF_OpenFont(FNT, FNTTIMESZ); if (!ftime) TTF_err();
 	fsec  = TTF_OpenFont(FNT, FNTSECSZ);  if (!ftime) TTF_err();
+	fcurr = TTF_OpenFont(FNT, FNTCURRSZ);  if (!ftime) TTF_err();
 	// bg bmp update
 	root = IMG_Load(BGTUX);
 	// wait keypress
@@ -122,6 +135,15 @@ int main(int argc, char *argv[]) {
 		tdate = TTF_RenderText_Solid(fdate, TSDATE, FNTCLRDATE);
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
 		tsec  = TTF_RenderText_Solid(fsec,  TSSEC,  FNTCLRSEC);
+		// render currency
+		if (usdfh = fopen(CURR_USD,"r")) {
+			fread(TSUSD,sizeof(TSUSD),1,usdfh); fclose(usdfh);
+		}
+		tcurr_usd = TTF_RenderText_Solid(fcurr,  TSUSD,  FNTCLRUSD);
+		if (eurfh = fopen(CURR_EUR,"r")) {
+			fread(TSEUR,sizeof(TSEUR),1,eurfh); fclose(eurfh);
+		}
+		tcurr_eur = TTF_RenderText_Solid(fcurr,  TSEUR,  FNTCLREUR);
 		// flip screen
 		SDL_BlitSurface(root,  NULL, screen, NULL);
 		SDL_BlitSurface(we_T, NULL, screen, &rWE_T);
@@ -131,6 +153,8 @@ int main(int argc, char *argv[]) {
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
 		SDL_BlitSurface(tsec,  NULL, screen, &rSEC);
+		SDL_BlitSurface(tcurr_usd,  NULL, screen, &rCURR_USD);
+		SDL_BlitSurface(tcurr_eur,  NULL, screen, &rCURR_EUR);
 		SDL_Flip(screen);
 		// fix memory leaks
 		SDL_FreeSurface(tdate); SDL_FreeSurface(ttime); SDL_FreeSurface(tsec);
@@ -138,6 +162,8 @@ int main(int argc, char *argv[]) {
 		SDL_FreeSurface(we_T);
 		SDL_FreeSurface(we_H);
 		SDL_FreeSurface(we_P);
+		SDL_FreeSurface(tcurr_usd);
+		SDL_FreeSurface(tcurr_eur);
 		// wait
 		sleep(1);
 		// check keypress

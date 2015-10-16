@@ -1,0 +1,6 @@
+#!/bin/sh
+sleep 5
+mkdir -p /tmp/currency
+#wget -t 3 -T 5 -O /tmp/currency/yahooru "https://query.yahooapis.com/v1/public/yql?q=select+*+from+yahoo.finance.xchange+where+pair+=+%22USDRUB,EURRUB%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
+wget -t 3 -T 5 -O /tmp/currency/yahooru "http://192.168.0.128/~ponyatov/currency/yahooru"
+/usr/bin/currency
