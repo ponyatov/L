@@ -50,7 +50,7 @@ static SDL_Color FNTCLRUSD  = {0xAA,0xFF,0x00};
 #define SECY  FNTDATESZ/2
 #define WEATHERX 340
 #define WEATHERY 400/2-25
-#define CURRX TIMEX+FNTCURRSZ*3
+#define CURRX TIMEX
 #define CURRY WEATHERY-50
 
 void SDL_err() {

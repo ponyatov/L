@@ -6,7 +6,9 @@
 %}
 %option noyywrap
 %option yylineno
+D [0-9]+
 %%
+\"Time\":	TS(DT)
 \"Name\":	TP(NAME)
 \"USD\/[^\"]*\"	TP(U)
 \"EUR\/[^\"]*\"	TP(E)

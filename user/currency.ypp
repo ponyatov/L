@@ -2,6 +2,11 @@
 #include "currency.hpp"
 FILE *w;
 string* curr;
+string* tsmark=new string("");
+string* rate;
+void currprint() {
+fprintf(w,"%s %.2f %s",curr->c_str(),atof(rate->c_str()),tsmark->c_str()); 
+}
 %}
 %defines
 %union {
@@ -9,12 +14,13 @@ string* curr;
 	string *s;
 };
 %token <c> CHAR P
-%token <s> NAME RATE VAL STR U E NUM
+%token <s> NAME RATE VAL STR U E NUM DT
 %%
 currency :
+	| currency DT STR { tsmark=$3; currprint(); }
 	| currency NAME U { w=usd; curr=$3; }
 	| currency NAME E { w=eur; curr=$3; }
-	| currency RATE STR { fprintf(w,"%s %.2f",curr->c_str(),atof($3->c_str())); }
+	| currency RATE STR { rate=$3; }
 	| currency STR	{ W($2); }
 	| currency CHAR	{ W($2); }
 ;
