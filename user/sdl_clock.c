@@ -21,24 +21,29 @@
 
 #define WE_T	"/tmp/weather/T.png"
 #define WE_H	"/tmp/weather/H.png"
+#define WE_P	"/tmp/weather/P.png"
 
 #define FNT "/share/font/Instruction.ttf"
 
 #define FNTDATESZ	33
-#define FNTTIMESZ	138
+#define FNTTIMESZ	FNTDATESZ*3
+#define FNTSECSZ	FNTTIMESZ/3
 //155
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
+static SDL_Color FNTCLRSEC  = {0x00,0xAA,0xFF};
 
-#define DATEX 0
-#define DATEY 0
-#define TIMEX 0
-#define TIMEY 0
-#define WEATHERX 340
-#define WEATHERY 400/2-25
 #define ROOTX 640
 #define ROOTY 480
+#define DATEX 0
+#define DATEY 0
+#define TIMEX ROOTX/2+20
+#define TIMEY 0
+#define SECX  ROOTX/2+140
+#define SECY  FNTDATESZ/2
+#define WEATHERX 340
+#define WEATHERY 400/2-25
 
 void SDL_err() {
 	SDL_Quit();
@@ -52,15 +57,15 @@ void TTF_err() {
 	abort();
 }
 
-char TSDATE[0x100],TSTIME[0x100];
+char TSDATE[0x100],TSTIME[0x100],TSSEC[0x100];
 
 time_t rawtime;
 
 struct tm * timeinfo;
 
-SDL_Surface *tdate,*ttime;
+SDL_Surface *tdate,*ttime,*tsec;
 
-TTF_Font *fdate, *ftime;
+TTF_Font *fdate, *ftime, *fsec;
 
 SDL_Event event;
 
@@ -68,16 +73,21 @@ SDL_Surface* root;
 SDL_Surface *weather;
 SDL_Surface *we_T;
 SDL_Surface *we_H;
+SDL_Surface *we_P;
 SDL_Surface *weather2;
 
-SDL_Rect rDATE,rTIME,rWEATHER,rWE_T,rWE_H,rROOT;
+SDL_Rect rDATE,rTIME,rSEC,rWEATHER,rWE_T,rWE_H,rWE_P,rROOT;
 
 int main(int argc, char *argv[]) {
 	// init SDL rectangles
     rDATE.x=DATEX; rDATE.y=DATEY;
     rTIME.x=TIMEX; rTIME.y=TIMEY;
+    rSEC.x=SECX; rSEC.y=SECY;
     rWEATHER.x=WEATHERX; rWEATHER.y=WEATHERY;
-    rWE_T.x=0; rWE_H.x=0; rWE_T.y=WEATHERY; rWE_H.y=WEATHERY+120;
+    rWE_T.x=0; rWE_H.x=0; rWE_P.x=0;
+    rWE_P.y=50;
+    rWE_H.y=rWE_P.y+120;
+    rWE_T.y=rWE_H.y+120;
 	// init SDL
 	if (SDL_Init(SDL_INIT_VIDEO)) SDL_err();
 	// start window/fullscreen
@@ -89,6 +99,7 @@ int main(int argc, char *argv[]) {
 	if (TTF_Init()) TTF_err();
 	fdate = TTF_OpenFont(FNT, FNTDATESZ); if (!fdate) TTF_err();
 	ftime = TTF_OpenFont(FNT, FNTTIMESZ); if (!ftime) TTF_err();
+	fsec  = TTF_OpenFont(FNT, FNTSECSZ);  if (!ftime) TTF_err();
 	// bg bmp update
 	root = IMG_Load(BGTUX);
 	// wait keypress
@@ -97,6 +108,7 @@ int main(int argc, char *argv[]) {
 		weather = IMG_Load(WEATHER);
 		we_T = IMG_Load(WE_T);
 		we_H = IMG_Load(WE_H);
+		we_P = IMG_Load(WE_P);
 		//SDL_GetClipRect(weather,&rWEATHER);
 		weather2 = zoomSurface(weather,2.5,2.5,0);
 		//SDL_GetClipRect(weather,&rWEATHER);
@@ -104,22 +116,28 @@ int main(int argc, char *argv[]) {
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
 		strftime(TSDATE, sizeof(TSDATE), "%Y-%m-%d %A", timeinfo);
-		strftime(TSTIME, sizeof(TSTIME), "%H:%M:%S", timeinfo);
+		strftime(TSTIME, sizeof(TSTIME), "%H:%M", timeinfo);
+		strftime(TSSEC, sizeof(TSSEC), "%S", timeinfo);
 		// render text
 		tdate = TTF_RenderText_Solid(fdate, TSDATE, FNTCLRDATE);
 		ttime = TTF_RenderText_Solid(ftime, TSTIME, FNTCLRTIME);
+		tsec  = TTF_RenderText_Solid(fsec,  TSSEC,  FNTCLRSEC);
 		// flip screen
 		SDL_BlitSurface(root,  NULL, screen, NULL);
 		SDL_BlitSurface(we_T, NULL, screen, &rWE_T);
 		SDL_BlitSurface(we_H, NULL, screen, &rWE_H);
+		SDL_BlitSurface(we_P, NULL, screen, &rWE_P);
 		SDL_BlitSurface(weather2, NULL, screen, &rWEATHER);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
+		SDL_BlitSurface(tsec,  NULL, screen, &rSEC);
 		SDL_Flip(screen);
 		// fix memory leaks
-		SDL_FreeSurface(tdate); SDL_FreeSurface(ttime);
+		SDL_FreeSurface(tdate); SDL_FreeSurface(ttime); SDL_FreeSurface(tsec);
 		SDL_FreeSurface(weather); SDL_FreeSurface(weather2);
-		SDL_FreeSurface(we_T); SDL_FreeSurface(we_H);
+		SDL_FreeSurface(we_T);
+		SDL_FreeSurface(we_H);
+		SDL_FreeSurface(we_P);
 		// wait
 		sleep(1);
 		// check keypress
