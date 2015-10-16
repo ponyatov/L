@@ -1,6 +1,6 @@
 .PHONY: go
-go: ./weather /tmp/weather/openweather.api
-	./weather > weather.log
+go: ./weather /tmp/weather/openweather.api weather.plot
+	./weather > weather.log && gnuplot weather.plot
 /tmp/weather/openweather.api:
 	../etc/weather.rc	
 C = weather.cpp lex.yy.c weather.tab.cpp
