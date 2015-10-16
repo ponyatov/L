@@ -1,7 +1,10 @@
 #ifndef _H_WEATHER
 #define _H_WEATHER
 
+#define MAX_DATA_RECORDS 16
+
 #define DAT "/tmp/weather/openweather.api"
+//#define DAT "../share/weather/openweather.api"
 
 #include <iostream>
 //#include <sstream>
@@ -12,14 +15,15 @@
 #include <vector>
 using namespace std;
 
-struct sym {
+struct object {
 	string tag,value;
-	sym(string,string);
-	vector<sym*> nest;
-	void join(sym*);
-	virtual string dump(int depth=0);
-	string tagval();
+	object(string,string);
+	vector<object*> nest;
+	void join(object*);
 	string pad(int);
+	string head();
+	string dump(int depth=0);
+	object* eval();
 };
 
 extern int yylex();
@@ -33,6 +37,6 @@ extern int yyparse();
 void W(char);
 void W(string);
 void W(string*);
-void W(sym*);
+void W(object*);
 
 #endif // _H_WEATHER

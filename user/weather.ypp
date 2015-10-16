@@ -1,26 +1,83 @@
 %{
 #include "weather.hpp"
-string dt,temp,hum;
+string dt,temp,hum,rain,snow;
 int lines=0;
 %}
 %defines
 %union {
 	char c;
 	string *s;
+	object *o;
 }
-%token <c> CHAR EOL COLON COMMA LZ RZ
-%token <s> S NAME CITY DT TEMP HUM SPEED DEG
+%token <c> CHAR COLON COMMA LB RB LQ RQ
+%token <o> STR NUM SYM
+%type <o> expr pair list vector block
+
+%left COMMA
+%left COLON
+
 %%
 weather :
+	| weather CHAR	{ cout << $2; }
+	| weather COLON	{ cout << $2 << "\n"; }
+	| weather COMMA	{ cout << $2 << "\n"; }
+	| weather LB	{ cout << $2 << "\n"; }
+	| weather RB	{ cout << $2 << "\n"; }
+	| weather expr	{ cerr << $2->eval()->dump(); }
+;
+
+expr :
+	  STR
+	| SYM			{ $$=$1 ; 
+		$$->value.erase(0,1);
+		$$->value.erase($$->value.size()-1,1); 
+	}
+	| NUM
+	| pair
+	| vector
+	| block
+	| list 
+;
+
+pair :
+	expr COLON expr	{ $$ = new object("pair",""); $$->join($1); $$->join($3); }
+;
+
+list :
+	  expr COMMA expr	{ $$ = new object("list","()"); $$->join($1); $$->join($3); }
+	| list COMMA expr	{ $$ = $1; $$->join($3); }
+;
+
+vector :
+	  LQ RQ				{ $$ = new object("vector","[]"); }
+	| LQ expr RQ		{ $$ = new object("vector","[]"); $$->join($2); }
+;
+
+block :
+	  LB RB				{ $$ = new object("block","{}"); }
+	| LB expr RB		{ $$ = new object("block","{}"); $$->join($2); }
+;
+%%
+/*
+	| weather STR COLON NUM	{ cout << "pair:" << *$2 << ":" << *$4 << "\n"; }
 	| weather NAME COLON S	{}
 	| weather DT COLON S	{ dt = *$4; }
 	| weather HUM COLON S	{ hum = *$4; }
+	| weather RAIN 	{ rain = *$2; }
+	| weather SNOW 	{ snow = *$2; }
 	| weather TEMP COLON S	{ temp = *$4; 
-		if (++lines < 15 && dt.size()) cout<<dt<<"\t"<<temp<<"\t"<<hum<<"\n"; 
-		}
+		if (++lines < 15 && dt.size()) {
+			cout<<dt;
+			cout<<"\t"<<temp;
+			cout<<"\t"<<hum;
+			if (rain != "\"rain\":{}")
+				cout<<"\t"<<rain;
+			cout<<"\n";
+		} 
+	}
+	| weather STR		{ cout << "\n#str:" << *$2 << "\n"; }
 	| weather S			{ }
 	| weather EOL		{ }
 	| weather CHAR		{ }
 	| weather COLON		{ }
-;
-%%
+*/

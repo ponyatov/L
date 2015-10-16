@@ -40,8 +40,10 @@ boot_rpiB:
 	sudo rsync boot/rpi/cmdline.txt $(TMP)/SD/cmdline.txt 
 	sudo rsync $(BOOT)/u-boot.bin $(TMP)/SD/u-boot.bin
 #	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
-	sudo rsync $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
-	sudo rsync $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
+#	sudo rsync $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
+	sudo cp $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
+#	sudo rsync $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
+	sudo cp $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
 	sudo umount $(TMP)/SD
 ##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 

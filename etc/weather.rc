@@ -6,3 +6,4 @@ wget -t 3 -T 5 -O /tmp/weather/meteonova.png "http://www.meteonova.ru/informer/P
 
 wget -t 3 -T 5 -O /tmp/weather/T.png "http://192.168.0.128/~ponyatov/weather/T.png"
 wget -t 3 -T 5 -O /tmp/weather/H.png "http://192.168.0.128/~ponyatov/weather/H.png"
+wget -t 3 -T 5 -O /tmp/weather/P.png "http://192.168.0.128/~ponyatov/weather/P.png"
