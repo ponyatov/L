@@ -6,6 +6,7 @@
 #define EUR "/tmp/currency/EUR"
 
 #include <iostream>
+#include <sstream>
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
@@ -24,9 +25,9 @@ extern int yyparse();
 void W(char);
 void W(string);
 void W(string*);
-//void W(object*);
 
 extern FILE *usd;
 extern FILE *eur;
+extern FILE *w;
 
 #endif // _H_CURRENCY

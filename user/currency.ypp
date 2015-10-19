@@ -1,27 +1,40 @@
 %{
 #include "currency.hpp"
-FILE *w;
-string* curr;
-string* tsmark=new string("");
-string* rate;
-void currprint() {
-fprintf(w,"%s %.2f %s",curr->c_str(),atof(rate->c_str()),tsmark->c_str()); 
-}
+
+FILE *usd = fopen(USD,"w");
+FILE *eur = fopen(EUR,"w");
+FILE *w   = NULL;
+
+string *tsdate= new string("");
+string *tstime= new string("");
+string curr;
+float rate;
+
 %}
 %defines
 %union {
 	char c;
 	string *s;
 };
-%token <c> CHAR P
-%token <s> NAME RATE VAL STR U E NUM DT
+%token <c> CHAR P COLON
+%token <s> NAME RATE VAL STR U E NUM DT TM
 %%
 currency :
-	| currency DT STR { tsmark=$3; currprint(); }
-	| currency NAME U { w=usd; curr=$3; }
-	| currency NAME E { w=eur; curr=$3; }
-	| currency RATE STR { rate=$3; }
-	| currency STR	{ W($2); }
-	| currency CHAR	{ W($2); }
+	| currency RATE COLON STR { W($2); W($3); W($4); W("\n"); rate=atof($4->c_str()); }
+	| currency DT COLON STR { W($2); W($3); W($4); W("\n"); tsdate=$4; }
+	| currency TM COLON STR { W($2); W($3); W($4); W("\n"); tstime=$4;
+		fprintf(w,"%s %.2f %s %s\n",curr.c_str(),rate,tsdate->c_str(),tstime->c_str()); 
+	}
+	| currency STR		{ W($2); W("\n"); }
+	| currency U		{ W($2); W("\n"); w=usd; curr="USD"; }
+	| currency E		{ W($2); W("\n"); w=eur; curr="EUR"; }
+	| currency COLON	{ }
+	| currency CHAR		{ }
 ;
 %%
+/*/
+	| currency DT COLON STR	{ W($2); W($3); W($4); W("\n"); tsdate=$4; }
+	| currency TM COLON STR	{ W($2); W($3); W($4); W("\n"); tstime=$4; }
+	| currency U		{ W($2); w=usd; curr="USD"; }
+	| currency E		{ W($2); w=eur; curr="EUR"; }
+/*/

@@ -8,12 +8,14 @@
 %option yylineno
 D [0-9]+
 %%
-\"Time\":	TS(DT)
-\"Name\":	TP(NAME)
-\"USD\/[^\"]*\"	TP(U)
-\"EUR\/[^\"]*\"	TP(E)
-\"Rate\":	TP(RATE)
-\"[^\"]*\"	TP(STR)
+\"Date\"		TS(DT)
+\"Time\"		TS(TM)
+\"Rate\"		TS(RATE)
+\"USD\/RUB\"	TP(U)
+\"EUR\/RUB\"	TP(E)
+\"[^\"]*\"		TP(STR)
+
+:	TC(COLON)
 \n	TC(CHAR)
 .	TC(CHAR)
 %%

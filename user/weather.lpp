@@ -1,37 +1,22 @@
 %{
 #include "weather.hpp"
 #define TC(X)	{ yylval.c = yytext[0]; 			return X; }
-#define TS(X)	{ yylval.s = new string(yytext);	return X; }
-#define TO(C,X)	{ yylval.o = new object(C,yytext);	return X; }
+#define TS(X)	{ yylval.s = new string(yytext); 	return X; }
 %}
 %option noyywrap
 %option yylineno
 S	[\+\-]{0,1}
 D	[0-9]+
 %%
-#[^\n]*				{}				/* comment */
-{S}{D}\.{D}			TO("num",NUM)
-{S}{D}				TO("num",NUM)
-\"{S}{D}\"			TO("num",SYM)
-\"[a-zA-Z_]+\"		TO("sym",SYM)
-\"[^\"]*\"			TO("str",STR)
-:					TC(COLON)
-,					TC(COMMA)
-\{					TC(LB)
-\}					TC(RB)
-\[					TC(LQ)
-\]					TC(RQ)
-\n					TC(CHAR)
-.					TC(CHAR)
-%%
-/*
-\"name\"			TS(NAME)
+{S}{D}(\.{D})?		TS(NUM)
 \"dt_txt\"			TS(DT)
 \"temp\"			TS(TEMP)
 \"humidity\"		TS(HUM)
+\"pressure\"		TS(PRESS)
 \"rain\":\{[^\}]*\}	TS(RAIN)
 \"snow\":\{[^\}]*\}	TS(SNOW)
-{S}{D}				TS(S)
-{S}{D}\.{D}			TS(S)
-\"[^\"]*\"			TS(S)
-*/
+\"[^\"]*\"			TS(STR)
+:					TC(COLON)
+\n					TC(CHAR)
+.					TC(CHAR)
+%%

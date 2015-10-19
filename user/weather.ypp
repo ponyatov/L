@@ -1,83 +1,47 @@
 %{
 #include "weather.hpp"
-string dt,temp,hum,rain,snow;
-int lines=0;
+int data_records=0;
+string *timestamp = new string("");
+string *temper    = new string("");
+string *humidity  = new string("");
+string *pressure  = new string("");
+string *rain	  = new string("");
+string *snow	  = new string("");
+
 %}
 %defines
 %union {
 	char c;
 	string *s;
-	object *o;
 }
-%token <c> CHAR COLON COMMA LB RB LQ RQ
-%token <o> STR NUM SYM
-%type <o> expr pair list vector block
+%token <c> CHAR COLON
+%token <s> DT TEMP HUM PRESS NUM STR RAIN SNOW
 
 %left COMMA
 %left COLON
 
 %%
 weather :
-	| weather CHAR	{ cout << $2; }
-	| weather COLON	{ cout << $2 << "\n"; }
-	| weather COMMA	{ cout << $2 << "\n"; }
-	| weather LB	{ cout << $2 << "\n"; }
-	| weather RB	{ cout << $2 << "\n"; }
-	| weather expr	{ cerr << $2->eval()->dump(); }
-;
-
-expr :
-	  STR
-	| SYM			{ $$=$1 ; 
-		$$->value.erase(0,1);
-		$$->value.erase($$->value.size()-1,1); 
+	| weather DT COLON STR { timestamp=$4;
+		cout << *timestamp << "\t";
+		cout << *temper    << "\t";
+		cout << *humidity  << "\t";
+		cout << *pressure  << "\t";
+		if (*rain!="\"rain\":{}" && *rain!="") cout << 100 ; cout << "\t";
+		if (*snow!="\"snow\":{}" && *snow!="") cout << 100 ; cout << "\t";
+		cout << "#" << *rain << "\t";
+		cout << "#" << *snow << "\t";
+		cout << "\n";
+		if (++data_records>=MAX_DATA_RECORDS) exit(0);
 	}
-	| NUM
-	| pair
-	| vector
-	| block
-	| list 
-;
-
-pair :
-	expr COLON expr	{ $$ = new object("pair",""); $$->join($1); $$->join($3); }
-;
-
-list :
-	  expr COMMA expr	{ $$ = new object("list","()"); $$->join($1); $$->join($3); }
-	| list COMMA expr	{ $$ = $1; $$->join($3); }
-;
-
-vector :
-	  LQ RQ				{ $$ = new object("vector","[]"); }
-	| LQ expr RQ		{ $$ = new object("vector","[]"); $$->join($2); }
-;
-
-block :
-	  LB RB				{ $$ = new object("block","{}"); }
-	| LB expr RB		{ $$ = new object("block","{}"); $$->join($2); }
+	| weather TEMP  COLON NUM { temper  =$4; }
+	| weather HUM   COLON NUM { humidity=$4; }
+	| weather PRESS COLON NUM { pressure=$4; }
+	| weather RAIN	{ rain=$2; }
+	| weather SNOW	{ snow=$2; }
+	| weather COLON	{ }
+	| weather STR	{ }
+	| weather NUM	{ }
+	| weather CHAR	{ }
 ;
 %%
-/*
-	| weather STR COLON NUM	{ cout << "pair:" << *$2 << ":" << *$4 << "\n"; }
-	| weather NAME COLON S	{}
-	| weather DT COLON S	{ dt = *$4; }
-	| weather HUM COLON S	{ hum = *$4; }
-	| weather RAIN 	{ rain = *$2; }
-	| weather SNOW 	{ snow = *$2; }
-	| weather TEMP COLON S	{ temp = *$4; 
-		if (++lines < 15 && dt.size()) {
-			cout<<dt;
-			cout<<"\t"<<temp;
-			cout<<"\t"<<hum;
-			if (rain != "\"rain\":{}")
-				cout<<"\t"<<rain;
-			cout<<"\n";
-		} 
-	}
-	| weather STR		{ cout << "\n#str:" << *$2 << "\n"; }
-	| weather S			{ }
-	| weather EOL		{ }
-	| weather CHAR		{ }
-	| weather COLON		{ }
-*/

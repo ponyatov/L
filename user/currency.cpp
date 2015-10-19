@@ -3,7 +3,6 @@
 void W(char    c)	{ cout << c ; }
 void W(string  s)	{ cout <<  s ; }
 void W(string *s)	{ cout << *s ; }
-//void W(object *o)	{ cout << o->dump(); }
 
 void yyerror ( string msg ) {
 	cerr << "\n\n" << msg << " # " << yylineno << " : '" << yytext << "'\n\n";
@@ -11,12 +10,8 @@ void yyerror ( string msg ) {
 	exit(-1);
 }
 
-FILE *usd;
-FILE *eur;
-
 int main(int argc, char *argv[]) {
-	assert( usd=fopen(USD,"w"));
-	assert( eur=fopen(EUR,"w"));
-	assert( yyin = fopen(DAT,"r") );
+	assert(usd); assert(eur);			// check out files opened ok
+	assert( yyin = fopen(DAT,"r") );	// process input data file
 	return yyparse();
 }
