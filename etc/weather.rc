@@ -2,8 +2,6 @@
 mkdir -p /tmp/weather
 sleep 5
 wget -t 3 -T 5 -O /tmp/weather/meteonova.png "http://www.meteonova.ru/informer/PNG102_28900_CCFFFF_000066_000050_000000_000000_000066_000099.PNG"
-#wget -t 3 -T 5 -O /tmp/weather/openweather.api "api.openweathermap.org/data/2.5/forecast?q=Samara,RU&units=metric&appid=bd82977b86bf27fb59a04b61b657fb6f"
-
 wget -t 3 -T 5 -O /tmp/weather/T.png "http://192.168.0.128/~ponyatov/weather/T.png"
 wget -t 3 -T 5 -O /tmp/weather/H.png "http://192.168.0.128/~ponyatov/weather/H.png"
 wget -t 3 -T 5 -O /tmp/weather/P.png "http://192.168.0.128/~ponyatov/weather/P.png"

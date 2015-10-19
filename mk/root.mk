@@ -13,7 +13,7 @@ root:
 	# 3
 	ln -fs /sbin/init $(ROOT)/init
 	# 4
-	cp -r share $(ROOT)/
+	rsync -r --delete share $(ROOT)/
 	# 5
 	cd $(ROOT) && find . | egrep -v $(ROOTREX) > $(PACK)/allfiles
 	# 6
