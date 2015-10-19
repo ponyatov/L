@@ -31,7 +31,7 @@
 #define FNTDATESZ	33
 #define FNTTIMESZ	FNTDATESZ*3
 #define FNTSECSZ	FNTTIMESZ/3
-#define FNTCURRSZ	22
+#define FNTCURRSZ	17
 
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};

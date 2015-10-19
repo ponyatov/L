@@ -23,7 +23,7 @@ currency :
 	| currency RATE COLON STR { W($2); W($3); W($4); W("\n"); rate=atof($4->c_str()); }
 	| currency DT COLON STR { W($2); W($3); W($4); W("\n"); tsdate=$4; }
 	| currency TM COLON STR { W($2); W($3); W($4); W("\n"); tstime=$4;
-		fprintf(w,"%s %.2f %s %s\n",curr.c_str(),rate,tsdate->c_str(),tstime->c_str()); 
+		fprintf(w,"%s %.2f %s %s",curr.c_str(),rate,tsdate->c_str(),tstime->c_str()); 
 	}
 	| currency STR		{ W($2); W("\n"); }
 	| currency U		{ W($2); W("\n"); w=usd; curr="USD"; }
