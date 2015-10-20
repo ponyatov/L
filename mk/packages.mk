@@ -41,6 +41,7 @@ ZLIB 		= zlib-$(ZLIB_VER)
 PNG 		= libpng-$(PNG_VER)
 FREETYPE 	= freetype-$(FREETYPE_VER)
 LIBGD		= gd-$(LIBGD_VER)
+#GD_$(LIBGD_VER)
 
 ## math
 PCRE 		= pcre-$(PCRE_VER)
