@@ -7,7 +7,10 @@ cronhost: ./weather weather.plot
 	mkdir -p /tmp/weather ; $(GETAPI)		
 	./weather > weather.dat && gnuplot weather.plot
 /tmp/weather/openweather.api:
-	mkdir -p /tmp/weather ; $(GETAPI)		
+	mkdir -p /tmp/weather ; $(GETAPI)
+
+MAX_DATA_RECORDS ?= 22
+CXXFLAGS += -D MAX_DATA_RECORDS=$(MAX_DATA_RECORDS)
 
 C = weather.cpp lex.yy.c weather.tab.cpp
 H = weather.hpp weather.tab.hpp

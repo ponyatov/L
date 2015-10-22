@@ -1,8 +1,6 @@
 #ifndef _H_WEATHER
 #define _H_WEATHER
 
-#define MAX_DATA_RECORDS 17
-
 #define DAT "/tmp/weather/openweather.api"
 //#define DAT "openweather.api"
 

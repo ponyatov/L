@@ -32,7 +32,9 @@ weather :
 		cout << "#" << *rain << "\t";
 		cout << "#" << *snow << "\t";
 		cout << "\n";
-		if (++data_records>=MAX_DATA_RECORDS) exit(0);
+		#ifdef MAX_DATA_RECORDS
+		if (++data_records >= MAX_DATA_RECORDS) exit(0);
+		#endif
 	}
 	| weather TEMP  COLON NUM { temper  =$4; }
 	| weather HUM   COLON NUM { humidity=$4; }
