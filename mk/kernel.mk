@@ -3,8 +3,7 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 
 .PHONY: kernel
-kernel: kernel$(VENDOR)	
-	
+kernel: kernel$(VENDOR)
 
 .PHONY: kernelrpi
 $(SRC)/linux/README:
