@@ -70,5 +70,5 @@ HYDRA		= hydra-$(MPICH_VER)
 LINKS 		= links-$(LINKS_VER)
 ELINKS 		= elinks-$(ELINKS_VER)
 
-# X11R7.7
-X_SERVER 	= xorg-server-$(X_SERVER_VER)
+# TinyX (Xfree86 Xvesa Xfbdev)
+XSERVER		= XFree86-$(XSERVER_VER)

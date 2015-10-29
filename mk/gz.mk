@@ -76,3 +76,11 @@ gz_clock:
 
 .PHONY: gz_desktop
 gz_desktop:
+	mkdir -p $(GZ)/XFree86
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-1.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-2.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-3.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-4.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-5.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-6.tgz
+	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-7.tgz
