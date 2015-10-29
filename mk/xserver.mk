@@ -1,16 +1,19 @@
 XSERVER_CFG =
 
 .PHONY: xserver
-xserver: $(SRC)/xc/README
+xserver: $(SRC)/xc/BUILD.txt $(TC)/bin/$(XSERVER)-lndir
+	rm -rf $(TMP)/$(XSERVER) && mkdir $(TMP)/$(XSERVER) &&\
+	cd $(TMP)/$(XSERVER) &&\
+	$(TC)/bin/$(XSERVER)-lndir $(SRC)/xc && make World 
 
-$(SRC)/xc/README: $(GZ)/XFree86/$(XSERVER)-src-1.tgz
-	cd $(SRC) &&  zcat $< | tar x && touch $@
+$(TC)/bin/$(XSERVER)-lndir: $(SRC)/xc/BUILD.txt
+	cd $(SRC)/xc/config/util &&\
+	ln -s ../../include X11 &&\
+	$(BCC) -I. -o $@ lndir.c
 
-#CFG_X_SERVER =
-#
-#.PHONY: xorg
-#xorg: $(SRC)/$(X_SERVER)/README
-#	rm -rf $(TMP)/$(X_SERVER) &&\
-#	mkdir $(TMP)/$(X_SERVER) &&\
-#	cd $(TMP)/$(X_SERVER) &&\
-#	$(SRC)/$(X_SERVER)/$(TCFG) $(CFG_X_SERVER)
+$(SRC)/xc/BUILD.txt: $(GZ)/XFree86/$(XSERVER)-src-1.tgz
+	cd $(SRC) &&\
+	zcat $(GZ)/XFree86/$(XSERVER)-src-1.tgz | tar x &&\
+	zcat $(GZ)/XFree86/$(XSERVER)-src-2.tgz | tar x &&\
+	zcat $(GZ)/XFree86/$(XSERVER)-src-3.tgz | tar x &&\
+	touch $@

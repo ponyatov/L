@@ -1,0 +1,5 @@
+#define BuildServersOnly YES
+#define KDriveXServer YES
+#define TinyXServer YES
+#define XfbdevServer YES
+
