@@ -6,8 +6,9 @@ xserver: $(SRC)/xc/BUILD.txt $(TC)/bin/$(XSERVER)-lndir
 	cd $(TMP)/$(XSERVER) &&\
 	$(TC)/bin/$(XSERVER)-lndir $(SRC)/xc
 	cp app/$(APP).Xdef $(TMP)/$(XSERVER)/config/cf/host.def
-#	cd $(TMP)/$(XSERVER) && $(MAKE) World
+	cd $(TMP)/$(XSERVER) && $(MAKE) World
 #	 UseInstalledOnCrossCompile
+#define UseInstalledOnCrossCompile NO
 
 $(TC)/bin/$(XSERVER)-lndir: $(SRC)/xc/BUILD.txt
 	cd $(SRC)/xc/config/util &&\
