@@ -4,7 +4,10 @@ XSERVER_CFG =
 xserver: $(SRC)/xc/BUILD.txt $(TC)/bin/$(XSERVER)-lndir
 	rm -rf $(TMP)/$(XSERVER) && mkdir $(TMP)/$(XSERVER) &&\
 	cd $(TMP)/$(XSERVER) &&\
-	$(TC)/bin/$(XSERVER)-lndir $(SRC)/xc && make World 
+	$(TC)/bin/$(XSERVER)-lndir $(SRC)/xc
+	cp app/$(APP).Xdef $(TMP)/$(XSERVER)/config/cf/host.def
+#	cd $(TMP)/$(XSERVER) && $(MAKE) World
+#	 UseInstalledOnCrossCompile
 
 $(TC)/bin/$(XSERVER)-lndir: $(SRC)/xc/BUILD.txt
 	cd $(SRC)/xc/config/util &&\

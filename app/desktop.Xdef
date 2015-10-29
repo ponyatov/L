@@ -2,4 +2,5 @@
 #define KDriveXServer YES
 #define TinyXServer YES
 #define XfbdevServer YES
-
+#define BuildFonts NO
+#define UseInstalledOnCrossCompile NO
