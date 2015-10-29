@@ -1,5 +1,0 @@
-#!/bin/sh
-mkdir -p /tmp/currency
-sleep 5
-wget -t 3 -T 5 -O /tmp/currency/yahooru "http://192.168.0.128/~ponyatov/currency/yahooru"
-/usr/bin/currency
