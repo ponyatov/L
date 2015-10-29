@@ -11,3 +11,11 @@ embedded development, hobby schience and technology equipment control.
 
 If you need more then current build provides, use it in virtual machine.
 
+## hardware requirements
+
+### x86: testing
+CPU: i486sx (kernel FPU emulator enabled)
+RAM: 32M+
+VGA: 800x600 in normal, 640x480 for control terminals with junked CRT monitors
+
+### rpiB: todo

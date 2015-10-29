@@ -7,4 +7,4 @@ APPS = $(USRBIN)/hello $(USRBIN)/cpptest
 #	$(USRBIN)/currency
 #	 $(USRBIN)/sdl_rect $(USRBIN)/sdl_clock
 
-QEMU_APP = 
+QEMU_APP =

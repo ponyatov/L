@@ -3,4 +3,4 @@
 CPU = i486sx
 VENDOR = generic
 QEMU_HW =
-QEMU_APPEND += vga=0x312
+QEMU_APPEND += vga=0x315
