@@ -1,3 +1,4 @@
-ALYEH:Linux:clock
+ALYEH:Linux:desktop
 =======================
-# wall clock firmware
+# tiny desktop system for hobby-level science and engeneering applications
+# (packed with some science, electronics, developer & CAD tools)
