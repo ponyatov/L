@@ -18,6 +18,8 @@ include mk/mmedia/codecs.mk
 
 include mk/math/gnuplot.mk
 
+include mk/xserver.mk
+
 include mk/user.mk
 
 include mk/libs.mk

@@ -1,7 +1,10 @@
 XSERVER_CFG =
 
 .PHONY: xserver
-xserver:
+xserver: $(SRC)/xc/README
+
+$(SRC)/xc/README: $(GZ)/XFree86/$(XSERVER)-src-1.tgz
+	cd $(SRC) &&  zcat $< | tar x && touch $@
 
 #CFG_X_SERVER =
 #
