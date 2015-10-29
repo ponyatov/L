@@ -29,8 +29,6 @@ gz_core:
 	
 .PHONY: gz_libs
 gz_libs:
-	$(WGET) https://github.com/libgd/libgd/archive/$(LIBGD).tar.gz
-	exit -1
 	$(WGET) https://www.libsdl.org/release/$(SDL).tar.gz
 	$(WGET) https://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).tar.gz
 	$(WGET) http://www.libsdl.org/projects/SDL_ttf/release/$(SDL_TTF).tar.gz
