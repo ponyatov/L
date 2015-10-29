@@ -1,7 +1,7 @@
 # [H]ard[W]are: rpiB x86 ...
-HW = rpiB
+HW = x86
 # [APP]lication: micro clock math desk ...
-APP = clock
+APP = desktop
 # load extra hw definitions: ARCH CPU ...
 include hw/$(HW).mk
 # load extra defs for CPU setted in $(HW).mk

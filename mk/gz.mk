@@ -75,3 +75,6 @@ gz_pc686:
 
 .PHONY: gz_clock
 gz_clock:
+
+.PHONY: gz_desktop
+gz_desktop:
