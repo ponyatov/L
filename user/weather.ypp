@@ -1,12 +1,15 @@
 %{
+
+#define RAIN_SNOW_SCALE 200
+
 #include "weather.hpp"
 int data_records=0;
 string *timestamp = new string("");
 string *temper    = new string("");
 string *humidity  = new string("");
 string *pressure  = new string("");
-string *rain	  = new string("");
-string *snow	  = new string("");
+
+float rain=0.0,snow=0.0;
 
 %}
 %defines
@@ -14,7 +17,7 @@ string *snow	  = new string("");
 	char c;
 	string *s;
 }
-%token <c> CHAR COLON
+%token <c> CHAR COLON LB RB
 %token <s> DT TEMP HUM PRESS NUM STR RAIN SNOW
 
 %left COMMA
@@ -27,10 +30,8 @@ weather :
 		cout << *temper    << "\t";
 		cout << *humidity  << "\t";
 		cout << *pressure  << "\t";
-		if (*rain!="\"rain\":{}" && *rain!="") cout << 100 ; cout << "\t";
-		if (*snow!="\"snow\":{}" && *snow!="") cout << 100 ; cout << "\t";
-		cout << "#" << *rain << "\t";
-		cout << "#" << *snow << "\t";
+		if (rain>0) cout << rain*RAIN_SNOW_SCALE; else cout << "?" ; cout << "\t";
+		if (snow>0) cout << snow*RAIN_SNOW_SCALE; else cout << "?" ; cout << "\t";
 		cout << "\n";
 		#ifdef MAX_DATA_RECORDS
 		if (++data_records >= MAX_DATA_RECORDS) exit(0);
@@ -39,11 +40,15 @@ weather :
 	| weather TEMP  COLON NUM { temper  =$4; }
 	| weather HUM   COLON NUM { humidity=$4; }
 	| weather PRESS COLON NUM { pressure=$4; }
-	| weather RAIN	{ rain=$2; }
-	| weather SNOW	{ snow=$2; }
+	| weather RAIN	COLON LB RB { rain=0.0; }
+	| weather RAIN	COLON LB STR COLON NUM RB { rain=atof($7->c_str()); }
+	| weather SNOW	COLON LB RB { snow=0.0; }
+	| weather SNOW	COLON LB STR COLON NUM RB { snow=atof($7->c_str()); }
 	| weather COLON	{ }
 	| weather STR	{ }
 	| weather NUM	{ }
 	| weather CHAR	{ }
+	| weather LB	{ }
+	| weather RB	{ }
 ;
 %%

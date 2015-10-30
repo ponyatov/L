@@ -7,15 +7,18 @@
 %option yylineno
 S	[\+\-]{0,1}
 D	[0-9]+
+%x snow
 %%
 {S}{D}(\.{D})?		TS(NUM)
 \"dt_txt\"			TS(DT)
 \"temp\"			TS(TEMP)
 \"humidity\"		TS(HUM)
 \"pressure\"		TS(PRESS)
-\"rain\":\{[^\}]*\}	TS(RAIN)
-\"snow\":\{[^\}]*\}	TS(SNOW)
+\"rain\"			TS(RAIN)
+\"snow\"			TS(SNOW)
 \"[^\"]*\"			TS(STR)
+\{					TC(LB)
+\}					TC(RB)
 :					TC(COLON)
 \n					TC(CHAR)
 .					TC(CHAR)
