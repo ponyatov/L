@@ -1,4 +1,5 @@
-GETAPI = wget -t 3 -T 5 -O /tmp/weather/openweather.api "api.openweathermap.org/data/2.5/forecast?q=Samara,RU&units=metric&appid=bd82977b86bf27fb59a04b61b657fb6f" 
+APPID ?= 2de143494c0b295cca9337e1e96b00e0
+GETAPI = wget -t 3 -T 5 -O /tmp/weather/openweather.api "api.openweathermap.org/data/2.5/forecast?q=Samara,RU&units=metric&appid=$(APPID)"
 .PHONY: go
 go: ./weather /tmp/weather/openweather.api weather.plot
 	./weather > weather.dat && gnuplot weather.plot

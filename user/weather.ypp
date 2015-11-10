@@ -1,6 +1,6 @@
 %{
 
-#define RAIN_SNOW_SCALE 200
+#define RAIN_SNOW_SCALE 66
 
 #include "weather.hpp"
 int data_records=0;
