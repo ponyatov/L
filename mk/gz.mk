@@ -6,6 +6,7 @@ gz:
 	make gz_$(ARCH)
 	make gz_$(APP)
 	make gz_cross
+	make gz_debug
 	make gz_core
 	make gz_libs
 	make gz_media
@@ -20,6 +21,10 @@ gz_cross:
 	$(WGET) http://www.multiprecision.org/mpc/download/$(MPC).tar.gz
 	$(WGET) ftp://gcc.gnu.org/pub/gcc/infrastructure/$(ISL).tar.bz2
 	$(WGET) ftp://gcc.gnu.org/pub/gcc/infrastructure/$(CLOOG).tar.gz
+
+.PHONY: gz_debug
+gz_debug:
+	$(WGET) http://ftp.gnu.org/gnu/gdb/$(GDB).tar.xz
 		
 .PHONY: gz_core
 gz_core:

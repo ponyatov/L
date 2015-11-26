@@ -1,3 +1,4 @@
+# cross compiler toolchain
 
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
 	--with-isl=$(TC) --with-cloog=$(TC)

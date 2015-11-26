@@ -21,4 +21,3 @@ This build tuned for using in hobby robotics.
 * RAM: 32M+ (bare text console mode), 64M+ (X mode)
 * VGA: 800x600 in normal, 640x480 for control terminals with junked CRT monitors
 
-

@@ -10,6 +10,10 @@ CLOOG		= cloog-$(CLOOG_VER)
 MPC 		= mpc-$(MPC_VER)
 GCC 		= gcc-$(GCC_VER)
 
+# debug
+
+GDB			= gdb-$(GDB_VER)
+
 # core
 
 KERNEL 		= linux-$(KERNEL_VER)

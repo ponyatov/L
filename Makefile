@@ -8,6 +8,7 @@ include mk/gz.mk
 include mk/src.mk
 include mk/cfg.mk
 include mk/cross.mk
+include mk/debug.mk
 include mk/core.mk
 include mk/kernel.mk
 include mk/ulibc.mk

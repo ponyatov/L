@@ -13,6 +13,10 @@ CLOOG_VER = 0.18.1
 GCC_VER = 4.9.2
 # 4.9.2 used: bug arm/62098 fixed
 
+# debug
+
+GDB_VER = 7.10
+
 # core
 
 KERNEL_VER = 3.19.6
