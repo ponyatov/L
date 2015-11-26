@@ -31,6 +31,14 @@ cross0:
 	make gcc0
 	make ramclean
 
+.PHONY: crossE
+crossE:
+	make cclibs0
+	make binutils0
+	make ramclean
+	make gccE
+	make ramclean
+
 .PHONY: cclibs0
 cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 
@@ -79,8 +87,8 @@ gcc0: $(SRC)/$(GCC)/README
 	make gccall
 
 # gcc embedded
-.PHONY: gcce
-gcce: $(SRC)/$(GCC)/README
+.PHONY: gccE
+gccE: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++"

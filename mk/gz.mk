@@ -67,17 +67,18 @@ gz_armel: gz_arm
 .PHONY: gz_armhf
 gz_armhf: gz_arm
 
-.PHONY: gz_rpiB
-gz_rpiB:
+.PHONY: gz_mips
+gz_mips:
 
-.PHONY: gz_x86
+.PHONY: gz_x86 gz_pc686 gz_rpiB gz_vc1
 gz_x86:
-
-.PHONY: gz_pc686
 gz_pc686:
+gz_rpiB:
+gz_vc1:
 
-.PHONY: gz_clock
+.PHONY: gz_clock gz_hobot
 gz_clock:
+gz_hobot:
 
 .PHONY: gz_desktop
 gz_desktop:
