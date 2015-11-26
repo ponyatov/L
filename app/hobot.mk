@@ -1,4 +1,4 @@
-# app: clock
+# app: hobot
 LIBS = 
 #zlib png sdl
 APPS = $(USRBIN)/hello $(USRBIN)/cpptest
