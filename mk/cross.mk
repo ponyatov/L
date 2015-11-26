@@ -78,6 +78,14 @@ gcc0: $(SRC)/$(GCC)/README
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
 	make gccall
 
+# gcc embedded
+.PHONY: gcce
+gcce: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++"
+	make gccall
+
 .PHONY: gccall
 gccall:
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
