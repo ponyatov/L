@@ -30,10 +30,10 @@ ISO = $(TMP)/iso
 LIB = $(ROOT)/lib
 
 DIRS = $(TC) $(ROOT) $(PACK)
-#$(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP)  \
+#$(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) \
 #	$(LIB) $(BOOT) $(USR) $(USRBIN) $(USRLIB) 
 
 .PHONY: dirs
 dirs:
 	mkdir -p $(DIRS)
-	cd pack && make HW=$(HW) APP=$(APP)
+#	cd pack && make HW=$(HW) APP=$(APP)
