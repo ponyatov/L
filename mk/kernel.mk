@@ -74,3 +74,5 @@ kernel-arm-fix:
 #	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) uImage
 #	cp $(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/uImage \
 #		$(BOOT)/$(HW)$(APP).kernel.uimg
+.PHONY: kernel-mips-fix
+kernel-mips-fix:
