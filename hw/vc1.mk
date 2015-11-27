@@ -3,7 +3,7 @@ CPU = RT5350F
 QEMU_HW =
 
 # custom build for specific vendor  
-VENDOR = vocore
+VENDOR = generic
 
 #QEMU_CFG = \
 #	-serial file:serial.log \
