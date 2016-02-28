@@ -38,6 +38,7 @@ FFMPEG		= ffmpeg-$(FFMPEG_VER)
 OGG			= libogg-$(OGG_VER)
 VORBIS		= libvorbis-$(VORBIS_VER)
 FLAC		= flac-$(FLAC_VER)
+SPEEX		= speex-$(SPEEX_VER)
 
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)

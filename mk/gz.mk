@@ -47,6 +47,7 @@ gz_media:
 	$(WGET) http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
 	$(WGET) http://downloads.xiph.org/releases/vorbis/$(VORBIS).tar.xz
 	$(WGET) http://downloads.xiph.org/releases/flac/$(FLAC).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/speex/$(SPEEX).tar.gz
 
 .PHONY: gz_math
 gz_math:

@@ -1,8 +1,10 @@
 CFG_OGG =
 CFG_VORBIS =
+CFG_FLAC =
+CFG_SPEEX =
 
 .PHONY: mp3
-mp3: ogg vorbis flac
+mp3: ogg vorbis flac speex
 	touch $(PACK)/$@ 
 
 .PHONY: ogg
@@ -26,4 +28,11 @@ flac: $(SRC)/$(FLAC)/README
 	cd $(TMP)/$(FLAC) &&\
 	$(XPATH) $(SRC)/$(FLAC)/$(TCFG) $(CFG_FLAC) && $(MAKE)
 	$(call INSTPACK,$(TMP)/$(FLAC),$@,install-strip)
+
+.PHONY: speex
+speex: $(SRC)/$(SPEEX)/README
+	rm -rf $(TMP)/$(SPEEX) && mkdir $(TMP)/$(SPEEX) &&\
+	cd $(TMP)/$(SPEEX) &&\
+	$(XPATH) $(SRC)/$(SPEEX)/$(TCFG) $(CFG_SPEEX) && $(MAKE)
+	$(call INSTPACK,$(TMP)/$(SPEEX),$@,install-strip)
 	
