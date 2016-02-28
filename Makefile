@@ -30,6 +30,7 @@ include mk/lib/freetype.mk
 include mk/lib/multiprecision.mk
 include mk/lib/pcre.mk
 include mk/lib/libgd.mk
+include mk/lib/ogg.mk
 
 include mk/apps.mk
 include mk/emu.mk

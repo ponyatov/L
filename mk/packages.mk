@@ -35,6 +35,9 @@ ALSA_LIB	= alsa-lib-$(ALSA_VER)
 ALSA_UTILS	= alsa-utils-$(ALSA_VER)
 ## codecs
 FFMPEG		= ffmpeg-$(FFMPEG_VER)
+OGG			= libogg-$(OGG_VER)
+VORBIS		= libvorbis-$(VORBIS_VER)
+FLAC		= flac-$(FLAC_VER)
 
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)

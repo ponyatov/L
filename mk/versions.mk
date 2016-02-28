@@ -58,6 +58,9 @@ ALSA_VER = 1.0.26
 
 ## codecs
 FFMPEG_VER = 2.7.2
+OGG_VER = 1.3.2
+VORBIS_VER = 1.3.5
+FLAC_VER = 1.3.1
 
 # extra
 

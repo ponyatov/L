@@ -44,6 +44,9 @@ gz_media:
 	$(WGET) ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).tar.bz2
 	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
+	$(WGET) http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/vorbis/$(VORBIS).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/flac/$(FLAC).tar.xz
 
 .PHONY: gz_math
 gz_math:
