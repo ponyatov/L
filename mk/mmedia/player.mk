@@ -5,6 +5,7 @@ CFG_MPLAYER = --enable-cross-compile --cc="$(TCC)" --target=$(TARGET) \
 
 .PHONY: mplayer
 mplayer: $(SRC)/$(MPLAYER)/README
-	rm -rf $(TMP)/$(MPLAYER) && mkdir $(TMP)/$(MPLAYER) &&\
 	cd $(TMP)/$(MPLAYER) &&\
-	$(XPATH) $(SRC)/$(MPLAYER)/configure $(CFG_MPLAYER) && $(MAKE)
+	$(MAKE) -f config.mak
+#	rm -rf $(TMP)/$(MPLAYER) && mkdir $(TMP)/$(MPLAYER) &&\
+#	$(XPATH) $(SRC)/$(MPLAYER)/configure $(CFG_MPLAYER) &&\
