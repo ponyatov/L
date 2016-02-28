@@ -1,5 +1,5 @@
 # app: clock
-LIBS = zlib png freetype mp3 sdl 
+LIBS = zlib png freetype mp3 ffmpeg sdl 
  
 APPS = $(USRBIN)/hello $(USRBIN)/cpptest \
 	$(USRBIN)/sdl_hello $(USRBIN)/sdl_rect $(USRBIN)/sdl_clock

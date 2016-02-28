@@ -13,9 +13,10 @@ CFG_FFMPEG = --prefix=$(ROOT) --mandir=$(TMP)/man \
 ffmpeg: $(SRC)/$(FFMPEG)/README
 	rm -rf $(TMP)/$(FFMPEG) && mkdir $(TMP)/$(FFMPEG) &&\
 	cd $(TMP)/$(FFMPEG) &&\
-	$(XPATH) $(SRC)/$(FFMPEG)/configure $(CFG_FFMPEG) &&\
-	$(MAKE) && $(INSTALL)
+	$(XPATH) $(SRC)/$(FFMPEG)/configure $(CFG_FFMPEG) && $(MAKE)
+	$(call INSTPACK,$(TMP)/$(FFMPEG),$@,install)
 	rm -rf $(ROOT)/share/ffmpeg/examples
+	mv $(ROOT)/share/ffmpeg share/ffmpeg
 
 CFG_OGG =
 CFG_VORBIS =

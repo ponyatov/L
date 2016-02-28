@@ -48,6 +48,7 @@ gz_media:
 	$(WGET) http://downloads.xiph.org/releases/vorbis/$(VORBIS).tar.xz
 	$(WGET) http://downloads.xiph.org/releases/flac/$(FLAC).tar.xz
 	$(WGET) http://downloads.xiph.org/releases/speex/$(SPEEX).tar.gz
+	$(WGET) http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).tar.xz
 
 .PHONY: gz_math
 gz_math:

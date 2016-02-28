@@ -15,6 +15,7 @@ include mk/busybox.mk
 
 include mk/mmedia/alsa.mk
 include mk/mmedia/codecs.mk
+include mk/mmedia/player.mk
 
 include mk/math/gnuplot.mk
 

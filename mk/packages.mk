@@ -33,6 +33,7 @@ SDL_SOUND	= SDL_sound-$(SDL_SOUND_VER)
 # multimedia
 ALSA_LIB	= alsa-lib-$(ALSA_VER)
 ALSA_UTILS	= alsa-utils-$(ALSA_VER)
+MPLAYER		= MPlayer-$(MPLAYER_VER)
 ## codecs
 FFMPEG		= ffmpeg-$(FFMPEG_VER)
 OGG			= libogg-$(OGG_VER)

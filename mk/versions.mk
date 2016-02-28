@@ -55,9 +55,11 @@ GNUPLOT_VER = 4.6.7
 # multimedia
 ALSA_VER = 1.0.26
 #27+ ___tls_get_addr error
+MPLAYER_VER = 1.3.0
 
 ## codecs
-FFMPEG_VER = 2.7.2
+FFMPEG_VER = 3.0
+# 2.7.2
 OGG_VER = 1.3.2
 VORBIS_VER = 1.3.5
 FLAC_VER = 1.3.1
