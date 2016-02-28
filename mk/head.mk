@@ -1,7 +1,7 @@
 # [H]ard[W]are: rpiB x86 ...
-HW = x86
+HW = pc686
 # [APP]lication: micro clock math desk ...
-APP = desktop
+APP = gambox
 # load extra hw definitions: ARCH CPU ...
 include hw/$(HW).mk
 # load extra defs for CPU setted in $(HW).mk

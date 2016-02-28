@@ -32,6 +32,7 @@ cross0:
 
 .PHONY: cclibs0
 cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
+	touch $(PACK)/$@
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README

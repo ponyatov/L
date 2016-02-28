@@ -25,7 +25,7 @@ ETC = $(ROOT)/etc
 USR = $(ROOT)/usr
 USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
-PACK = $(ROOT)/pack
+PACK = $(TC)/pack
 ISO = $(TMP)/iso
 LIB = $(ROOT)/lib
 
@@ -35,4 +35,4 @@ DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
 .PHONY: dirs
 dirs:
 	mkdir -p $(DIRS)
-	cd pack && make HW=$(HW) APP=$(APP)
+#	cd pack && make HW=$(HW) APP=$(APP)
