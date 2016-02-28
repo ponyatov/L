@@ -20,6 +20,6 @@ root:
 #	python ./pack.py $(ROOT) && cat $(PACK)/allfiles > $(PACK)/rootfiles 
 	# 7
 	cd $(ROOT) && \
-		find . | egrep -v "^./(boot|include|lib/pkgconfig|lib/.+\.[ao])" | \
+		find . | egrep -v "^./(boot|include|lib/(pkgconfig|.+\.(l?a|o)))" | \
 		cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 	cat $(BOOT)/$(HW)$(APP).cpio | gzip -9 > $(BOOT)/$(HW)$(APP).rootfs
