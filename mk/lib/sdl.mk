@@ -37,14 +37,14 @@ sdl_gfx: $(SRC)/$(SDL_GFX)/README
 
 WGETWAVS = $(WGET) -P share/sounds 
 sdl_sound: $(SRC)/$(SDL_SOUND)/README
-#	rm -rf $(TMP)/$(SDL_SOUND) && mkdir $(TMP)/$(SDL_SOUND) &&\
-#	cd $(TMP)/$(SDL_SOUND) &&\
-#	$(XPATH) $(SRC)/$(SDL_SOUND)/$(TCFG) $(CFG_SDL_SOUND) && $(MAKE)
-#	$(call INSTPACK,$(TMP)/$(SDL_SOUND),$@,install-strip)
-#	mv $(TMP)/sdl_sound/bin/* $(ROOT)/bin/
-#	mv $(TMP)/sdl_sound/include/SDL/* $(ROOT)/include/SDL/
-#	mv $(TMP)/sdl_sound/lib/* $(ROOT)/lib/
-#	rm -rf $(TMP)/sdl_sound
+	rm -rf $(TMP)/$(SDL_SOUND) && mkdir $(TMP)/$(SDL_SOUND) &&\
+	cd $(TMP)/$(SDL_SOUND) &&\
+	$(XPATH) $(SRC)/$(SDL_SOUND)/$(TCFG) $(CFG_SDL_SOUND) && $(MAKE)
+	$(call INSTPACK,$(TMP)/$(SDL_SOUND),$@,install-strip)
+	mv $(TMP)/sdl_sound/bin/* $(ROOT)/bin/
+	mv $(TMP)/sdl_sound/include/SDL/* $(ROOT)/include/SDL/
+	mv $(TMP)/sdl_sound/lib/* $(ROOT)/lib/
+	rm -rf $(TMP)/sdl_sound
 	mkdir -p share/sounds
 	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/12345adpcm.wav
 	$(WGETWAVS) https://www.icculus.org/SDL_sound/downloads/example_sounds/12345gsm.wav
