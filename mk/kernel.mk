@@ -4,6 +4,7 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 
 .PHONY: kernel
 kernel: kernel$(VENDOR)
+	touch $(PACK)/$@
 
 .PHONY: kernelrpi
 $(SRC)/linux/README:
@@ -22,6 +23,7 @@ kernelrpi: $(SRC)/linux/README
 #	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
+	touch $(PACK)/$@
 
 .PHONY: kernelgeneric
 kernelgeneric: $(SRC)/$(KERNEL)/README
@@ -36,6 +38,7 @@ kernelgeneric: $(SRC)/$(KERNEL)/README
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
 	make kernel-all
+	touch $(PACK)/$@
 	
 .PHONY: kernel-all
 kernel-all:	
