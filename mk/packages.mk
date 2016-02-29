@@ -47,6 +47,7 @@ PNG 		= libpng-$(PNG_VER)
 FREETYPE 	= freetype-$(FREETYPE_VER)
 LIBGD		= gd-$(LIBGD_VER)
 #GD_$(LIBGD_VER)
+NCURSES		= ncurses-$(NCURSES_VER)
 
 ## math
 PCRE 		= pcre-$(PCRE_VER)

@@ -43,6 +43,7 @@ LIBGD_VER = 2.1.0
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
 PCRE_VER = 8.37
+NCURSES_VER = 5.9
 
 ## math libs
 BLAS_VER = 3.5.0

@@ -31,8 +31,10 @@ include mk/lib/freetype.mk
 include mk/lib/multiprecision.mk
 include mk/lib/pcre.mk
 include mk/lib/libgd.mk
+include mk/lib/misc.mk
 
 include mk/games/emul.mk
+include mk/games/tetris.mk
 
 include mk/apps.mk
 include mk/emu.mk

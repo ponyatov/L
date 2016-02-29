@@ -38,6 +38,7 @@ gz_libs:
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
 	$(WGET) https://github.com/libgd/libgd/archive/$(LIBGD).tar.gz
+	$(WGET) https://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).tar.gz
 	
 .PHONY: gz_media
 gz_media:
