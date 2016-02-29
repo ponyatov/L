@@ -32,6 +32,8 @@ include mk/lib/multiprecision.mk
 include mk/lib/pcre.mk
 include mk/lib/libgd.mk
 
+include mk/games/emul.mk
+
 include mk/apps.mk
 include mk/emu.mk
 include mk/root.mk
