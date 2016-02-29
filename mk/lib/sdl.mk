@@ -7,7 +7,7 @@ CFG_SDL_GFX = $(CFG_CPU_LIBS)
 CFG_SDL_SOUND = --prefix=$(TMP)/sdl_sound
 
 .PHONY: sdl sdl_main sdl_image sdl_ttf sdl_gfx sdl_sound
-sdl: sdl_main sdl_image sdl_ttf sdl_gfx sdl_config
+sdl: sdl_main sdl_image sdl_ttf sdl_gfx sdl_sound
 	touch $(PACK)/$@
 
 sdl_main: $(SRC)/$(SDL)/README
