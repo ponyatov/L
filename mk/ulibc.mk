@@ -24,11 +24,12 @@ ulibc: $(SRC)/$(ULIBC)/README
 	# 8
 	cd $(SRC)/$(ULIBC) && $(MAKE) $(CFG_ULIBC) hostutils
 	cp $(SRC)/$(ULIBC)/utils/ldd.host      $(TC)/bin/$(TARGET)-ldd
-	echo $(TC)/bin/$(TARGET)-ldd > $(PACK)/$@-hostutils
+#	echo $(TC)/bin/$(TARGET)-ldd > $(PACK)/$@-hostutils
 	cp $(SRC)/$(ULIBC)/utils/ldconfig.host $(TC)/bin/$(TARGET)-ldconfig
-	echo $(TC)/bin/$(TARGET)-ldconfig >> $(PACK)/$@-hostutils
+#	echo $(TC)/bin/$(TARGET)-ldconfig >> $(PACK)/$@-hostutils
 	cp $(SRC)/$(ULIBC)/utils/getconf.host  $(TC)/bin/$(TARGET)-getconf
-	echo $(TC)/bin/$(TARGET)-getconf >> $(PACK)/$@-hostutils
+#	echo $(TC)/bin/$(TARGET)-getconf >> $(PACK)/$@-hostutils
+	touch $(PACK)/$@-hostutils
 	# 9 (in root package)
 	# ldconfig in root.mk
 	touch $(PACK)/$@
