@@ -31,3 +31,5 @@ ulibc: $(SRC)/$(ULIBC)/README
 	echo $(TC)/bin/$(TARGET)-getconf >> $(PACK)/$@-hostutils
 	# 9 (in root package)
 	# ldconfig in root.mk
+	touch $(PACK)/$@
+	
