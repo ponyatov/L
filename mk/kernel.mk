@@ -1,30 +1,30 @@
 KERNEL_ARCH ?= $(ARCH)
 CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
-	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
+	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT) $(HW_KERNEL)
 
 .PHONY: kernel
 kernel: $(PACK)/kernel
 $(PACK)/kernel: $(PACK)/kernel$(VENDOR)
-	touch $@
+#	touch $@
 
 .PHONY: kernelrpi
+kernelrpi: $(PACK)/kernelrpi
 $(SRC)/linux/README:
-	# 0
-	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
-kernelrpi: $(SRC)/linux/README
-	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
+	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git &&\
+	touch $@
+$(PACK)/kernelrpi: $(SRC)/linux/README
+	# 1
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-#	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
-	cd $(SRC)/linux && make $(CFG_KERNEL) bcmrpi_defconfig
+	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
+	# cat hw/$(HW|ARCH|CPU).kcfg >> $(SRC)/linux/.config
+	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-##	cat kernel/all >> $(SRC)/linux/.config
-#	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
-##	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
-#	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
-#	cat app/$(APP).kcfg >> $(SRC)/linux/.config
+	cat kernel/all >> $(SRC)/linux/.config
+	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
-	touch $(PACK)/$@
+	# pack
+#	touch $@
 
 .PHONY: kernelgeneric
 kernelgeneric: $(SRC)/$(KERNEL)/README
@@ -42,7 +42,8 @@ kernelgeneric: $(SRC)/$(KERNEL)/README
 	touch $(PACK)/$@
 	
 .PHONY: kernel-all
-kernel-all:	
+kernel-all: $(PACK)/kernel-all
+$(PACK)/kernel-all:
 	# 3
 	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
@@ -60,6 +61,8 @@ kernel-all:
 	echo $(BOOT)/$(HW)$(APP).kernel > $(PACK)/kernel-image
 	# 7
 	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
+	# pack
+	touch $@
 	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:
