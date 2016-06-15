@@ -65,6 +65,7 @@ $(PACK)/kernel-all:
 	# pack
 	touch $@
 	
+	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:
 	cp \
