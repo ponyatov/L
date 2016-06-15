@@ -34,8 +34,7 @@ $(PACK)/cross0:
 
 .PHONY: cclibs0
 cclibs0: $(PACK)/cclibs0
-$(PACK)/cclibs0: \
-	$(PACK)/gmp0 $(PACK)/mpfr0 $(PACK)/mpc0 $(PACK)/cloog0 $(PACK)/isl0
+$(PACK)/cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 		touch $@
 
 .PHONY: gmp0
