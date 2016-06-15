@@ -29,9 +29,11 @@ cross0:
 	make ramclean
 	make gcc0
 	make ramclean
+	touch $(PACK)/$@
 
 .PHONY: cclibs0
 cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
+	touch $(PACK)/$@
 
 .PHONY: gmp0
 gmp0: $(SRC)/$(GMP)/README
@@ -76,6 +78,7 @@ gcc0: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
 	make gccall
+	touch $(PACK)/$@
 
 .PHONY: gccall
 gccall:
