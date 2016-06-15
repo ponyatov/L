@@ -4,15 +4,15 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 
 .PHONY: kernel
 kernel: $(PACK)/kernel
-$(PACK)/kernel: $(PACK)/kernel$(VENDOR)
-#	touch $@
+$(PACK)/kernel: $(PACK)/kernel-$(VENDOR)
+	touch $@
 
-.PHONY: kernelrpi
-kernelrpi: $(PACK)/kernelrpi
+.PHONY: kernel-rpi
+kernel-rpi: $(PACK)/kernel-rpi
 $(SRC)/linux/README:
 	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git &&\
 	touch $@
-$(PACK)/kernelrpi: $(SRC)/linux/README
+$(PACK)/kernel-rpi: $(SRC)/linux/README
 	# 1
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
 	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
@@ -20,14 +20,15 @@ $(PACK)/kernelrpi: $(SRC)/linux/README
 	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
 	cat kernel/all >> $(SRC)/linux/.config
+	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
 	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
-	# pack
-#	touch $@
+	touch $@
 
-.PHONY: kernelgeneric
-kernelgeneric: $(SRC)/$(KERNEL)/README
+.PHONY: kernel-generic
+kernel-generic: $(PACK)/kernel-generic
+$(PACK)/kernel-generic: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
@@ -39,27 +40,27 @@ kernelgeneric: $(SRC)/$(KERNEL)/README
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
 	make kernel-all
-	touch $(PACK)/$@
+	touch $@
 	
 .PHONY: kernel-all
 kernel-all: $(PACK)/kernel-all
 $(PACK)/kernel-all:
-	# 3
+	# 4
 	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_DEFAULT_HOSTNAME=\"$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config	
-	# 4
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
 	# 5
+	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
+	# 6
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
 	-$(call INSTPACK,$(SRC)/$(KERNEL),kernel-modules,$(CFG_KERNEL) modules_install)
-	# 6
+	# 7
 	make kernel-$(ARCH)-fix
 	cp \
 		$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
 		$(BOOT)/$(HW)$(APP).kernel
 	echo $(BOOT)/$(HW)$(APP).kernel > $(PACK)/kernel-image
-	# 7
+	# 8
 	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
 	# pack
 	touch $@
