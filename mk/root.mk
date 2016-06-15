@@ -6,7 +6,7 @@ root:
 	rm -rf $(ETC) ; cp -r etc $(ROOT)/
 	cat app/$(APP).rcS >> $(ROOT)/etc/init.d/rcS
 	cp README.md $(ETC)/
-	cp app/$(APP).cron $(ETC)/cron/root 
+	mkdir $(ETC)/cron ; cp app/$(APP).cron $(ETC)/cron/root 
 	chmod +x $(ETC)/init.d/* $(ETC)/dhcp.rc
 	# 2	
 	$(LDCONFIG) -v -r $(ROOT)
@@ -17,8 +17,7 @@ root:
 	# 5
 	cd $(ROOT) && find . | egrep -v $(ROOTREX) > $(PACK)/allfiles
 	# 6
-	python ./pack.py $(ROOT)
-#	cat $(PACK)/allfiles > $(PACK)/rootfiles 
-	# 7
-	cd $(ROOT) && cat $(PACK)/rootfiles | cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
+	cd $(ROOT) && \
+		find . | egrep -v "^./(boot|include|lib/(pkgconfig|.+\.(l?a|o)))" | \
+		cpio -o -H newc > $(BOOT)/$(HW)$(APP).cpio
 	cat $(BOOT)/$(HW)$(APP).cpio | gzip -9 > $(BOOT)/$(HW)$(APP).rootfs
