@@ -9,7 +9,7 @@ gz:
 	make gz_core
 	make gz_libs
 	make gz_media
-	make gz_math
+#	make gz_math
 	
 .PHONY: gz_cross
 gz_cross:
@@ -38,17 +38,23 @@ gz_libs:
 	$(WGET) http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).tar.bz2
 	$(WGET) http://zlib.net/$(ZLIB).tar.xz
 	$(WGET) https://github.com/libgd/libgd/archive/$(LIBGD).tar.gz
+	$(WGET) https://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).tar.gz
 	
 .PHONY: gz_media
 gz_media:
 	$(WGET) ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).tar.bz2
 	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
+	$(WGET) http://downloads.xiph.org/releases/ogg/$(OGG).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/vorbis/$(VORBIS).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/flac/$(FLAC).tar.xz
+	$(WGET) http://downloads.xiph.org/releases/speex/$(SPEEX).tar.gz
+	$(WGET) http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).tar.xz
 
-.PHONY: gz_math
-gz_math:
-	$(WGET) -O $(GZ)/$(GNUPLOT).tar.gz \
-		"http://downloads.sourceforge.net/project/gnuplot/gnuplot/$(GNUPLOT_VER)/$(GNUPLOT).tar.gz?r=&ts=1444397620&use_mirror=netcologne"
+#.PHONY: gz_math
+#gz_math:
+#	$(WGET) -O $(GZ)/$(GNUPLOT).tar.gz \
+#		"http://downloads.sourceforge.net/project/gnuplot/gnuplot/$(GNUPLOT_VER)/$(GNUPLOT).tar.gz?r=&ts=1444397620&use_mirror=netcologne"
 
 .PHONY: gz_i386
 gz_i386:
@@ -73,14 +79,3 @@ gz_pc686:
 
 .PHONY: gz_clock
 gz_clock:
-
-.PHONY: gz_desktop
-gz_desktop:
-	mkdir -p $(GZ)/XFree86
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-1.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-2.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-3.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-4.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-5.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-6.tgz
-	$(WGET) -P $(GZ)/XFree86 http://ftp.xfree86.org/pub/XFree86/$(XSERVER_VER)/source/$(XSERVER)-src-7.tgz

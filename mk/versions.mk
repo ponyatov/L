@@ -2,16 +2,28 @@
 
 # cross compiler
 
-BINUTILS_VER = 2.24
+BINUTILS_VER = 2.26
+# 2.24 ok
 # 2.25 build error
-GMP_VER = 5.1.3
-MPFR_VER = 3.1.3
-MPC_VER = 1.0.2
-ISL_VER = 0.11.1
-# 0.11 need for binutils build
-CLOOG_VER = 0.18.1
-GCC_VER = 4.9.2
+# 2.26 upgrade test
+GCC_VER = 5.4.0
 # 4.9.2 used: bug arm/62098 fixed
+# 4.9.3 not tested
+# 5.4.0 upgrade test
+GMP_VER = 6.1.0
+# 5.1.3 ok
+# 6.1.0 upgrade test
+MPFR_VER = 3.1.4
+# 3.1.3 ok
+# 3.1.4 upgrade test
+MPC_VER = 1.0.3
+# 1.0.2 ok
+# 1.0.3 upgrade test
+ISL_VER = 0.16.1
+# 0.11 need for binutils build
+# 0.11.1 ok
+# 0.16.1 upgrade test
+CLOOG_VER = 0.18.1
 
 # core
 
@@ -24,7 +36,7 @@ BUSYBOX_VER = 1.23.2
 # boot loaders
 
 SYSLINUX_VER = 6.03
-UBOOT_VER = 2015.04
+UBOOT_VER = 2016.05
 
 # libs
 
@@ -43,6 +55,7 @@ LIBGD_VER = 2.1.0
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
 PCRE_VER = 8.37
+NCURSES_VER = 5.9
 
 ## math libs
 BLAS_VER = 3.5.0
@@ -55,9 +68,15 @@ GNUPLOT_VER = 4.6.7
 # multimedia
 ALSA_VER = 1.0.26
 #27+ ___tls_get_addr error
+MPLAYER_VER = 1.3.0
 
 ## codecs
-FFMPEG_VER = 2.7.2
+FFMPEG_VER = 3.0
+# 2.7.2
+OGG_VER = 1.3.2
+VORBIS_VER = 1.3.5
+FLAC_VER = 1.3.1
+SPEEX_VER = 1.2rc2
 
 # extra
 

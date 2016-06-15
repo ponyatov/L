@@ -33,8 +33,13 @@ SDL_SOUND	= SDL_sound-$(SDL_SOUND_VER)
 # multimedia
 ALSA_LIB	= alsa-lib-$(ALSA_VER)
 ALSA_UTILS	= alsa-utils-$(ALSA_VER)
+MPLAYER		= MPlayer-$(MPLAYER_VER)
 ## codecs
 FFMPEG		= ffmpeg-$(FFMPEG_VER)
+OGG			= libogg-$(OGG_VER)
+VORBIS		= libvorbis-$(VORBIS_VER)
+FLAC		= flac-$(FLAC_VER)
+SPEEX		= speex-$(SPEEX_VER)
 
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)
@@ -42,6 +47,7 @@ PNG 		= libpng-$(PNG_VER)
 FREETYPE 	= freetype-$(FREETYPE_VER)
 LIBGD		= gd-$(LIBGD_VER)
 #GD_$(LIBGD_VER)
+NCURSES		= ncurses-$(NCURSES_VER)
 
 ## math
 PCRE 		= pcre-$(PCRE_VER)
