@@ -4,7 +4,8 @@ CFG_BUSYBOX = \
 	SYSROOT=$(ROOT)
 	
 .PHONY: busybox
-busybox: $(SRC)/$(BUSYBOX)/README
+busybox: $(PACK)/busybox
+$(PACK)/busybox: $(SRC)/$(BUSYBOX)/README
 	# 1
 	cd $(SRC)/$(BUSYBOX) && $(MAKE) $(CFG_BUSYBOX) distclean 
 	cd $(SRC)/$(BUSYBOX) && $(MAKE) $(CFG_BUSYBOX) allnoconfig
@@ -13,4 +14,4 @@ busybox: $(SRC)/$(BUSYBOX)/README
 	cd $(SRC)/$(BUSYBOX) && $(MAKE) $(CFG_BUSYBOX) menuconfig 
 	cp $(SRC)/$(BUSYBOX)/.config app/$(APP).bb
 	# 3
-	$(call INSTPACK,$(SRC)/$(BUSYBOX),$@,$(CFG_BUSYBOX) install)
+	$(call INSTPACK,$(SRC)/$(BUSYBOX),busybox,$(CFG_BUSYBOX) install)
