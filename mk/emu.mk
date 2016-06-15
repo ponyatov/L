@@ -6,7 +6,7 @@ QEMU_NET = -net nic -net user
 QEMU_SOUND = -soundhw es1370
 QEMU_ALL =  -m 64M $(QEMU_NET) $(QEMU_SOUND)
 # -localtime
-QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "console=ttyS0,115200"
+QEMU_SERIAL_LOG = -serial file:ttyS0.log -append "$(QEMU_CONSOLE)"
 
 QEMU_CFG = $(QEMU_ALL) $(QEMU_HW) $(QEMU_ARCH) $(QEMU_CPU) $(QEMU_APP)
 
@@ -19,7 +19,7 @@ emu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 	
 .PHONY: pxemu
 pxemu: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
-	qemu-system-$(ARCH) $(QEMU_CFG) -boot n
+	qemu-system-$(KERNEL_ARCH) $(QEMU_CFG) -boot n
 
 .PHONY: emucluster
 emucluster: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
@@ -31,13 +31,13 @@ emucluster: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 
 .PHONY: emuk
 emuk: $(BOOT)/$(HW)$(APP).kernel
-	qemu-system-$(ARCH) $(QEMU_CFG) $(QEMU_ALL) \
+	qemu-system-$(KERNEL_ARCH) $(QEMU_CFG) $(QEMU_ALL) \
 	-kernel $(BOOT)/$(HW)$(APP).kernel -append "$(QEMU_APPEND)" \
 	$(QEMU_SERIAL_LOG)
 
 .PHONY: emuiso
 emuiso: $(BOOT)/$(HW)$(APP).iso
-	qemu-system-$(ARCH) $(QEMU_CFG) \
+	qemu-system-$(KERNEL_ARCH) $(QEMU_CFG) \
 	-boot d -cdrom $<
 
 .PHONY: bochs
