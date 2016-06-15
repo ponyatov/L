@@ -15,3 +15,4 @@ QEMU_CONSOLE = console=ttyAMA0,115200 kgdboc=ttyAMA0
 ##	
 ##earlycon=smh
 ## -nographic
+QEMU_SOUND =
