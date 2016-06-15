@@ -32,38 +32,45 @@ cross0:
 	touch $(PACK)/$@
 
 .PHONY: cclibs0
-cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
-	touch $(PACK)/$@
+cclibs0: $(PACK)/cclibs0
+$(PACK)/cclibs0: \
+	$(PACK)/gmp0 $(PACK)/mpfr0 $(PACK)/mpc0 $(PACK)/cloog0 $(PACK)/isl0
+		touch $@
 
 .PHONY: gmp0
-gmp0: $(SRC)/$(GMP)/README
+gmp0: $(PACK)/gmp0
+$(PACK)/gmp0: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) && cd $(TMP)/$(GMP) &&\
 	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(GMP),$@,install-strip)
+	$(call INSTPACK,$(TMP)/$(GMP),gmp0,install-strip)
 
 .PHONY: mpfr0
-mpfr0: $(SRC)/$(MPFR)/README
+mpfr0: $(PACK)/mpfr0
+$(PACK)/mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) && cd $(TMP)/$(MPFR) &&\
 	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPFR),$@,install-strip)
+	$(call INSTPACK,$(TMP)/$(MPFR),mpfr0,install-strip)
 
 .PHONY: mpc0
-mpc0: $(SRC)/$(MPC)/README
+mpc0: $(PACK)/mpc0
+$(PACK)/mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) && cd $(TMP)/$(MPC) &&\
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPC),$@,install-strip)
+	$(call INSTPACK,$(TMP)/$(MPC),mpc0,install-strip)
 	
 .PHONY: cloog0
-cloog0: $(SRC)/$(CLOOG)/README
+cloog0: $(PACK)/cloog0
+$(PACK)/cloog0: $(SRC)/$(CLOOG)/README
 	rm -rf $(TMP)/$(CLOOG) && mkdir $(TMP)/$(CLOOG) && cd $(TMP)/$(CLOOG) &&\
 	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(CLOOG),$@,install-strip)
+	$(call INSTPACK,$(TMP)/$(CLOOG),cloog0,install-strip)
 	
 .PHONY: isl0
-isl0: $(SRC)/$(ISL)/README
+isl0: $(PACK)/isl0
+$(PACK)/isl0: $(SRC)/$(ISL)/README
 	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) && cd $(TMP)/$(ISL) &&\
 	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(ISL),$@,install-strip)
+	$(call INSTPACK,$(TMP)/$(ISL),isl0,install-strip)
 	
 .PHONY: binutils0
 binutils0: $(SRC)/$(BINUTILS)/README
