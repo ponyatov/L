@@ -27,10 +27,11 @@ CLOOG_VER = 0.18.1
 
 # core
 
-KERNEL_VER = 4.6.2
+KERNEL_VER = 3.19.8
 # 2.6.x not used: bug eth/rtl8139
 # 3.19.6 ok
-# 4.6.2 upgrade test for rpiB boot
+# 4.6.2 upgrade test for rpiB boot: cant boot
+# 3.19.8 upgrade test (rpiB fallback)
 ULIBC_VER = 0.9.33.2
 BUSYBOX_VER = 1.23.2
 #1.22.1

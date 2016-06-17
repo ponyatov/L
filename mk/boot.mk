@@ -28,7 +28,7 @@ boot/syslinux/isolinux.cfg
 		-o $(BOOT)/$(HW)$(APP).iso $(ISO)
 ##-r -J
 
-RPI_SD ?= /dev/sdb1
+RPI_SD ?= /dev/sdc1
 .PHONY: boot_rpiB
 boot_rpiB:
 	mkdir -p $(TMP)/SD

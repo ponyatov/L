@@ -36,7 +36,7 @@ $(PACK)/kernel-generic: $(SRC)/$(KERNEL)/README
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-#	cat kernel/all >> $(SRC)/$(KERNEL)/.config
+	cat kernel/all >> $(SRC)/$(KERNEL)/.config
 #	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
 #	cat cpu/$(CPU).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
