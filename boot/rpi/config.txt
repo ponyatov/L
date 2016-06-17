@@ -53,4 +53,6 @@ initramfs clock.rfs
 # Kernel 
 #kernel u-boot.bin
 #kernel kernel.img
+#kernel kernel.44x
+#kernel kernel7.img
 kernel clock.krn
