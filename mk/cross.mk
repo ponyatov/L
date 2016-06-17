@@ -100,10 +100,6 @@ $(PACK)/gcc0-lib: $(PACK)/gcc0-bin
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
 	$(call INSTPACK,$(TMP)/$(GCC),gcc0-lib,install-target-libgcc)
 
-.PHONY: gcclibsinst
-gcclibsinst:
-	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
-
 .PHONY: gccpp
 gccpp:
 	make gcc0-bin gcc0-lib
@@ -116,7 +112,11 @@ gcc: $(SRC)/$(GCC)/README
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
 	make gccpp
-	make gcclibsinst
+#	make gcclibsinst
+
+.PHONY: gcclibsinst
+gcclibsinst:
+	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
 
 .PHONY: gccf
 gccf: $(SRC)/$(GCC)/README
@@ -126,4 +126,4 @@ gccf: $(SRC)/$(GCC)/README
 	make gccpp
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
 	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
-	make gcclibsinst
+#	make gcclibsinst

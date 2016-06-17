@@ -28,24 +28,21 @@ boot/syslinux/isolinux.cfg
 		-o $(BOOT)/$(HW)$(APP).iso $(ISO)
 ##-r -J
 
-RPI_SD ?= /dev/sdc1
+RPI_SD ?= /dev/sdb1
 .PHONY: boot_rpiB
 boot_rpiB:
-#$(BOOT)/u-boot.bin
-#	make uboot-scr
 	mkdir -p $(TMP)/SD
 	-sudo mount $(RPI_SD) $(TMP)/SD
+	sudo cp $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
+	sudo cp $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
+	sudo cp boot/rpi/config.txt $(TMP)/SD/config.txt
+	sudo cp boot/rpi/cmdline.txt $(TMP)/SD/cmdline.txt
+	sudo umount $(TMP)/SD
+	sync
 #	sudo cp -r boot/rpi/* $(TMP)/SD/
-	sudo rsync boot/rpi/config.txt $(TMP)/SD/config.txt 
-	sudo rsync boot/rpi/cmdline.txt $(TMP)/SD/cmdline.txt 
 #	sudo rsync $(BOOT)/u-boot.bin $(TMP)/SD/u-boot.bin
 #	sudo cp -r $(BOOT)/boot.scr.uimg $(TMP)/SD/
-#	sudo rsync $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
-	sudo cp $(BOOT)/$(HW)$(APP).kernel $(TMP)/SD/clock.krn
-#	sudo rsync $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
-	sudo cp $(BOOT)/$(HW)$(APP).rootfs $(TMP)/SD/clock.rfs
-	sudo umount $(TMP)/SD
-##	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
+#	sudo cp -r $(BOOT)/uEnv.txt $(TMP)/SD/
 
 .PHONY: boot_arm
 boot_arm: uboot

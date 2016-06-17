@@ -15,13 +15,13 @@ $(SRC)/linux/README:
 $(PACK)/kernel-rpi: $(SRC)/linux/README
 	# 1
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
+##	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
 	# cat hw/$(HW|ARCH|CPU).kcfg >> $(SRC)/linux/.config
 	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-#	cat kernel/all >> $(SRC)/linux/.config
+##	cat kernel/all >> $(SRC)/linux/.config # unready in full version
 	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
-	cat app/$(APP).kcfg >> $(SRC)/linux/.config
+#	cat app/$(APP).kcfg >> $(SRC)/linux/.config # req dep check
 	# 3
 	make KERNEL=linux kernel-all
 	touch $@
