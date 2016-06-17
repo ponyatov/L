@@ -8,8 +8,8 @@ BINUTILS_VER = 2.26
 # 2.26 upgrade test
 GCC_VER = 5.4.0
 # 4.9.2 used: bug arm/62098 fixed
-# 4.9.3 not tested
-# 5.4.0 upgrade test
+# 4.9.3 tested ok
+# 5.4.0 upgrade test 
 GMP_VER = 6.1.0
 # 5.1.3 ok
 # 6.1.0 upgrade test
@@ -20,9 +20,9 @@ MPC_VER = 1.0.3
 # 1.0.2 ok
 # 1.0.3 upgrade test
 ISL_VER = 0.16.1
-# 0.11 need for binutils build
-# 0.11.1 ok
-# 0.16.1 upgrade test
+# 0.11.1 ok need for binutils 2.24 build
+# 0.14 ok for binutils 2.26 / gcc 4.9.3
+# 0.16.1 upgrade test 
 CLOOG_VER = 0.18.1
 
 # core

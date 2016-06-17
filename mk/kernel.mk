@@ -10,7 +10,7 @@ $(PACK)/kernel: $(PACK)/kernel-$(VENDOR)
 .PHONY: kernel-rpi
 kernel-rpi: $(PACK)/kernel-rpi
 $(SRC)/linux/README:
-	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git &&\
+	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
 	touch $@
 $(PACK)/kernel-rpi: $(SRC)/linux/README
 	# 1
@@ -19,7 +19,7 @@ $(PACK)/kernel-rpi: $(SRC)/linux/README
 	# cat hw/$(HW|ARCH|CPU).kcfg >> $(SRC)/linux/.config
 	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-	cat kernel/all >> $(SRC)/linux/.config
+#	cat kernel/all >> $(SRC)/linux/.config
 	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
 	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
