@@ -26,16 +26,19 @@ $(PACK)/kernel-rpi: $(SRC)/linux/README
 	make KERNEL=linux kernel-all
 	touch $@
 
+# make VENDOR=generic DEFCONFIG=bcm2835_defconfig kernel
+
 .PHONY: kernel-generic
 kernel-generic: $(PACK)/kernel-generic
 $(PACK)/kernel-generic: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
+	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-	cat kernel/all >> $(SRC)/$(KERNEL)/.config
-	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
-	cat cpu/$(CPU).kcfg >> $(SRC)/$(KERNEL)/.config
+#	cat kernel/all >> $(SRC)/$(KERNEL)/.config
+#	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
+#	cat cpu/$(CPU).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3

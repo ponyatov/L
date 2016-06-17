@@ -1,15 +1,2 @@
 # kernelrpi build errors on: fix required: alarm 4.x kernel options
 #CONFIG_MMC=n
-
-# large unused build file tree
-CONFIG_MEDIA_SUPPORT=n
-CONFIG_SOUND=n
-CONFIG_WIRELESS=n
-CONFIG_NETFILTER=n
-
-CONFIG_INPUT=n
-CONFIG_BT=n
-CONFIG_USB_SUPPORT=n
-CONFIG_HID=n
-#CONFIG_HID_GENERIC=n
-#CONFIG_INPUT_JOYSTICK=n
