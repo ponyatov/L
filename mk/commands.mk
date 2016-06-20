@@ -31,4 +31,4 @@ RAMCLEAN ?= rm -rf
 
 PACKREP = $(PWD)/pack/pack
 
-INSTPACK = cd $1 && make $3 && touch $(PACK)/$(2)  
+INSTPACK = cd $1 && $(XPATH) make $3 && touch $(PACK)/$(2)  
