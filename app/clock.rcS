@@ -9,8 +9,8 @@ cp -r /etc/cron /tmp/ ; crond -b -c /tmp/cron -l 0 -L /tmp/cron.log &
 #cp -r /share/currency /tmp/
 #/etc/currency.rc &
 
-#sdl_hello
-#sdl_clock
+sdl_hello
+sdl_clock
 #sdl_rect
 #exit
 #poweroff

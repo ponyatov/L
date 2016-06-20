@@ -1,10 +1,10 @@
 CFG_PNG = 
 
 .PHONY: png
-png: $(SRC)/$(PNG)/README
+png: $(PACK)/png
+$(PACK)/png: $(SRC)/$(PNG)/README
 	rm -rf $(TMP)/$(PNG) && mkdir $(TMP)/$(PNG) &&\
 	cd $(TMP)/$(PNG) &&\
 	$(XPATH) $(SRC)/$(PNG)/$(TCFG) $(CFG_PNG) &&\
-	$(MAKE) && $(MAKE) install &&\
+	$(MAKE) && $(call INSTPACK,$(TMP)/$(PNG),png,install)
 	mv $(ROOT)/bin/libpng*config $(TC)/bin/
-	$(call INSTPACK,$(TMP)/$(PNG),$@,install)
