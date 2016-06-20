@@ -77,7 +77,7 @@ gcc0: gcc0-cfg gcc0-bin gcc0-libgcc
 	touch $(PACK)/$@
 gcc: gcc-cfg gcc-bin gcc-libgcc gcc-libcpp gcc-libinst
 	touch $(PACK)/$@
-gccf: gccf-cfg gcc-bin gcc-libgcc gcc-libcpp gcc-libinst
+gccf: gccf-cfg gcc-bin gcc-libgcc gcc-libcpp gcc-fortran gcc-libinst
 	touch $(PACK)/$@
 
 .PHONY: gcc0-cfg gcc-cfg gcc0-bin gcc-bin gcc0-libgcc gcc-libgcc gcc-libcpp
