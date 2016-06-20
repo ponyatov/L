@@ -14,16 +14,16 @@ BUILD = $(shell gcc -dumpmachine)
 
 # target root filesystem
 ROOT = $(PWD)/$(HW)$(APP)
-# cross-compiler [T]ool[C]hain
-TC = $(ROOT).cross
 BOOT = $(ROOT)/boot
+LIB = $(ROOT)/lib
 ETC = $(ROOT)/etc
 USR = $(ROOT)/usr
 USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
-PACK = $(ROOT)/pack
+# cross-compiler [T]ool[C]hain
+TC = $(ROOT).cross
+PACK = $(TC)/pack
 ISO = $(TMP)/iso
-LIB = $(ROOT)/lib
 
 DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
 	$(LIB) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
