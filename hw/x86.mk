@@ -2,5 +2,7 @@
 # (pure i386sx not supported by new gcc/kernel) 
 CPU = i486sx
 VENDOR = generic
+DEFCONFIG = allnoconfig
+
 QEMU_HW =
 QEMU_APPEND += vga=0x312

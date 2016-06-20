@@ -3,18 +3,16 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT)
 
 .PHONY: kernel
-kernel: kernel$(VENDOR)	
-	
+kernel: kernel-$(VENDOR)	
 
-.PHONY: kernelrpi
+.PHONY: kernel-rpi
 $(SRC)/linux/README:
 	# 0
 	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
-kernelrpi: $(SRC)/linux/README
+kernel-rpi: $(SRC)/linux/README
 	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-#	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
-	cd $(SRC)/linux && make $(CFG_KERNEL) bcmrpi_defconfig
+	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
 ##	cat kernel/all >> $(SRC)/linux/.config
 #	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
@@ -22,13 +20,14 @@ kernelrpi: $(SRC)/linux/README
 #	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
 #	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
+	touch $(PACK)/$@
 	make KERNEL=linux kernel-all
 
-.PHONY: kernelgeneric
-kernelgeneric: $(SRC)/$(KERNEL)/README
+.PHONY: kernel-generic
+kernel-generic: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
+	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
 	cat kernel/all >> $(SRC)/$(KERNEL)/.config
 	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
@@ -36,6 +35,7 @@ kernelgeneric: $(SRC)/$(KERNEL)/README
 	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
+	touch $(PACK)/$@
 	make kernel-all
 	
 .PHONY: kernel-all

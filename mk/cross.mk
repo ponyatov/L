@@ -75,7 +75,7 @@ gcc0: gcc0-cfg gcc-bin gcc-lib
 	touch $(PACK)/$@
 gcc: gcc-cfg gcc-bin gcc-lib gcc-cpp gcc-inst
 	touch $(PACK)/$@
-gcc: gccf-cfg gcc-bin gcc-lib gcc-cpp gcc-fortran gcc-inst
+gccf: gccf-cfg gcc-bin gcc-lib gcc-cpp gcc-fortran gcc-inst
 	touch $(PACK)/$@
 
 gcc0-cfg: $(SRC)/$(GCC)/README
