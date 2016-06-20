@@ -1,22 +1,18 @@
 # directories processing
 
 # sw sources mirror archive in .tar.[GZ]
-
 GZ = $(PWD)/gz
 
 # [S]ou[RC]e codes unpacked
-
 SRC = $(PWD)/src
 
 # [T]e[MP] build dirs
-
 TMP = $(PWD)/tmp
 
 # build/target triplets
 BUILD = $(shell gcc -dumpmachine)
 
 # target root filesystem
-
 ROOT = $(PWD)/$(HW)$(APP)
 # cross-compiler [T]ool[C]hain
 TC = $(ROOT).cross
@@ -35,4 +31,3 @@ DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
 .PHONY: dirs
 dirs:
 	mkdir -p $(DIRS)
-	cd pack && make HW=$(HW) APP=$(APP)
