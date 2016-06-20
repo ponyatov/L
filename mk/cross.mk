@@ -2,14 +2,14 @@
 CFG_WITHCCLIBS = --with-gmp=$(TC) --with-mpfr=$(TC) --with-mpc=$(TC) \
 	--with-isl=$(TC) --with-cloog=$(TC)
 
-CFG_CCLIBS00 = --disable-shared
-CFG_CCLIBS0  =  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
+CFG_CCLIBS00	= --disable-shared
+CFG_CCLIBS0		=  $(CFG_WITHCCLIBS) $(CFG_CCLIBS00)
 
-CFG_GMP0 = $(CFG_CCLIBS0)
-CFG_MPFR0 = $(CFG_CCLIBS0)
-CFG_MPC0 = $(CFG_CCLIBS0)
-CFG_ISL0   = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
-CFG_CLOOG0 = --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
+CFG_GMP0	= $(CFG_CCLIBS0)
+CFG_MPFR0	= $(CFG_CCLIBS0)
+CFG_MPC0	= $(CFG_CCLIBS0)
+CFG_ISL0	= --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
+CFG_CLOOG0	= --with-gmp-prefix=$(TC) $(CFG_CCLIBS00)
 
 CFG_BINUTILS0 = --target=$(TARGET) $(CFG_ARCH) $(CFG_CPU) \
 	--with-sysroot=$(ROOT) --with-native-system-header-dir=/include \
@@ -70,44 +70,42 @@ binutils0: $(SRC)/$(BINUTILS)/README
 	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) && $(MAKE) &&\
 	$(call INSTPACK,$(TMP)/$(BINUTILS),$@,install-strip)
 
-.PHONY: gcc0
-gcc0: $(SRC)/$(GCC)/README
+.PHONY: gcc0 gcc
+gcc0: gcc0-cfg gcc-bin gcc-lib
+	touch $(PACK)/$@
+gcc: gcc-cfg gcc-bin gcc-lib gcc-cpp gcc-inst
+	touch $(PACK)/$@
+gcc: gccf-cfg gcc-bin gcc-lib gcc-cpp gcc-fortran gcc-inst
+	touch $(PACK)/$@
+
+gcc0-cfg: $(SRC)/$(GCC)/README
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
 	cd $(TMP)/$(GCC) &&\
 	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
-	make gccall
+	touch $(PACK)/$@
+gcc-cfg: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++"
+	touch $(PACK)/$@
+gccf-cfg: $(SRC)/$(GCC)/README
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
+	cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++,fortran"
+	touch $(PACK)/$@
 
-.PHONY: gccall
-gccall:
+gcc-bin:
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
-	$(call INSTPACK,$(TMP)/$(GCC),$@-gcc,install-gcc)
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-gcc)
+gcc-lib:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
-	$(call INSTPACK,$(TMP)/$(GCC),$@-libgcc,install-target-libgcc)
-
-.PHONY: gcclibsinst
-gcclibsinst:
-	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
-
-.PHONY: gccpp
-gccpp:
-	make gccall
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libgcc)
+gcc-cpp:	
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
-	$(call INSTPACK,$(TMP)/$(GCC),$@-libstdc++,install-target-libstdc++-v3)
-
-.PHONY: gcc
-gcc: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
-	make gccpp
-	make gcclibsinst
-
-.PHONY: gccf
-gccf: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++,fortran"
-	make gccpp
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libstdc++-v3)
+gcc-fortran:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
-	make gcclibsinst
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libgfortran)
+gcc-inst:
+	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
+	touch $(PACK)/$@
