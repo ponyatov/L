@@ -3,16 +3,14 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT) $(HW_KERNEL)
 
 .PHONY: kernel
-kernel: $(PACK)/kernel
-$(PACK)/kernel: $(PACK)/kernel-$(VENDOR)
-	touch $@
+kernel: kernel-$(VENDOR)
+	touch $(PACK)/$@
 
 .PHONY: kernel-rpi
-kernel-rpi: $(PACK)/kernel-rpi
 $(SRC)/linux/README:
 	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
 	touch $@
-$(PACK)/kernel-rpi: $(SRC)/linux/README
+kernel-rpi: $(SRC)/linux/README
 	# 1
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
 	cd $(SRC)/linux && make $(CFG_KERNEL) allnoconfig
@@ -24,13 +22,12 @@ $(PACK)/kernel-rpi: $(SRC)/linux/README
 	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	make KERNEL=linux kernel-all
-	touch $@
+	touch $(PACK)/$@
 
 # make VENDOR=generic DEFCONFIG=bcm2835_defconfig kernel
 
 .PHONY: kernel-generic
-kernel-generic: $(PACK)/kernel-generic
-$(PACK)/kernel-generic: $(SRC)/$(KERNEL)/README
+kernel-generic: $(SRC)/$(KERNEL)/README
 	# 1
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
 	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) allnoconfig
@@ -43,11 +40,10 @@ $(PACK)/kernel-generic: $(SRC)/$(KERNEL)/README
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
 	make kernel-all
-	touch $@
+	touch $(PACK)/$@
 	
 .PHONY: kernel-all
-kernel-all: $(PACK)/kernel-all
-$(PACK)/kernel-all:
+kernel-all:
 	# 4
 	echo "CONFIG_CROSS_COMPILE=\"$(TARGET)-\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
@@ -66,7 +62,7 @@ $(PACK)/kernel-all:
 	# 8
 	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
 	# pack
-	touch $@
+	touch $(PACK)/$@
 	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:

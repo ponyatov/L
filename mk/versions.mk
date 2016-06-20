@@ -27,13 +27,13 @@ CLOOG_VER = 0.18.1
 
 # core
 
-KERNEL_VER = 4.6.2
+KERNEL_VER = 3.19.8
 # 2.6.x not used: bug eth/rtl8139
 # 3.19.6 ok
 # 4.6.2 upgrade test for rpiB boot: cant boot, x86 error in ld-uClibc
 # 3.19.8 upgrade test (rpiB/x86 fallback)
 ULIBC_VER = 0.9.33.2
-BUSYBOX_VER = 1.23.2
+BUSYBOX_VER = 1.24.2
 #1.22.1
 
 # boot loaders
