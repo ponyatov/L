@@ -23,8 +23,7 @@ CFG_GCC = $(CFG_BINUTILS0) $(CFG_WITHCCLIBS) --disable-bootstrap \
 	--enable-shared --enable-threads --enable-libgomp
 
 .PHONY: cross0
-cross0: $(PACK)/cross0
-$(PACK)/cross0:
+cross0:
 	make cclibs0
 	make binutils0
 	make ramclean
@@ -33,97 +32,86 @@ $(PACK)/cross0:
 	touch $@
 
 .PHONY: cclibs0
-cclibs0: $(PACK)/cclibs0
-$(PACK)/cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
+cclibs0: gmp0 mpfr0 mpc0 cloog0 isl0
 		touch $@
 
 .PHONY: gmp0
-gmp0: $(SRC)/$(GMP)/README $(PACK)/gmp0
-$(PACK)/gmp0:
+gmp0: $(SRC)/$(GMP)/README
 	rm -rf $(TMP)/$(GMP) && mkdir $(TMP)/$(GMP) && cd $(TMP)/$(GMP) &&\
 	$(SRC)/$(GMP)/$(BCFG) $(CFG_GMP0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(GMP),gmp0,install-strip)
+	$(call INSTPACK,$(TMP)/$(GMP),$@,install-strip)
 
 .PHONY: mpfr0
-mpfr0: $(SRC)/$(MPFR)/README $(PACK)/mpfr0
-$(PACK)/mpfr0:
+mpfr0: $(SRC)/$(MPFR)/README
 	rm -rf $(TMP)/$(MPFR) && mkdir $(TMP)/$(MPFR) && cd $(TMP)/$(MPFR) &&\
 	$(SRC)/$(MPFR)/$(BCFG) $(CFG_MPFR0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPFR),mpfr0,install-strip)
+	$(call INSTPACK,$(TMP)/$(MPFR),$@,install-strip)
 
 .PHONY: mpc0
-mpc0: $(SRC)/$(MPC)/README $(PACK)/mpc0
-$(PACK)/mpc0:
+mpc0: $(SRC)/$(MPC)/README
 	rm -rf $(TMP)/$(MPC) && mkdir $(TMP)/$(MPC) && cd $(TMP)/$(MPC) &&\
 	$(SRC)/$(MPC)/$(BCFG) $(CFG_MPC0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(MPC),mpc0,install-strip)
+	$(call INSTPACK,$(TMP)/$(MPC),$@,install-strip)
 	
 .PHONY: cloog0
-cloog0: $(SRC)/$(CLOOG)/README $(PACK)/cloog0
-$(PACK)/cloog0:
+cloog0: $(SRC)/$(CLOOG)/README
 	rm -rf $(TMP)/$(CLOOG) && mkdir $(TMP)/$(CLOOG) && cd $(TMP)/$(CLOOG) &&\
 	$(SRC)/$(CLOOG)/$(BCFG) $(CFG_CLOOG0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(CLOOG),cloog0,install-strip)
+	$(call INSTPACK,$(TMP)/$(CLOOG),$@,install-strip)
 	
 .PHONY: isl0
-isl0: $(SRC)/$(ISL)/README $(PACK)/isl0
-$(PACK)/isl0:
+isl0: $(SRC)/$(ISL)/README
 	rm -rf $(TMP)/$(ISL) && mkdir $(TMP)/$(ISL) && cd $(TMP)/$(ISL) &&\
 	$(SRC)/$(ISL)/$(BCFG) $(CFG_ISL0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(ISL),isl0,install-strip)
+	$(call INSTPACK,$(TMP)/$(ISL),$@,install-strip)
 	
 .PHONY: binutils0
-binutils0: $(PACK)/binutils0
-$(PACK)/binutils0:
-	make $(SRC)/$(BINUTILS)/README
+binutils0: $(SRC)/$(BINUTILS)/README
 	rm -rf $(TMP)/$(BINUTILS) && mkdir $(TMP)/$(BINUTILS) &&\
 	cd $(TMP)/$(BINUTILS) &&\
 	$(SRC)/$(BINUTILS)/$(BCFG) $(CFG_BINUTILS0) && $(MAKE) &&\
-	$(call INSTPACK,$(TMP)/$(BINUTILS),binutils0,install-strip)
+	$(call INSTPACK,$(TMP)/$(BINUTILS),$@,install-strip)
 
-.PHONY: gcc0
-gcc0: $(PACK)/gcc0 
-$(PACK)/gcc0: $(PACK)/gcc0-lib 
-	touch $@
-.PHONY: gcc0-cfg gcc0-bin gcc0-lib
-gcc0-cfg: $(PACK)/gcc0-cfg
-$(PACK)/gcc0-cfg: $(PACK)/cclibs0 $(PACK)/binutils0
+.PHONY: gcc0 gcc gccf
+gcc0: gcc0-cfg gcc0-bin gcc0-libgcc
+	touch $(PACK)/$@
+gcc: gcc-cfg gcc-bin gcc-libgcc gcc-libcpp gcc-libinst
+	touch $(PACK)/$@
+gccf: gccf-cfg gcc-bin gcc-libgcc gcc-libcpp gcc-libinst
+	touch $(PACK)/$@
+
+.PHONY: gcc0-cfg gcc-cfg gcc0-bin gcc-bin gcc0-libgcc gcc-libgcc gcc-libcpp
+gcc0-cfg:
 	make $(SRC)/$(GCC)/README 
 	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) && cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c" && touch $@
-gcc0-bin: $(PACK)/gcc0-bin 
-$(PACK)/gcc0-bin: $(PACK)/gcc0-cfg
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c"
+	touch $(PACK)/$@
+gcc-cfg:
+	make $(SRC)/$(GCC)/README 
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) && cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++"
+	touch $(PACK)/$@
+gccf-cfg:
+	make $(SRC)/$(GCC)/README 
+	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) && cd $(TMP)/$(GCC) &&\
+	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC0) --enable-languages="c,c++,fortran"
+	touch $(PACK)/$@
+gcc0-bin: 
 	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
-	$(call INSTPACK,$(TMP)/$(GCC),gcc0-bin,install-gcc)
-gcc0-lib: $(PACK)/gcc0-lib	
-$(PACK)/gcc0-lib: $(PACK)/gcc0-bin 
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-gcc)
+gcc-bin: gcc0-bin
+	touch $(PACK)/$@	
+gcc0-libgcc: 
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
-	$(call INSTPACK,$(TMP)/$(GCC),gcc0-lib,install-target-libgcc)
-
-.PHONY: gccpp
-gccpp:
-	make gcc0-bin gcc0-lib
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libgcc)
+gcc-libgcc: gcc0-libgcc
+	touch $(PACK)/$@	
+gcc-libcpp: 
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3
-	$(call INSTPACK,$(TMP)/$(GCC),$@-libstdc++,install-target-libstdc++-v3)
-
-.PHONY: gcc
-gcc: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++"
-	make gccpp
-#	make gcclibsinst
-
-.PHONY: gcclibsinst
-gcclibsinst:
-	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
-
-.PHONY: gccf
-gccf: $(SRC)/$(GCC)/README
-	rm -rf $(TMP)/$(GCC) && mkdir $(TMP)/$(GCC) &&\
-	cd $(TMP)/$(GCC) &&\
-	$(SRC)/$(GCC)/$(BCFG) $(CFG_GCC) --enable-languages="c,c++,fortran"
-	make gccpp
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libstdc++-v3)
+gcc-fortran:
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgfortran
-	cd $(TMP)/$(GCC) && $(MAKE) install-target-libgfortran
-#	make gcclibsinst
+	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libgfortran)
+gcc-libinst:
+	cp -a $(TC)/$(TARGET)/lib/lib* $(LIB)/ && rm $(LIB)/libstdc++*.py
+	touch $(PACK)/$@
