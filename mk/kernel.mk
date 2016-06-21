@@ -14,7 +14,7 @@ kernel-rpi: $(SRC)/linux/README
 	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
 	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
-##	cat kernel/all >> $(SRC)/linux/.config
+	cat kernel/all >> $(SRC)/linux/.config
 #	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
 ##	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
 	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
