@@ -17,8 +17,8 @@ kernel-rpi: $(SRC)/linux/README
 ##	cat kernel/all >> $(SRC)/linux/.config
 #	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
 ##	cat cpu/$(CPU).kcfg >> $(SRC)/linux/.config
-#	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
-#	cat app/$(APP).kcfg >> $(SRC)/linux/.config
+	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
+	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	touch $(PACK)/$@
 	make KERNEL=linux kernel-all
