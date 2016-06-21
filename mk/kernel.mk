@@ -51,10 +51,9 @@ kernel-all:
 	-$(call INSTPACK,$(SRC)/$(KERNEL),kernel-modules,$(CFG_KERNEL) modules_install)
 	# 6
 	make kernel-$(ARCH)-fix
-	cp \
-		$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
+	cp	$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
 		$(BOOT)/$(HW)$(APP).kernel
-	echo $(BOOT)/$(HW)$(APP).kernel > $(PACK)/kernel-image
+	touch $(PACK)/kernel-image
 	# 7
 	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
 	

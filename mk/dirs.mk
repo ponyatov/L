@@ -25,8 +25,8 @@ TC = $(ROOT).cross
 PACK = $(TC)/pack
 ISO = $(TMP)/iso
 
-DIRS = $(GZ) $(GZ)/patch $(GZ)/patch/python $(SRC) $(TMP) $(TC) $(ROOT) \
-	$(LIB) $(BOOT) $(USR) $(USRBIN) $(USRLIB) $(PACK)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(PACK) $(ROOT) $(BOOT) $(USR) $(USRBIN)
+#	$(LIB) $(USRLIB) 
 
 .PHONY: dirs
 dirs:

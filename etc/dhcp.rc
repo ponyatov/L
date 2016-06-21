@@ -28,5 +28,7 @@ case "$1" in
 		# set timezone
 		# start ntp daemon
 		ntpd -p $ntpsrv
+		# grab weather on IP ready
+		/etc/weather.rc &
 	;;
 esac

@@ -95,10 +95,10 @@ gccf-cfg: $(SRC)/$(GCC)/README
 	touch $(PACK)/$@
 
 gcc-bin:
-	cd $(TMP)/$(GCC) && $(MAKE) all-gcc
+	cd $(TMP)/$(GCC) && rm -f $(PACK)/$@ && $(MAKE) all-gcc
 	$(call INSTPACK,$(TMP)/$(GCC),$@,install-gcc)
 gcc-lib:
-	cd $(TMP)/$(GCC) && $(MAKE) all-target-libgcc
+	cd $(TMP)/$(GCC) && rm -f $(PACK)/$@ && $(MAKE) all-target-libgcc
 	$(call INSTPACK,$(TMP)/$(GCC),$@,install-target-libgcc)
 gcc-cpp:	
 	cd $(TMP)/$(GCC) && $(MAKE) all-target-libstdc++-v3

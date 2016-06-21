@@ -8,32 +8,32 @@ CFG_SDL_SOUND = --prefix=$(TMP)/sdl_sound
 # --disable-audio joystick assembly
 
 .PHONY: sdl sdl_main sdl_image sdl_ttf sdl_sound
-sdl: sdl_main sdl_image freetype sdl_ttf
+sdl: sdl_main sdl_image freetype sdl_ttf sdl_gfx
 
 sdl_main: $(SRC)/$(SDL)/README
 	rm -rf $(TMP)/$(SDL) && mkdir $(TMP)/$(SDL) &&\
 	cd $(TMP)/$(SDL) &&\
 	$(XPATH) $(SRC)/$(SDL)/$(TCFG) $(CFG_SDL_MAIN) &&\
-	$(MAKE) && $(INSTALL) && mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
-#	$(call INSTPACK,$(TMP)/$(SDL),$@,install) 
+	$(MAKE) && $(call INSTPACK,$(TMP)/$(SDL),$@,install) &&\
+	mv -f $(ROOT)/bin/sdl-config $(TC)/bin/
 
 sdl_image: $(SRC)/$(SDL_IMAGE)/README
 	rm -rf $(TMP)/$(SDL_IMAGE) && mkdir $(TMP)/$(SDL_IMAGE) &&\
 	cd $(TMP)/$(SDL_IMAGE) &&\
 	$(XPATH) $(SRC)/$(SDL_IMAGE)/$(TCFG) $(CFG_SDL_IMAGE) &&\
-	$(MAKE) && $(INSTALL)
+	$(MAKE) && $(call INSTPACK,$(TMP)/$(SDL_IMAGE),$@,install)
 	
 sdl_ttf: $(SRC)/$(SDL_TTF)/README
 	rm -rf $(TMP)/$(SDL_TTF) && mkdir $(TMP)/$(SDL_TTF) &&\
 	cd $(TMP)/$(SDL_TTF) &&\
 	$(XPATH) $(SRC)/$(SDL_TTF)/$(TCFG) $(CFG_SDL_TTF) &&\
-	$(MAKE) && $(INSTALL)
+	$(MAKE) && $(call INSTPACK,$(TMP)/$(SDL_TTF),$@,install)
 
 sdl_gfx: $(SRC)/$(SDL_GFX)/README
 	rm -rf $(TMP)/$(SDL_GFX) && mkdir $(TMP)/$(SDL_GFX) &&\
 	cd $(TMP)/$(SDL_GFX) &&\
-	$(XPATH) $(SRC)/$(SDL_GFX)/$(TCFG) $(CFG_SDL_GFX) && $(MAKE)
-	$(call INSTPACK,$(TMP)/$(SDL_GFX),$@,install)
+	$(XPATH) $(SRC)/$(SDL_GFX)/$(TCFG) $(CFG_SDL_GFX) &&\
+	$(MAKE) && $(call INSTPACK,$(TMP)/$(SDL_GFX),$@,install)
 
 WGETWAVS = $(WGET) -P $(ROOT)/share/sounds 
 sdl_sound: $(SRC)/$(SDL_SOUND)/README

@@ -31,7 +31,7 @@ emucluster: $(BOOT)/$(HW)$(APP).kernel $(BOOT)/$(HW)$(APP).rootfs
 
 .PHONY: emuk
 emuk: $(BOOT)/$(HW)$(APP).kernel
-	qemu-system-$(ARCH) $(QEMU_CFG) $(QEMU_ALL) \
+	qemu-system-$(ARCH) $(QEMU_CFG) \
 	-kernel $(BOOT)/$(HW)$(APP).kernel -append "$(QEMU_APPEND)" \
 	$(QEMU_SERIAL_LOG)
 

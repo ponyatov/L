@@ -1,16 +1,17 @@
 ifconfig lo 127.0.0.1 up
 ifconfig eth0 up
+
+cp -r /share/weather /tmp/
+#/etc/weather.rc & -> /etc/dhcp.rc
+
 udhcpc -i eth0 -s /etc/dhcp.rc &
 cp -r /etc/cron /tmp/ ; crond -b -c /tmp/cron -l 0 -L /tmp/cron.log &
 
-cp -r /share/weather /tmp/
-/etc/weather.rc &
-
-cp -r /share/currency /tmp/
-/etc/currency.rc &
+#cp -r /share/currency /tmp/
+#/etc/currency.rc &
 
 #sdl_hello
 sdl_clock
 #sdl_rect
 #exit
-#poweroff
+poweroff
