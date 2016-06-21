@@ -3,7 +3,8 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 	INSTALL_HDR_PATH=$(ROOT) INSTALL_MOD_PATH=$(ROOT) $(HW_KERNEL)
 
 .PHONY: kernel
-kernel: kernel-$(VENDOR)	
+kernel: kernel-$(VENDOR)
+	touch $(PACK)/$@
 
 .PHONY: kernel-rpi
 $(SRC)/linux/README:
@@ -21,7 +22,7 @@ kernel-rpi: $(SRC)/linux/README
 	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
 	touch $(PACK)/$@
-	make kernel-all
+	make KERNEL=linux kernel-all
 	
 .PHONY: kernel-generic
 kernel-generic: $(SRC)/$(KERNEL)/README

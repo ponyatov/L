@@ -4,8 +4,8 @@ QEMU_HW =
 
 # custom build for specific vendor  
 VENDOR = rpi
-DEFCONFIG = bcm2835_defconfig
-HW_KERNEL = KERNEL=linux
+DEFCONFIG = bcmrpi_defconfig
+HW_KERNEL = KERNEL=kernel
 
 #QEMU_CFG = \
 #	-serial file:serial.log \
