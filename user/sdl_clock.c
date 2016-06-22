@@ -2,8 +2,8 @@
 #define DISPLAY_W 640
 #define DISPLAY_H 400
 // autodetect
-//#define DISPLAY_W 0
-//#define DISPLAY_H 0
+#define DISPLAY_W 0
+#define DISPLAY_H 0
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
