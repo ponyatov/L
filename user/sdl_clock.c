@@ -1,9 +1,9 @@
 // force small CarLCD wide screen
-//#define DISPLAY_W 640
-//#define DISPLAY_H 400
+#define DISPLAY_W 640
+#define DISPLAY_H 400
 // autodetect
-#define DISPLAY_W 0
-#define DISPLAY_H 0
+//#define DISPLAY_W 0
+//#define DISPLAY_H 0
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -15,7 +15,8 @@
 #include <unistd.h>
 #include <time.h>
 
-#define BGTUX "/share/splash640x480.png"
+//#define BGTUX "/share/splash640x480.png"
+#define BGTUX "/share/splash640x400.png"
 
 #define WEATHER "/tmp/weather/meteonova.png"
 
@@ -28,33 +29,35 @@
 
 #define FNT "/share/font/Instruction.ttf"
 
-#define FNTDATESZ	33
-#define FNTTIMESZ	FNTDATESZ*3
-#define FNTSECSZ	FNTTIMESZ/3
-#define FNTCURRSZ	22
-
 static SDL_Color FNTCLRDATE = {0x00,0xFF,0x00};
 static SDL_Color FNTCLRTIME = {0xFF,0x55,0x00};
 static SDL_Color FNTCLRSEC  = {0x00,0xAA,0xFF};
-
 //static SDL_Color FNTCLREUR  = {0xFF,0xAA,0x00};
 //static SDL_Color FNTCLRUSD  = {0xAA,0xFF,0x00};
 
 #define ROOTX 640
 #define ROOTY 0
 #define ROOTH 480
+
 #define DATEX 0
 #define DATEY 0
-#define TIMEX ROOTX/2+20
-#define TIMEY 0
-#define SECX  ROOTX/2+140
-#define SECY  FNTDATESZ/2
+#define FNTDATESZ	25
+
+#define TIMEX ROOTX/2-30
+#define TIMEY -30
+#define FNTTIMESZ	122
+
+#define SECX  TIMEX+145
+#define SECY  TIMEY+25
+#define FNTSECSZ	FNTTIMESZ/2.5
+
 //#define WEATHERX 340
 #define WEATHERX 0
-#define WEATHERY 400/2-25
+#define WEATHERY 400/2-75
 #define WEATHER_ZOOM 3
 //#define CURRX TIMEX+FNTCURRSZ*3
 //#define CURRY WEATHERY-50
+//#define FNTCURRSZ	22
 
 void SDL_err() {
 	SDL_Quit();
@@ -95,8 +98,6 @@ int main(int argc, char *argv[]) {
 	// init SDL rectangles
 	rROOT.x=ROOTX; rROOT.y=ROOTY; rROOT.h=ROOTH;
     rDATE.x=DATEX; rDATE.y=DATEY;
-    rTIME.x=TIMEX; rTIME.y=TIMEY;
-    rSEC.x=SECX; rSEC.y=SECY;
     rWEATHER.x=WEATHERX; rWEATHER.y=WEATHERY;
 //    rWE_T.x=0; rWE_H.x=0; rWE_P.x=0;
 //    rWE_P.y=50;
@@ -155,7 +156,9 @@ int main(int argc, char *argv[]) {
 //		SDL_BlitSurface(we_P, NULL, screen, &rWE_P);
 		SDL_BlitSurface(weather2, NULL, screen, &rWEATHER);
 		SDL_BlitSurface(tdate, NULL, screen, &rDATE);
+	    rTIME.x=TIMEX; rTIME.y=TIMEY;					// fix rTIME pos
 		SDL_BlitSurface(ttime, NULL, screen, &rTIME);
+	    rSEC.x=SECX; rSEC.y=SECY;						// fix rSEC pos
 		SDL_BlitSurface(tsec,  NULL, screen, &rSEC);
 //		SDL_BlitSurface(tcurr_usd,  NULL, screen, &rCURR_USD);
 //		SDL_BlitSurface(tcurr_eur,  NULL, screen, &rCURR_EUR);
