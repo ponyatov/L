@@ -1,7 +1,7 @@
 # app: clock
 LIBS = 
 #zlib png sdl
-APPS = 
+APPS = $(USRBIN)/hello 
 #	$(USRBIN)/hello $(USRBIN)/cpptest \
 #	$(USRBIN)/sdl_hello $(USRBIN)/sdl_rect
 
