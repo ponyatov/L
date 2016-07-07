@@ -1,5 +1,4 @@
 include mk/head.mk
-include mk/opt.mk
 include mk/dirs.mk
 include mk/versions.mk
 include mk/packages.mk
