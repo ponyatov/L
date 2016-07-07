@@ -1,0 +1,11 @@
+# disable real-time
+CONFIG_HZ_1000=n
+CONFIG_HZ_100=y
+# disable modules
+CONFIG_MODULES=n
+
+# eeepc compat mode
+
+## Atheros
+CONFIG_NET_VENDOR_ATHEROS=y
+CONFIG_ATL2=y
