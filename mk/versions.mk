@@ -32,42 +32,27 @@ UBOOT_VER = 2015.04
 SDL_VER = 1.2.15
 SDL_IMAGE_VER = 1.2.12
 SDL_TTF_VER = 2.0.11
+SDL_GFX_VER = 2.0.25
+SDL_SOUND_VER = 1.0.3
 FREETYPE_VER = 2.5.5
+#2.1.1 not configure
 
 ## extra
 ZLIB_VER = 1.2.8
 PNG_VER = 1.6.15
 PCRE_VER = 8.37
+LIBGD_VER = 2.0.34
 
-## math libs
-BLAS_VER = 3.5.0
-LAPACK_VER = 3.5.0
-GSL_VER = 1.16
+# multimedia
+ALSA_VER = 1.0.26
+#27+ ___tls_get_addr error
+
+## codecs
+FFMPEG_VER = 2.7.2
 
 # extra
 
 ## SDK
-
-### Python
-PYTHON_VER = 2.7.9
-
-### Pascal
-FPC_VER = 2.6.4
-
-## math packs
-ECL_VER_A = 15.2
-ECL_VER = $(ECL_VER_A).21
-OCTAVE_VER = 3.8.2
-MAXIMA_VER = 5.35.1
-MPICH_VER = 3.1.4
-
-# apps
-LINKS_VER = 2.9
-ELINKS_VER = 0.11.7
-
-# X11R7.7
-X_RELEASE = X11R7.7
-X_SERVER_VER = 1.12.2
 
 # dos
 DOSEMU_VER = 1.4.0

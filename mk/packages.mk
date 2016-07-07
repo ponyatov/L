@@ -27,40 +27,23 @@ UBOOT 		= u-boot-$(UBOOT_VER)
 SDL 		= SDL-$(SDL_VER)
 SDL_IMAGE 	= SDL_image-$(SDL_IMAGE_VER)
 SDL_TTF 	= SDL_ttf-$(SDL_TTF_VER)
+SDL_GFX		= SDL_gfx-$(SDL_GFX_VER)
+SDL_SOUND	= SDL_sound-$(SDL_SOUND_VER)
+
+# multimedia
+ALSA_LIB	= alsa-lib-$(ALSA_VER)
+ALSA_UTILS	= alsa-utils-$(ALSA_VER)
+## codecs
+FFMPEG		= ffmpeg-$(FFMPEG_VER)
 
 ## extra
 ZLIB 		= zlib-$(ZLIB_VER)
 PNG 		= libpng-$(PNG_VER)
 FREETYPE 	= freetype-$(FREETYPE_VER)
-
-## math
+LIBGD		= gd-$(LIBGD_VER)
 PCRE 		= pcre-$(PCRE_VER)
-BLAS 		= BLAS
-LAPACK 		= lapack-$(LAPACK_VER)
-GSL			= gsl-$(GSL_VER)
 
 # extra
-## SDK
-
-### Python
-PYTHON 		= Python-$(PYTHON_VER)
-
-### PASCAL
-FPC 		= fpc-$(FPC_VER)
-
-# math
-ECL 		= ecl-$(ECL_VER)
-OCTAVE 		= octave-$(OCTAVE_VER)
-MAXIMA 		= maxima-$(MAXIMA_VER)
-MPICH		= mpich-$(MPICH_VER)
-HYDRA		= hydra-$(MPICH_VER)
-
-# apps
-LINKS 		= links-$(LINKS_VER)
-ELINKS 		= elinks-$(ELINKS_VER)
-
-# X11R7.7
-X_SERVER 	= xorg-server-$(X_SERVER_VER)
 
 # dos
 DOSEMU		= dosemu-$(DOSEMU_VER)
