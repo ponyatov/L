@@ -11,7 +11,7 @@ INSTALL  = $(XPATH) make install
 PINSTALL  = $(XPATH) strace -f -o $(PACK)/.strace -e trace=file make install
 MVCONFIG = 	mv -f $(ROOT)/bin/*-config $(TC)/bin/
 
-CCACHE = ccache
+CCACHE =
 
 BCC  = $(CCACHE) gcc -pipe
 BCXX = $(CCACHE) g++ -pipe
@@ -28,3 +28,5 @@ GETCONF = $(XPATH) $(TARGET)-getconf
 MKISO = genisoimage
 
 RAMCLEAN ?= rm -rf
+
+INSTPACK = cd $1 && $(XPATH) make $3 && touch $(PACK)/$(2)  
