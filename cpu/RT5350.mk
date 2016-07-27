@@ -8,4 +8,3 @@ CFLAGS_CPU =
 CFG_CPU_LIBS =
 
 QEMU_CPU = -cpu 24Kc
- 
