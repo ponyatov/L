@@ -44,6 +44,9 @@ gz_media:
 	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
 
+.PHONY: gz_mips
+gz_mips:
+
 .PHONY: gz_i386
 gz_i386:
 	$(WGET) https://www.kernel.org/pub/linux/utils/boot/syslinux/$(SYSLINUX).zip	
@@ -59,18 +62,14 @@ gz_armhf: gz_arm
 .PHONY: gz_rpiB
 gz_rpiB:
 
+.PHONY: gz_vocore
+gz_vocore:
+
 .PHONY: gz_x86
 gz_x86:
 
 .PHONY: gz_pc686
 gz_pc686:
 
-.PHONY: gz_clock
-gz_clock:
-
-.PHONY: gz_dos
-gz_dos:
-	$(WGET) http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/$(FREEDOS_VER)/fdboot.img
-	$(WGET) http://downloads.sourceforge.net/project/bochs/bochs/$(BOCHS_VER)/$(BOCHS).tar.gz
-	$(WGET) http://downloads.sourceforge.net/project/dosemu/dosemu/$(DOSEMU_VER)/$(DOSEMU).tgz
-	$(WGET) http://downloads.sourceforge.net/project/dosbox/dosbox/$(DOSBOX_VER)/$(DOSBOX).tar.gz
+.PHONY: gz_radio
+gz_radio:
