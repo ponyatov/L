@@ -44,12 +44,13 @@ gz_media:
 	$(WGET) ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).tar.bz2
 	$(WGET) http://ffmpeg.org/releases/$(FFMPEG).tar.bz2
 
-.PHONY: gz_mips
-gz_mips:
-
 .PHONY: gz_i386
 gz_i386:
 	$(WGET) https://www.kernel.org/pub/linux/utils/boot/syslinux/$(SYSLINUX).zip	
+
+.PHONY: gz_mips
+gz_mips:
+	$(WGET) ftp://ftp.denx.de/pub/u-boot/$(UBOOT).tar.bz2
 
 .PHONY: gz_arm
 gz_arm:
