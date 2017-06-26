@@ -42,7 +42,6 @@ SDL_TTF_VER = 2.0.11
 SDL_GFX_VER = 2.0.25
 SDL_SOUND_VER = 1.0.3
 FREETYPE_VER = 2.5.5
-LIBGD_VER = 2.0.34
 #2.1.1 not configure
 
 ## extra
@@ -57,6 +56,7 @@ GSL_VER = 1.16
 
 # math
 GNUPLOT_VER = 4.6.7
+LIBGD_VER = 2.0.34
 
 # multimedia
 ALSA_VER = 1.0.26
