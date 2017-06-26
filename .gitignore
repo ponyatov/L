@@ -12,54 +12,16 @@ boot/syslinux/syslinux.exe
 tmp
 src
 
-qemu386micro
-qemu386micro.cross
-qemu386clock
-qemu386clock.cross
-
-x86micro
-x86micro.cross
-
-x86dos
-x86dos.cross
-
-x86clock
-x86clock.cross
-rpiBclock
-rpiBclock.cross
-
-pc686desk
-pc686desk.cross
-pc686math
-pc686math.cross
+*clock/
+*clock.cross/
 
 etc/README-SDL.txt
 
-rpimicro
-rpimicro.cross
-rpiclock
-rpiclock.cross
-
 serial.log
-
-eabiclock
-eabiclock.cross
-
-arm9clock
-arm9clock.cross
 
 dot.dot
 doc/crox.pdf
 patch/python
 
-x86math
-x86math.cross
-
 ttyS0.log
-
-qemu386math
-qemu386math.cross
-
-*radio*
-
 
