@@ -45,13 +45,12 @@ kernel-all:
 	# 4
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) menuconfig
 	# 5
-	cd $(SRC)/$(KERNEL) && $(MAKE) -j$(CPU_CORES) $(CFG_KERNEL) &&\
-	$(MAKE) $(CFG_KERNEL) modules_install
+	cd $(SRC)/$(KERNEL) && $(MAKE) -j$(CPU_CORES) $(CFG_KERNEL)
+	-cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
 	cp	$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
 		$(BOOT)/$(HW)$(APP).kernel
-	touch $(PACK)/kernel-image
 	# 7
 	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) headers_install
 	
