@@ -4,6 +4,7 @@
 gz:
 	make gz_$(HW)
 	make gz_$(ARCH)
+	exit -1
 	make gz_$(APP)
 	make gz_cross
 	make gz_core
@@ -70,6 +71,9 @@ gz_x86:
 
 .PHONY: gz_pc686
 gz_pc686:
+
+.PHONY: gz_orangeONE
+gz_orangeONE:
 
 .PHONY: gz_clock
 gz_clock:
