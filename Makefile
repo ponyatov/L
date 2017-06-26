@@ -19,6 +19,7 @@ include mk/mmedia/codecs.mk
 include mk/math/gnuplot.mk
 
 include mk/user.mk
+include mk/dos.mk
 
 include mk/libs.mk
 include mk/lib/zlib.mk
