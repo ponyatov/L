@@ -4,7 +4,6 @@ CFG_KERNEL = ARCH=$(KERNEL_ARCH) \
 
 .PHONY: kernel
 kernel: kernel-$(VENDOR)
-	touch $(PACK)/$@
 
 .PHONY: kernel-rpi
 $(SRC)/linux/README:
@@ -12,8 +11,8 @@ $(SRC)/linux/README:
 	cd $(SRC) && git clone --depth 1 git://github.com/raspberrypi/linux.git
 kernel-rpi: $(SRC)/linux/README
 	# 1 bcmrpi_defconfig -> /kernel/hw/rpiB
-	cd $(SRC)/linux && make $(CFG_KERNEL) distclean
-	cd $(SRC)/linux && make $(CFG_KERNEL) $(DEFCONFIG)
+	cd $(SRC)/linux && $(MAKE) $(CFG_KERNEL) distclean
+	cd $(SRC)/linux && $(MAKE) $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
 #	cat kernel/all >> $(SRC)/linux/.config
 ##	cat arch/$(ARCH).kcfg >> $(SRC)/linux/.config
@@ -21,14 +20,13 @@ kernel-rpi: $(SRC)/linux/README
 #	cat hw/$(HW).kcfg >> $(SRC)/linux/.config
 #	cat app/$(APP).kcfg >> $(SRC)/linux/.config
 	# 3
-	touch $(PACK)/$@
-	make KERNEL=linux kernel-all
+	$(MAKE) KERNEL=linux kernel-all
 	
 .PHONY: kernel-generic
 kernel-generic: $(SRC)/$(KERNEL)/README
 	# 1
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) distclean
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) $(DEFCONFIG)
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) distclean
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) $(DEFCONFIG)
 	# 2
 	cat kernel/all >> $(SRC)/$(KERNEL)/.config
 	cat arch/$(ARCH).kcfg >> $(SRC)/$(KERNEL)/.config
@@ -36,8 +34,7 @@ kernel-generic: $(SRC)/$(KERNEL)/README
 	cat hw/$(HW).kcfg >> $(SRC)/$(KERNEL)/.config
 	cat app/$(APP).kcfg >> $(SRC)/$(KERNEL)/.config
 	# 3
-	touch $(PACK)/$@
-	make kernel-all
+	$(MAKE) kernel-all
 	
 .PHONY: kernel-all
 kernel-all:	
@@ -46,17 +43,17 @@ kernel-all:
 	echo "CONFIG_LOCALVERSION=\"-$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config
 	echo "CONFIG_DEFAULT_HOSTNAME=\"$(HW)$(APP)\"" >> $(SRC)/$(KERNEL)/.config	
 	# 4
-	cd $(SRC)/$(KERNEL) && make $(CFG_KERNEL) menuconfig
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) menuconfig
 	# 5
-	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL)
-	-$(call INSTPACK,$(SRC)/$(KERNEL),kernel-modules,$(CFG_KERNEL) modules_install)
+	cd $(SRC)/$(KERNEL) && $(MAKE) -j$(CPU_CORES) $(CFG_KERNEL) &&\
+	$(MAKE) $(CFG_KERNEL) modules_install
 	# 6
 	make kernel-$(ARCH)-fix
 	cp	$(SRC)/$(KERNEL)/arch/$(KERNEL_ARCH)/boot/zImage \
 		$(BOOT)/$(HW)$(APP).kernel
 	touch $(PACK)/kernel-image
 	# 7
-	$(call INSTPACK,$(SRC)/$(KERNEL),kernel-headers,$(CFG_KERNEL) headers_install)
+	cd $(SRC)/$(KERNEL) && $(MAKE) $(CFG_KERNEL) headers_install
 	
 .PHONY: kernel-i386-fix
 kernel-i386-fix:
