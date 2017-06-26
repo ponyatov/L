@@ -1,7 +1,8 @@
 # normal
 .PHONY: core
 core:
-	make kernel$(VENDOR)
+	make kernel
+#	$(VENDOR)
 	make ulibc
 	make ramclean
 	make gcc
@@ -11,7 +12,8 @@ core:
 # with fortran (gccf)
 .PHONY: coref
 coref: 
-	make kernel$(VENDOR) 
+	make kernel
+#	$(VENDOR) 
 	make ulibc 
 	make ramclean 
 	make gccf 

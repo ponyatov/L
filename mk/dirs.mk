@@ -22,10 +22,9 @@ USRBIN = $(USR)/bin
 USRLIB = $(USR)/lib
 # cross-compiler [T]ool[C]hain
 TC = $(ROOT).cross
-PACK = $(TC)/pack
 ISO = $(TMP)/iso
 
-DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(PACK) $(ROOT) $(BOOT) $(USR) $(USRBIN)
+DIRS = $(GZ) $(SRC) $(TMP) $(TC) $(ROOT) $(BOOT) $(USR) $(USRBIN)
 #	$(LIB) $(USRLIB) 
 
 .PHONY: dirs

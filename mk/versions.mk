@@ -18,8 +18,8 @@ CLOOG_VER = 0.18.1
 ISL_VER = 0.16.1
 #0.11.1
 # 0.11 need for binutils build
-GCC_VER = 6.3.0
-# 5.4.0
+GCC_VER = 5.4.0
+# 6.3.0 kernel 3.x build error
 # 4.9.2 used: bug arm/62098 fixed
 
 # core

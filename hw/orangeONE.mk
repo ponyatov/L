@@ -3,9 +3,11 @@ CPU = AllwinnerH3
 QEMU_HW =
 
 # custom build for specific vendor  
-VENDOR = orange
-DEFCONFIG = one_defconfig
-HW_KERNEL = KERNEL=kernel
+#VENDOR = generic
+#DEFCONFIG = sunxi_defconfig 
+#allnoconfig
+#one_defconfig
+#HW_KERNEL = KERNEL=kernel
 
 #QEMU_CFG = \
 #	-serial file:serial.log \
