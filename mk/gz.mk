@@ -4,7 +4,6 @@
 gz:
 	make gz_$(HW)
 	make gz_$(ARCH)
-	exit -1
 	make gz_$(APP)
 	make gz_cross
 	make gz_core
